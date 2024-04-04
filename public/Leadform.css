@@ -58,7 +58,7 @@
 
         input[type="text"]:focus,
         select:focus {
-            border-color: #225d97;
+            border-color: #00498e;
             outline: none;
         }
 
