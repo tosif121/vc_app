@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Add User</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="./img/favicon.png" rel="icon" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet"> -->
+  <!-- <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet"> -->
+  <!-- <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet"> -->
+  <!-- <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet"> -->
+  <!-- <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet"> -->
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    /* .container {
+        border: 2px solid #58a2f1;
+        border-radius: 30px;
+      } */
+
+    .text-center img {
+      animation: zoomIn 5s ease infinite;
+    }
+
+    @keyframes zoomIn {
+      0% {
+        transform: scale(1);
+        /* Starting scale: normal size */
+        opacity: 0.5;
+        /* Starting opacity */
+      }
+
+      50% {
+        transform: scale(1.1);
+        /* Middle scale: slightly zoomed in */
+        opacity: 1;
+        /* Middle opacity: fully visible */
+      }
+
+      100% {
+        transform: scale(1);
+        /* Ending scale: back to normal size */
+        opacity: 0.5;
+        /* Ending opacity: slightly transparent */
+      }
+    }
+
+    h2.text-center {
+      color: #000000;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    input.form-control,
+    select.form-control {
+      border-radius: 10px;
+    }
+
+    label {
+      font-weight: 500;
+      border-radius: 10px;
+      padding: 8px 12px;
+      display: inline-block;
+      transition: background-color 0.5s ease;
+    }
+
+    /* Hover effect for labels */
+    /* label:hover {
+        background-color: #4282c2;
+        cursor: pointer;
+      } */
+
+    .notification {
+      display: none;
+      position: fixed;
+      background-color: #225d97;
+      font-weight: bold;
+      color: white;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      top: 10%;
+      right: 5%;
+      max-width: 300px;
+      width: 100%;
+      text-align: center;
+      z-index: 999;
+      transition: top 0.3s ease-in-out;
+    }
+
+    .show-notification {
+      display: block;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive CSS */
+    @media screen and (max-width: 768px) {
+      .notification {
+        font-size: 16px;
+        padding: 15px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .notification {
+        font-size: 14px;
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <i class="bi bi-list toggle-sidebar-btn"></i>
+
+    <div class="d-flex align-items-center justify-content-center" style="padding: 2vw;">
+      <a href="admindashboard.html" class="logo d-flex align-items-center">
+        <img src="./img/logo.png" alt="iotcom">
+      </a>
+
+    </div><!-- End Logo -->
+
+    <div class="search-bar" style="display: none;">
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#" style="display: none;">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="img/shiv.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2" id="displayUsername"></span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6 id="displayUsername1">Shiv Shekhawat</h6>
+              <span id="displayorg">Web Designer</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#" onclick="signOut()">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="admindashboard.html">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="icons-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="adduser.html">
+              <i class="bi bi-circle"></i><span>Add New Users</span>
+            </a>
+          </li>
+          <li>
+            <a href="userlist.html">
+              <i class="bi bi-circle"></i><span>User List</span>
+            </a>
+          </li>
+          <li>
+            <a href="AgentLoginHours.html">
+              <i class="bi bi-circle"></i><span>Agent Login Hours</span>
+            </a>
+          <li>
+            <a href="Forcelogout.html">
+              <i class="bi bi-circle"></i><span>Force Logout</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- Broadcast Section -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#Broadcast-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-broadcast"></i><span>Broadcast</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="Broadcast-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="broadcast.html">
+              <i class="bi bi-circle"></i><span>Add Broadcast</span>
+            </a>
+          </li>
+          <li>
+            <a href="Broadcastform.html">
+              <i class="bi bi-circle"></i><span>Upload Broadcast</span>
+            </a>
+          </li>
+          <li>
+            <a href="broadCastReport.html">
+              <i class="bi bi-circle"></i><span>BroadCast Report</span>
+            </a>
+          </li>
+          <li>
+            <a href="broadCastSummary.html">
+              <i class="bi bi-circle"></i><span>BroadCast Summary</span>
+            </a>
+          </li>
+          <!-- Add more items as needed -->
+        </ul>
+      </li>
+
+      <!-- campagian Section -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#Campaign-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Campaign</span><i
+            class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="Campaign-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+
+          <li>
+            <a href="newcampaign.html">
+              <i class="bi bi-circle"></i><span>Add Campaign</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="form.html">
+              <i class="bi bi-circle"></i><span>Upload Campaign</span>
+            </a>
+          </li>
+          <!-- Add more items as needed -->
+        </ul>
+      </li>
+      <!-- End Blank Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="CallMenu.html">
+          <i class="bi bi-telephone-plus"></i>
+          <span>Call Menu</span>
+        </a>
+      </li>
+      <!-- End Blank Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="AudioStore.html">
+          <i class="bi bi-file-earmark-music"></i>
+          <span>Audio Store</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="DID.html">
+          <i class="bi bi-card-list"></i>
+          <span>Add/Show DID</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-database-check"></i></i><span>Call Data</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+
+          <li>
+            <a href="IncomingCallData.html">
+              <i class="bi bi-circle"></i><span>Incoming Call Data</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="OutgoinfCallData.html">
+              <i class="bi bi-circle"></i><span>Outgoing Call Data</span>
+            </a>
+          </li>
+          <!-- Add more items as needed -->
+        </ul>
+      </li>
+
+    </ul>
+  </aside>
+
+  <main id="main">
+
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="text-center">
+            <img src="img/right-img.svg" alt="Left Image">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h2 class="text-center mb-4">Add a New User</h2>
+          <form id="adduser">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="userid">UserID:</label>
+                <input type="text" class="form-control" id="userid" name="userid">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="username">Full Name:</label>
+                <input type="text" class="form-control" id="username" name="username">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="campaign">User Campaign:</label>
+                <select class="form-control" id="campaign" name="campaign">
+                  <!-- <option value="All Admin User Groups">All Admin User Groups</option> -->
+                  <!-- options will be added dynamically -->
+                </select>
+              </div>
+
+            </div>
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="notification" id="successMessage">
+      <div class="notification-content">
+        <p>User Added Successfully!</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>iotcom</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      Designed by <a href="https://www.iotcom.io/">Iotcom</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <script>
+    const storedUsername = document.getElementById("displayUsername");
+    const storedUsername1 = document.getElementById("displayUsername1");
+    const storedorg = document.getElementById("displayorg");
+    // async function to fetch the data
+    async function fetchData() {
+      try {
+        const response = await fetch('/campaigndetails', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+          }
+        });
+
+        // Use await before checking the status and handling the response
+        if (response.status === 401) {
+          // Unauthorized response handling: redirect to index page or handle as needed
+          window.location.href = '/login.html'; // Replace with your index page URL
+        } else if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        } else {
+          const data1 = await response.json();
+          const data = data1.result;
+          const campaignlist = data.map(
+            (campaign) => ({
+              campaignID: campaign.campaignID,
+              campaignName: campaign.campaignname
+            }
+            ));
+
+          return {
+            campaignlist
+          };
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        return {
+          campaignlist: [], // Provide a default value in case of an error
+        };
+      }
+    }
+
+
+    // Use the async function to fetch data and then access campaignlist
+    document.addEventListener('DOMContentLoaded', async function () {
+      const campaignSelect = document.getElementById('campaign');
+      try {
+        var { campaignlist } = await fetchData();
+        // console.log(campaignlist);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+      console.log(campaignlist);
+
+      campaignSelect.addEventListener("mouseover", () => updatecampaign(campaignlist));
+
+      async function updatecampaign(campaignlist) {
+
+
+        // Clear existing options
+        campaignSelect.innerHTML = '<option value="" disabled selected>Select Campaign</option>';
+
+        // Generate new options based on selected supplier
+        campaignlist.forEach(campaign => {
+          const option = document.createElement("option");
+          option.class = "form.select";
+          option.value = campaign.campaignID;
+          option.text = campaign.campaignName;
+          campaignSelect.appendChild(option);
+
+        })
+      }
+
+
+      const storedUsername = JSON.parse(localStorage.getItem('admininfo')).user;
+      const storedorg = JSON.parse(localStorage.getItem('admininfo')).organization;
+
+      if (storedUsername) {
+        document.getElementById('displayUsername').innerText = storedUsername;
+        document.getElementById('displayUsername1').innerText = storedUsername;
+        document.getElementById('displayorg').innerText = storedorg;
+      } else {
+        document.getElementById('displayUsername').innerText = 'No stored username found.';
+        document.getElementById('displayUsernam1').innerText = 'No stored username found.';
+      }
+
+    });
+
+
+    const form = document.getElementById("adduser");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+
+      const userdata = {};
+      formData.forEach((value, key) => {
+        userdata[key] = value;
+      });
+      console.log(userdata);
+
+      try {
+        const response = await fetch("/createuser", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+          },
+          body: JSON.stringify(userdata),
+        });
+
+        if (response) {
+          if (response.status === 401) {
+            // Unauthorized response handling: redirect to index page or handle as needed
+            window.location.href = '/login.html'; // Replace with your index page URL
+          } else {
+            const result = await response.json();
+            if (result) {
+              if (result.message === "user id already exist in system for other user, Kindly create user with other idduplicate user id") {
+                alert(result.message);
+                Object.keys(userdata).forEach((key) => delete userdata[key]);
+              }
+              else if (result.message === "Error creating new user") {
+                alert(result.message);
+                Object.keys(userdata).forEach((key) => delete userdata[key]);
+              } else if (
+                result.message === "database error in saving data to database"
+              ) {
+                alert(result.message);
+                Object.keys(userdata).forEach((key) => delete userdata[key]);
+              } else {
+                //Success Case
+                alert(result.message);
+
+                var notification =
+                  document.getElementById("successMessage");
+                notification.classList.add("show-notification");
+
+                setTimeout(function () {
+                  notification.classList.remove("show-notification");
+                }, 1000); // Hide the notification after  seconds
+
+                form.reset();
+                Object.keys(userdata).forEach((key) => delete userdata[key]);
+              }
+            }
+          }
+        } else {
+          alert("failed to Add user due to server error,try after some time");
+        }
+      } catch (err) {
+        console.error("Error:", err);
+        alert("Error in app coding data.");
+      }
+    });
+
+    function signOut() {
+      // Clear localStorage (optional)
+      localStorage.removeItem('admininfo');
+      localStorage.removeItem('jwtToken');
+      localStorage.removeItem('didData');
+
+      // Redirect to the desired location
+      window.location.href = '/login.html';
+    }
+  </script>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

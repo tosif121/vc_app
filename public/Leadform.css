@@ -1,0 +1,87 @@
+  body {
+            font-family: sans-serif;
+            font-family: Arial, sans-serif;
+        }
+
+        .Lead-form-container {
+            display: flex;
+            align-items: center;
+            height: 92vh;
+        }
+
+        .leadform {
+            background-color: #ffffff;
+            padding: 40px;
+            border: 2px solid #225d97;
+            border-radius: 60px 50px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            /* Set a fixed width */
+            height: 700px;
+            /* Set a fixed height */
+            margin: 0 auto;
+            transition: all 0.5s ease;
+        }
+
+        .leadform:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px #225d97;
+        }
+
+        .input-box {
+            gap: 10;
+            margin-bottom: 21px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .input-box input[type="number"],
+        .input-box input[type="text"],
+        .input-box select {
+            width: calc(50% - 12px);
+            /* Set input fields to 50% width with 8px margin in between */
+            padding: 12px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.5s ease;
+            box-sizing: border-box;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #225d97;
+            outline: none;
+        }
+
+        header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #225d97;
+            text-align: center;
+            /* margin-bottom: 20px; */
+        }
+
+        .form-button-container {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .form-button {
+            background-color: #225d97;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }

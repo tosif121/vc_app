@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+
+<head>
+ 
+  <link rel="stylesheet" href="formcss1.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom File Upload Button</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <!-- Google Fonts  -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style1.css" />
+
+</head>
+
+<body>
+
+  <section class="container">
+    <header>Form</header>
+    <form action="#" class="form" id="form">
+      <select class="form-control" id="campaign">
+        <!-- option dynamically added -->
+      </select>
+     
+      <body>
+        <div class="container">
+          <input type="file" id="file-input" multiple />
+          <label for="file-input">
+            <i class="fa-solid fa-arrow-up-from-bracket"></i>
+            &nbsp; Choose Files To Upload
+          </label>
+          <div id="num-of-files">No Files Choosen</div>
+          <ul id="files-list"></ul>
+        </div>
+        <!-- Script -->
+        <script src="script1.js"></script>
+      </body>
+
+      </html>
+      <button>Submit</button>
+      </div>
+    </form>
+  </section>
+
+
+
+  <script>
+    var finalData;
+
+    async function fetchData() {
+      try {
+        const response = await fetch('/campaigndetails', {
+          headers: {
+            //'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const data1 = await response.json();
+        const data = data1.result;
+        const campaignlist = data.map(
+          (campaign) => campaign.campaignID
+        );
+
+
+        return {
+          campaignlist
+
+        };
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        return {
+          campaignlist: [], // Provide a default value in case of an error
+        };
+      }
+    }
+    const campaignSelect = document.getElementById('campaign');
+    // Use the async function to fetch data and then access campaignlist
+    // document.getElementById('convert-btn').addEventListener('click', () => {
+    //   const csvFileInput = document.getElementById('csv-file');
+    //   const jsonResult = document.getElementById('json-result');
+
+    //   if (csvFileInput.files.length === 0) {
+    //     alert('Please select a CSV file');
+    //     return;
+    //   }
+
+    //   const file = csvFileInput.files[0];
+
+    //   Papa.parse(file, {
+    //     header: true, // Treat the first row as headers
+    //     dynamicTyping: true, // Automatically convert numeric values
+    //     complete: function (results) {
+    //       const jsonData = JSON.stringify(results.data, null, 2);
+    //       jsonResult.innerHTML = `<pre>${jsonData}</pre>`;
+    //     },
+    //     error: function (error) {
+    //       alert('An error occurred: ' + error.message);
+    //     },
+    //   });
+    // });
+
+    document.addEventListener('DOMContentLoaded', async function () {
+      try {
+        var { campaignlist } = await fetchData();
+        console.log(campaignlist);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+      console.log(campaignlist);
+
+      campaignSelect.addEventListener("mouseover", () => updatecampaign(campaignlist));
+
+      async function updatecampaign(campaignlist) {
+
+
+        // Clear existing options
+        campaignSelect.innerHTML = '<option value="" disabled selected>Select Campaign</option>';
+
+        // Generate new options based on selected supplier
+        campaignlist.forEach(campaign => {
+          const option = document.createElement("option");
+          option.class = "form.select";
+          option.value = campaign;
+          option.text = campaign;
+          campaignSelect.appendChild(option);
+
+        })
+      }
+
+    });
+    // function cvsparse() {
+    //   let files = document.getElementById("file-input").files;
+    //   //let fileName = files[0].lastModified+"_"+files[0].name
+    //   let fileName = Date.now() + "_" + files[0].name
+    //   let campaignName = document.getElementById("campaign").value
+    //   console.log(campaignName);
+
+
+
+    //   Papa.parse(files[0], {
+    //     header: true,
+    //     complete: function (results) {
+    //       console.log("csv parsed")
+    //       let mapround = 0
+    //       finalData = results.data.map((x) => {
+    //         x.leadId = Date.now().toString(36) + Math.random().toString(36).slice(2)
+    //         x.lastDialedStatus = 'NA';
+    //         x.state = 'new';
+    //         x.filename = fileName;
+    //         x.attemp = 0;
+    //         x.campaignID = campaignName;
+    //         //console.log(mapround)
+    //         mapround++
+
+    //         return x
+    //       })
+    //       console.log(finalData);
+
+    //       fetch('/uploadata', {
+    //         method: 'POST',
+    //         headers: {
+    //           'Content-Type': 'application/json',
+    //         },
+    //         //body: JSON.stringify(finalData),
+    //         //body: JSON.stringify({data:finalData}),
+    //         body: JSON.stringify(finalData),
+
+    //       })
+    //         .then((response) => response.text())
+    //         .then((responseData) => {
+    //           // you can do what ever you want here
+    //           //console.log(responseData)
+    //           console.log(responseData)
+    //         })
+    //     }
+    //   });
+    // }
+    function cvsparse() {
+      let files = document.getElementById("file-input").files;
+      let fileName = Date.now() + "_" + files[0].name;
+      let campaignName = document.getElementById("campaign").value;
+
+      // Check if there are any files selected
+      if (files.length === 0) {
+        alert("No file selected for parsing.");
+        return;
+      }
+
+      Papa.parse(files[0], {
+        header: true,
+        skipEmptyLines: true, // Skip empty lines during parsing
+        complete: function (results) {
+          // Check if there is any data to parse
+          if (results.data.length === 0) {
+            alert("No data in the CSV file to parse.");
+            return;
+          }
+
+          // Get the headers from the CSV
+          const headers = results.meta.fields;
+
+          // Check if "name" and "number" headers are present
+          const requiredHeaders = ["name", "number"];
+          const missingHeaders = requiredHeaders.filter(header => !headers.includes(header));
+
+          if (missingHeaders.length > 0) {
+            alert(`Missing required headers: ${missingHeaders.join(', ')}`);
+            return;
+          }
+
+          // Validate headers
+          const invalidHeaders = headers.filter(header => {
+            // Check if the header contains uppercase letters or spaces
+            return /[A-Z\s]/.test(header);
+          });
+
+          if (invalidHeaders.length > 0) {
+            alert("Invalid headers found. Headers must be in lowercase without spaces: " + invalidHeaders.join(', '));
+            return;
+          }
+
+          let mapround = 0;
+
+          const invalidNumberRows = [];
+
+          finalData = results.data.map((x, index) => {
+            x.leadId = Date.now().toString(36) + Math.random().toString(36).slice(2);
+            x.lastDialedStatus = 'NA';
+            x.state = 'new';
+            x.filename = fileName;
+            x.attempt = 0;
+            x.campaignID = campaignName;
+
+            // Trim and check if "number" is exactly 10 digits and composed of only numerical characters
+            // const trimmedNumber = x.number.trim();
+            // if (!/^\d{10}$/.test(trimmedNumber)) {
+            //   invalidNumberRows.push(index + 1); // Add 1 to index for 1-based line numbers
+            // }
+
+            mapround++;
+            return x;
+          });
+
+          // if (invalidNumberRows.length > 0) {
+          //   alert("Invalid numbers found in rows: " + invalidNumberRows.join(', '));
+          //   return;
+          // }
+
+          // Continue with the fetch and POST request
+          fetch('/uploadata', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(finalData),
+          })
+            .then((response) => response.text())
+            .then((responseData) => {
+              // Handle the response
+              alert("Success: " + responseData);
+              // Clear the form on success
+              document.getElementById("file-input").value = "";
+              document.getElementById("campaign").value = "";
+            })
+            .catch((error) => {
+              // Handle fetch errors
+              alert("Error: " + error);
+            });
+        }
+      });
+    }
+
+
+
+
+
+    const form = document.getElementById("form");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      cvsparse();
+
+    });
+
+
+
+  </script>
+
+
+
+</body>
+</html>

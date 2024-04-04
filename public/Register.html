@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link href="./img/favicon.png" rel="icon" />
+    <title>Register Form</title>
+</head>
+
+<body>
+    <style>
+        /* Google Fonts Import Link */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #225d97;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+
+        .signin {
+            font-family: Poppins-Regular, sans-serif;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 600px;
+        }
+
+        h2 {
+            font-family: Poppins-Bold;
+            font-size: 30px;
+            color: #000000;
+            font-weight: bold;
+            margin-bottom: 6vh;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            font-size: 16px;
+            color: #000000;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="number"] {
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid #000000;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        select[type="text"] {
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid #000000;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+
+        .input100:focus {
+            border-bottom: 2px solid #000000;
+            /* Change the color to your desired color */
+
+        }
+
+        .input100 {
+            background: 0 0;
+        }
+
+        /* Updated button styles */
+        .btn-btn-primary {
+            background-color: #225d97;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn-btn-primary:hover {
+            background-color: #2885e7;
+        }
+
+        #otp {
+            display: none;
+        }
+
+        #getOtpBtn {
+            width: 30%;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        /* Custom CSS for Alerts */
+        .alert {
+            display: none;
+            position: fixed;
+            background-color: #ffffff;
+            font-weight: bold;
+            color: #225d97;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            top: 10%;
+            right: 5%;
+            max-width: 300px;
+            width: 100%;
+            text-align: center;
+            z-index: 999;
+            transition: top 0.3s ease-in-out;
+        }
+
+        .show-alert {
+            display: block;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive CSS */
+        @media screen and (max-width: 768px) {
+            .alert {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .alert {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+    </style>
+
+    <div class="signin" id="creds">
+        <div class="login-box">
+            <h2>Register Admin</h2>
+            <form id="adminlogin" class="row g-3">
+                <!-- Use Bootstrap's grid system -->
+                <div class="col-md-6">
+                    <label for="username" class="form-label">Name</label>
+                    <input class="form-control" type="text" id="name" placeholder="Type your username" required />
+                </div>
+                <div class="col-md-6">
+                    <label for="organization" class="form-label">Organization</label>
+                    <input class="form-control" type="text" id="organization" placeholder="Type your organization"
+                        required />
+                </div>
+                <div class="col-md-6">
+                    <label for="Number" class="form-label">Number</label>
+                    <input class="form-control" type="number" id="number" placeholder="Type your Number" required />
+                </div>
+                <div class="col-md-6">
+                    <label for="Email" class="form-label">Email</label>
+                    <input class="form-control" type="email" id="emailid" placeholder="Type your Email" required />
+                </div>
+                <div class="col-md-6">
+                    <label for="NumberUser" class="form-label">Number User required</label>
+                    <select class="form-control" type="text" id="NumberUser" required>
+                        <option value="" disabled selected>User Required</option>
+                        <option value=5>5 User</option>
+                        <option value=10>10 User</option>
+                        <option value=15>15 User</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="password" class="form-label">Password</label>
+                    <input class="form-control" type="password" id="password" placeholder="Type your password***"
+                        name="password" required />
+                </div>
+
+                <div class="col-md-12">
+                    <input class="form-control" type="text" id="otp" placeholder="Enter OTP" />
+                    <button type="button" id="getOtpBtn" class="btn-btn-primary" onclick="toggleOTPField()">Get
+                        OTP</button>
+                </div>
+
+                <div class="col-md-12">
+                    <button type="submit" id="submitBtn" class="btn-btn-primary" style="display: none;"
+                        onclick="Submitfunction()">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+         function showAlert(message) {
+        var alertDiv = document.createElement('div');
+        alertDiv.className = 'alert show-alert';
+        alertDiv.textContent = message;
+        document.body.appendChild(alertDiv);
+
+        // Remove the alert after 5 seconds
+        setTimeout(function () {
+            alertDiv.remove();
+        }, 5000);
+    }
+
+        async function toggleOTPField() {
+            const user = document.getElementById("name").value;
+            const organization = document.getElementById("organization").value;
+            const number = document.getElementById("number").value;
+            const emailid = document.getElementById("emailid").value;
+            const NumberUser = document.getElementById("NumberUser").value;
+            const password = document.getElementById("password").value;
+
+            // create an obj to call api 
+            const userdata = {
+                user: user,
+                organization: organization,
+                Phonenumber: number,
+                emailid: emailid,
+                NumberConnection: NumberUser,
+                password: password
+            };
+
+            //create and send request for otp
+            try {
+                const response = await fetch("/otprequest", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(userdata),
+                });
+
+                if (response) {
+                    const result = await response.json();
+
+                    var otpField = document.getElementById("otp");
+                    var submitButton = document.getElementById("submitBtn");
+
+                    otpField.style.display = "block"; // Show the OTP field
+                    submitButton.style.display = "inline-block"; // Show the submit button
+
+
+                } else {
+                    showAlert("no response from backend server,check connection");
+                }
+            } catch (err) {
+                console.error("Error:", err);
+                showAlert("An error occurred. Please try again.");
+            }
+        }
+
+        async function Submitfunction() {
+            event.preventDefault();
+            const user = document.getElementById("name").value;
+            const organization = document.getElementById("organization").value;
+            const number = document.getElementById("number").value;
+            const emailid = document.getElementById("emailid").value;
+            const NumberUser = document.getElementById("NumberUser").value;
+            const password = document.getElementById("password").value;
+            const otp = document.getElementById("otp").value;
+
+            // create an obj to call api 
+            const userdata = {
+                user: user,
+                organization: organization,
+                Phonenumber: number,
+                emailid: emailid,
+                NumberConnection: NumberUser,
+                password: password
+            };
+            const sendingdata = {
+                userdata: userdata,
+                otp: otp
+            };
+            //create and send request for otp varification
+            try {
+                const response = await fetch("/otpvarification", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(sendingdata),
+                });
+
+                if (response) {
+                    const result = await response.json();
+                    if (result.message === "sucess,you are registered login after 5 minutes") {
+                        showAlert(result.message);
+                        window.location.href = "/login.html";
+                    } else {
+                        showAlert(result.message);
+                    }
+                } else {
+                    showAlert("no response from backend server,check connection");
+                }
+            } catch (err) {
+                console.error("Error:", err);
+                showAlert("An error occurred. Please try again.");
+            }
+        }
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
