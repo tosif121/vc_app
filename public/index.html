@@ -14,10 +14,6 @@
     <link rel="stylesheet" href="globals.css" />
     <link rel="stylesheet" href="" />
     <style>
-      .jaguar {
-        padding-left: 0px;
-      }
-
       .holddisabled {
         pointer-events: none;
         /* Disable pointer events */
@@ -61,7 +57,7 @@
         <h2>Login</h2>
 
         <label for="username">Username</label>
-        <input class="input100" type="text" id="username" placeholder="Type your username" name="username" required />
+        <input class="input100" type="text" id="username" placeholder="Enter Username" name="username" required />
 
         <div class="mb-3">
           <label for="password">Password</label>
@@ -70,7 +66,7 @@
               class="input100"
               type="password"
               id="password"
-              placeholder="Type your password***"
+              placeholder="Enter Password"
               name="password"
               required
             />
@@ -114,12 +110,17 @@
     <div class="container" id="status" style="display: none">
       <audio id="remoteaudio" autoplay></audio>
 
-      <section class="home-section">
+      <section class="home-section position-relative">
         <div class="sidebar close" style="display: block">
+          <div class="toggle-btn position-absolute">
+            <i class="bx bxs-chevron-left bg-white open_icon fs-4 border rounded-circle"></i>
+            <i class="bx bxs-chevron-right close_icon bg-white fs-4 border rounded-circle"></i>
+          </div>
+
           <!-- ===== Top Logo And Protfolio Section========= -->
 
           <div class="logo-details">
-            <a>
+            <a class="d-flex align-items-center">
               <i class="bx bxs-user"></i>
               <span class="logo_name" id="regUser"></span
             ></a>
@@ -170,20 +171,30 @@
               </a>
             </li>
 
-            <button id="liveButton" class="break-button otherBtn" onclick="performbreak()">Break</button>
             <!-- btn color are reverse because of previous error -->
-            <button id="breakButton" class="live-button otherBtn" style="display: none">Live</button>
-
-            <button id="autoleaddial" class="autoleadbutton otherBtn" style="display: none">Auto Dial</button>
-
-            <div class="toggle-btn">
-              <span>&#x2194;</span>
-            </div>
 
             <li>
-              <div class="logout-details">
+              <button id="liveButton" class="break-button otherBtn" onclick="performbreak()">
+                <i class="bx bxs-virus-block"></i>
+                <span class="link_name">Break</span>
+              </button>
+            </li>
+            <li>
+              <button id="breakButton" class="live-button otherBtn" style="display: none">
+                <i class="bx bx-tv"></i>
+                <span class="link_name">Live</span>
+              </button>
+            </li>
+            <li>
+              <button id="autoleaddial" class="autoleadbutton otherBtn" style="display: none">
+                <i class="bx bx-dialpad"></i>
+                <span class="link_name">Auto Dial</span>
+              </button>
+            </li>
+            <li>
+              <div class="logout-details d-flex align-items-center">
                 <button id="logout" onclick="performlogout()"><i class="bx bx-log-out"></i></button>
-                <span>Logout</span>
+                <span class="link_name">Logout</span>
               </div>
             </li>
           </ul>
@@ -261,12 +272,12 @@
                   </div>
                 </div>
                 <div>
-                  <div class="w-full h-20">
+                  <div class="mt-3">
                     <input
                       type="text"
                       id="dialnumber"
                       style="pointer-events: none"
-                      class="text-center mt-11 text-xl"
+                      class="text-center dial_number text-xl border-bottom border-0 rounded-0"
                       placeholder="Enter a number"
                     />
                   </div>
@@ -435,7 +446,7 @@
                 class="iphone-frame border-8 border-black w-[230px] h-[450px] bg-white overflow-hidden flex flex-col m-14 absolute"
               >
                 <div class="flex justify-between items-center px-2" id="meradivheader">
-                  <div class="jaguar text-sm mt-1 font-medium" id="currentTime"></div>
+                  <div class="jaguar mt-1 font-medium" id="currentTime"></div>
                   <div class="norch absolute z-50 ml-[58px] h-7 w-[77px] bg-black rounded-b-lg"></div>
                   <div class="flex items-center space-x-2 me-1">
                     <svg

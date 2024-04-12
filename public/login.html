@@ -14,6 +14,8 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
     <link href="./img/favicon.png" rel="icon" />
 
     <title>Admin Login</title>
@@ -38,11 +40,9 @@
       }
 
       .signin {
-        font-family: Poppins-Regular, sans-serif;
+        background-color: #ecf5fe;
         background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        margin: 0;
+        background-position: center;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -55,22 +55,21 @@
         border-radius: 10px;
         box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
         text-align: center;
-        width: 350px;
+        width: 400px;
         border-radius: 20px;
       }
 
       h2 {
         font-family: Poppins-Bold;
         font-size: 30px;
-        color: #000000;
-        font-weight: bold;
+        color: #333333;
       }
 
       label {
         display: block;
         text-align: left;
         font-size: 16px;
-        color: #000000;
+        color: #333333;
         font-weight: bold;
         margin-bottom: 10px;
       }
@@ -83,48 +82,47 @@
         margin-bottom: 20px;
         border: none;
         outline: none;
-        border-bottom: 1px solid #000000;
+        border-bottom: 1px solid #333333;
         transition: border-color 0.3s ease-in-out;
       }
-
       .input100:focus {
-        border-bottom: 2px solid #000000;
-        /* Change the color to your desired color */
+        border: 1px solid #00498e;
       }
 
       .input100 {
         background: 0 0;
       }
 
-      .registerclass {
-        display: flex;
-        margin-bottom: 15px;
-        justify-content: space-around;
-      }
-
       .registerclass a {
-        color: #000000;
+        color: #333333;
         font-weight: 500;
         text-decoration: none;
       }
 
       .registerclass a:hover {
         text-decoration: underline;
+        color: #00498e;
+        transition: all 0.4s;
       }
 
       .btn-btn-primary {
-        background-color: #225d97;
+        background-color: #225d97 !important;
         width: 100%;
-        color: #fff;
-        border: none;
-        border-radius: 15px;
+        color: #ffffff;
+        border: 1px solid transparent;
+        border-radius: 8px;
         padding: 12px 24px;
         cursor: pointer;
         font-size: 20px;
-        transition: background 0.3s ease-in-out;
         font-family: Poppins-Medium;
         font-size: 20px;
         text-transform: uppercase;
+      }
+      .btn-btn-primary:hover {
+        transition: all 0.4s;
+        background-color: transparent !important;
+        color: #225d97;
+        border: 1px solid #225d97;
       }
 
       .statusfailed {
@@ -139,6 +137,39 @@
         margin: 0 auto;
       }
 
+      .fa {
+        font-size: 20px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .fa-icons {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .fa-facebook {
+        background: #3b5998;
+        color: white;
+      }
+
+      .fa-twitter {
+        background: #55acee;
+        color: white;
+      }
+
+      .fa-google {
+        background: #dd4b39;
+        color: white;
+      }
       /* Style the retry button */
       .btn-retry {
         background-color: #ffffff;
@@ -150,43 +181,67 @@
         cursor: pointer;
         margin-top: 10px;
       }
+      /* Style for eye icon */
+      .password-input-container {
+        position: relative;
+      }
+
+      .password-toggle-icon {
+        position: absolute;
+        right: 10px;
+        top: 40%;
+        transform: translateY(-50%);
+        cursor: pointer;
+      }
+
+      /* Optional styling for the eye icon */
+      .password-toggle-icon i {
+        color: #666; /* Change color as needed */
+      }
+
+      input[type='text'],
+      input[type='password'] {
+        padding: 10px;
+        width: 100%;
+        font-size: 16px;
+        margin-bottom: 10px;
+        border: 1px solid #aaa;
+        border-radius: 6px;
+        transition: border-color 0.3s ease-in-out;
+      }
     </style>
 
     <div class="signin" id="creds">
       <div class="login-box">
         <h2>Admin Login</h2>
         <form id="adminlogin">
-          <div class="mb-3">
-            <label for="username">Username</label>
-            <input
-              class="input100"
-              type="text"
-              id="username"
-              style="cursor: default"
-              placeholder="Type your username"
-              name="username"
-              required
-            />
-          </div>
+          <label for="username">Username</label>
+          <input class="input100" type="text" id="username" placeholder="Enter Username" name="username" required />
           <div class="mb-3">
             <label for="password">Password</label>
-            <input
-              class="input100"
-              type="password"
-              id="password"
-              placeholder="Type your password***"
-              name="password"
-              required
-            />
+            <div class="password-input-container">
+              <input
+                class="input100"
+                type="password"
+                id="password"
+                placeholder="Enter Password"
+                name="password"
+                required
+              />
+              <span class="password-toggle-icon" onclick="togglePasswordVisibility()">
+                <i class="fa fa-eye"></i>
+              </span>
+            </div>
           </div>
-          <div class="registerclass">
+
+          <div class="registerclass d-flex align-items-center justify-content-between mb-4">
             <a href="index.html">Agent Login</a>
             <a href="Register.html">Register Now</a>
           </div>
           <button onclick="storeCredentials()" type="submit" class="btn-btn-primary">Login</button>
         </form>
 
-        <div class="fa">
+        <div class="fa-icons">
           <a href="#" class="fa fa-facebook"></a>
           <a href="#" class="fa fa-twitter"></a>
           <a href="#" class="fa fa-google"></a>
@@ -265,7 +320,20 @@
           }
         }
       });
+      function togglePasswordVisibility() {
+        var passwordField = document.getElementById('password');
+        var icon = document.querySelector('.password-toggle-icon i');
 
+        if (passwordField.type === 'password') {
+          passwordField.type = 'text';
+          icon.classList.remove('fa-eye');
+          icon.classList.add('fa-eye-slash');
+        } else {
+          passwordField.type = 'password';
+          icon.classList.remove('fa-eye-slash');
+          icon.classList.add('fa-eye');
+        }
+      }
       // Retry button functionality
       retry.addEventListener('click', (event) => {
         document.getElementById('creds').style.display = 'flex';
