@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-  <title>Order BroadCast Report</title>
+  <title>Order Broadcast Report</title>
   <meta content="" name="description" />
   <meta content="" name="keywords" />
 
@@ -38,16 +38,19 @@
   <link href="assets/css/style.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <style>
-    body {
-      font-family: sans-serif;
-    }
+        body,
+      html {
+        scroll-behavior: smooth;
+        font-family: 'Poppins', sans-serif;
+      }
+
 
     a {
       text-decoration: none;
     }
 
     h2 {
-      color: #000000;
+      color: #333333;
       text-align: center;
     }
 
@@ -145,7 +148,7 @@
 
     .form-label {
       font-size: 8px;
-      color: #000000;
+      color: #333333;
     }
 
     .form-control {
@@ -331,12 +334,12 @@
           </li>
           <li>
             <a href="broadCastReport.html">
-              <i class="bi bi-circle"></i><span>BroadCast Report</span>
+              <i class="bi bi-circle"></i><span>Broadcast Report</span>
             </a>
           </li>
           <li>
             <a href="broadCastSummary.html">
-              <i class="bi bi-circle"></i><span>BroadCast Summary</span>
+              <i class="bi bi-circle"></i><span>Broadcast Summary</span>
             </a>
           </li>
           <!-- Add more items as needed -->
@@ -391,7 +394,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-database-check"></i></i><span>Call Data</span><i class="bi bi-chevron-down ms-auto"></i>
+                      <i class="bi bi-database-check"></i><span>Call Data</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 
@@ -416,8 +419,8 @@
 
   <main id="main">
 
-    <div class="container mt-5">
-      <h2>Order BroadCast Report</h2>
+    <div class="container">
+      <h2>Order Broadcast Report</h2>
       <div class="content">
         <div class="date-range">
           <input type="text" class="form-control" id="date-range-picker" placeholder="Select Date Range">

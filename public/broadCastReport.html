@@ -1,747 +1,726 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Broadcast Report</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
 
-  <title>BroadCast Report</title>
-  <meta content="" name="description" />
-  <meta content="" name="keywords" />
+    <!-- Favicons -->
+    <link href="./img/favicon.png" rel="icon" />
 
-  <!-- Favicons -->
-  <link href="./img/favicon.png" rel="icon" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect" />
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet" />
+    <!-- pagination JQuery -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/buttons/2.1.1/css/buttons.dataTables.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
 
-  <!-- pagination JQuery -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.1.1/css/buttons.dataTables.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-
-  <!-- <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <!-- <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet"> -->
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet" />
-  <title>Pie Chart with Calendar</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-  <style>
-    body {
-      font-family: sans-serif;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    h2 {
-      color: #000000;
-      text-align: center;
-    }
-
-    .table th,
-    .table td {
-      text-align: center;
-    }
-
-    .table thead th {
-      background-color: #225d97;
-      color: #ffffff;
-      border-color: #225d97;
-    }
-
-    .table tbody tr:hover {
-      background-color: #f2f2f2;
-    }
-
-
-    .graphbox {
-      position: relative;
-      width: 100%;
-      padding: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      /* Optional: Adjust as needed */
-    }
-
-    .boxx {
-      flex: 1;
-      /* This allows the boxes to take equal width within the flex container */
-      position: relative;
-      background-color: #ffffff;
-      width: 100%;
-      /* 30% with a 20px margin on both sides */
-      height: 300px;
-      /* Set the desired height */
-      padding: 20px;
-      border: 2.5px solid transparent;
-      /* Set an initial transparent border */
-      border-image: linear-gradient(rgba(255, 99, 132), rgba(54, 162, 235)) 1;
-      /* Gradient border with multiple colors */
-      border-image-slice: 1;
-      /* Specify the slice value */
-      box-shadow:
-        0 7px 25px #225d97,
-        0 0 10px rgba(0, 0, 0, 0.1);
-      /* Add multiple box shadows separated by commas */
-      border-radius: 10px;
-      margin-bottom: 20px;
-      margin-right: 20px;
-      /* Add a margin between the boxes */
-      transition: box-shadow 0.5s ease;
-      /* Add a smooth transition effect */
-      /* Optional: Adjust as needed */
-    }
-
-    .boxx:hover {
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.7),
-        /* Add a glow effect on hover */
-        0 0 30px rgba(255, 255, 255, 0.7),
-        0 0 40px rgba(255, 255, 255, 0.7);
-    }
-
-    /* Clear the margin for the last box in each row */
-    .boxx:nth-child(3n) {
-      margin-right: 0;
-    }
-
-    /* Optional: Media query for responsiveness */
-    @media (max-width: 768px) {
-      .boxx {
-        width: 100%;
-        /* Full width on smaller screens */
-        margin-right: 0;
-        /* No margin on smaller screens */
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <title>Pie Chart with Calendar</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <style>
+      body,
+      html {
+        scroll-behavior: smooth;
+        font-family: 'Poppins', sans-serif;
       }
-    }
 
-    .content {
-      display: inline-flex;
-      gap: 10px;
-    }
+      a {
+        text-decoration: none;
+      }
 
-    /* start here date range */
-    .date-range {
-      background-color: #ffffff;
-      max-width: 130px;
-      max-height: 60px;
-      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-      padding: 8px;
-      border-radius: 10px;
-    }
+      .container {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+      }
 
-    .form-label {
-      font-size: 8px;
-      color: #000000;
-    }
+      h2 {
+        color: #333333;
+      }
 
-    .form-control {
-      padding: 10px;
-      font-size: 9px;
-      border: 3px solid #225d97;
-      border-radius: 5px;
-    }
+      .btn {
+        background-color: #225d97 !important;
+        color: #ffffff;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        padding: 6px 12px;
+        cursor: pointer;
+        font-size: 20px;
+        text-transform: uppercase;
+      }
+      .btn:hover {
+        transition: all 0.4s;
+        background-color: transparent !important;
+        color: #225d97;
+        border: 1px solid #225d97;
+      }
 
-    .mb-3 {
-      display: flex;
-      background-color: #ffffff;
-      width: 150px;
-      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-      padding: 8px;
-      border-radius: 10px;
-    }
+      .form-control,
+      .form-select {
+        padding: 10px !important;
+        height: unset;
+        width: 100%;
+        font-size: 16px;
+        border: 1px solid #aaa;
+        border-radius: 6px;
+        transition: border-color 0.3s ease-in-out;
+      }
 
-    .form-select {
-      padding: 10px;
-      font-size: 9px;
-      border: 3px solid #225d97;
-      border-radius: 5px;
-    }
+      /* Add focus styles for the input fields */
+      .form-control:focus,
+      .form-select:focus {
+        border: 1px solid #00498e;
+      }
 
-    .btn-submit {
-      background-color: #225d97;
-      color: #ffffff;
-      border: none;
-      padding: 8px 40px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
-</head>
+      label {
+        display: block;
+        text-align: left;
+        font-size: 16px;
+        color: #333333;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
 
-<body>
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-    <i class="bi bi-list toggle-sidebar-btn"></i>
+      .table th,
+      .table td {
+        text-align: center;
+      }
 
-    <div class="d-flex align-items-center justify-content-center" style="padding: 2vw">
-      <a href="admindashboard.html" class="logo d-flex align-items-center">
-        <img src="./img/logo.png" alt="iotcom" />
-      </a>
-    </div>
-    <!-- End Logo -->
+      .table thead th {
+        background-color: #225d97;
+        color: #ffffff;
+      }
 
-    <div class="search-bar" style="display: none">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
-        <button type="submit" title="Search">
-          <i class="bi bi-search"></i>
-        </button>
-      </form>
-    </div>
-    <!-- End Search Bar -->
+      .table tbody tr:hover {
+        background-color: #f2f2f2;
+      }
 
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle" href="#" style="display: none">
+      .graphbox {
+        position: relative;
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        /* Optional: Adjust as needed */
+      }
+
+      .boxx {
+        flex: 1;
+        /* This allows the boxes to take equal width within the flex container */
+        position: relative;
+        background-color: #ffffff;
+        width: 100%;
+        /* 30% with a 20px margin on both sides */
+        height: 300px;
+        /* Set the desired height */
+        padding: 20px;
+        border: 2.5px solid transparent;
+        /* Set an initial transparent border */
+        border-image: linear-gradient(rgba(255, 99, 132), rgba(54, 162, 235)) 1;
+        /* Gradient border with multiple colors */
+        border-image-slice: 1;
+        /* Specify the slice value */
+        box-shadow: 0 7px 25px #225d97, 0 0 10px rgba(0, 0, 0, 0.1);
+        /* Add multiple box shadows separated by commas */
+        border-radius: 10px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        /* Add a margin between the boxes */
+        transition: box-shadow 0.5s ease;
+        /* Add a smooth transition effect */
+        /* Optional: Adjust as needed */
+      }
+
+      .boxx:hover {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.7),
+          /* Add a glow effect on hover */ 0 0 30px rgba(255, 255, 255, 0.7), 0 0 40px rgba(255, 255, 255, 0.7);
+      }
+
+      /* Clear the margin for the last box in each row */
+      .boxx:nth-child(3n) {
+        margin-right: 0;
+      }
+
+      /* Optional: Media query for responsiveness */
+      @media (max-width: 768px) {
+        .boxx {
+          width: 100%;
+          /* Full width on smaller screens */
+          margin-right: 0;
+          /* No margin on smaller screens */
+        }
+      }
+
+      /* start here date range */
+      .date-range {
+        background-color: #ffffff;
+        max-width: 130px;
+        max-height: 60px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+        padding: 8px;
+        border-radius: 10px;
+      }
+
+      .form-label {
+        font-size: 8px;
+        color: #333333;
+      }
+
+      .flatpickr-current-month {
+        top: -5px !important;
+      }
+      .form-select {
+        width: 150px !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+
+      <div class="d-flex align-items-center justify-content-center" style="padding: 2vw">
+        <a href="admindashboard.html" class="logo d-flex align-items-center">
+          <img src="./img/logo.png" alt="iotcom" />
+        </a>
+      </div>
+      <!-- End Logo -->
+
+      <div class="search-bar" style="display: none">
+        <form class="search-form d-flex align-items-center" method="POST" action="#">
+          <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
+          <button type="submit" title="Search">
             <i class="bi bi-search"></i>
+          </button>
+        </form>
+      </div>
+      <!-- End Search Bar -->
+
+      <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+          <li class="nav-item d-block d-lg-none">
+            <a class="nav-link nav-icon search-bar-toggle" href="#" style="display: none">
+              <i class="bi bi-search"></i>
+            </a>
+          </li>
+          <!-- End Search Icon-->
+
+          <li class="nav-item dropdown pe-3">
+            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+              <img src="img/shiv.jpg" alt="Profile" class="rounded-circle" />
+              <span class="d-none d-md-block dropdown-toggle ps-2" id="displayUsername"></span> </a
+            ><!-- End Profile Iamge Icon -->
+
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+              <li class="dropdown-header">
+                <h6 id="displayUsername1">Shiv Shekhawat</h6>
+                <span id="displayorg">Web Designer</span>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                  <i class="bi bi-person"></i>
+                  <span>My Profile</span>
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                  <i class="bi bi-gear"></i>
+                  <span>Account Settings</span>
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                  <i class="bi bi-question-circle"></i>
+                  <span>Need Help?</span>
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="#" onclick="signOut()">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Sign Out</span>
+                </a>
+              </li>
+            </ul>
+            <!-- End Profile Dropdown Items -->
+          </li>
+          <!-- End Profile Nav -->
+        </ul>
+      </nav>
+      <!-- End Icons Navigation -->
+    </header>
+    <!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+      <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="admindashboard.html">
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
           </a>
         </li>
-        <!-- End Search Icon-->
+        <!-- End Dashboard Nav -->
 
-        <li class="nav-item dropdown pe-3">
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="img/shiv.jpg" alt="Profile" class="rounded-circle" />
-            <span class="d-none d-md-block dropdown-toggle ps-2" id="displayUsername"></span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6 id="displayUsername1">Shiv Shekhawat</h6>
-              <span id="displayorg">Web Designer</span>
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-gem"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="icons-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="adduser.html"> <i class="bi bi-circle"></i><span>Add New Users</span> </a>
             </li>
             <li>
-              <hr class="dropdown-divider" />
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
+              <a href="userlist.html"> <i class="bi bi-circle"></i><span>User List</span> </a>
             </li>
             <li>
-              <hr class="dropdown-divider" />
+              <a href="AgentLoginHours.html"> <i class="bi bi-circle"></i><span>Agent Login Hours</span> </a>
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider" />
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider" />
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#" onclick="signOut()">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
+              <a href="Forcelogout.html"> <i class="bi bi-circle"></i><span>Force Logout</span> </a>
             </li>
           </ul>
-          <!-- End Profile Dropdown Items -->
         </li>
-        <!-- End Profile Nav -->
+
+        <!-- Broadcast Section -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#Broadcast-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-broadcast"></i><span>Broadcast</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="Broadcast-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="broadcast.html"> <i class="bi bi-circle"></i><span>Add Broadcast</span> </a>
+            </li>
+            <li>
+              <a href="Broadcastform.html"> <i class="bi bi-circle"></i><span>Upload Broadcast</span> </a>
+            </li>
+            <li>
+              <a href="broadCastReport.html"> <i class="bi bi-circle"></i><span>Broadcast Report</span> </a>
+            </li>
+            <li>
+              <a href="broadCastSummary.html"> <i class="bi bi-circle"></i><span>Broadcast Summary</span> </a>
+            </li>
+            <!-- Add more items as needed -->
+          </ul>
+        </li>
+
+        <!-- campagian Section -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#Campaign-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-layout-text-window-reverse"></i><span>Campaign</span
+            ><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="Campaign-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="newcampaign.html"> <i class="bi bi-circle"></i><span>Add Campaign</span> </a>
+            </li>
+
+            <li>
+              <a href="form.html"> <i class="bi bi-circle"></i><span>Upload Campaign</span> </a>
+            </li>
+            <!-- Add more items as needed -->
+          </ul>
+        </li>
+        <!-- End Blank Page Nav -->
+
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="CallMenu.html">
+            <i class="bi bi-telephone-plus"></i>
+            <span>Call Menu</span>
+          </a>
+        </li>
+        <!-- End Blank Page Nav -->
+
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="AudioStore.html">
+            <i class="bi bi-file-earmark-music"></i>
+            <span>Audio Store</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="DID.html">
+            <i class="bi bi-card-list"></i>
+            <span>Add/Show DID</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-database-check"></i><span>Call Data</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="IncomingCallData.html"> <i class="bi bi-circle"></i><span>Incoming Call Data</span> </a>
+            </li>
+
+            <li>
+              <a href="OutgoinfCallData.html"> <i class="bi bi-circle"></i><span>Outgoing Call Data</span> </a>
+            </li>
+            <!-- Add more items as needed -->
+          </ul>
+        </li>
       </ul>
-    </nav>
-    <!-- End Icons Navigation -->
-  </header>
-  <!-- End Header -->
+    </aside>
+    <!-- End Sidebar-->
 
-
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
-    <ul class="sidebar-nav" id="sidebar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="admindashboard.html">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <!-- End Dashboard Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="icons-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="adduser.html">
-              <i class="bi bi-circle"></i><span>Add New Users</span>
-            </a>
-          </li>
-          <li>
-            <a href="userlist.html">
-              <i class="bi bi-circle"></i><span>User List</span>
-            </a>
-          </li>
-          <li>
-            <a href="AgentLoginHours.html">
-              <i class="bi bi-circle"></i><span>Agent Login Hours</span>
-            </a>
-          <li>
-            <a href="Forcelogout.html">
-              <i class="bi bi-circle"></i><span>Force Logout</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-
-      <!-- Broadcast Section -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#Broadcast-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-broadcast"></i><span>Broadcast</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="Broadcast-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="broadcast.html">
-              <i class="bi bi-circle"></i><span>Add Broadcast</span>
-            </a>
-          </li>
-          <li>
-            <a href="Broadcastform.html">
-              <i class="bi bi-circle"></i><span>Upload Broadcast</span>
-            </a>
-          </li>
-          <li>
-            <a href="broadCastReport.html">
-              <i class="bi bi-circle"></i><span>BroadCast Report</span>
-            </a>
-          </li>
-          <li>
-            <a href="broadCastSummary.html">
-              <i class="bi bi-circle"></i><span>BroadCast Summary</span>
-            </a>
-          </li>
-          <!-- Add more items as needed -->
-        </ul>
-      </li>
-
-      <!-- campagian Section -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#Campaign-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Campaign</span><i
-            class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="Campaign-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-
-          <li>
-            <a href="newcampaign.html">
-              <i class="bi bi-circle"></i><span>Add Campaign</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="form.html">
-              <i class="bi bi-circle"></i><span>Upload Campaign</span>
-            </a>
-          </li>
-          <!-- Add more items as needed -->
-        </ul>
-      </li>
-      <!-- End Blank Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="CallMenu.html">
-          <i class="bi bi-telephone-plus"></i>
-          <span>Call Menu</span>
-        </a>
-      </li>
-      <!-- End Blank Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="AudioStore.html">
-          <i class="bi bi-file-earmark-music"></i>
-          <span>Audio Store</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="DID.html">
-          <i class="bi bi-card-list"></i>
-          <span>Add/Show DID</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-database-check"></i></i><span>Call Data</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-
-          <li>
-            <a href="IncomingCallData.html">
-              <i class="bi bi-circle"></i><span>Incoming Call Data</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="OutgoinfCallData.html">
-              <i class="bi bi-circle"></i><span>Outgoing Call Data</span>
-            </a>
-          </li>
-          <!-- Add more items as needed -->
-        </ul>
-      </li>
-
-    </ul>
-  </aside>
-  <!-- End Sidebar-->
-
-  <main id="main">
-
-    <div class="container mt-5">
-      <h2>BroadCast Report</h2>
-      <div class="content">
-        <div class="date-range">
-          <input type="text" class="form-control" id="date-range-picker" placeholder="Select Date Range">
-        </div>
-        <div class="mb-3">
-          <label for="BroadCastData" class="form-label1"></label>
-          <select class="form-select" id="broadCastChose" name="broadCastChose">
-            <!-- option will be chosen dynamically -->
-            <option value="Broadcast" disabled selected>Broadcast</option>
-          </select>
+    <main id="main">
+      <div class="container">
+        <div class="content p-3">
+          <h2 class="text-center">Broadcast Report</h2>
+          <div class="d-flex align-items-center gap-3 my-3">
+            <div class="">
+              <input
+                type="text"
+                class="form-control shadow-none"
+                id="date-range-picker"
+                placeholder="Select Date Range"
+              />
+            </div>
+            <div>
+              <select class="form-select shadow-none" id="broadCastChose" name="broadCastChose">
+                <!-- option will be chosen dynamically -->
+                <option value="Broadcast" disabled selected>Broadcast</option>
+              </select>
+            </div>
+            <button type="button" class="btn-submit btn" id="filterbutton">submit</button>
+          </div>
+          <table class="table table-bordered" id="dataTable">
+            <thead>
+              <tr>
+                <th>Broadcast</th>
+                <th>Number</th>
+                <th>leadId</th>
+                <th>DialTime</th>
+                <th>AnswerTime</th>
+                <th>Disconnect Time</th>
+                <th>IVR Name</th>
+                <th>DTMF</th>
+              </tr>
+            </thead>
+            <tbody id="fileTable">
+              <!-- Table rows will be dynamically added here -->
+            </tbody>
+          </table>
         </div>
       </div>
-      <button type="button" class="btn-submit" id="filterbutton">submit</button>
+    </main>
+    <!-- End #main -->
 
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="copyright">
+        &copy; Copyright <strong><span>iotcom</span></strong
+        >. All Rights Reserved
+      </div>
+      <div class="credits">Designed by <a href="https://www.iotcom.io/">Iotcom</a></div>
+    </footer>
+    <!-- End Footer -->
 
-      <table class="table table-bordered" id="dataTable">
-        <thead>
-          <tr>
-            <th>Broadcast</th>
-            <th>Number</th>
-            <th>leadId</th>
-            <th>DialTime</th>
-            <th>AnswerTime</th>
-            <th>Disconnect Time</th>
-            <th>IVR Name</th>
-            <th>DTMF</th>
-          </tr>
-        </thead>
-        <tbody id="fileTable">
-          <!-- Table rows will be dynamically added here -->
-        </tbody>
-      </table>
-    </div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
 
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  </main>
-  <!-- End #main -->
+    <!-- Include jQuery -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>iotcom</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-      Designed by <a href="https://www.iotcom.io/">Iotcom</a>
-    </div>
-  </footer>
-  <!-- End Footer -->
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <!-- Include DataTables JavaScript -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- for chart in modal -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script> -->
 
-  <!-- Include jQuery -->
-  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Include DataTables CSS -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script>
+      let leadDetails = []; // Declare userDetails outside the fetch function
+      let BroadCastData = [];
+      let StartDate;
+      let EndDate;
 
-  <!-- Include DataTables JavaScript -->
-  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
+      const storedUsername = document.getElementById('displayUsername');
+      const storedUsername1 = document.getElementById('displayUsername1');
+      const storedorg = document.getElementById('displayorg');
 
-  <!-- for chart in modal -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script> -->
+      const filterbutton = document.getElementById('filterbutton');
+      filterbutton.addEventListener('click', async () => {
+        const BroadcastOption = document.getElementById('broadCastChose').value;
 
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-  <script>
-
-    let leadDetails = []; // Declare userDetails outside the fetch function
-    let BroadCastData = [];
-    let StartDate;
-    let EndDate;
-
-    const storedUsername = document.getElementById("displayUsername");
-    const storedUsername1 = document.getElementById("displayUsername1");
-    const storedorg = document.getElementById("displayorg");
-
-    const filterbutton = document.getElementById("filterbutton");
-    filterbutton.addEventListener("click", async () => {
-      const BroadcastOption = document.getElementById("broadCastChose").value;
-
-      // Use new Date() to create Date objects
-      const currentdate = StartDate || new Date();
-      const pastTimestamp = new Date(currentdate).setDate(currentdate.getDate() - 1);
-      const pastdate = EndDate || new Date(pastTimestamp);
-      if (BroadcastOption) {
-        const Dateinterval = {
-          BroadCastChosen: true,
-          BroadCastName: parseInt(BroadcastOption, 10),
-          startdate: currentdate.getTime(), // Get timestamp as a number
-          enddate: pastdate.getTime(),      // Get timestamp as a number
-        };
-
-        console.log(Dateinterval);
-       await loadcallData(Dateinterval);
-      } else { alert("Please Choose Broadcast") }
-    });
-
-
-
-
-    document.addEventListener("DOMContentLoaded", async function () {
-      //console.log("page startted");
-      const storedUsername = JSON.parse(localStorage.getItem('admininfo')).user;
-      const storedorg = JSON.parse(localStorage.getItem('admininfo')).organization;
-
-      if (storedUsername) {
-        document.getElementById('displayUsername').innerText = storedUsername;
-        document.getElementById('displayUsername1').innerText = storedUsername;
-        document.getElementById('displayorg').innerText = storedorg;
-      } else {
-        document.getElementById('displayUsername').innerText = 'No stored username found.';
-        document.getElementById('displayUsernam1').innerText = 'No stored username found.';
-      }
-
-      await fetch("/broadcastdetails", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
-        }
-      })
-        .then((response) => {
-          if (response.status === 401) {
-            // Unauthorized response handling: redirect to index page or handle as needed
-            window.location.href = "/login.html"; // Replace with your index page URL
-          } else if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          BroadCastData = data.result;
-          optioncreate(BroadCastData, "broadCastChose");
-
-        })
-        .catch((error) => {
-          console.error("Error fetching BroadcastData:", error);
-        });
-
-      loadcallData();
-    });
-
-    // Initialize Flatpickr for date range selection
-    flatpickr("#date-range-picker", {
-      mode: "range",
-      dateFormat: "Y-m-d",
-      onChange: function (selectedDates, dateStr, instance) {
-        StartDate = selectedDates[1];
-        EndDate = selectedDates[0];
-      },
-    });
-
-    async function loadcallData(filterobj) {
-      let datasendobj;
-      if (filterobj === null || filterobj === undefined) {
-        const currentdate = StartDate || Date.now();
-        var pastTimestamp = new Date().setDate(new Date(currentdate).getDate() - 1);
+        // Use new Date() to create Date objects
+        const currentdate = StartDate || new Date();
+        const pastTimestamp = new Date(currentdate).setDate(currentdate.getDate() - 1);
         const pastdate = EndDate || new Date(pastTimestamp);
+        if (BroadcastOption) {
+          const Dateinterval = {
+            BroadCastChosen: true,
+            BroadCastName: parseInt(BroadcastOption, 10),
+            startdate: currentdate.getTime(), // Get timestamp as a number
+            enddate: pastdate.getTime(), // Get timestamp as a number
+          };
 
-        const filterobj1 = {
-          BroadCastChosen: false,
-          startdate: currentdate,
-          enddate: pastdate.getTime(), // Use getTime() to get the timestamp as a number
-        };
-        datasendobj = filterobj1;
-      } else {
-        datasendobj = filterobj;
-      }
+          console.log(Dateinterval);
+          await loadcallData(Dateinterval);
+        } else {
+          alert('Please Choose Broadcast');
+        }
+      });
 
+      document.addEventListener('DOMContentLoaded', async function () {
+        //console.log("page startted");
+        const storedUsername = JSON.parse(localStorage.getItem('admininfo')).user;
+        const storedorg = JSON.parse(localStorage.getItem('admininfo')).organization;
 
-      console.log(datasendobj);
+        if (storedUsername) {
+          document.getElementById('displayUsername').innerText = storedUsername;
+          document.getElementById('displayUsername1').innerText = storedUsername;
+          document.getElementById('displayorg').innerText = storedorg;
+        } else {
+          document.getElementById('displayUsername').innerText = 'No stored username found.';
+          document.getElementById('displayUsernam1').innerText = 'No stored username found.';
+        }
 
-    await  fetch("/broadcastleadsdata", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
-        },
-
-        body: JSON.stringify(datasendobj),
-      })
-        .then((response) => {
-          if (response.status === 401) {
-            // Unauthorized response handling: redirect to index page or handle as needed
-            window.location.href = "/login.html"; // Replace with your index page URL
-          } else if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
+        await fetch('/broadcastdetails', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+          },
         })
-        .then((data) => {
-          // console.log(data.broadcastData);
-          leadDetails = data.broadcastData;
-          console.log(leadDetails);
-          leadDetails.forEach(element => {
-            const matchingBroadcast = BroadCastData.find(a => a.BroadCastId === element.Broadcast);
-
-            if (matchingBroadcast) {
-              element.Broadcast = matchingBroadcast.BroadCastName;
+          .then((response) => {
+            if (response.status === 401) {
+              // Unauthorized response handling: redirect to index page or handle as needed
+              window.location.href = '/login.html'; // Replace with your index page URL
+            } else if (!response.ok) {
+              throw new Error('Network response was not ok');
             }
+            return response.json();
+          })
+          .then((data) => {
+            BroadCastData = data.result;
+            optioncreate(BroadCastData, 'broadCastChose');
+          })
+          .catch((error) => {
+            console.error('Error fetching BroadcastData:', error);
           });
 
-          populatecalls(leadDetails);
-          //displaychart(leadDetails);
-        })
-        .catch((error) => {
-          console.error("Error fetching leads details:", error);
-        });
-    }
+        loadcallData();
+      });
 
-    function populatecalls(filteredData) {
+      // Initialize Flatpickr for date range selection
+      flatpickr('#date-range-picker', {
+        mode: 'range',
+        dateFormat: 'Y-m-d',
+        onChange: function (selectedDates, dateStr, instance) {
+          StartDate = selectedDates[1];
+          EndDate = selectedDates[0];
+        },
+      });
 
-      console.log("populate calls");
-      const table = document
-        .getElementById("dataTable")
-        .getElementsByTagName("tbody")[0];
-      table.innerHTML = "";
-      console.log(filteredData);
-      filteredData.forEach(function (call, index) {
-        // Change 'file' to 'call'
-        let newRow = table.insertRow(table.rows.length);
-        // let cell1 = newRow.insertCell(0);
-        // let cell2 = newRow.insertCell(1);
-        // let cell3 = newRow.insertCell(2);
-        // let cell4 = newRow.insertCell(3);
-        // let cell5 = newRow.insertCell(4);
-        // let cell6 = newRow.insertCell(5);
-        // let cell7 = newRow.insertCell(6);
-        // let cell8 = newRow.insertCell(7); // Fix the index here
+      async function loadcallData(filterobj) {
+        let datasendobj;
+        if (filterobj === null || filterobj === undefined) {
+          const currentdate = StartDate || Date.now();
+          var pastTimestamp = new Date().setDate(new Date(currentdate).getDate() - 1);
+          const pastdate = EndDate || new Date(pastTimestamp);
 
-        // cell1.textContent = call.Caller;
-        // cell2.textContent = call.dialNumber;
-        // cell3.textContent = call.campaign;
-        // cell4.textContent = call.startTime;
-        // cell5.textContent = call.anstime;
-        // cell6.textContent = call.calldisconnecttime;
-        // cell7.textContent = call.agent;
-
-        const calldata = [call.Broadcast ? call.Broadcast : "NA",
-        call.dialNumber,
-        call.leadId,
-        call.startTime ? formatDateTime(call.startTime) : "NA",
-        call.AnswerTime ? formatDateTime(call.AnswerTime) : "NA",
-        call.hanguptime ? formatDateTime(call.hanguptime) : "NA",
-        call.playBack,
-        call.DTMFaction?.Digitpressed ?? "NA",
-
-        ];
-        for (i = 0; i < calldata.length; i++) {
-          const cell = newRow.insertCell(i);
-          cell.innerHTML = calldata[i] !== undefined ? calldata[i] : "NA";
+          const filterobj1 = {
+            BroadCastChosen: false,
+            startdate: currentdate,
+            enddate: pastdate.getTime(), // Use getTime() to get the timestamp as a number
+          };
+          datasendobj = filterobj1;
+        } else {
+          datasendobj = filterobj;
         }
-      });
-      //jquary for downloading and searching 
-      $(document).ready(function () {
-        var dataTable = $('#dataTable').DataTable();
-        dataTable.destroy();
-        $('#dataTable').DataTable({
-          dom: 'Blfrtip',
-          buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-          ]
+
+        console.log(datasendobj);
+
+        await fetch('/broadcastleadsdata', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+          },
+
+          body: JSON.stringify(datasendobj),
+        })
+          .then((response) => {
+            if (response.status === 401) {
+              // Unauthorized response handling: redirect to index page or handle as needed
+              window.location.href = '/login.html'; // Replace with your index page URL
+            } else if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // console.log(data.broadcastData);
+            leadDetails = data.broadcastData;
+            console.log(leadDetails);
+            leadDetails.forEach((element) => {
+              const matchingBroadcast = BroadCastData.find((a) => a.BroadCastId === element.Broadcast);
+
+              if (matchingBroadcast) {
+                element.Broadcast = matchingBroadcast.BroadCastName;
+              }
+            });
+
+            populatecalls(leadDetails);
+            //displaychart(leadDetails);
+          })
+          .catch((error) => {
+            console.error('Error fetching leads details:', error);
+          });
+      }
+
+      function populatecalls(filteredData) {
+        console.log('populate calls');
+        const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+        table.innerHTML = '';
+        console.log(filteredData);
+        filteredData.forEach(function (call, index) {
+          // Change 'file' to 'call'
+          let newRow = table.insertRow(table.rows.length);
+          // let cell1 = newRow.insertCell(0);
+          // let cell2 = newRow.insertCell(1);
+          // let cell3 = newRow.insertCell(2);
+          // let cell4 = newRow.insertCell(3);
+          // let cell5 = newRow.insertCell(4);
+          // let cell6 = newRow.insertCell(5);
+          // let cell7 = newRow.insertCell(6);
+          // let cell8 = newRow.insertCell(7); // Fix the index here
+
+          // cell1.textContent = call.Caller;
+          // cell2.textContent = call.dialNumber;
+          // cell3.textContent = call.campaign;
+          // cell4.textContent = call.startTime;
+          // cell5.textContent = call.anstime;
+          // cell6.textContent = call.calldisconnecttime;
+          // cell7.textContent = call.agent;
+
+          const calldata = [
+            call.Broadcast ? call.Broadcast : 'NA',
+            call.dialNumber,
+            call.leadId,
+            call.startTime ? formatDateTime(call.startTime) : 'NA',
+            call.AnswerTime ? formatDateTime(call.AnswerTime) : 'NA',
+            call.hanguptime ? formatDateTime(call.hanguptime) : 'NA',
+            call.playBack,
+            call.DTMFaction?.Digitpressed ?? 'NA',
+          ];
+          for (i = 0; i < calldata.length; i++) {
+            const cell = newRow.insertCell(i);
+            cell.innerHTML = calldata[i] !== undefined ? calldata[i] : 'NA';
+          }
+        });
+        //jquary for downloading and searching
+        $(document).ready(function () {
+          var dataTable = $('#dataTable').DataTable();
+          dataTable.destroy();
+          $('#dataTable').DataTable({
+            dom: 'Blfrtip',
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+          });
+        });
+      }
+
+      function formatDateTime(dateTimeString) {
+        const istDate = new Date(dateTimeString);
+        const day = String(istDate.getDate()).padStart(2, '0');
+        const month = String(istDate.getMonth() + 1).padStart(2, '0');
+        const year = istDate.getFullYear();
+        const formattedDate = `${day}/${month}/${year}`;
+
+        const formattedTime = istDate.toLocaleString('en-US', {
+          timeZone: 'Asia/Kolkata',
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric',
+          hour12: true,
         });
 
-      });
+        const istDateFormat = `${formattedDate}\n\n\n${formattedTime}`;
+        return istDateFormat;
+      }
 
-    }
+      function optioncreate(Array, idoption) {
+        const Data = Array || [];
+        // Generate new options based on selected supplier
+        const optionSelect = document.getElementById(idoption);
+        Data.forEach((obj) => {
+          const option = document.createElement('option');
+          option.class = 'form.select';
+          option.value = obj.BroadCastId;
+          option.text = obj.BroadCastName;
+          optionSelect.appendChild(option);
+        });
+      }
+      // function logout
+      function signOut() {
+        // Clear localStorage (optional)
+        localStorage.removeItem('admininfo');
+        localStorage.removeItem('jwtToken');
+        localStorage.removeItem('didData');
 
-    function formatDateTime(dateTimeString) {
-      const istDate = new Date(dateTimeString);
-      const day = String(istDate.getDate()).padStart(2, '0');
-      const month = String(istDate.getMonth() + 1).padStart(2, '0');
-      const year = istDate.getFullYear();
-      const formattedDate = `${day}/${month}/${year}`;
-
-      const formattedTime = istDate.toLocaleString('en-US', {
-        timeZone: 'Asia/Kolkata',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-        hour12: true
-      });
-
-      const istDateFormat = `${formattedDate}\n\n\n${formattedTime}`;
-      return istDateFormat;
-    }
-
-    function optioncreate(Array, idoption) {
-      const Data = Array || [];
-      // Generate new options based on selected supplier
-      const optionSelect = document.getElementById(idoption);
-      Data.forEach((obj) => {
-        const option = document.createElement("option");
-        option.class = "form.select";
-        option.value = obj.BroadCastId;
-        option.text = obj.BroadCastName;
-        optionSelect.appendChild(option);
-      });
-    }
-    // function logout
-    function signOut() {
-      // Clear localStorage (optional)
-      localStorage.removeItem('admininfo');
-      localStorage.removeItem('jwtToken');
-      localStorage.removeItem('didData');
-
-      // Redirect to the desired location
-      window.location.href = '/login.html';
-    }
-  </script>
-
-</body>
-
+        // Redirect to the desired location
+        window.location.href = '/login.html';
+      }
+    </script>
+  </body>
 </html>

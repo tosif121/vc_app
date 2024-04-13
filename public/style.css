@@ -81,7 +81,7 @@ html {
   left: 0;
   height: 100%;
   width: 260px;
-  background: #225d97;
+  background: #2b82c1;
   z-index: 100;
   transition: all 0.5s ease;
 }
@@ -186,22 +186,22 @@ html {
   text-decoration: none;
 }
 
-.sidebar .nav-links li  .link_name {
+.sidebar .nav-links li .link_name {
   font-size: 18px;
   font-weight: 400;
   color: #ffffff;
   transition: all 0.4s ease;
 }
 
-.sidebar.close .nav-links li  .link_name {
+.sidebar.close .nav-links li .link_name {
   opacity: 0;
   pointer-events: none;
 }
 
 .sidebar .nav-links li .sub-menu {
-  padding: 6px 6px 14px 80px;
+  padding: 0 0 0  35px;
   margin-top: -10px;
-  background: #2b5f92;
+  background: #2b82c1;
   display: none;
 }
 
@@ -212,7 +212,6 @@ html {
 .sidebar .nav-links li .sub-menu a {
   color: #ffffff;
   font-size: 15px;
-  padding: 5px 0;
   white-space: nowrap;
 }
 
@@ -270,7 +269,6 @@ html {
 } */
 
 .logout-details button {
-  background-color: #225d97;
   /* Set background color */
   color: #fff;
   /* Set text color */
@@ -392,7 +390,6 @@ html {
 .sidebar:not(.close) .open_icon {
   display: none !important;
 }
-
 
 .toggle-btn span {
   font-size: 24px;
@@ -1107,7 +1104,7 @@ input[type='checkbox'] {
   margin-top: 1rem;
 }
 
-.jaguar{
+.jaguar {
   font-size: 9px;
 }
 
@@ -1118,7 +1115,7 @@ input[type='checkbox'] {
   margin: 0 auto;
 }
 
-.dial_number{
+.dial_number {
   width: 90% !important;
 }
 /* Style the retry button */
