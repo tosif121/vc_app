@@ -14,8 +14,10 @@
 }
 
 body {
-  background-color: #ecf5fe !important;
   color: #333333 !important;
+  scroll-behavior: smooth;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa !important;
 }
 
 a {
@@ -28,15 +30,77 @@ a:hover {
   text-decoration: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Nunito', sans-serif;
+::-webkit-scrollbar {
+  width: 8px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background-color: #ebebeb;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  background: #2196f3;
 }
 
+.notification {
+  background-color: #18d26e;
+  z-index: 99;
+  transition: top 0.3s ease-in-out;
+  width: max-content;
+  display: none;
+}
+
+.show-notification {
+  display: block;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.header .nav-link {
+  padding: unset !important;
+}
+
+.btn-primary {
+  background-color: #2196f3 !important;
+  color: #ffffff;
+  border: 1px solid transparent;
+  border-radius: 4px !important;
+  box-shadow: unset !important;
+}
+.btn-primary:hover {
+  transition: all 0.4s;
+  background-color: transparent !important;
+  color: #2196f3 !important;
+  border: 1px solid #2196f3 !important;
+}
+.btn-primary:focus {
+  border-color: #2196f3 !important;
+}
+
+.btn-success {
+  box-shadow: unset !important;
+  background-color: #00b865 !important;
+  border-color: #00b865 !important;
+}
+
+.btn-success:hover {
+  transition: all 0.4s;
+  background-color: transparent !important;
+  color: #00b865 !important;
+}
 /*--------------------------------------------------------------
 # Main
 --------------------------------------------------------------*/
@@ -52,15 +116,19 @@ h6 {
   }
 }
 
-table tbody tr td ,table thead tr th {
+table tbody tr td,
+table thead tr th {
+  font-size: 14px;
+  text-align: center;
   border-left: 1px solid #d3d3d4 !important;
 }
 table thead tr th {
   background-color: #2196f3 !important;
   color: #fff !important;
 }
-
-
+table tbody tr:nth-child(2n) td {
+  background: #f0f7fd !important;
+}
 
 /*--------------------------------------------------------------
 # Page Title
@@ -270,7 +338,7 @@ table thead tr th {
 
 /* Close Button */
 .btn-close {
-  background-size: 25%;
+  background-size: 16px !important;
 }
 
 .btn-close:focus {
@@ -382,6 +450,7 @@ table thead tr th {
   box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.1);
   background-color: #ffff;
   padding: 10px;
+  z-index: 98 !important;
 }
 
 .header .search-bar {
@@ -659,18 +728,17 @@ table thead tr th {
   margin-bottom: 5px;
 }
 
-#icons-nav li {
+/* #icons-nav li {
   background-color: #ffffff;
-  /* Change to your desired background color */
-}
+} */
 
 #Broadcast-nav li {
   background-color: #ffffff;
 }
 
-#Campaign-nav li {
+/* #Campaign-nav li {
   background-color: #ffffff;
-}
+} */
 
 #Data-nav li {
   background-color: #ffffff;
@@ -733,20 +801,20 @@ table thead tr th {
   margin: 0;
   list-style: none;
   position: absolute;
-  top: 65px;
+  top: 66px;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .sidebar-nav .nav-content a {
   display: flex;
   align-items: center;
   font-size: 14px;
-  font-weight: 600;
-  transition: 0.3s;
+  font-weight: 500;
   padding: 10px 15px;
   transition: 0.3s;
   color: #333333;
-  border-radius: 4px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .sidebar-nav .nav-content a i {
@@ -759,6 +827,7 @@ table thead tr th {
 .sidebar-nav .nav-content a:hover,
 .sidebar-nav .nav-content a.active {
   color: #2196f3;
+  text-decoration: none !important;
 }
 
 .active {
@@ -1229,7 +1298,8 @@ table thead tr th {
   padding: 20px 0;
   font-size: 14px;
   transition: all 0.3s;
-  border-top: 1px solid #cddfff;
+  background-color: #fff;
+  border-top: 1px solid #dddddd;
 }
 
 .footer .copyright {
