@@ -623,7 +623,7 @@
       const campaignSelect = document.getElementById('CampaignEdit');
       async function fetchData() {
         try {
-          const response = await fetch('https://devapp.iotcom.io/campaigndetails', {
+          const response = await fetch('/campaigndetails', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },
@@ -688,7 +688,7 @@
       function createdom() {
         let userDetails = []; // Declare userDetails outside the fetch function
 
-        fetch('https://devapp.iotcom.io/userdetails', {
+        fetch('/userdetails', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
           },
