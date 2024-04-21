@@ -73,10 +73,52 @@ a:hover {
   padding: unset !important;
 }
 
+.table.dataTable thead th,
+table.dataTable thead td,
+.no-footer {
+  border: unset !important;
+}
+.odd td {
+  border-left: unset !important;
+  border-right: unset !important;
+}
+
+input[type='file']::-webkit-file-upload-button {
+  height: 50px;
+}
+
+.dataTables_length select,
+input[type='search']:focus-visible {
+  outline: unset !important;
+}
+
+input[type='date'] {
+  padding: 10px !important;
+}
+
+.dt-buttons {
+  margin-right: 15px;
+}
+
+.dt-button {
+  background-color: #2196f3 !important;
+  color: #fff !important;
+  border: 1px solid #2196f3 !important;
+}
+
+.form-control,
+.form-select {
+  box-shadow: none !important;
+  border-radius: 4px !important;
+  padding: 0 !important;
+  height: 40px !important;
+  text-indent: 10px;
+}
+
 .btn-primary {
   background-color: #2196f3 !important;
-  color: #ffffff;
-  border: 1px solid transparent;
+  color: #ffffff !important;
+  border: 1px solid transparent !important;
   border-radius: 4px !important;
   box-shadow: unset !important;
 }
@@ -100,6 +142,12 @@ a:hover {
   transition: all 0.4s;
   background-color: transparent !important;
   color: #00b865 !important;
+}
+
+.btn-danger:hover {
+  transition: all 0.4s;
+  background-color: transparent !important;
+  color: #b02a37 !important;
 }
 /*--------------------------------------------------------------
 # Main
