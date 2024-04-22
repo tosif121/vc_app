@@ -22,12 +22,11 @@ body {
 
 a {
   color: #333333;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 a:hover {
   color: #2196f3;
-  text-decoration: none;
 }
 
 ::-webkit-scrollbar {
@@ -76,11 +75,10 @@ a:hover {
 .table.dataTable thead th,
 table.dataTable thead td,
 .no-footer {
-  border: unset !important;
+  border-color: #ddd !important;
 }
 .odd td {
-  border-left: unset !important;
-  border-right: unset !important;
+  border-color: #ddd !important;
 }
 
 input[type='file']::-webkit-file-upload-button {
@@ -115,6 +113,9 @@ input[type='date'] {
   text-indent: 10px;
 }
 
+label {
+  margin-bottom: 0.5rem;
+}
 .btn-primary {
   background-color: #2196f3 !important;
   color: #ffffff !important;
@@ -879,9 +880,12 @@ table tbody tr:nth-child(2n) td {
 }
 
 .active {
-  color: #2196f3;
+  color: #2196f3 !important;
 }
 
+.cursor-pointer{
+  cursor: pointer;
+}
 /* .sidebar-nav .nav-content a.active i {
   background-color: #4154f1;
 } */

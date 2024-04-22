@@ -34,601 +34,325 @@
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
-    <style>
-      body,
-      html {
-        scroll-behavior: smooth;
-        font-family: 'Poppins', sans-serif;
-      }
-
-      /* start here date range */
-      .date-range {
-        background-color: #ffffff;
-        max-width: 150px;
-        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-        padding: 8px;
-        border-radius: 10px;
-      }
-
-      .form-label {
-        font-size: 8px;
-        color: #333333;
-      }
-
-      /* end here date range */
-      .container {
-        background-color: #ffffff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
-      }
-
-      h2 {
-        color: #333333;
-        text-align: center;
-        /* text-transform: uppercase; */
-      }
-
-      .btn-success {
-        background-color: #28a745;
-        border-color: #28a745;
-      }
-
-      .btn-success:hover {
-        background-color: #218838;
-        border-color: #1e7e34;
-        transform: scale(1.1);
-      }
-
-      .table th,
-      .table td {
-        text-align: center;
-      }
-
-      .table thead th {
-        background-color: #225d97;
-        color: #ffffff;
-      }
-
-      .table tbody tr:hover {
-        background-color: #f2f2f2;
-      }
-
-      .edit-btn,
-      .delete-btn {
-        border-radius: 15px;
-        margin-right: 10px;
-        /* Add margin between the buttons */
-      }
-
-      .btn-sm:hover {
-        transform: scale(1.1);
-      }
-
-      .modal-content {
-        background-color: transparent;
-        max-width: 31rem;
-        margin-left: 10rem;
-        border: none;
-      }
-
-      label {
-        display: block;
-        text-align: left;
-        font-size: 16px;
-        color: #333333;
-        font-weight: bold;
-        margin-bottom: 10px;
-      }
-
-      .btn-primary {
-        background-color: #225d97 !important;
-        width: 40%;
-        color: #ffffff;
-        border: 1px solid transparent;
-        border-radius: 8px;
-        padding: 12px 12px;
-        cursor: pointer;
-        font-size: 16px;
-        text-transform: uppercase;
-      }
-      .btn-primary:hover {
-        transition: all 0.4s;
-        background-color: transparent !important;
-        color: #225d97;
-        border: 1px solid #225d97;
-      }
-
-      .form-control,
-      .form-select {
-        box-shadow: unset !important;
-        padding: 10px !important;
-        height: unset;
-        width: 100%;
-        font-size: 16px;
-        margin-bottom: 10px;
-        border: 1px solid #aaa;
-        border-radius: 6px;
-        transition: border-color 0.3s ease-in-out;
-      }
-
-      .form-control:focus,
-      .form-select:focus {
-        border: 1px solid #00498e;
-      }
-
-      .player {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      .wrapper {
-        border: 1px solid transparent;
-        padding: 30px;
-        border-radius: 20px;
-        background-color: #ddd;
-        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-      }
-
-      .slider_container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .seek_slider,
-      .volume_slider {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        height: 5px;
-        background: #83a9ff;
-        -webkit-transition: 0.2s;
-        transition: opacity 0.2s;
-      }
-
-      .seek_slider::-webkit-slider-thumb,
-      .volume_slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        width: 15px;
-        height: 15px;
-        background: white;
-        border: 3px solid #3774ff;
-        cursor: grab;
-        border-radius: 100%;
-      }
-
-      .seek_slider:hover,
-      .volume_slider:hover {
-        opacity: 1;
-      }
-
-      .seek_slider {
-        width: 60%;
-      }
-
-      .volume_slider {
-        width: 30%;
-      }
-
-      .current-time,
-      .total-duration {
-        padding: 10px;
-      }
-
-      i.fa-volume-down,
-      i.fa-volume-up {
-        padding: 10px;
-      }
-
-      .bridge-container {
-        text-align: center;
-      }
-
-      .bridge-container a {
-        text-decoration: none;
-        color: black;
-      }
-
-      .buttons {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 20px;
-      }
-
-      .buttons i {
-        font-size: 36px;
-        color: #333333;
-      }
-
-      .playpause-track i {
-        color: #2ecc71;
-      }
-
-      .repeat-track,
-      .random-track,
-      .playpause-track,
-      .prev-track,
-      .next-track {
-        padding: 25px;
-        opacity: 0.8;
-        transition: opacity 0.2s;
-      }
-
-      .repeat-track:hover,
-      .random-track:hover,
-      .playpause-track:hover,
-      .prev-track:hover,
-      .next-track:hover {
-        opacity: 1;
-      }
-
-      .loader {
-        height: 70px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .loader .stroke {
-        background: linear-gradient(to right, #9a1d86, #1595be);
-        height: 150%;
-        width: 10px;
-        border-radius: 50px;
-        margin: 0 5px;
-        animation: animate 1.4s linear infinite;
-      }
-
-      @keyframes animate {
-        50% {
-          height: 30%;
-          background: #cf77c1;
-        }
-
-        100% {
-          background: #53b9db;
-          height: 100%;
-        }
-      }
-
-      .stroke:nth-child(1) {
-        animation-delay: 0s;
-      }
-
-      .stroke:nth-child(2) {
-        animation-delay: 0.8s;
-      }
-
-      .stroke:nth-child(3) {
-        animation-delay: 0.6s;
-      }
-
-      .stroke:nth-child(4) {
-        animation-delay: 0.5s;
-      }
-
-      .stroke:nth-child(5) {
-        animation-delay: 0.4s;
-      }
-
-      .stroke:nth-child(6) {
-        animation-delay: 0.2s;
-      }
-
-      .stroke:nth-child(7) {
-        animation-delay: 0s;
-      }
-    </style>
   </head>
 
   <body>
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
-      
-
-      <div class="d-flex align-items-center justify-content-center" style="padding: 2vw">
-        <a href="admindashboard.html" class="logo d-flex align-items-center">
-          <img src="./img/logo.png" alt="iotcom" />
-        </a>
-      </div>
-      <!-- End Logo -->
-
-      <div class="search-bar" style="display: none">
-        <form class="search-form d-flex align-items-center" method="POST" action="#">
-          <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
-          <button type="submit" title="Search">
-            <i class="bi bi-search"></i>
-          </button>
-        </form>
-      </div>
-      <!-- End Search Bar -->
-
-      <nav class="header-nav ms-auto">
-        <ul class="d-flex align-items-center">
-          <li class="nav-item d-block d-lg-none">
-            <a class="nav-link nav-icon search-bar-toggle" href="#" style="display: none">
-              <i class="bi bi-search"></i>
-            </a>
-          </li>
-          <!-- End Search Icon-->
-
-          <li class="nav-item dropdown pe-3">
-            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-              <img src="img/shiv.jpg" alt="Profile" class="rounded-circle" />
-              <span class="d-none d-md-block dropdown-toggle ps-2" id="displayUsername"></span> </a
-            ><!-- End Profile Iamge Icon -->
-
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-              <li class="dropdown-header">
-                <h6 id="displayUsername1">Shiv Shekhawat</h6>
-                <span id="displayorg">Web Designer</span>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-
-              <li>
-                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                  <i class="bi bi-person"></i>
-                  <span>My Profile</span>
+    <section class="d-flex min-vh-100 flex-column">
+      <header id="header" class="header sticky-top d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-center">
+          <a href="admindashboard.html" class="logo d-flex align-items-center">
+            <img src="./img/logo.png" alt="iotcom" />
+          </a>
+        </div>
+        <div class="ms-auto d-flex align-items-end">
+          <div id="sidebar" class="sidebar me-5">
+            <ul class="sidebar-nav d-flex gap-4" id="sidebar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="admindashboard.html">
+                  <!-- <i class="bi bi-grid"></i> -->
+                  <span>Dashboard</span>
                 </a>
               </li>
-              <li>
-                <hr class="dropdown-divider" />
+              <!-- End Dashboard Nav -->
+
+              <li class="nav-item">
+                <a class="nav-link collapsed active" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                  <!-- <i class="bi bi-gem"></i> -->
+                  <span>Users</span><i class="bi bi-chevron-down ms-2"></i>
+                </a>
+                <ul id="icons-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                  <li>
+                    <a href="adduser.html"> <i class="bi bi-chevron-right"></i><span>Add New Users</span> </a>
+                  </li>
+                  <li>
+                    <a href="userlist.html"> <i class="bi bi-chevron-right"></i><span>User List</span> </a>
+                  </li>
+                  <li>
+                    <a href="AgentLoginHours.html">
+                      <i class="bi bi-chevron-right"></i><span>Agent Login Hours</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="Forcelogout.html" class="active">
+                      <i class="bi bi-chevron-right"></i><span>Force Logout</span>
+                    </a>
+                  </li>
+                </ul>
               </li>
 
-              <li>
-                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                  <i class="bi bi-gear"></i>
-                  <span>Account Settings</span>
+              <!-- Broadcast Section -->
+              <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#Broadcast-nav" data-bs-toggle="collapse" href="#">
+                  <!-- <i class="bi bi-broadcast"></i> -->
+                  <span>Broadcast</span><i class="bi bi-chevron-down ms-2"></i>
                 </a>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
+                <ul id="Broadcast-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                  <li>
+                    <a href="broadcast.html"> <i class="bi bi-chevron-right"></i><span>Add Broadcast</span> </a>
+                  </li>
+                  <li>
+                    <a href="Broadcastform.html"> <i class="bi bi-chevron-right"></i><span>Upload Broadcast</span> </a>
+                  </li>
+                  <li>
+                    <a href="broadCastReport.html">
+                      <i class="bi bi-chevron-right"></i><span>Broadcast Report</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="broadCastSummary.html">
+                      <i class="bi bi-chevron-right"></i><span>Broadcast Summary</span>
+                    </a>
+                  </li>
+                  <!-- Add more items as needed -->
+                </ul>
               </li>
 
-              <li>
-                <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                  <i class="bi bi-question-circle"></i>
-                  <span>Need Help?</span>
+              <!-- campagian Section -->
+              <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#Campaign-nav" data-bs-toggle="collapse" href="#">
+                  <!-- <i class="bi bi-layout-text-window-reverse"></i> -->
+                  <span>Campaign</span><i class="bi bi-chevron-down ms-2"></i>
+                </a>
+                <ul id="Campaign-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                  <li>
+                    <a href="newcampaign.html"> <i class="bi bi-chevron-right"></i><span>Add Campaign</span> </a>
+                  </li>
+
+                  <li>
+                    <a href="form.html"> <i class="bi bi-chevron-right"></i><span>Upload Campaign</span> </a>
+                  </li>
+                  <!-- Add more items as needed -->
+                </ul>
+              </li>
+              <!-- End Blank Page Nav -->
+
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="CallMenu.html">
+                  <!-- <i class="bi bi-telephone-plus"></i> -->
+                  <span>Call Menu</span>
                 </a>
               </li>
-              <li>
-                <hr class="dropdown-divider" />
+              <!-- End Blank Page Nav -->
+
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="AudioStore.html">
+                  <!-- <i class="bi bi-file-earmark-music"></i> -->
+                  <span>Audio Store</span>
+                </a>
               </li>
 
-              <li>
-                <a class="dropdown-item d-flex align-items-center" href="#" onclick="signOut()">
-                  <i class="bi bi-box-arrow-right"></i>
-                  <span>Sign Out</span>
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="DID.html">
+                  <!-- <i class="bi bi-card-list"></i> -->
+                  <span>Add/Show DID</span>
                 </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
+                  <span>Call Data</span>
+                </a>
+                <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                  <li>
+                    <a href="IncomingCallData.html">
+                      <i class="bi bi-chevron-right"></i><span>Incoming Call Data</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="OutgoinfCallData.html">
+                      <i class="bi bi-chevron-right"></i><span>Outgoing Call Data</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="incomingDrop.html"> <i class="bi bi-chevron-right"></i><span>Drop CallData</span> </a>
+                  </li>
+                  <!-- Add more items as needed -->
+                </ul>
               </li>
             </ul>
-            <!-- End Profile Dropdown Items -->
-          </li>
-          <!-- End Profile Nav -->
-        </ul>
-      </nav>
-      <!-- End Icons Navigation -->
-    </header>
-    <!-- End Header -->
+          </div>
 
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
-      <ul class="sidebar-nav" id="sidebar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="admindashboard.html">
-            <i class="bi bi-grid"></i>
-            <span>Dashboard</span>
-          </a>
-        </li>
-        <!-- End Dashboard Nav -->
+          <!-- End Logo -->
 
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-gem"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="icons-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="adduser.html"> <i class="bi bi-circle"></i><span>Add New Users</span> </a>
-            </li>
-            <li>
-              <a href="userlist.html"> <i class="bi bi-circle"></i><span>User List</span> </a>
-            </li>
-            <li>
-              <a href="AgentLoginHours.html"> <i class="bi bi-circle"></i><span>Agent Login Hours</span> </a>
-            </li>
+          <div class="search-bar" style="display: none">
+            <form class="search-form d-flex align-items-center" method="POST" action="#">
+              <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
+              <button type="submit" title="Search">
+                <i class="bi bi-search"></i>
+              </button>
+            </form>
+          </div>
+          <!-- End Search Bar -->
 
-            <li>
-              <a href="Forcelogout.html"> <i class="bi bi-circle"></i><span>Force Logout</span> </a>
-            </li>
-          </ul>
-        </li>
+          <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+              <li class="nav-item d-block d-lg-none">
+                <a class="nav-link nav-icon search-bar-toggle" href="#" style="display: none">
+                  <i class="bi bi-search"></i>
+                </a>
+              </li>
+              <!-- End Search Icon-->
 
-        <!-- Broadcast Section -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#Broadcast-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-broadcast"></i><span>Broadcast</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="Broadcast-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="broadcast.html"> <i class="bi bi-circle"></i><span>Add Broadcast</span> </a>
-            </li>
-            <li>
-              <a href="Broadcastform.html"> <i class="bi bi-circle"></i><span>Upload Broadcast</span> </a>
-            </li>
-            <li>
-              <a href="broadCastReport.html"> <i class="bi bi-circle"></i><span>Broadcast Report</span> </a>
-            </li>
-            <li>
-              <a href="broadCastSummary.html"> <i class="bi bi-circle"></i><span>Broadcast Summary</span> </a>
-            </li>
-            <!-- Add more items as needed -->
-          </ul>
-        </li>
+              <li class="nav-item dropdown pe-3">
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                  <img src="img/shiv.jpg" alt="Profile" class="rounded-circle" />
+                  <span class="d-none d-md-block dropdown-toggle ps-2 text-capitalize" id="displayUsername"></span> </a
+                ><!-- End Profile Iamge Icon -->
 
-        <!-- campagian Section -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#Campaign-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-layout-text-window-reverse"></i><span>Campaign</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="Campaign-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="newcampaign.html"> <i class="bi bi-circle"></i><span>Add Campaign</span> </a>
-            </li>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                  <li class="dropdown-header text-capitalize">
+                    <h6 id="displayUsername1">Shiv Shekhawat</h6>
+                    <span id="displayorg">Web Designer</span>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
 
-            <li>
-              <a href="form.html"> <i class="bi bi-circle"></i><span>Upload Campaign</span> </a>
-            </li>
-            <!-- Add more items as needed -->
-          </ul>
-        </li>
-        <!-- End Blank Page Nav -->
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                      <i class="bi bi-person"></i>
+                      <span>My Profile</span>
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
 
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="CallMenu.html">
-            <i class="bi bi-telephone-plus"></i>
-            <span>Call Menu</span>
-          </a>
-        </li>
-        <!-- End Blank Page Nav -->
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                      <i class="bi bi-gear"></i>
+                      <span>Account Settings</span>
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
 
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="AudioStore.html">
-            <i class="bi bi-file-earmark-music"></i>
-            <span>Audio Store</span>
-          </a>
-        </li>
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                      <i class="bi bi-question-circle"></i>
+                      <span>Need Help?</span>
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
 
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="DID.html">
-            <i class="bi bi-card-list"></i>
-            <span>Add/Show DID</span>
-          </a>
-        </li>
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center" href="#" onclick="signOut()">
+                      <i class="bi bi-box-arrow-right"></i>
+                      <span>Sign Out</span>
+                    </a>
+                  </li>
+                </ul>
+                <!-- End Profile Dropdown Items -->
+              </li>
+              <!-- End Profile Nav -->
+            </ul>
+          </nav>
+        </div>
+        <!-- End Icons Navigation -->
+      </header>
+      <!-- End Sidebar-->
 
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-database-check"></i><span>Call Data</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="IncomingCallData.html"> <i class="bi bi-circle"></i><span>Incoming Call Data</span> </a>
-            </li>
-
-            <li>
-              <a href="OutgoinfCallData.html"> <i class="bi bi-circle"></i><span>Outgoing Call Data</span> </a>
-            </li>
-            <li>
-              <a href="incomingDrop.html"> <i class="bi bi-circle"></i><span>Drop CallData</span> </a>
-            </li>
-            <!-- Add more items as needed -->
-          </ul>
-        </li>
-      </ul>
-    </aside>
-    <!-- End Sidebar-->
-    <main id="main" class="main">
-      <div class="table-responsive rounded">
-        <div class="container">
-          <h3 class="text-center mb-4">Incoming Call Data</h3>
-          <div class="table-container">
-            <div class="">
+      <main id="main" class="main flex-grow-1">
+        <div class="container-fluid">
+          <div class="bg-white shadow-sm rounded p-3 m-2">
+            <div class="d-flex justify-content-between">
+              <h3 class="text-center">Incoming Call Data</h3>
               <input
                 type="text"
-                class="form-control shadow-none"
+                class="form-control shadow-none w-25 mb-3 "
                 id="date-range-picker"
                 placeholder="Select Date Range"
               />
             </div>
 
-            <table class="table table-bordered" id="calldata">
-              <thead class="thead">
-                <tr>
-                  <th>Caller</th>
-                  <!-- <th>Dial No</th> -->
-                  <th>Campaign</th>
-                  <th>Call received on</th>
-                  <th>Call answered</th>
-                  <th>Call Disconnected</th>
-                  <th>Duration</th>
-                  <th>Agent</th>
-                  <th>Disposition</th>
-                  <th>Listen</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- call records will be added dynamically -->
-              </tbody>
-            </table>
+            <div class="table-responsive rounded">
+              <table class="table" id="calldata">
+                <thead class="thead">
+                  <tr>
+                    <th>Caller</th>
+                    <!-- <th>Dial No</th> -->
+                    <th>Campaign</th>
+                    <th>Call received on</th>
+                    <th>Call answered</th>
+                    <th>Call Disconnected</th>
+                    <th>Duration</th>
+                    <th>Agent</th>
+                    <th>Disposition</th>
+                    <th>Listen</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- call records will be added dynamically -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div
-        class="modal fade"
-        id="musicPlayerModal"
-        tabindex="-1"
-        aria-labelledby="musicPlayerModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-body">
-              <div class="player">
-                <div class="wrapper">
-                  <div id="wave">
-                    <span class="stroke"></span>
-                    <span class="stroke"></span>
-                    <span class="stroke"></span>
-                    <span class="stroke"></span>
-                    <span class="stroke"></span>
-                    <span class="stroke"></span>
-                    <span class="stroke"></span>
-                  </div>
-
-                  <div class="slider_container">
-                    <div class="current-time">00:00</div>
-                    <input type="range" min="1" max="100" value="0" class="seek_slider" />
-                    <div class="total-duration" id="totalduration">00:00</div>
-                  </div>
-
-                  <div class="slider_container">
-                    <!-- Bootstrap Volume Icons -->
-                    <i class="bi bi-volume-down"></i>
-                    <input type="range" min="1" max="100" value="99" class="volume_slider" />
-                    <i class="bi bi-volume-up"></i>
-                  </div>
-
-                  <div class="bridge-container">
-                    <a>
-                      <i class="bi bi-file-earmark-person"></i>
-                      <span id="bridgeID"></span>
-                    </a>
-                  </div>
-
-                  <div class="buttons">
-                    <!-- Bootstrap Icons for buttons -->
-                    <div class="random-track">
-                      <i class="bi bi-shuffle"></i>
+        <div
+          class="modal fade modal-lg"
+          id="musicPlayerModal"
+          tabindex="-1"
+          aria-labelledby="musicPlayerModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="player">
+                  <div class="wrapper">
+                    <div id="wave">
+                      <span class="stroke"></span>
+                      <span class="stroke"></span>
+                      <span class="stroke"></span>
+                      <span class="stroke"></span>
+                      <span class="stroke"></span>
+                      <span class="stroke"></span>
+                      <span class="stroke"></span>
                     </div>
-                    <div class="prev-track">
-                      <i class="bi bi-skip-backward-fill"></i>
+
+                    <div class="slider_container">
+                      <div class="current-time">00:00</div>
+                      <input type="range" min="1" max="100" value="0" class="seek_slider" />
+                      <div class="total-duration" id="totalduration">00:00</div>
                     </div>
-                    <div id="playpause-track101" class="playpause-track">
-                      <i class="bi bi-play-circle-fill"></i>
+
+                    <div class="slider_container">
+                      <!-- Bootstrap Volume Icons -->
+                      <i class="bi bi-volume-down"></i>
+                      <input type="range" min="1" max="100" value="99" class="volume_slider" />
+                      <i class="bi bi-volume-up"></i>
                     </div>
-                    <div class="next-track">
-                      <i class="bi bi-skip-forward-fill"></i>
+
+                    <div class="bridge-container">
+                      <a>
+                        <i class="bi bi-file-earmark-person"></i>
+                        <span id="bridgeID"></span>
+                      </a>
                     </div>
-                    <div class="repeat-track">
-                      <i class="bi bi-arrow-repeat"></i>
+
+                    <div class="buttons">
+                      <!-- Bootstrap Icons for buttons -->
+                      <div class="random-track">
+                        <i class="bi bi-shuffle"></i>
+                      </div>
+                      <div class="prev-track">
+                        <i class="bi bi-skip-backward-fill"></i>
+                      </div>
+                      <div id="playpause-track101" class="playpause-track">
+                        <i class="bi bi-play-circle-fill"></i>
+                      </div>
+                      <div class="next-track">
+                        <i class="bi bi-skip-forward-fill"></i>
+                      </div>
+                      <div class="repeat-track">
+                        <i class="bi bi-arrow-repeat"></i>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -636,18 +360,18 @@
             </div>
           </div>
         </div>
-      </div>
-    </main>
-    <!-- End #main -->
+      </main>
+      <!-- End #main -->
 
-    <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
-      <div class="copyright">
-        &copy; Copyright <strong><span>iotcom</span></strong
-        >. All Rights Reserved
-      </div>
-      <div class="credits">Designed by <a href="https://www.iotcom.io/">Iotcom</a></div>
-    </footer>
+      <!-- ======= Footer ======= -->
+      <footer id="footer" class="footer">
+        <div class="copyright">
+          &copy; Copyright <strong><span>iotcom</span></strong
+          >. All Rights Reserved
+        </div>
+        <div class="credits">Designed by <a href="https://www.iotcom.io/">Iotcom</a></div>
+      </footer>
+    </section>
     <!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"
@@ -690,7 +414,7 @@
 
       async function fetchData() {
         try {
-          const response = await fetch('/campaigndetails', {
+          const response = await fetch('https://devapp.iotcom.io/campaigndetails', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },
@@ -754,7 +478,7 @@
         };
 
         console.log(formattedDates);
-        fetch('/callData', {
+        fetch('https://devapp.iotcom.io/callData', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

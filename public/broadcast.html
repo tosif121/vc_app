@@ -376,7 +376,7 @@
           </div>
         </div>
         <!--edit campaign Model-->
-        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade modal-lg" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -620,12 +620,12 @@
             cell5.textContent = file.BroadCastIVR;
             cell6.textContent = file.Attempt;
             var editButton = document.createElement('button');
-            editButton.className = 'btn btn-success ';
+            editButton.className = 'btn btn-success px-2 py-1 rounded-1 fs-14';
             editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
             cell7.appendChild(editButton);
 
             var deleteButton = document.createElement('button');
-            deleteButton.className = 'btn btn-danger';
+            deleteButton.className = 'btn btn-danger px-2 py-1 rounded-1 fs-14';
             deleteButton.innerHTML = "<i class='bi bi-trash'></i>";
             cell8.appendChild(deleteButton);
 
