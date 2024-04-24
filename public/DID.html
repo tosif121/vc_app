@@ -71,9 +71,7 @@
                   </li>
 
                   <li>
-                    <a href="Forcelogout.html">
-                      <i class="bi bi-chevron-right"></i><span>Force Logout</span>
-                    </a>
+                    <a href="Forcelogout.html"> <i class="bi bi-chevron-right"></i><span>Force Logout</span> </a>
                   </li>
                 </ul>
               </li>
@@ -148,7 +146,7 @@
 
               <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
-                  <span>Call Data</span>
+                  <span>Call Data</span> <i class="bi bi-chevron-down ms-2"></i>
                 </a>
                 <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                   <li>
@@ -319,7 +317,7 @@
               </div>
               <div class="modal-body">
                 <!-- Form to add new DID -->
-                <form id="addDIDForm" class="d-grid gap-3">
+                <form id="addDIDForm">
                   <div class="mb-3">
                     <label for="didId" class="form-label">DID Name</label>
                     <input type="text" class="form-control" id="didId" name="didId" />
@@ -361,7 +359,9 @@
                       <!--Option will be created based on transfer option-->
                     </select>
                   </div>
-                  <button type="submit" class="btn btn-primary">Add DID</button>
+                  <div class="text-center"> 
+                    <button type="submit" class="btn btn-primary">Add DID</button>
+                  </div>
                 </form>
               </div>
             </div>
@@ -428,7 +428,6 @@
                     </select>
                   </div>
                   <div class="text-center">
-                    
                     <button type="submit" id="editDIDbtn" class="btn btn-primary">Save DID</button>
                   </div>
                 </form>

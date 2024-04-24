@@ -34,6 +34,154 @@
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+
+    <style>
+      .seek_slider,
+      .volume_slider {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        height: 5px;
+        background: #83a9ff;
+        -webkit-transition: 0.2s;
+        transition: opacity 0.2s;
+      }
+
+      .seek_slider::-webkit-slider-thumb,
+      .volume_slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 15px;
+        height: 15px;
+        background: white;
+        border: 3px solid #3774ff;
+        cursor: grab;
+        border-radius: 100%;
+      }
+
+      .seek_slider:hover,
+      .volume_slider:hover {
+        opacity: 1;
+      }
+
+      .seek_slider {
+        width: 60%;
+      }
+
+      .volume_slider {
+        width: 30%;
+      }
+
+      .current-time,
+      .total-duration {
+        padding: 10px;
+      }
+
+      i.fa-volume-down,
+      i.fa-volume-up {
+        padding: 10px;
+      }
+
+      .bridge-container {
+        text-align: center;
+      }
+
+      .bridge-container a {
+        text-decoration: none;
+        color: black;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .buttons i {
+        font-size: 36px;
+        color: #333333;
+      }
+
+      .playpause-track i {
+        color: #2ecc71;
+      }
+
+      .repeat-track,
+      .random-track,
+      .playpause-track,
+      .prev-track,
+      .next-track {
+        padding: 25px;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+      }
+
+      .repeat-track:hover,
+      .random-track:hover,
+      .playpause-track:hover,
+      .prev-track:hover,
+      .next-track:hover {
+        opacity: 1;
+      }
+
+      .loader {
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .loader .stroke {
+        background: linear-gradient(to right, #9a1d86, #1595be);
+        height: 150%;
+        width: 10px;
+        border-radius: 50px;
+        margin: 0 5px;
+        animation: animate 1.4s linear infinite;
+      }
+
+      @keyframes animate {
+        50% {
+          height: 30%;
+          background: #cf77c1;
+        }
+
+        100% {
+          background: #53b9db;
+          height: 100%;
+        }
+      }
+
+      .stroke:nth-child(1) {
+        animation-delay: 0s;
+      }
+
+      .stroke:nth-child(2) {
+        animation-delay: 0.8s;
+      }
+
+      .stroke:nth-child(3) {
+        animation-delay: 0.6s;
+      }
+
+      .stroke:nth-child(4) {
+        animation-delay: 0.5s;
+      }
+
+      .stroke:nth-child(5) {
+        animation-delay: 0.4s;
+      }
+
+      .stroke:nth-child(6) {
+        animation-delay: 0.2s;
+      }
+
+      .stroke:nth-child(7) {
+        animation-delay: 0s;
+      }
+    </style>
   </head>
 
   <body>
@@ -56,7 +204,7 @@
               <!-- End Dashboard Nav -->
 
               <li class="nav-item">
-                <a class="nav-link collapsed active" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
                   <!-- <i class="bi bi-gem"></i> -->
                   <span>Users</span><i class="bi bi-chevron-down ms-2"></i>
                 </a>
@@ -74,9 +222,7 @@
                   </li>
 
                   <li>
-                    <a href="Forcelogout.html" class="active">
-                      <i class="bi bi-chevron-right"></i><span>Force Logout</span>
-                    </a>
+                    <a href="Forcelogout.html"> <i class="bi bi-chevron-right"></i><span>Force Logout</span> </a>
                   </li>
                 </ul>
               </li>
@@ -150,12 +296,12 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
-                  <span>Call Data</span>
+                <a class="nav-link collapsed active" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
+                  <span>Call Data</span> <i class="bi bi-chevron-down ms-2"></i>
                 </a>
                 <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                   <li>
-                    <a href="IncomingCallData.html">
+                    <a href="IncomingCallData.html" class="active">
                       <i class="bi bi-chevron-right"></i><span>Incoming Call Data</span>
                     </a>
                   </li>
@@ -264,14 +410,14 @@
               <h3 class="text-center">Incoming Call Data</h3>
               <input
                 type="text"
-                class="form-control shadow-none w-25 mb-3 "
+                class="form-control shadow-none w-25 mb-3"
                 id="date-range-picker"
                 placeholder="Select Date Range"
               />
             </div>
 
-            <div class="table-responsive rounded">
-              <table class="table" id="calldata">
+            <div class="table-responsive">
+              <table class="table border table_incoming" id="calldata">
                 <thead class="thead">
                   <tr>
                     <th>Caller</th>
@@ -295,17 +441,17 @@
         </div>
 
         <div
-          class="modal fade modal-lg"
+          class="modal fade modal-md"
           id="musicPlayerModal"
           tabindex="-1"
           aria-labelledby="musicPlayerModalLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+          <div class="modal-dialog">
+            <div class="modal-content bg-transparent border-0">
               <div class="modal-body">
                 <div class="player">
-                  <div class="wrapper">
+                  <div class="wrapper border-0 p-4 bg-light rounded">
                     <div id="wave">
                       <span class="stroke"></span>
                       <span class="stroke"></span>
@@ -316,13 +462,13 @@
                       <span class="stroke"></span>
                     </div>
 
-                    <div class="slider_container">
+                    <div class="slider_container d-flex align-items-center justify-content-center">
                       <div class="current-time">00:00</div>
                       <input type="range" min="1" max="100" value="0" class="seek_slider" />
                       <div class="total-duration" id="totalduration">00:00</div>
                     </div>
 
-                    <div class="slider_container">
+                    <div class="slider_container d-flex align-items-center justify-content-center">
                       <!-- Bootstrap Volume Icons -->
                       <i class="bi bi-volume-down"></i>
                       <input type="range" min="1" max="100" value="99" class="volume_slider" />
@@ -414,7 +560,7 @@
 
       async function fetchData() {
         try {
-          const response = await fetch('https://devapp.iotcom.io/campaigndetails', {
+          const response = await fetch('/campaigndetails', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },
@@ -478,7 +624,7 @@
         };
 
         console.log(formattedDates);
-        fetch('https://devapp.iotcom.io/callData', {
+        fetch('/callData', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
