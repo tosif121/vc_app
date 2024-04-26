@@ -199,7 +199,7 @@ html {
 }
 
 .sidebar .nav-links li .sub-menu {
-  padding: 0 0 0  35px;
+  padding: 0 0 0 35px;
   margin-top: -10px;
   background: #2b82c1;
   display: none;
@@ -427,7 +427,6 @@ html {
   display: flex;
   justify-content: end;
   width: 100%;
-  margin-left: 115px;
 }
 
 .iphone-dialer {
@@ -1161,4 +1160,66 @@ input[type='checkbox'] {
     padding: 8px 16px;
     /* Adjust other button styles for mobile */
   }
+}
+
+/*  */
+
+.header-section {
+  box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.1);
+  background-color: #ffff;
+  padding: 10px;
+  z-index: 98 !important;
+}
+
+.header-section a:hover,
+.logout_btn:hover {
+  color: #2196f3;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+
+.header-section .active {
+  cursor: pointer;
+  color: #2196f3 !important;
+}
+
+.header-section .nav-content {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: absolute;
+  top: 66px;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.break_button {
+  background: #e6191e;
+}
+.break_button:hover {
+  transition: all 0.4s;
+  background: transparent;
+  border-color: #e6191e;
+  color: #e6191e !important;
+}
+
+.live_button {
+  background: #00b865;
+}
+.live_button:hover {
+  transition: all 0.4s;
+  background: transparent;
+  border-color: #00b865;
+  color: #00b865 !important;
+}
+
+.autolead_button {
+  background: #00b865;
+}
+.autolead_button:hover {
+  transition: all 0.4s;
+  background: transparent;
+  border-color: #00b865;
+  color: #00b865 !important;
 }
