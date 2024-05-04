@@ -1,0 +1,3035 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Leadform.css">
+  <link rel="stylesheet" href="output.css">
+  <link rel="stylesheet" href="globals.css">
+  <link rel="stylesheet" href="">
+  <style>
+    .jaguar {
+      padding-left: 0px;
+    }
+
+    .holddisabled {
+
+      pointer-events: none;
+      /* Disable pointer events */
+
+
+    }
+
+    .applyhold {
+      background-color: rgb(57, 57, 57);
+      /* Adjust opacity to visually disable */
+      color: darkslateblue;
+      fill: aqua;
+    }
+  </style>
+
+
+  <!-- <link rel="stylesheet" href="new.css"> -->
+
+  <title>Login</title>
+  <!-- Favicons -->
+  <link href="./img/favicon.png" rel="icon" />
+</head>
+
+<body>
+
+  <audio id="beepAudio" src="rotary-phone6-4432.mp3"></audio>
+  <!-- Modal for displaying alert message -->
+  <div class="modal fade" id="alertModal1" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body text-center" id="alertModelContant1">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="signin" id="creds" style="display:blocl">
+
+    <div class="login-box">
+      <h2>Login</h2>
+
+      <label for="username">Username</label>
+      <input class="input100" type="text" id="username" placeholder="Type your username" name="username" required>
+
+      <label for="password">Password</label>
+      <input class="input100" type="password" id="password" placeholder="Type your password***" name="password"
+        required>
+
+      <div class="forgot-password">
+        <a href="login.html">Admin Login</a>
+        <a href="#">Forgot Password?</a>
+      </div>
+
+      <!-- <label class="checkbox-label" for="check-me-out">
+        <input type="checkbox" id="exampleCheck1" name="check-me-out"> Check me out
+      </label> -->
+
+      <br>
+
+      <button type="submit" id="register" class="login-button" style="  background-color: #225d97;">Login</button>
+
+      <div class="fa">
+        <a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-twitter"></a>
+        <a href="#" class="fa fa-google"></a>
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+
+  <div class="statusfailed" id="statusfailed" style="display:none">
+    <div class="after-show">
+      <span><img src="./img/No data.gif" /></span>
+      <span id="registrationfailededuser"></span>
+    </div>
+    <div class="retry">
+      <span><button id="retry" class="btn-retry">Invalid credentials,Plese Try Again!</button></span>
+    </div>
+  </div>
+
+
+
+  <div class="container" id="status" style="display:none;">
+
+    <audio id="remoteaudio" autoplay></audio>
+
+
+    <section class="home-section">
+
+      <div class="sidebar close" style="display: block;">
+
+        <!-- ===== Top Logo And Protfolio Section========= -->
+
+        <div class="logo-details">
+          <a>
+            <i class='bx bxs-user'></i>
+            <span class="logo_name" id="regUser"></span></a>
+        </div>
+
+        <!-- ===== All SideBar Menu Section========= -->
+
+        <ul class="nav-links">
+          <li>
+            <a id="home">
+              <i class='bx bx-home-alt'></i>
+              <span class="link_name">Home</span>
+            </a>
+
+          </li>
+
+          <li>
+
+            <div class="iocn-link">
+
+              <a href="#">
+                <i class='bx bxs-phone-call'></i>
+                <span class="link_name">Calling</span>
+              </a>
+
+              <i class='bx bxs-chevron-down arrow'></i>
+
+            </div>
+
+            <ul class="sub-menu">
+              <li><a class="link_name" href="#">Calling</a></li>
+              <li><a href="#"><i class='bx bxs-user-voice' style='color:#ffffff'></i>Voice</a></li>
+              <li><a href="#"><i class='bx bxs-video' style='color:#ffffff'></i>Video</a></li>
+
+            </ul>
+
+          </li>
+
+
+          <li>
+            <a href="#">
+              <i class='bx bx-chat'></i>
+              <span class="link_name">Message</span>
+            </a>
+
+          </li>
+
+          <li>
+            <a href="#">
+              <i class='bx bx-group'></i>
+              <span class="link_name">Group Meeting</span>
+            </a>
+          </li>
+
+          <button id="liveButton" class=" break-button otherBtn" onclick="performbreak()">Break</button>
+          <!-- btn color are reverse because of previous error -->
+          <button id="breakButton" class="live-button otherBtn" style="display: none;">Live</button>
+
+          <button id="autoleaddial" class="autoleadbutton otherBtn" style="display: none;">Auto Dial</button>
+
+
+
+          <div class="toggle-btn">
+            <span>&#x2194;</span>
+          </div>
+
+          <li>
+
+
+            <div class="logout-details">
+              <button id="logout" onclick="performlogout()"><i class='bx bx-log-out'></i></button>
+              <span>Logout</span>
+            </div>
+
+
+
+          </li>
+
+        </ul>
+      </div>
+      <script>
+        function performlogout() {
+          // Show a confirmation dialog
+          const confirmation = window.confirm("Are you sure you want to Logout?");
+
+        }
+
+
+      </script>
+
+<div id="callQueue" style="position: fixed; top: 10px; right: 10px; background-color: #f1f1f1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; display: none;">
+  <h6>Calls in Waitings</h6>
+</div>
+      <div id="preview" style="display:block">
+
+
+
+
+
+
+        <div class="dashboard-box text-center">
+          <p class="fw-bold">WELCOME TO DASHBOARD</p>
+        </div>
+
+
+        <div class="container-dial">
+
+          <div id="mydiv" class=" top-3 w-[230px] h-[450px] absolute" style="display:block;">
+            <div
+              class="iphone-frame border-8 border-black w-[230px] h-[450px] bg-white overflow-hidden flex flex-col m-14 absolute">
+
+              <div class="flex justify-between items-center px-2" id="mydivheader">
+                <div class="jaguar text-sm  mt-1 font-medium" id="currenttime"></div>
+                <div class="norch  absolute z-50  ml-[58px]  h-7 w-[77px] bg-black rounded-b-lg"></div>
+                <div class="flex items-center space-x-2 me-1"><svg aria-hidden="true" focusable="false"
+                    data-prefix="fas" data-icon="signal" class="svg-inline--fa fa-signal " role="img"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="14" height="14">
+                    <path fill="currentColor"
+                      d="M576 0c17.7 0 32 14.3 32 32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V32c0-17.7 14.3-32 32-32zM448 96c17.7 0 32 14.3 32 32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V128c0-17.7 14.3-32 32-32zM352 224V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V224c0-17.7 14.3-32 32-32s32 14.3 32 32zM192 288c17.7 0 32 14.3 32 32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V320c0-17.7 14.3-32 32-32zM96 416v64c0 17.7-14.3 32-32 32s-32-14.3-32-32V416c0-17.7 14.3-32 32-32s32 14.3 32 32z">
+                    </path>
+                  </svg><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="wifi"
+                    class="svg-inline--fa fa-wifi " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
+                    width="14" height="14">
+                    <path fill="currentColor"
+                      d="M54.2 202.9C123.2 136.7 216.8 96 320 96s196.8 40.7 265.8 106.9c12.8 12.2 33 11.8 45.2-.9s11.8-33-.9-45.2C549.7 79.5 440.4 32 320 32S90.3 79.5 9.8 156.7C-2.9 169-3.3 189.2 8.9 202s32.5 13.2 45.2 .9zM320 256c56.8 0 108.6 21.1 148.2 56c13.3 11.7 33.5 10.4 45.2-2.8s10.4-33.5-2.8-45.2C459.8 219.2 393 192 320 192s-139.8 27.2-190.5 72c-13.3 11.7-14.5 31.9-2.8 45.2s31.9 14.5 45.2 2.8c39.5-34.9 91.3-56 148.2-56zm64 160a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z">
+                    </path>
+                  </svg><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="battery-full"
+                    class="svg-inline--fa fa-battery-full " role="img" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 576 512" width="14" height="14">
+                    <path fill="currentColor"
+                      d="M464 160c8.8 0 16 7.2 16 16V336c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16H464zM80 96C35.8 96 0 131.8 0 176V336c0 44.2 35.8 80 80 80H464c44.2 0 80-35.8 80-80V320c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32V176c0-44.2-35.8-80-80-80H80zm368 96H96V320H448V192z">
+                    </path>
+                  </svg></div>
+              </div>
+              <div>
+                <div class="w-full h-20">
+
+                  <input type="text" id="dialnumber" style="pointer-events: none;" class="text-center mt-11 text-xl" placeholder="Enter a number">
+
+                </div>
+                <div class="dial-pad w-full h-[300px] bg-white px-[20px] py-3 flex justify-center items-center">
+                  <div class=" flex flex-col w-full h-full bg-white">
+                    <div class="w-full h-[39px]   mb-3 flex  items-center justify-around">
+
+                      <div onclick="appendNumber(1)"
+                        class=" rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        1</div>
+                      <div onclick="appendNumber(2)"
+                        class=" rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        2</div>
+                      <div onclick="appendNumber(3)"
+                        class=" rishi  w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        3</div>
+
+                    </div>
+                    <div class=" w-full h-[39px]   mb-3 flex  items-center justify-around">
+
+                      <div onclick="appendNumber(4)"
+                        class=" rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        4</div>
+                      <div onclick="appendNumber(5)"
+                        class=" rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        5</div>
+                      <div onclick="appendNumber(6)"
+                        class=" rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        6</div>
+
+                    </div>
+                    <div class="w-full h-[39px]   mb-3 flex  items-center justify-around">
+
+                      <div onclick="appendNumber(7)"
+                        class=" rishi  w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        7</div>
+                      <div onclick="appendNumber(8)"
+                        class=" rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        8</div>
+                      <div onclick="appendNumber(9)"
+                        class=" rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        9</div>
+
+                    </div>
+                    <div class="w-full h-[39px]   mb-3 flex  items-center justify-around">
+
+                      <div onclick="appendNumber('*')"
+                        class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        *</div>
+                      <div onclick="appendNumber(0)"
+                        class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        0</div>
+                      <div onclick="appendNumber('#')"
+                        class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        #</div>
+
+                    </div>
+                    <div class="w-full h-[39px]   mb-3 flex  items-center justify-around">
+
+                      <div class="w-[39px] h-full rounded-full  p-2 text-center  justify-center"></div>
+
+                      <div class="jsprt call-touch" id="dialbtn" style="background-color: #22c55e;">
+
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone"
+                          class="svg-inline--fa fa-phone " role="img" xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512" width="16" height="16">
+                          <path fill="currentColor"
+                            d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z">
+                          </path>
+                        </svg>
+                      </div>
+                      <div onclick="clearNumber()"
+                        class=" clear-button w-[35px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="rectangle-xmark"
+                          class="svg-inline--fa fa-rectangle-xmark " role="img" xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512" width="16" hanging="16">
+                          <path fill="currentColor"
+                            d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z">
+                          </path>
+                        </svg>
+                      </div>
+
+
+                    </div>
+                    <script>
+                      document.getElementById('dialbtn').addEventListener('click', function () {
+                        const otherButtons = document.getElementsByClassName('otherBtn');
+                        for (let i = 0; i < otherButtons.length; i++) {
+                          otherButtons[i].disabled = true;
+                        }
+                      });
+                    </script>
+
+
+
+
+
+
+                  </div>
+
+
+
+
+                </div>
+                <DIV class=" mt-[23px] flex justify-center items-center">
+                  <div class=" h-[5.1px] rounded-full w-[96PX]   z-10 bg-zinc-950  ">
+
+                  </div>
+                </DIV>
+              </div>
+
+
+            </div>
+          </div>
+
+
+
+          <div class="containerimage" style="display:block;">
+            <img src="./img/user-icon.jpg" alt="User Icon" class="usericon">
+
+
+            <div class="video-call-actions">
+              <button class="video-action-button mic"></button>
+              <button class="video-action-button camera"></button>
+              <button class="video-action-button maximize"></button>
+              <button class="video-action-button endcall"></button>
+
+
+              </button>
+            </div>
+
+          </div>
+
+
+
+
+        </div>
+        <img class="phonesvg" src="phonesvg.svg" id="phoneClickButton" alt="">
+
+
+
+      </div>
+
+
+      <div id="postview" style="display:none">
+
+
+
+
+
+
+
+        <div class="container-dial">
+          <div id="meradiv" class=" upr left-6 top-3 w-[230px] h-[450px] absolute">
+            <div
+              class="iphone-frame border-8 border-black w-[230px] h-[450px] bg-white overflow-hidden flex flex-col m-14 absolute">
+              <div class="flex justify-between items-center px-2" id="meradivheader">
+                <div class="jaguar text-sm  mt-1 font-medium" id="currentTime"></div>
+                <div class="norch  absolute z-50  ml-[58px]  h-7 w-[77px] bg-black rounded-b-lg"></div>
+                <div class="flex items-center space-x-2 me-1"><svg aria-hidden="true" focusable="false"
+                    data-prefix="fas" data-icon="signal" class="svg-inline--fa fa-signal " role="img"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="14" height="14">
+                    <path fill="currentColor"
+                      d="M576 0c17.7 0 32 14.3 32 32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V32c0-17.7 14.3-32 32-32zM448 96c17.7 0 32 14.3 32 32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V128c0-17.7 14.3-32 32-32zM352 224V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V224c0-17.7 14.3-32 32-32s32 14.3 32 32zM192 288c17.7 0 32 14.3 32 32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V320c0-17.7 14.3-32 32-32zM96 416v64c0 17.7-14.3 32-32 32s-32-14.3-32-32V416c0-17.7 14.3-32 32-32s32 14.3 32 32z">
+                    </path>
+                  </svg><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="wifi"
+                    class="svg-inline--fa fa-wifi " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
+                    width="14" height="14">
+                    <path fill="currentColor"
+                      d="M54.2 202.9C123.2 136.7 216.8 96 320 96s196.8 40.7 265.8 106.9c12.8 12.2 33 11.8 45.2-.9s11.8-33-.9-45.2C549.7 79.5 440.4 32 320 32S90.3 79.5 9.8 156.7C-2.9 169-3.3 189.2 8.9 202s32.5 13.2 45.2 .9zM320 256c56.8 0 108.6 21.1 148.2 56c13.3 11.7 33.5 10.4 45.2-2.8s10.4-33.5-2.8-45.2C459.8 219.2 393 192 320 192s-139.8 27.2-190.5 72c-13.3 11.7-14.5 31.9-2.8 45.2s31.9 14.5 45.2 2.8c39.5-34.9 91.3-56 148.2-56zm64 160a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z">
+                    </path>
+                  </svg><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="battery-full"
+                    class="svg-inline--fa fa-battery-full " role="img" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 576 512" width="14" height="14">
+                    <path fill="currentColor"
+                      d="M464 160c8.8 0 16 7.2 16 16V336c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16H464zM80 96C35.8 96 0 131.8 0 176V336c0 44.2 35.8 80 80 80H464c44.2 0 80-35.8 80-80V320c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32V176c0-44.2-35.8-80-80-80H80zm368 96H96V320H448V192z">
+                    </path>
+                  </svg></div>
+              </div>
+              <div id="afterCall" style="display:block;">
+                <div class="w-full h-20 flex-col">
+                  <div id="unholdDisplay" style="display: block;">
+                    <div type="text" id="dialTimer" class="text-center mt-3 text-l text-[#37B7FF]">00:00</div>
+                    <div type="text" id="displayNumber" class="text-center text-xl">7023236685</div>
+
+                  </div>
+
+                  <div id="holdDisplay" style="display: none;">
+                    <div style="
+                  display: flex;
+                  align-items: center;
+                  justify-content:space-around;
+                  margin-top: 16px;">
+                      <div type="text" style="font-size: 18px;" id="firstNumber" class="text-center text-xl">7023236685
+                      </div>
+                      <div type="text" style="font-size: 15px;" class="text-center  text-l text-[#37B7FF]">HOLD...</div>
+
+
+                    </div>
+                    <div style="display:flex;
+                align-items: center;
+                justify-content:space-around;">
+                      <div type="text" style="font-size: 18px;" id="secondnumber" class="text-center text-xl">7023236685
+                      </div>
+                      <div type="text" style="font-size: 15px;" class="text-center  text-l text-[#37B7FF]">Calling..
+                      </div>
+
+
+
+                    </div>
+
+
+                  </div>
+
+                  <div id="mergeDisplay" style="display: none;
+                margin-top: 16px;">
+                    <div type="text" class="text-center mt-3 text-l text-[#37B7FF]">00:00</div>
+
+                    <div class="scrolling-text" style="display: flex;">
+                      <div type="text" id="firstNumber1" class="text-center text-xl ">7023236685</div>
+                      <div type="text" class="text-center text-xl  "> conference with </div>
+                      <div type="text" id="secondnumber1" class="text-center text-xl "> 7877273844 </div>
+
+
+                    </div>
+
+                  </div>
+                  <style>
+                    .scrolling-text {
+
+                      margin-top: 15px;
+                      width: fit-content;
+                      /* Adjust width as needed */
+                      white-space: nowrap;
+                      /* Prevent text wrapping */
+                      overflow: hidden;
+                      /* Hide overflowing text */
+                      animation: scrolltext 10s linear infinite;
+                      /* Animation properties */
+                      display: flex;
+                    }
+
+                    @keyframes scrolltext {
+                      from {
+                        transform: translateX(100%);
+                      }
+
+                      /* Start from right side */
+                      to {
+                        transform: translateX(-100%);
+                      }
+
+                      /* Move to left side */
+                    }
+                  </style>
+
+
+
+
+                </div>
+                <div class="dial-pad w-full h-[300px] bg-white px-[20px] py-3 flex justify-center items-center">
+                  <div class=" flex flex-col w-full h-full bg-white">
+                    <div class="w-full h-[39px]   mb-3 flex  items-center justify-around">
+
+                      <div class="w-[39px] h-full rounded-full  p-2 text-center  justify-center"></div>
+                      <div class="w-[39px] h-full rounded-full  p-2 text-center  justify-center"></div>
+                      <div class="w-[39px] h-full rounded-full  p-2 text-center  justify-center"></div>
+
+                    </div>
+                    <div class="w-full h-[39px]   mb-3 flex  items-center justify-around">
+
+                      <div class="w-[39px] h-full rounded-full  p-2 text-center  justify-center"></div>
+                      <div class="w-[39px] h-full rounded-full  p-2 text-center  justify-center"></div>
+                      <div class="w-[39px] h-full rounded-full  p-2 text-center  justify-center"></div>
+
+                    </div>
+                    <div class="w-full h-[39px]   mb-3 flex  items-center justify-around">
+
+                      <div class="w-[39px] h-full rounded-full  p-2 text-center  justify-center"></div>
+                      <div class="w-[39px] h-full rounded-full  p-2 text-center  justify-center"></div>
+                      <div class="w-[39px] h-full rounded-full  p-2 text-center  justify-center"></div>
+
+                    </div>
+                    <div class="w-full h-[39px]   mb-1 flex  items-center justify-around">
+                      <div id="holdbtn"
+                        class=" nun clear-button w-[38px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center">
+                        <svg class="jiggle" width="9" height="12" fill="white" viewBox="0 0 11 12"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <rect width="3" height="12" />
+                          <rect x="6" width="3" height="12" />
+                        </svg>
+                      </div>
+                      <!-- fill="#37B7FF" -->
+
+
+                      <div id="audioOnly" style="display:none;"
+                        class=" nun  clear-button w-[38px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="70" height="50" viewBox="0 0 52 32" fill="none">
+                          <path
+                            d="M33.2698 0H4.73021C2.11771 0 0 1.78333 0 3.98333V28.0167C0 30.2167 2.11771 32 4.73021 32H33.2698C35.8823 32 38 30.2167 38 28.0167V3.98333C38 1.78333 35.8823 0 33.2698 0ZM52.0125 3.14167L41.1667 9.44167V22.5583L52.0125 28.85C54.1104 30.0667 57 28.825 57 26.7V5.29167C57 3.175 54.1203 1.925 52.0125 3.14167Z"
+                            fill="#83888E" />
+                        </svg>
+                      </div>
+                      <div id="newcallHangup" onclick="handleClick()" style="display:none;
+                      width: 38px;
+                      padding: 11px;
+                      background-color: #6B7280;
+                      height: 39px;
+                      border-radius: 200px;
+                       " class=>
+                        <!-- nun clear-button w-[38px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center
+                           <svg xmlns="http://www.w3.org/2000/svg" width="64" height="51" viewBox="0 0 64 51" fill="none">
+                      <path d="M23.8922  w-50 h-43 0 2 123 100    5.84928L14.0067 15.2998H2.66667C1.19333 15.2998 0 16.4408 0 17.8497V33.1489C0 34.5567 1.19333 35.6988 2.66667 35.6988H14.0067L23.8922 45.1493C25.5622 46.7462 28.4444 45.6242 28.4444 43.3463V7.65226C28.4444 5.37224 25.56 4.25454 23.8922 5.84928ZM49.8167 0.422285C48.5756 -0.356491 46.9078 -0.0281937 46.0933 1.16069C45.2778 2.34744 45.6244 3.94218 46.8656 4.72096C54.2289 9.34155 58.6233 17.1091 58.6233 25.5004C58.6233 33.8916 54.2289 41.6592 46.8656 46.2798C45.6244 47.0575 45.2778 48.6533 46.0933 49.839C46.8756 50.9768 48.53 51.3859 49.8167 50.5774C58.6967 45.0038 64 35.6276 64 25.4993C64 15.371 58.6967 5.9959 49.8167 0.422285ZM53.3333 25.4993C53.3333 18.7495 49.7711 12.5438 43.8033 8.89957C42.56 8.14099 40.9111 8.49372 40.1233 9.69216C39.3356 10.8906 39.7033 12.4768 40.9467 13.2365C45.3633 15.9341 48 20.5175 48 25.4993C48 30.4811 45.3633 35.0645 40.9467 37.7621C39.7033 38.5207 39.3356 40.1069 40.1233 41.3064C40.8467 42.4071 42.47 42.915 43.8033 42.099C49.7711 38.4548 53.3333 32.2501 53.3333 25.4993ZM37.5811 17.3322C36.2944 16.6597 34.6711 17.1028 33.9578 18.3363C33.2478 19.5698 33.7178 21.1199 35.0078 21.8009C36.4422 22.5542 37.3333 23.9726 37.3333 25.4993C37.3333 27.0271 36.4422 28.4444 35.0089 29.1977C33.7189 29.8787 33.2489 31.4288 33.9589 32.6623C34.6733 33.9012 36.2978 34.341 37.5822 33.6663C40.7189 32.0142 42.6678 28.8853 42.6678 25.4982C42.6678 22.1111 40.7189 18.9833 37.5811 17.3322Z" fill="white"/>
+                    </svg> -->
+                        <svg width="50" height="43" viewBox="0.5 5 127 100" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M22.5 0C10.0706 0 0 9.62298 0 21.5C0 33.377 10.0706 43 22.5 43C34.9294 43 45 33.377 45 21.5C45 9.62298 34.9294 0 22.5 0ZM22.5 8.32258C26.9093 8.32258 30.4839 11.7383 30.4839 15.9516C30.4839 20.1649 26.9093 23.5806 22.5 23.5806C18.0907 23.5806 14.5161 20.1649 14.5161 15.9516C14.5161 11.7383 18.0907 8.32258 22.5 8.32258ZM22.5 38.1452C17.1744 38.1452 12.4022 35.8391 9.20867 32.2327C10.9143 29.1637 14.253 27.0484 18.1452 27.0484C18.3629 27.0484 18.5806 27.0831 18.7893 27.1438C19.9688 27.5079 21.2026 27.7419 22.5 27.7419C23.7974 27.7419 25.0403 27.5079 26.2107 27.1438C26.4194 27.0831 26.6371 27.0484 26.8548 27.0484C30.747 27.0484 34.0857 29.1637 35.7913 32.2327C32.5978 35.8391 27.8256 38.1452 22.5 38.1452Z"
+                            fill="white" />
+                          <circle cx="38" cy="32" r="10"  />
+                          <rect x="38.7344" y="36.302" width="4.64306" height="43.9017" rx="2" transform="rotate(136.784 38.7344 36.302)" fill="#6B7280"/>
+                          <rect x="35.4714" y="3.66382" width="4.64306" height="43.8479" rx="2" transform="rotate(42.7223 35.4714 3.66382)" fill="#6B7280"/>
+ 
+                            <defs>
+                            <clipPath id="clip0_98_4">
+                            <rect width="45" height="43" fill="white"/>
+                            </clipPath>
+                            </defs>
+                          
+                        </svg>
+
+
+
+
+
+
+
+
+                      </div>
+                      
+ 
+                      <div
+                        class="nun  clear-button w-[38px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center">
+                        <svg class="ml-[1px]" xmlns="http://www.w3.org/2000/svg" width="48" height="65"
+                          viewBox="0 0 53 50" fill="none">
+                          <path
+                            d="M6.85713 13C5.03851 13 3.29437 12.3152 2.0084 11.0962C0.722438 9.87721 -8.25001e-06 8.22391 -8.25001e-06 6.50001C-8.25001e-06 4.7761 0.722438 3.1228 2.0084 1.90381C3.29437 0.684825 5.03851 5.16574e-06 6.85713 5.16574e-06C8.67576 5.16574e-06 10.4199 0.684825 11.7059 1.90381C12.9918 3.1228 13.7143 4.7761 13.7143 6.50001C13.7143 8.22391 12.9918 9.87721 11.7059 11.0962C10.4199 12.3152 8.67576 13 6.85713 13ZM24 13C22.1814 13 20.4372 12.3152 19.1513 11.0962C17.8653 9.87721 17.1428 8.22391 17.1428 6.50001C17.1428 4.7761 17.8653 3.1228 19.1513 1.90381C20.4372 0.684825 22.1814 5.16574e-06 24 5.16574e-06C25.8186 5.16574e-06 27.5628 0.684825 28.8487 1.90381C30.1347 3.1228 30.8571 4.7761 30.8571 6.50001C30.8571 8.22391 30.1347 9.87721 28.8487 11.0962C27.5628 12.3152 25.8186 13 24 13ZM41.1428 13C39.3242 13 37.5801 12.3152 36.2941 11.0962C35.0082 9.87721 34.2857 8.22391 34.2857 6.50001C34.2857 4.7761 35.0082 3.1228 36.2941 1.90381C37.5801 0.684825 39.3242 5.16574e-06 41.1428 5.16574e-06C42.9615 5.16574e-06 44.7056 0.684825 45.9916 1.90381C47.2775 3.1228 48 4.7761 48 6.50001C48 8.22391 47.2775 9.87721 45.9916 11.0962C44.7056 12.3152 42.9615 13 41.1428 13ZM6.85713 29.25C5.03851 29.25 3.29437 28.5652 2.0084 27.3462C0.722438 26.1272 -8.25001e-06 24.4739 -8.25001e-06 22.75C-8.25001e-06 21.0261 0.722438 19.3728 2.0084 18.1538C3.29437 16.9348 5.03851 16.25 6.85713 16.25C8.67576 16.25 10.4199 16.9348 11.7059 18.1538C12.9918 19.3728 13.7143 21.0261 13.7143 22.75C13.7143 24.4739 12.9918 26.1272 11.7059 27.3462C10.4199 28.5652 8.67576 29.25 6.85713 29.25ZM24 29.25C22.1814 29.25 20.4372 28.5652 19.1513 27.3462C17.8653 26.1272 17.1428 24.4739 17.1428 22.75C17.1428 21.0261 17.8653 19.3728 19.1513 18.1538C20.4372 16.9348 22.1814 16.25 24 16.25C25.8186 16.25 27.5628 16.9348 28.8487 18.1538C30.1347 19.3728 30.8571 21.0261 30.8571 22.75C30.8571 24.4739 30.1347 26.1272 28.8487 27.3462C27.5628 28.5652 25.8186 29.25 24 29.25ZM41.1428 29.25C39.3242 29.25 37.5801 28.5652 36.2941 27.3462C35.0082 26.1272 34.2857 24.4739 34.2857 22.75C34.2857 21.0261 35.0082 19.3728 36.2941 18.1538C37.5801 16.9348 39.3242 16.25 41.1428 16.25C42.9615 16.25 44.7056 16.9348 45.9916 18.1538C47.2775 19.3728 48 21.0261 48 22.75C48 24.4739 47.2775 26.1272 45.9916 27.3462C44.7056 28.5652 42.9615 29.25 41.1428 29.25ZM6.85713 45.5C5.03851 45.5 3.29437 44.8152 2.0084 43.5962C0.722438 42.3772 -8.25001e-06 40.7239 -8.25001e-06 39C-8.25001e-06 37.2761 0.722438 35.6228 2.0084 34.4038C3.29437 33.1848 5.03851 32.5 6.85713 32.5C8.67576 32.5 10.4199 33.1848 11.7059 34.4038C12.9918 35.6228 13.7143 37.2761 13.7143 39C13.7143 40.7239 12.9918 42.3772 11.7059 43.5962C10.4199 44.8152 8.67576 45.5 6.85713 45.5ZM24 45.5C22.1814 45.5 20.4372 44.8152 19.1513 43.5962C17.8653 42.3772 17.1428 40.7239 17.1428 39C17.1428 37.2761 17.8653 35.6228 19.1513 34.4038C20.4372 33.1848 22.1814 32.5 24 32.5C25.8186 32.5 27.5628 33.1848 28.8487 34.4038C30.1347 35.6228 30.8571 37.2761 30.8571 39C30.8571 40.7239 30.1347 42.3772 28.8487 43.5962C27.5628 44.8152 25.8186 45.5 24 45.5ZM24 65C22.1814 65 20.4372 64.3152 19.1513 63.0962C17.8653 61.8772 17.1428 60.2239 17.1428 58.5C17.1428 56.7761 17.8653 55.1228 19.1513 53.9038C20.4372 52.6848 22.1814 52 24 52C25.8186 52 27.5628 52.6848 28.8487 53.9038C30.1347 55.1228 30.8571 56.7761 30.8571 58.5C30.8571 60.2239 30.1347 61.8772 28.8487 63.0962C27.5628 64.3152 25.8186 65 24 65ZM41.1428 45.5C39.3242 45.5 37.5801 44.8152 36.2941 43.5962C35.0082 42.3772 34.2857 40.7239 34.2857 39C34.2857 37.2761 35.0082 35.6228 36.2941 34.4038C37.5801 33.1848 39.3242 32.5 41.1428 32.5C42.9615 32.5 44.7056 33.1848 45.9916 34.4038C47.2775 35.6228 48 37.2761 48 39C48 40.7239 47.2775 42.3772 45.9916 43.5962C44.7056 44.8152 42.9615 45.5 41.1428 45.5Z"
+                            fill="white" />
+                        </svg>
+                      </div>
+
+                    </div>
+                    <div class="w-full h-[39px]   mb-3 flex  items-center justify-around">
+
+                      <div id="addCall" style="width: 38px;
+                      padding: 11px;
+                      background-color: #6B7280;
+                      height: 39px;
+                      border-radius: 200px;
+                       " class=>
+                        <!-- nun clear-button w-[38px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center
+                           <svg xmlns="http://www.w3.org/2000/svg" width="64" height="51" viewBox="0 0 64 51" fill="none">
+                      <path d="M23.8922  w-50 h-43 0 2 123 100    5.84928L14.0067 15.2998H2.66667C1.19333 15.2998 0 16.4408 0 17.8497V33.1489C0 34.5567 1.19333 35.6988 2.66667 35.6988H14.0067L23.8922 45.1493C25.5622 46.7462 28.4444 45.6242 28.4444 43.3463V7.65226C28.4444 5.37224 25.56 4.25454 23.8922 5.84928ZM49.8167 0.422285C48.5756 -0.356491 46.9078 -0.0281937 46.0933 1.16069C45.2778 2.34744 45.6244 3.94218 46.8656 4.72096C54.2289 9.34155 58.6233 17.1091 58.6233 25.5004C58.6233 33.8916 54.2289 41.6592 46.8656 46.2798C45.6244 47.0575 45.2778 48.6533 46.0933 49.839C46.8756 50.9768 48.53 51.3859 49.8167 50.5774C58.6967 45.0038 64 35.6276 64 25.4993C64 15.371 58.6967 5.9959 49.8167 0.422285ZM53.3333 25.4993C53.3333 18.7495 49.7711 12.5438 43.8033 8.89957C42.56 8.14099 40.9111 8.49372 40.1233 9.69216C39.3356 10.8906 39.7033 12.4768 40.9467 13.2365C45.3633 15.9341 48 20.5175 48 25.4993C48 30.4811 45.3633 35.0645 40.9467 37.7621C39.7033 38.5207 39.3356 40.1069 40.1233 41.3064C40.8467 42.4071 42.47 42.915 43.8033 42.099C49.7711 38.4548 53.3333 32.2501 53.3333 25.4993ZM37.5811 17.3322C36.2944 16.6597 34.6711 17.1028 33.9578 18.3363C33.2478 19.5698 33.7178 21.1199 35.0078 21.8009C36.4422 22.5542 37.3333 23.9726 37.3333 25.4993C37.3333 27.0271 36.4422 28.4444 35.0089 29.1977C33.7189 29.8787 33.2489 31.4288 33.9589 32.6623C34.6733 33.9012 36.2978 34.341 37.5822 33.6663C40.7189 32.0142 42.6678 28.8853 42.6678 25.4982C42.6678 22.1111 40.7189 18.9833 37.5811 17.3322Z" fill="white"/>
+                    </svg> -->
+                        <svg width="50" height="43" viewBox="0.5 5 127 100" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M22.5 0C10.0706 0 0 9.62298 0 21.5C0 33.377 10.0706 43 22.5 43C34.9294 43 45 33.377 45 21.5C45 9.62298 34.9294 0 22.5 0ZM22.5 8.32258C26.9093 8.32258 30.4839 11.7383 30.4839 15.9516C30.4839 20.1649 26.9093 23.5806 22.5 23.5806C18.0907 23.5806 14.5161 20.1649 14.5161 15.9516C14.5161 11.7383 18.0907 8.32258 22.5 8.32258ZM22.5 38.1452C17.1744 38.1452 12.4022 35.8391 9.20867 32.2327C10.9143 29.1637 14.253 27.0484 18.1452 27.0484C18.3629 27.0484 18.5806 27.0831 18.7893 27.1438C19.9688 27.5079 21.2026 27.7419 22.5 27.7419C23.7974 27.7419 25.0403 27.5079 26.2107 27.1438C26.4194 27.0831 26.6371 27.0484 26.8548 27.0484C30.747 27.0484 34.0857 29.1637 35.7913 32.2327C32.5978 35.8391 27.8256 38.1452 22.5 38.1452Z"
+                            fill="white" />
+                          <circle cx="38" cy="32" r="10" fill="white" />
+                          <rect x="37" y="27" width="3" height="11" fill="#6B7280" />
+                          <rect x="33" y="34" width="3.06033" height="10.9424" transform="rotate(-89.845 33 34)"
+                            fill="#6B7280" />
+                        </svg>
+
+
+
+
+
+
+
+
+                      </div>
+                      <div id="mergecall" style="display: none;"
+                        class=" nun clear-button w-[38px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center">
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="64" height="51" viewBox="0 0 64 51" fill="none">
+                    <path d="M23.8922 5.84928L14.0067 15.2998H2.66667C1.19333 15.2998 0 16.4408 0 17.8497V33.1489C0 34.5567 1.19333 35.6988 2.66667 35.6988H14.0067L23.8922 45.1493C25.5622 46.7462 28.4444 45.6242 28.4444 43.3463V7.65226C28.4444 5.37224 25.56 4.25454 23.8922 5.84928ZM49.8167 0.422285C48.5756 -0.356491 46.9078 -0.0281937 46.0933 1.16069C45.2778 2.34744 45.6244 3.94218 46.8656 4.72096C54.2289 9.34155 58.6233 17.1091 58.6233 25.5004C58.6233 33.8916 54.2289 41.6592 46.8656 46.2798C45.6244 47.0575 45.2778 48.6533 46.0933 49.839C46.8756 50.9768 48.53 51.3859 49.8167 50.5774C58.6967 45.0038 64 35.6276 64 25.4993C64 15.371 58.6967 5.9959 49.8167 0.422285ZM53.3333 25.4993C53.3333 18.7495 49.7711 12.5438 43.8033 8.89957C42.56 8.14099 40.9111 8.49372 40.1233 9.69216C39.3356 10.8906 39.7033 12.4768 40.9467 13.2365C45.3633 15.9341 48 20.5175 48 25.4993C48 30.4811 45.3633 35.0645 40.9467 37.7621C39.7033 38.5207 39.3356 40.1069 40.1233 41.3064C40.8467 42.4071 42.47 42.915 43.8033 42.099C49.7711 38.4548 53.3333 32.2501 53.3333 25.4993ZM37.5811 17.3322C36.2944 16.6597 34.6711 17.1028 33.9578 18.3363C33.2478 19.5698 33.7178 21.1199 35.0078 21.8009C36.4422 22.5542 37.3333 23.9726 37.3333 25.4993C37.3333 27.0271 36.4422 28.4444 35.0089 29.1977C33.7189 29.8787 33.2489 31.4288 33.9589 32.6623C34.6733 33.9012 36.2978 34.341 37.5822 33.6663C40.7189 32.0142 42.6678 28.8853 42.6678 25.4982C42.6678 22.1111 40.7189 18.9833 37.5811 17.3322Z" fill="white"/>
+                  </svg> -->
+
+
+
+                        <svg width="20" height="15" viewBox="5 0 49 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M9.96163 41.3681L10.3 41.6791L10.6384 41.3681L23.5 29.5458L36.3616 41.3681L36.7 41.6791L37.0384 41.3681L40.3384 38.3348L40.7378 37.9676L40.3393 37.5994L28.9661 27.0911L28.9652 27.0902C28.1079 26.3023 27.462 25.4178 27.0202 24.4364C26.578 23.4541 26.3571 22.4227 26.3571 21.3375V11.4142L29.2931 14.0708L29.6312 14.3767L29.9669 14.0681L33.2669 11.0348L33.6674 10.6667L33.2669 10.2986L23.8384 1.63189L23.5 1.32086L23.1616 1.63189L13.7331 10.2986L13.3326 10.6667L13.7331 11.0348L17.0331 14.0681L17.3688 14.3767L17.7069 14.0708L20.6429 11.4142V21.3375C20.6429 22.4227 20.422 23.4541 19.9798 24.4364C19.538 25.4178 18.8921 26.3023 18.0348 27.0902L18.0339 27.0911L6.66069 37.5994L6.26219 37.9676L6.66163 38.3348L9.96163 41.3681Z"
+                            fill="white" stroke="white" />
+                        </svg>
+
+
+
+
+                      </div>
+
+                      <div id="hangup" style="display:none;
+                    width: 38px;
+                    padding: 8px;
+                    height: 39px;
+                    border-radius:200px;
+                    background-color: #EF4444;
+                    text-align: center;
+                    
+                     "
+                        class=" nun clear-button w-[38px] p-[11px] h-full rounded-full bg-red-500 text-white rounded-full-touch flex justify-center items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" viewBox="13 -2 55 50"
+                          fill="none">
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M54.5241 26.0272C51.5918 17.5908 41.8684 15.8222 34.4671 14.5844C30.9544 13.996 27.025 14.0723 23.8164 14.2094C18.2077 14.4534 6.91914 15.9316 3.38821 24.1308C1.86829 27.6625 3.34637 33.7889 7.37987 32.7311L15.9545 30.8963C15.9545 30.8963 18.0584 30.1993 18.1874 27.7961L18.2929 23.8455C18.2929 23.8455 18.4696 22.3151 20.4258 22.1088C26.2144 21.2485 31.5864 21.3979 37.2854 22.7047C39.5085 23.2161 39.2861 24.5916 39.2861 24.5916L39.2126 27.4854C39.1634 29.896 41.2183 30.7397 41.2183 30.7397L49.5409 34.2323C51.3381 34.8432 52.7935 33.9502 53.7281 32.446C54.8413 30.6544 55.2097 28.0015 54.5241 26.0272Z"
+                            fill="#F8FFFF" />
+                        </svg>
+                      </div>
+                      <div id="holdhangup" style="display:none;
+                    width: 38px;
+                    padding: 8px;
+                    height: 39px;
+                    border-radius:200px;
+                    background-color: #EF4444;
+                    /* background-color: green; */
+                    text-align: center;
+                    
+                     ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" viewBox="13 -2 55 50"
+                          fill="none">
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M54.5241 26.0272C51.5918 17.5908 41.8684 15.8222 34.4671 14.5844C30.9544 13.996 27.025 14.0723 23.8164 14.2094C18.2077 14.4534 6.91914 15.9316 3.38821 24.1308C1.86829 27.6625 3.34637 33.7889 7.37987 32.7311L15.9545 30.8963C15.9545 30.8963 18.0584 30.1993 18.1874 27.7961L18.2929 23.8455C18.2929 23.8455 18.4696 22.3151 20.4258 22.1088C26.2144 21.2485 31.5864 21.3979 37.2854 22.7047C39.5085 23.2161 39.2861 24.5916 39.2861 24.5916L39.2126 27.4854C39.1634 29.896 41.2183 30.7397 41.2183 30.7397L49.5409 34.2323C51.3381 34.8432 52.7935 33.9502 53.7281 32.446C54.8413 30.6544 55.2097 28.0015 54.5241 26.0272Z"
+                            fill="#F8FFFF" />
+                        </svg>
+                      </div>
+
+                      <div id="toggleMuteButton" onclick="changeBackground()" style="background-color:#6B7280;"
+                        class=" nun clear-button w-[38px] p-[11px] h-full rounded-full text-white rounded-full-touch flex justify-center items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="30" viewBox="2 0 40 50">
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M34.6451 30.0434C35.197 28.4205 35.4778 26.7177 35.4762 25.0035V21.879C35.4762 21.4646 35.3116 21.0673 35.0187 20.7743C34.7257 20.4813 34.3283 20.3167 33.914 20.3167C33.4996 20.3167 33.1022 20.4813 32.8093 20.7743C32.5163 21.0673 32.3517 21.4646 32.3517 21.879V25.0035C32.3517 25.8597 32.2673 26.6908 32.1017 27.5001L34.6451 30.0434ZM26.765 35.4177C24.8819 36.6675 22.6952 37.3833 20.4376 37.489C18.18 37.5946 15.936 37.0861 13.9444 36.0175C11.9529 34.949 10.2884 33.3604 9.12806 31.4209C7.96775 29.4814 7.35505 27.2636 7.35521 25.0035V21.879C7.35521 21.4646 7.19061 21.0673 6.89763 20.7743C6.60464 20.4813 6.20727 20.3167 5.79293 20.3167C5.37859 20.3167 4.98122 20.4813 4.68823 20.7743C4.39525 21.0673 4.23065 21.4646 4.23065 21.879V25.0035C4.2306 28.8765 5.66915 32.6114 8.26721 35.4837C10.8653 38.356 14.4376 40.1609 18.2912 40.5482V46.8754H8.91749C8.50315 46.8754 8.10578 47.04 7.81279 47.333C7.51981 47.626 7.35521 48.0234 7.35521 48.4377C7.35521 48.8521 7.51981 49.2494 7.81279 49.5424C8.10578 49.8354 8.50315 50 8.91749 50H30.7894C31.2037 50 31.6011 49.8354 31.8941 49.5424C32.1871 49.2494 32.3517 48.8521 32.3517 48.4377C32.3517 48.0234 32.1871 47.626 31.8941 47.333C31.6011 47.04 31.2037 46.8754 30.7894 46.8754H21.4157V40.5482C24.1575 40.277 26.778 39.2817 29.0084 37.6642L26.765 35.4177ZM29.2271 24.6286V9.38074C29.2288 7.15777 28.4404 5.00656 27.0026 3.31112C25.5649 1.61569 23.5714 0.486392 21.378 0.124835C19.1847 -0.236722 16.9342 0.192993 15.0283 1.33727C13.1225 2.48154 11.6854 4.2659 10.9734 6.37179L29.2271 24.6286ZM10.4798 19.1294L24.4965 33.1461C23.0709 33.959 21.4568 34.3834 19.8157 34.3768C18.1746 34.3702 16.564 33.9328 15.1449 33.1085C13.7259 32.2841 12.5481 31.1017 11.7294 29.6793C10.9107 28.257 10.4798 26.6447 10.4798 25.0035V19.1294ZM37.4947 41.7324L0 4.23772L2.21219 2.02553L39.7069 39.5202L37.4947 41.7293V41.7324Z"
+                            fill="white" />
+                        </svg>
+                        </svg>
+                      </div>
+                      <script>
+                        let muteclicked = false;
+
+                        function changeBackground() {
+                          const buttonrol = document.getElementById('toggleMuteButton');
+
+                          if (!muteclicked) {
+                            buttonrol.style.backgroundColor = '#EF4444';
+                            muteclicked = true;
+                          } else {
+                            buttonrol.style.backgroundColor = '#6B7280';
+                            muteclicked = false;
+                          }
+                        }
+                      </script>
+
+
+                    </div>
+
+
+
+
+
+
+
+                  </div>
+
+
+
+
+                </div>
+                <DIV style="margin-top: 7px;" class=" flex justify-center items-center">
+                  <div class=" h-[5.1px] rounded-full w-[96PX]   z-10 bg-zinc-950  ">
+
+                  </div>
+                </DIV>
+              </div>
+              <style>
+                .changingText {
+                  animation: highlight 0.75s infinite alternate;
+                  /* Animation to run for 2 seconds, alternate direction, and repeat infinitely */
+                }
+
+                @keyframes highlight {
+                  0% {
+                    color: #3eff37;
+                    /* Highlighted color */
+                  }
+
+                  100% {
+                    color: rgb(0, 0, 0);
+                    /* Natural color */
+                  }
+                }
+              </style>
+              <div id="conferenceDialer" style="display: none;">
+                <div class="w-full h-20">
+                  <button type="text" id="returnToprevious" style="font-size: 15px;
+                  height: 20px;
+                  background-color: #20a851;
+                  display: flex;
+          justify-content: space-between; 
+            align-items: center;
+            width: 100%;"
+                    class="changingText text-center mt-2 text-l text-[#37B7FF]">
+                    <p style="margin-left: 2px;" class="changingText text-center  text-l text-[#37B7FF]" >00:00</p>
+                    <p style="margin-right: 2px;" class="changingText text-center  text-l text-[#37B7FF]">Return to Call</p>
+                  </button>
+                  <div type="text" id="displayNumber1" style="font-size: 17px;" class="text-center text-xl">7023236685
+                  </div>
+
+                  <input type="text" id="phoneNumber" class="text-center  text-xl" style="pointer-events: none;" placeholder="Enter a number">
+
+                </div>
+                <div class="dial-pad w-full h-[300px] bg-white px-[20px] py-3 flex justify-center items-center">
+                  <div class=" flex flex-col w-full h-full bg-white">
+                    <div class="w-full h-[39px]   mb-3 flex  items-center justify-around">
+
+                      <div onclick="appendcopyNumber(1)"
+                        class=" rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        1</div>
+                      <div onclick="appendcopyNumber(2)"
+                        class=" rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        2</div>
+                      <div onclick="appendcopyNumber(3)"
+                        class=" rishi  w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        3</div>
+
+                    </div>
+                    <div class=" w-full h-[39px]   mb-3 flex  items-center justify-around">
+
+                      <div onclick="appendcopyNumber(4)"
+                        class=" rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        4</div>
+                      <div onclick="appendcopyNumber(5)"
+                        class=" rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        5</div>
+                      <div onclick="appendcopyNumber(6)"
+                        class=" rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        6</div>
+
+                    </div>
+                    <div class="w-full h-[39px]   mb-3 flex  items-center justify-around">
+
+                      <div onclick="appendcopyNumber(7)"
+                        class=" rishi  w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        7</div>
+                      <div onclick="appendcopyNumber(8)"
+                        class=" rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        8</div>
+                      <div onclick="appendcopyNumber(9)"
+                        class=" rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        9</div>
+
+                    </div>
+                    <div class="w-full h-[39px]   mb-3 flex  items-center justify-around">
+
+                      <div onclick="appendcopyNumber('*')"
+                        class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        *</div>
+                      <div onclick="appendcopyNumber(0)"
+                        class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        0</div>
+                      <div onclick="appendcopyNumber('#')"
+                        class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center  justify-center rounded-full-touch">
+                        #</div>
+
+                    </div>
+                    <div class="w-full h-[39px]   mb-3 flex  items-center justify-around">
+
+                      <div class="w-[39px] h-full rounded-full  p-2 text-center  justify-center"></div>
+                      <!-- <div class="jsprt call-touch" id="returnToprevious">
+                          <svg class="svg-inline--fa fa-envelope" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="envelope" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"></path></svg> 
+                      </div> -->
+                      
+
+                      <div class="jsprt call-touch" id="dialConfNumber">
+
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone"
+                          class="svg-inline--fa fa-phone " role="img" xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512" width="16" height="16">
+                          <path fill="currentColor"
+                            d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z">
+                          </path>
+                        </svg>
+                      </div>
+                      <div onclick="clearconferenceNumber()"
+                        class=" clear-button w-[35px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="rectangle-xmark"
+                          class="svg-inline--fa fa-rectangle-xmark " role="img" xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512" width="16" hanging="16">
+                          <path fill="currentColor"
+                            d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z">
+                          </path>
+                        </svg>
+                      </div>
+
+
+                    </div>
+                    <script>
+                      document.getElementById('dialbtn').addEventListener('click', function () {
+                        let otherButtons = document.getElementsByClassName('otherBtn');
+                        for (let i = 0; i < otherButtons.length; i++) {
+                          otherButtons[i].disabled = true;
+                        }
+                      });
+                    </script>
+
+
+
+
+
+
+                  </div>
+
+
+
+
+                </div>
+                <DIV style="margin-top:15px ;" class=" flex justify-center items-center">
+                  <div class=" h-[5.1px] rounded-full w-[96PX]   z-10 bg-zinc-950  ">
+
+                  </div>
+                </DIV>
+              </div>
+              <SCRIPT>
+
+
+              </SCRIPT>
+              <script>
+                var conferanceChannel;
+                document.getElementById("addCall").addEventListener("click", function () {
+
+                  const divones = document.getElementById("hangup");
+                  const divtwos = document.getElementById("holdhangup");
+
+                  if (divones.style.display === "block") {
+                    divones.style.display = "none";
+                    divtwos.style.display = "block";
+                  }
+                });
+
+
+
+
+                document.getElementById("holdhangup").addEventListener("click", async function () {
+                  if (conferanceChannel != null && conferanceChannel != undefined) {
+                    const user = document.getElementById("username").value;
+                    const url = `/reqHangConf/${user}`;
+                    document.getElementById("holdhangup").classList.add("holddisabled");
+                    await fetch(url, {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                        //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+                      },
+                      body: JSON.stringify({ channel: conferanceChannel })
+
+                    })
+                      .then((response) => {
+                        document.getElementById("holdhangup").classList.remove("holddisabled");
+                        return response.json();
+                      })
+                      .then((data) => {
+                        //const data={message:"call hangedUp"};
+                        if (data.message == "call hangedUp") {
+                          const divones = document.getElementById("hangup");
+                          const divtwos = document.getElementById("holdhangup");
+
+
+                          if (divtwos.style.display === "block") {
+                            divones.style.display = "block";
+                            divtwos.style.display = "none";
+                            holdapply = false;
+                            holdbtn.classList.remove("applyhold");
+                            holdbtn.classList.remove("holddisabled");
+                            document.getElementById("holdDisplay").style.display = "none";
+                            document.getElementById("unholdDisplay").style.display = "block";
+                            document.getElementById("mergecall").style.display = "none";
+                            document.getElementById("addCall").style.display = "block";
+                          };
+                          
+                      
+
+                          
+
+
+                        } else {
+                          console.log(data.message);
+                          displayMessage(data.message)
+                        }
+
+                      })
+                      .catch((error) => {
+                        console.error("Error sending call answer request:", error);
+                      });
+                  } else {
+                    displayMessage(" No channel to Hangup");
+                  }
+
+                })   
+              </script>
+
+              <script>
+                document.getElementById("mergecall").addEventListener("click", async function () {
+                  console.log("trying merging the call,hold apply", holdapply);
+                  if (holdapply == true) {
+                    const user = document.getElementById("username").value;
+                    console.log("mergingcall");
+                    const url = `/reqUnHold/${user}`;
+                    // holdbtn.classList.add("holddisabled");
+                    // document.getElementById("mergecall").classList.add("holddisabled");
+                    // Make a unhold request to the server
+                    await fetch(url, {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                        //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+                      }
+
+                    })
+                      .then((response) => {
+                        // document.getElementById("mergecall").classList.remove("holddisabled");
+                        holdbtn.classList.remove("holddisabled");
+                        return response.json();
+                      })
+                      .then((data) => {
+                        // const data ={message:"removed hold"};
+                        if (data.message === "removed hold") {
+                          holdapply = false;
+                          holdbtn.classList.remove("applyhold");
+                          const divthree = document.getElementById("holdhangup");
+                          const divfour = document.getElementById("hangup");
+
+                          if (divthree.style.display === "block") {
+                            divthree.style.display = "none";
+                            divfour.style.display = "block";
+                          }
+                          const divfive = document.getElementById("mergecall");
+                          const divsix = document.getElementById("addCall");
+
+                          if (divfive.style.display === "block") {
+
+                            
+                            divfive.style.display = "none";
+                            divsix.style.display = "block";
+                          }
+
+                          const divone = document.getElementById("holdDisplay");
+                          const divtwo = document.getElementById("mergeDisplay");
+
+                          if (divone.style.display === "block") {
+                            divone.style.display = "none";
+                            divtwo.style.display = "block";
+                          }
+                         
+                            document.getElementById("audioOnly").style.display = "none";
+                            document.getElementById("newcallHangup").style.display = "block";                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                          
+
+                        } else {
+                          console.log("response error from server");
+                        }
+
+                      })
+                      .catch((error) => {
+                        console.error("Error sending call answer request:", error);
+                      });
+                  }
+
+
+                });
+              </script>
+
+
+              <script>
+
+
+
+                const button1 = document.getElementById("addCall");
+                const button2 = document.getElementById("dialConfNumber");
+                const button3=document.getElementById("returnToprevious");
+                function toggleDivs1() {
+                  const divA = document.getElementById("afterCall");
+                  const divB = document.getElementById("conferenceDialer");
+                  divA.style.display = "none";
+                  divB.style.display = "block";
+
+                };
+                function toggleDivs2() {
+                  const divA = document.getElementById("afterCall");
+                  const divB = document.getElementById("conferenceDialer");
+                  document.getElementById("holdhangup").style.display="none";
+                  document.getElementById("hangup").style.display="block";
+                  divA.style.display = "block";
+                  divB.style.display = "none";
+
+                };
+
+
+                function toggleDivs() {
+                  const divA = document.getElementById("afterCall");
+                  const divB = document.getElementById("conferenceDialer");
+                  divA.style.display = "block";
+                  divB.style.display = "none";
+
+                };
+
+                button1.addEventListener("click", toggleDivs1);
+                button2.addEventListener("click", confdialCall);
+                 button3.addEventListener("click",toggleDivs2);
+                async function confdialCall() {
+                  const confNumber = document.getElementById("phoneNumber").value;
+                  if (confNumber != undefined && confNumber != "") {
+                    //console.log(confNumber);
+                    const user = document.getElementById("username").value;
+                    document.getElementById("secondnumber").innerText = confNumber;
+                    document.getElementById("secondnumber1").innerText = confNumber;
+                    const url = `/reqConf/${user}`;
+                    button2.classList.add("holddisabled");
+                    await fetch(url, {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                        //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+                      },
+                      body: JSON.stringify({
+                        confNumber: confNumber
+
+                      })
+
+                    })
+                      .then((response) => {
+                        button2.classList.remove("holddisabled");
+
+                        return response.json();
+                      })
+                      .then((data) => {
+                        // const data={message:"conferance call dialed"};
+                        if (data.message === "conferance call dialed") {
+                          conferanceChannel = data.result;
+                          holdapply = true;
+                          holdbtn.classList.add("applyhold");
+                          holdbtn.classList.add("holddisabled");
+                          console.log("conferance call ")
+                          toggleDivs();
+                          toggleSVGs();
+
+                        } else {
+                          console.log(data.message);
+                        }
+
+                      })
+                      .catch((error) => {
+                        console.error("Error sending call answer request:", error);
+                      });
+
+
+                  } else {
+
+                    displayMessage();
+
+                  }
+
+
+                }
+
+              </script>
+
+              <script>
+                function toggleSVGs() {
+                  const svg1 = document.getElementById("addCall");
+                  const svg2 = document.getElementById("mergecall");
+                  const box1 = document.getElementById("unholdDisplay");
+                  const box2 = document.getElementById("holdDisplay");
+                  const button6 = document.getElementById("holdhangup");
+
+                  svg1.style.display = "none";
+                  svg2.style.display = "block";
+                  box1.style.display = "none";
+                  box2.style.display = "block";
+                  button6.style.display = "block";
+                }
+              </script>
+              <script>
+
+              </script>
+
+
+
+
+            </div>
+
+          </div>
+
+
+
+
+
+          <script>
+            function appendcopyNumber(num) {
+              document.getElementById("phoneNumber").value += num;
+            }
+
+            function clearconferenceNumber() {
+              let phoneNumber = document.getElementById("phoneNumber");
+              phoneNumber.value = phoneNumber.value.slice(0, -1);
+            }
+
+            function dialNumber() {
+              let phoneNumber = document.getElementById("phoneNumber").value;
+              alert("Dialing " + phoneNumber);
+              // Add code here to actually dial the number
+            }
+            document.body.addEventListener('keydown', function (e) {
+              if (e.key === 'Backspace') {
+                clearconferenceNumber();
+              }
+            });
+          </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <div class=" neeche containerimage">
+
+            <div class="w-[500px] h-[200px] flex-col rounded-md border-[2px] border-gray-300 shadow-lg dr">
+              <div class="  h-[30px] mt-1 mx-1 flex items-center rounded-md  border-gray-300 border-opacity-5">
+                <div
+                  class=" w-[125px] h-[25px] bg-[#2981C1] mx-1 rounded-md text-[0.80rem] text-white font-[600] flex justify-center items-center px-1 hover:cursor-pointer  ">
+                  Customer Details
+
+                </div>
+                <div
+                  class=" w-[85px] h-[25px] bg-[#EAEFF4] mx-1 rounded-md text-[0.80rem] text-[#A5A9AC] font-[600] flex justify-center items-center  hover:cursor-pointer ">
+                  Analytics
+                </div>
+
+
+
+              </div>
+              <div class=" h-[154px]  flex justify-center items-center">
+                <div class="h-[110px] w-[98%]   flex items-center ">
+                  <div class="w-[100px] h-[95px] bg-[#A5A9AC] rounded-full mx-2">
+                    <img src="user-icon.jpg" alt="">
+
+                  </div>
+                  <div class="w-[80%] h-full flex-col">
+                    <div class=" w-[98%] h-7 bg-white  flex items-center font-[500]">
+                      No info found
+                    </div>
+                    <div class=" w-[98%] h-7 bg-white flex items-center font-[500]">
+                      -----
+                    </div>
+                    <div class=" w-[98%] h-7 bg-white  flex items-center font-[500]">
+                      -----
+                    </div>
+                    <div class=" w-[98%] h-7 bg-white flex items-center font-[500]">
+                      -----
+                    </div>
+
+
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+        <img class="phonesvg" src="phonesvg.svg" alt="">
+      </div>
+
+
+
+
+      <div class="auto-leads" style="display:none;" id="leaddiv">
+
+
+        <div class="Lead-form-container">
+          <div class="leadform">
+            <header>Caller/Campaign</header>
+            <div class="form-button-container">
+              <button class="form-button" id="leaddial">DIAL</button>
+              <button class="form-button" id="nextlead">Next Lead</button>
+            </div>
+
+            <form action="#" class="form-lead">
+              <div class="input-box new">
+                <label>Full Name</label>
+                <input type="text" id="leadfullname" placeholder="Enter full name" required />
+              </div>
+
+              <div class="input-box new">
+                <label>Email Address</label>
+                <input type="text" id="leademailaddress" placeholder="Enter email address" required />
+              </div>
+
+              <div class="column">
+                <div class="input-box new">
+                  <label>Phone Number</label>
+                  <input type="number" id="leadphonenumber" placeholder="Enter phone number" required />
+                </div>
+              </div>
+
+              <div class="input-box address">
+                <label>Address</label>
+                <input type="text" id="leadaddress1" placeholder="Enter street address" required />
+                <input type="text" id="leadaddress2" placeholder="Enter street address 2" required />
+                <select id="leadcountry">
+                  <option hidden>Country</option>
+                  <option>America</option>
+                  <option>Japan</option>
+                  <option>India</option>
+                  <option>Nepal</option>
+                </select>
+                <input type="text" id="leadcity" placeholder="Enter your city" required />
+                <input type="number" id="leadpostal" placeholder="Postal code" required />
+                <input type="text" id="leadregion" placeholder="Enter region" required />
+
+              </div>
+            </form>
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+
+      <div id="Disposition" style="display:none;">
+        <div class="container mt-5 form-container">
+          <h2 class="mb-5 text-center">Disposition Call</h2>
+          <form id="callForm">
+            <div class="row justify-content-center">
+              <div class="col-md-4 custom-column">
+                <!-- <a class="btn btn-primary" data-action="Answering Machine">A - Answering Machine</a> -->
+                <a class="btn btn-primary" data-action="Busy">B - Busy</a>
+                <a class="btn btn-primary" data-action="Not Reachable">NR - Not Reachable</a>
+                <!-- <a class="btn btn-primary" data-action="Call Back">CALLBK - Call Back</a> -->
+                
+              </div>
+              <div class="col-md-4 custom-column">
+                <a class="btn btn-primary" data-action="Switched Off">SW -Switched Off</a>
+                <!-- <a class="btn btn-primary" data-action="Declined Sale">DEC - Declined Sale</a> -->
+                <a class="btn btn-primary" data-action="Interested">INT - Interested</a>
+                <a class="btn btn-primary" data-action="Not Answered">N - Not Answered</a>
+              </div>
+              <div class="col-md-4 custom-column">
+                <!-- <a class="btn btn-primary" data-action="Not Interested">NI - Not Interested</a> -->
+                
+                <a class="btn btn-primary" data-action="Test Call">TEST - Test Call</a>
+                <!-- <a class="btn btn-primary" data-action="Call Transferred">XFER - Call Transferred</a> -->
+                <a class="btn btn-primary" data-action="Connected">CO -Connected</a>
+              </div>
+            </div>
+            <div class="row mt-3 mb-3">
+              <div class="col-md-12 text-center">
+
+                <input type="checkbox" id="checkautoleaddial" value="Yes">
+                <label1 for="autodialCheckbox" style="color: #ffffff; font-weight: bold;">Auto Dial off</label1>
+
+                <button type="button" class="btn btn-success mb-2" onclick="submitForm()">Submit</button>
+                <button type="button" class="btn btn-secondary mb-2" onclick="clearForm()">Clear Form</button>
+
+                <input type="checkbox" id="breakCheckbox" value="Yes">
+                <label1 for="breakCheckbox" style="color: #ffffff; font-weight: bold;">Add Break</label1>
+
+              </div>
+            </div>
+          </form>
+        </div>
+
+
+        <!-- Modal for displaying alert message -->
+        <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-body text-center" id="alertModelContant">
+                Please select an action before submitting.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+
+  <script src="jssip-3.10.0.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+
+  </script>
+
+  <script>
+    dragElement(document.getElementById("meradiv"));
+
+    function dragElement(elmnt) {
+      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+      if (document.getElementById(elmnt.id + "header")) {
+        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+        document.getElementById(elmnt.id + "header").addEventListener("touchstart", touchStart, { passive: false });
+      } else {
+        elmnt.onmousedown = dragMouseDown;
+        elmnt.addEventListener("touchstart", touchStart, { passive: false });
+      }
+
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+
+      function closeDragElement() {
+        // stop moving when the mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+
+      function touchStart(e) {
+        // Get the initial touch position
+        var touch = e.touches[0];
+        pos3 = touch.clientX;
+        pos4 = touch.clientY;
+        elmnt.addEventListener("touchmove", touchMove, { passive: false });
+        elmnt.addEventListener("touchend", touchEnd);
+      }
+
+      function touchMove(e) {
+        e.preventDefault();
+        var touch = e.touches[0];
+        // calculate the new touch position
+        pos1 = pos3 - touch.clientX;
+        pos2 = pos4 - touch.clientY;
+        pos3 = touch.clientX;
+        pos4 = touch.clientY;
+        // set the element's new position
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+
+      function touchEnd() {
+        elmnt.removeEventListener("touchmove", touchMove);
+        elmnt.removeEventListener("touchend", touchEnd);
+      }
+    }
+
+  </script>
+
+
+  <script>
+
+    // Function to update the current time with AM/PM
+    function updateCurrentTime(id) {
+      let currentTimeElement = document.getElementById(id);
+      let currentTime = new Date();
+
+      // Extract hours, minutes, and seconds
+      let hours = currentTime.getHours();
+      let minutes = currentTime.getMinutes();
+
+
+      // Determine AM/PM
+      let meridiem = (hours < 12) ? "AM" : "PM";
+
+      // Convert 2~4-hour time to 12-hour time
+      hours = (hours % 12 === 0) ? 12 : hours % 12;
+
+      // Add leading zeros if needed
+      hours = (hours < 10) ? "0" + hours : hours;
+      minutes = (minutes < 10) ? "0" + minutes : minutes;
+
+      // Display the current time with AM/PM in the "currentTime" element
+      currentTimeElement.textContent = hours + ":" + minutes + meridiem;
+    }
+
+    // Update the time every second (1000 milliseconds)
+    setInterval(updateCurrentTime("currentTime"), 1000);
+    setInterval(updateCurrentTime("currenttime"), 1000);
+
+    // Initial call to display the time immediately
+    updateCurrentTime("currentTime");
+    updateCurrentTime("currenttime");
+  </script>
+
+  <script>
+    const audio = document.getElementById('remoteaudio');
+    const element = document.getElementById("register");
+    const localvideo = document.getElementById("localvideo");
+    const remotevideo = document.getElementById("remotevideo");
+    const regUser = document.getElementById("regUser");
+    const leadinfo = document.getElementById("rishi");
+    let holdbtn = document.getElementById("holdbtn");
+    holdbtn.addEventListener("click", togglehold);
+    // Create a custom event
+    const customEvent = new CustomEvent('dispodone')
+
+    element.addEventListener("click", startphone);
+    const dialelemnt = document.getElementById("dialbtn");
+    dialelemnt.addEventListener("click", dialfunc)
+    const hangupButton = document.getElementById("hangup");
+    hangupButton.addEventListener("click", ()=>endCall("button clicked"));
+    const toggleMuteButton = document.getElementById('toggleMuteButton');
+    toggleMuteButton.addEventListener('click', toggleMute);
+    //const maximizeButton = document.getElementById('maximize');
+    // maximizeButton.addEventListener('click', maximize);
+    const audioOnlyButton = document.getElementById('audioOnly');
+    audioOnlyButton.addEventListener('click', audioOnly);
+    const Callernumber = document.getElementById("phonenumber");
+
+    const retryelement = document.getElementById("retry");
+    retryelement.addEventListener("click", retryregistration);
+    const phoneClickButton = document.getElementById("phoneClickButton");
+    phoneClickButton.addEventListener("click", switchPhone);
+    const displayNumber = document.getElementById("displayNumber");
+    const displayNumber1 = document.getElementById("displayNumber1");
+    const dialTimer = document.getElementById("dialTimer");
+    var imginholdbtn = document.querySelector("#holdbtn img");
+
+    var ua;
+    var options;
+    var session;
+    let isAudioOnly = false;
+    let isFullscreen = false;
+    var callended = true; //declaring var for handing end call function
+    var calldata;
+    var leads;
+    var holdapply = false;
+    var userlogin = false;
+    var phone1hide = false;
+    var Callnumber;
+    let startTime;
+    let intervalId;
+    var dialclicked=false;
+    var externalApi;
+    var callstartApi=false;
+    var agentPOPApi =false;
+    var callendApi =false;
+    
+
+    const phone1div = document.getElementById("mydiv");
+    async function togglehold() {
+      const user = document.getElementById("username").value;
+      if (holdapply === false) {
+        console.log("applying hold");
+        holdbtn.classList.add("holddisabled");
+        const url = `/reqHold/${user}`;
+        // Make a hold request to the server
+        await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+          }
+
+        })
+          .then((response) => {
+            holdbtn.classList.remove("holddisabled");
+            return response.json();
+          })
+          .then((data) => {
+            //const data={message:"hold applied"};
+            if (data.message === "hold applied") {
+              holdapply = true;
+              holdbtn.classList.add("applyhold");
+
+            } else {
+              console.log("response error from server");
+            }
+
+          })
+          .catch((error) => {
+            console.error("Error sending call answer request:", error);
+          });
+
+        //holdbtn.style.color="red";
+
+      } else {
+        console.log("removing hold");
+        const url = `/reqUnHold/${user}`;
+        holdbtn.classList.add("holddisabled");
+
+        // Make a unhold request to the server
+        await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+          }
+
+        })
+          .then((response) => {
+            holdbtn.classList.remove("holddisabled");
+            return response.json();
+          })
+          .then((data) => {
+            // const data={message:"removed hold"};
+            if (data.message === "removed hold") {
+              holdapply = false;
+              holdbtn.classList.remove("applyhold");
+            } else {
+              console.log("response error from server");
+            }
+
+          })
+          .catch((error) => {
+            console.error("Error sending call answer request:", error);
+          });
+      }
+    }
+     
+
+
+let transferbuttonClicked = false;
+
+async function handleClick() {
+  const user = document.getElementById("username").value;
+    if (!transferbuttonClicked) {
+        //console.log("Button clicked for the first time.");
+        transferbuttonClicked = true;
+       
+        const url = `/reqTransfer/${user}`;
+
+        // Make a unhold request to the server
+        await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+          }
+
+        })
+          .then((response) => {
+           // holdbtn.classList.remove("holddisabled");
+            return response.json();
+          })
+          .then((data) => {
+            // const data={message:"removed hold"};
+            if (data.message === "Call transfered sucessfully") {
+              transferbuttonClicked = false;
+              displayMessage(data.message);
+            } else {
+              console.log("response error from server");
+              transferbuttonClicked = false;
+              displayMessage(data.message);
+            }
+
+          })
+          .catch((error) => {
+            console.error("Error sending call answer request:", error);
+          });
+      
+    } else {
+      displayMessage("You have already clicked the button.");
+    }
+}
+ 
+    
+
+    async function checkMicrophoneAvailability() {
+      try {
+        // Check if getUserMedia is available in the browser
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          // Try to access the user's microphone
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          console.log('Microphone is available');
+          // Microphone is available, do something here
+          return true;
+        } else {
+          console.error('getUserMedia is not supported in this browser');
+          // getUserMedia is not supported in this browser
+          return false;
+        }
+      } catch (error) {
+        console.error('Error accessing microphone:', error);
+        // Microphone is not available or access was denied
+        return false;
+      }
+    }
+
+
+    function switchPhone() {
+      if (phone1hide === false) {
+        phone1hide = true;
+        phone1div.style.display = "none";
+      }
+      else {
+        phone1hide = false;
+        phone1div.style.display = "block";
+      }
+
+    }
+    function startTimer() {
+      // If not running, start the stopwatch
+      startTime = new Date().getTime();
+      intervalId = setInterval(updateDisplay, 1000);
+
+    }
+    function resetTime() {
+      // Reset the stopwatch
+      clearInterval(intervalId);
+    }
+
+    function updateDisplay() {
+      // Update the elapsed time on the display
+      const currentTime = new Date().getTime();
+      const elapsedMilliseconds = currentTime - startTime;
+      const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+      const hours = Math.floor(elapsedSeconds / 3600);
+      const minutes = Math.floor((elapsedSeconds % 3600) / 60);
+      const seconds = elapsedSeconds % 60;
+
+      const displayText = `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      dialTimer.innerText = displayText;
+    }
+
+    function formfill(leads) {
+      const name = document.getElementById("fullname");
+      const email = document.getElementById("emailaddress");
+      const address1 = document.getElementById("address1");
+      const address2 = document.getElementById("address2");
+      const country = document.getElementById("country");
+      const city = document.getElementById("city");
+      const region = document.getElementById("region");
+      const postal = document.getElementById("postal");
+
+      name.value = leads.name || "";
+      email.value = leads.email || "";
+      address1.value = leads.address1 || "";
+      address2.value = leads.address2 || "";
+      country.value = leads.country || "";
+      city.value = leads.city || "";
+      region.value = leads.region || "";
+      postal.value = leads.postal || "";
+
+
+    }
+    function audioOnly() {
+      console.log("No video div to hide");
+      // if (isAudioOnly) {
+      //   // Switch back to video
+
+      //   localvideo.style.display = 'block';
+      //   isAudioOnly = false;
+      // } else {
+      //   // Switch to audio-only
+
+      //   localvideo.style.display = 'none';
+      //   isAudioOnly = true;
+      // }
+    }
+    function maximize() {
+
+
+
+      if (!isFullscreen) {
+        // If not in fullscreen, maximize
+        if (remotevideo.requestFullscreen) {
+          remotevideo.requestFullscreen();
+        } else if (remotevideo.mozRequestFullScreen) {
+          remotevideo.mozRequestFullScreen();
+        } else if (remotevideo.webkitRequestFullscreen) {
+          remotevideo.webkitRequestFullscreen();
+        } else if (remotevideo.msRequestFullscreen) {
+          remotevideo.msRequestFullscreen();
+        }
+        isFullscreen = true; // Update fullscreen state
+      } else {
+        // If already in fullscreen, minimize
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+        isFullscreen = false; // Update fullscreen state
+      }
+    }
+
+    async function endCall(buttunpressed) {
+      const hangup = document.getElementById("hangup");
+      const holdhangup = document.getElementById("holdhangup");
+      const unholdisplay = document.getElementById("unholdDisplay");
+      const mergedisplay = document.getElementById("mergeDisplay");
+
+
+      if (mergedisplay.style.display === "block") {
+        mergedisplay.style.display = "none";
+        unholdisplay.style.display = "block";
+
+      }
+      if (holdhangup.style.display === "block") {
+        holdhangup.style.display = "none";
+        //hangup.style.display = "block";
+      }
+
+
+      // console.log("session",session);
+      console.log(" line no 1658 callended", callended);
+      // Check if there is an active call session (session variable is defined)
+      if (session && callended === false) {
+        //callended =false;
+        //  if ( callended === false) {
+        try {
+          callended = true;
+          const response = await fetch(`/user/callended${username.value}`, {
+            method: "POST",
+          });
+
+          if (response) {
+            const result = await response.json();
+            // const result={message:"call ended sucessfully."};
+            if (result) {
+              if (result.message === "call ended sucessfully.") {
+                console.log(result.message);
+                // Terminate the call session
+                session.terminate();
+                // Reset the video elements
+                //localvideo.srcObject = null;
+                //remotevideo.srcObject = null;
+
+                // Hide the video call UI and show the preview UI
+                const preview = document.getElementById("preview");
+                const postView = document.getElementById("postview");
+                const disposition = document.getElementById("Disposition");
+                postView.style.display = "none";
+                preview.style.display = "none";
+                disposition.style.display = "block";
+                // Remove the hang-up button
+                // hangupButton.style.display = "none";
+              }
+              else {
+                //failed case
+                console.log(result.message);
+              }
+
+            }
+            else {
+              alert("Unable to execuate due to connection problem");
+            }
+          }
+        }
+        catch (err) {
+          console.log("error:", err);
+
+        }
+
+
+      }else{
+        dialclicked=false;
+        if(buttunpressed){
+        displayMessage("No Call to hangup");
+        }
+
+      }
+    }
+    function toggleMute() {
+      // Check if there is an active call session (session variable is defined)
+      if (session) {
+        // Toggle the mute state of the call
+        const isMuted = session.isMuted().audio;
+
+        if (isMuted) {
+          // If currently muted, unmute the call
+          session.unmute({
+            audio: true, // Unmute the audio
+          });
+        } else {
+          // If currently unmuted, mute the call
+          session.mute({
+            audio: true, // Mute the audio
+
+          });
+        }
+
+        // Optionally, you can update the UI to reflect the mute state
+        updateMuteButtonState(isMuted);
+      }
+    }
+
+    // Function to update the UI of the mute/unmute button
+    function updateMuteButtonState(isMuted) {
+      // Update the button's appearance based on the mute state
+      if (isMuted) {
+        // Set the button to show as muted
+        toggleMuteButton.classList.remove('muted');
+      } else {
+        // Set the button to show as unmuted
+        toggleMuteButton.classList.add('muted');
+      }
+    }
+
+
+    async function startphone() {
+      console.log("start button clicked");
+      const isMicroPhone = await checkMicrophoneAvailability();
+      if (isMicroPhone === true) {
+        var socket = new JsSIP.WebSocketInterface(
+          "wss://devapp.iotcom.io:8089/ws"
+        );
+
+        let user = document.getElementById("username").value;
+        let extension = user.replace("@", "-");
+        let pass = document.getElementById("password").value
+        console.log(user)
+        console.log(pass)
+
+       
+
+        let configuration = {
+          sockets: [socket],
+          uri: `sip:${extension}@devapp.iotcom.io`,
+          authorization_user: extension,
+          password: pass,
+        };
+
+        ua = new JsSIP.UA(configuration);
+
+        const url = `/userlogin/${user}`;
+        // Make a edit request to the server
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+          }, body: JSON.stringify({ password: pass }),
+
+
+        })
+          .then((response) => {
+
+            return response.json();
+          })
+          .then((data) => {
+            //const data={message:"success,Proceed to login"};
+            console.log(data.message);
+            if (data.message === "success,Proceed to login") {
+              console.log("starting ua");
+              ua.start();
+
+            } else if (data.message === "User already login somewhere else") {
+              alert(data.message);
+
+            }
+            else if (data.message === "wrong login info") {
+              let x = document.getElementById("statusfailed");
+              let y = document.getElementById("creds");
+              let z = document.getElementById("registrationfailededuser");
+              z.innerText = document.getElementById("username").value
+              y.style.display = "none";
+              x.style.display = "block";
+
+            }
+          })
+          .catch((error) => {
+            console.error("Error sending login rquest:", error);
+          });
+
+
+
+
+        ua.on("registered", (data) => {
+          let x = document.getElementById("status");
+          let y = document.getElementById("creds");
+          let p = document.getElementById("preview");
+          const userName = document.getElementById("username").value;
+          regUser.textContent = userName;
+
+
+
+          y.style.display = "none";
+          x.style.display = "block";
+          // p.style.display="block";
+          console.log(data.response.data);
+
+          // now send response to backend that you are ready to take call
+          const url = `/userready/${userName}`;
+          // Make a edit request to the server
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+            }
+
+          })
+            .then((response) => {
+
+              return response.json();
+            })
+            .then((data) => {
+              //const data1={message:"success"};
+              console.log(data.message);
+              if (data.message === "success") {
+                console.log("user ready to take call");
+                 externalApi=data.Allapi;
+                 setApivalues(externalApi);
+                // we can use this in future to create login session for agents
+                userlogin = true;
+              } else if (data.message === "failed,logout and login again") {
+                alert(data.message);
+              }
+            })
+            .catch((error) => {
+              console.error("Error sending login rquest:", error);
+            });
+
+        });
+        ua.on("registrationFailed", (data) => {
+
+          let x = document.getElementById("statusfailed");
+          let y = document.getElementById("creds");
+          let z = document.getElementById("registrationfailededuser");
+          z.innerText = document.getElementById("username").value
+          y.style.display = "none";
+          x.style.display = "block";
+          console.log(data.response.data);
+
+        })
+
+        // Add an event listener for the 'stopped' event
+        ua.on('stopped', function (event) {
+          console.log("ua Stopeed");
+          // This callback function will be called when the 'stopped' event occurs
+          const x = document.getElementById("status");
+          const y = document.getElementById("creds");
+          //let p = document.getElementById("preview");
+
+          y.style.display = "blocl";
+          x.style.display = "none";
+
+        });
+
+
+
+        ua.on("newRTCSession", (data) => {
+          //console.log(data.request.from._uri._user);
+          //const currentNum=9865326526;
+          const currentNum = data.request.from._uri._user;
+          console.log("request Data line no 1228", data);
+          if (currentNum !== "anonymous") {
+            Callnumber = currentNum;
+          }
+          callended = false;
+          session = data.session;
+
+
+          //adding eventlisners to listen various event for handling call disconnection
+          session.on("ended", (e) => {
+
+            console.log("Call ended");
+            dialclicked=false;
+            endCall();
+            if(callendApi===true){
+              const urlData = externalApi.find(a=>a.ApiTime==="CallEnd");
+              triggerAPI(urlData.ApiURL,urlData.ApiType,urlData.ApiPayload);
+             }
+            resetTime();
+            if (holdapply === true) {
+              holdapply = false;
+              holdbtn.classList.remove("applyhold");
+            };
+            muteclicked = false;
+            document.getElementById('toggleMuteButton').style.backgroundColor = "#6B7280"
+            const HOLDHANGUP = document.getElementById("holdhangup");
+            const HANGUP = document.getElementById("hangup");
+            HANGUP.style.display="none";
+            if (HOLDHANGUP.style.display === "block") {
+              HOLDHANGUP.style.display = "none";
+             // HANGUP.style.display = "block";
+
+            }
+            document.getElementById("conferenceDialer").style.display = "none";
+            document.getElementById("holdDisplay").style.display = "none";
+            document.getElementById("mergeDisplay").style.display = "none";
+            document.getElementById("unholdDisplay").style.display = "block";
+            document.getElementById("audioOnly").style.display ="blocl";
+            document.getElementById("newcallHangup").style.display="none";
+                             
+          });
+
+
+          session.on("removestream", (e) => {
+            console.log("remote stream removed", e);
+          });
+          session.on("addstream", (e) => { console.log("remote stream added", e) });
+
+          console.log("Call Direction is " + session.direction);
+
+          if (session.direction === "incoming") {
+            console.log(session);
+           // playBeep();
+            notifyMe();
+            let x = document.getElementById("postview");
+            let y = document.getElementById("preview");
+            let z = document.getElementById("Disposition");
+            x.style.display = "block";
+            y.style.display = "none";
+            displayNumber.innerText = Callnumber;
+            displayNumber1.innerText = Callnumber;
+            document.getElementById("firstNumber").innerText = Callnumber;
+            document.getElementById("firstNumber1").innerText = Callnumber;
+
+            let localStream; // Declare a variable to hold the local stream
+
+            navigator.mediaDevices.getUserMedia({ audio: true }).then((s) => {
+              localStream = s; // Store the local stream in a variable
+              // localvideo.srcObject = s;
+            }).catch((err) => {
+              console.log("error while getting media", err)
+            });
+            answercall();
+            session.answer();
+            const HANGUP = document.getElementById("hangup");
+            HANGUP.style.display="block";
+            if(callstartApi===true){
+              const urlData = externalApi.find(a=>a.ApiTime=="CallStart");
+               triggerAPI(urlData.ApiURL,urlData.ApiType,urlData.ApiPayload);
+            }
+             if(agentPOPApi===true){
+              const urlData = externalApi.find(a=>a.ApiTime==="AgentPopUp");
+              triggerAPI(urlData.ApiURL,urlData.ApiType,urlData.ApiPayload);
+             }
+
+            // session.connection.addEventListener("track", function (e){
+            //   if (e.streams.length === 0){
+            //     console.log("caller disconnected");
+            //   }
+
+            // });
+            // session.connection.addEventListener('streamEnded', function(data) { 
+            //   console.log("remote stream ended");
+            // });
+            // session.connection.onclose=()=>{
+            //   console.log("call dead")
+            // };
+
+
+            session.connection.addEventListener("track", function (e) {
+              console.log("remote stream added");
+              console.log(e);
+              const track = e.track;
+              console.log("Using audio device: " + track);
+              e.streams[0].oninactive = function () {
+                x.style.display = "none";
+                y.style.display = "none";
+                z.style.display = "block";
+                console.log("Stream ended");
+
+                // When the stream becomes inactive, stop the local stream
+                if (localStream) {
+                  localStream.getTracks().forEach((track) => track.stop());
+                }
+              };
+              if (track.kind === "audio") {
+                audio.srcObject = e.streams[0];
+              } else {
+                remotevideo.srcObject = e.streams[0];
+              }
+            });
+
+            // Add a hang-up button for the receiver
+            //const hangupButton = document.getElementById("hangup");
+            // hangupButton.style.display = "block";
+            //hangupButton.addEventListener("click", endCall);
+          }
+          else if (session.direction === "outgoing") {
+            console.log("outgoing call");
+            let x = document.getElementById("postview");
+            let y = document.getElementById("preview");
+            let z = document.getElementById("Disposition");
+            y.style.display = "none";
+            x.style.display = "block";
+            answercall();
+
+            let localStream; // Declare a variable to hold the local stream
+
+            navigator.mediaDevices.getUserMedia({ video: true }).then((s) => {
+              localStream = s; // Store the local stream in a variable
+              localvideo.srcObject = s;
+            });
+
+            console.log(session.connection);
+            session.connection.addEventListener("track", function (e) {
+              console.log("remote stream added");
+              console.log(e);
+              const track = e.track;
+              console.log("Using audio device: " + track);
+
+              // When the stream becomes inactive, stop the local stream
+              e.streams[0].oninactive = function () {
+                x.style.display = "none";
+                y.style.display = "none";
+                z.style.display = "block";
+                console.log("Stream ended");
+
+                if (localStream) {
+                  localStream.getTracks().forEach((track) => track.stop());
+                }
+              };
+
+              audio.srcObject = e.streams[0];
+              remotevideo.srcObject = e.streams[0];
+            });
+
+            // Add a hang-up button for the caller
+            const hangupButton = document.getElementById("hangup");
+            hangupButton.style.display = "block";
+            hangupButton.addEventListener("click", ()=>endCall("button pressed"));
+          }
+          else { }
+        });
+
+
+
+        // Register callbacks to desired call events
+        var eventHandlers = {
+          progress: function (e) {
+            console.log("call is in progress");
+          },
+          failed: function (e) {
+            console.log("call failed with cause: " + e.data.cause);
+          },
+          ended: function (e) {
+            console.log("call ended with cause: " + e.cause);
+            console.log(e);
+          },
+          confirmed: function (e) {
+            console.log("call confirmed");
+          },
+
+          addstream: function (e) {
+            console.log("remote stream added");
+
+          },
+        };
+
+        options = {
+          eventHandlers: eventHandlers,
+          mediaConstraints: { audio: true, video: false },
+        };
+
+        //var session = ua.call('sip:webrtc_client1@webrtc.iotcom.io', options);
+
+        // setTimeout(() => {
+        //   ua.call("sip:webrtc_client1@webrtc.iotcom.io", options);
+        // }, 5000);
+      } else {
+        alert(message = "Microphone Not available,check device setting");
+      }
+    }
+    async function dialfunc() {
+      if(dialclicked==false){
+        dialclicked=true;
+      const user = document.getElementById("username").value;
+      let dialstring = document.getElementById("dialnumber").value;
+      Callnumber = dialstring;
+      console.log()
+      //session = ua.call(`sip:${dialstring}@webrtc.iotcom.io`, options);
+      //api call for manual dial
+      const dialdata = {
+        caller: user,
+        receiver: dialstring,
+      }
+      const url = "/dialnumber";
+      // Make a edit request to the server
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+        },
+        body: JSON.stringify(dialdata),
+
+      })
+        .then((response) => {
+
+          return response.json();
+        })
+        .then((data) => {
+          // const data={message:"Sucess dial req received"};
+          if (data === "Sucess dial req received") {
+            //answer the call and proceed
+            console.log(data);
+          } else {
+            displayMessage(data);
+            dialclicked=false;
+           // resetTime();
+          }
+
+        })
+        .catch((error) => {
+          console.error("Error sending dial request:", error);
+        });
+
+      }else{
+          displayMessage("Already working on previous click");
+      }
+
+    }
+
+    async function answercall() {
+      console.log("answering call");
+      const user = document.getElementById("username").value;
+      const url = `/useroncall/${user}`;
+
+      // Make a edit request to the server
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+        }
+
+      })
+        .then((response) => {
+
+          return response.json();
+        })
+        .then((data) => {
+          // const data={message:"Sucess answer the call",
+          //  currentcalldata:{
+          //     bridgeID:"hyjgjhgjh454154525dfgdsf",
+          //     channelId:"dsfds565656dsf"
+          //  }};
+          if (data.message === "Sucess answer the call") {
+            //answer the call and proceed
+            console.log(data.message);
+            calldata = data.currentcalldata;
+            leads = data.leads[0];
+            startTimer();
+            // return formfill(leads);
+
+          } else {
+            console.log("response error from server");
+            let x = document.getElementById("postview");
+            let y = document.getElementById("preview");
+            y.style.display = "block";
+            x.style.display = "none";
+            resetTime();
+          }
+
+        })
+        .catch((error) => {
+          console.error("Error sending call answer request:", error);
+        });
+
+
+    }
+
+    function retryregistration() {
+      console.log("retry clicked")
+      let x = document.getElementById("statusfailed");
+      let y = document.getElementById("creds");
+      y.style.display = "flex";
+      x.style.display = "none";
+
+    }
+  </script>
+  <script>
+    let currentNumber = "";
+
+    function appendNumber(input) {
+      // check if div preview is open or not
+      const preview = document.getElementById("preview");
+      const loginStatus = document.getElementById("status");
+      if (preview.style.display === "block" && loginStatus.style.display !== "none") {
+        // If input is a digit or '*' or '#'
+        if (/^\d$|^[\*\#]$/.test(input)) {
+          currentNumber += input;
+          document.getElementById("dialnumber").value = currentNumber;
+        } else if (input.type === "click") {
+          // If input is from the dial pad
+          let number = input.target.textContent;
+          currentNumber += number;
+          document.getElementById("dialnumber").value = currentNumber;
+        }
+      }
+    }
+
+    function clearNumber() {
+      currentNumber = currentNumber.slice(0, -1); // Remove the last character
+      document.getElementById("dialnumber").value = currentNumber;
+    }
+
+
+    document.addEventListener("keydown", function (event) {
+      const preview = document.getElementById("preview");
+      const loginBoard = document.getElementById("creds");
+      const loginStatus = document.getElementById("status");
+      const conferanview = document.getElementById("conferenceDialer");
+      // If a digit key is pressed
+      if (event.key >= '0' && event.key <= '9' && preview.style.display === "block" && loginStatus.style.display !== "none") {
+        appendNumber(event.key);
+      } else if (event.key === "Backspace" && preview.style.display === "block" && loginStatus.style.display !== "none") {
+        // If Backspace key is pressed
+        clearNumber();
+      } else if (event.key === "Enter" && preview.style.display === "block" && loginStatus.style.display !== "none") {
+        // If Enter key is pressed, perform dialing action
+        dialfunc();
+      } else if (event.key === "Enter" && loginBoard.style.display !== "none" && loginStatus.style.display === "none") {
+        startphone();
+      } else if (event.key >= '0' && event.key <= '9' && preview.style.display === "none" && conferanview.style.display === "block") {
+        appendcopyNumber(event.key);
+      } else if (event.key === "Enter" && preview.style.display === "none" && conferanview.style.display === "block") {
+        confdialCall()
+      }else if (event.key === "Backspace" && preview.style.display === "none" && conferanview.style.display === "block") {
+        clearconferenceNumber();
+      }
+
+    });
+
+
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const actionButtons = document.querySelectorAll('.btn-primary');
+    let selectedAction = null;
+
+    function handleButtonClick(event) {
+      actionButtons.forEach(button => button.classList.remove('active'));
+      event.target.classList.add('active');
+      selectedAction = event.target.getAttribute('data-action');
+    }
+
+    async function connectioncheck() {
+      if (userlogin === true) {
+        const user = document.getElementById("username").value;
+        try {
+          const response = await Promise.race([
+            fetch("/userconnection", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ user: user }),
+            }),
+            new Promise((_, reject) => {
+              // Create a timer that rejects after 3 seconds
+              setTimeout(() => {
+              //  console.log("timeout code");
+                reject(new Error('Timeout')); // Timeout after 3 seconds
+              }, 3000); // 3 seconds in milliseconds
+            }),
+          ]);
+
+          if (response.status === 401) {
+            // Unauthorized response handling: redirect to index page or handle as needed
+            window.location.href = "/index.html"; // Replace with your index page URL
+          } else {
+            const data = await response.json();
+                  // console.log("line no 2348",data.message);
+            if (data.message === "ok connection for user") {
+                const Callque = data.currentCallqueue;
+                const callqueDiv = document.getElementById("callQueue");
+                changeQueDiv(Callque,callqueDiv);
+                
+              // empty timeout array for short conn. problem
+              timeoutarray = [];
+            } else if (data.message =="poor connection problem ,please login again") {
+              console.log("connection problem block need to alert");
+              alert(data.message);
+              userlogin = false;
+              logoutfunction();
+              //window.location.href = `/forcelogout/${user}`;
+            } else {
+              console.log("other block");
+              // Handle other cases as needed
+            }
+          }
+        } catch (err) {
+          if (err.message === 'Timeout') {
+            // Handle the timeout case
+            const timeout = { timeout: true };
+            timeoutarray.push(timeout);
+            if (timeoutarray.length > 2) {
+              alert('Connection problem: The request timed out');
+            } else {
+              console.log("slight connection problem");
+            }
+          } else {
+            console.log("Error in connection check function", err);
+          }
+        }
+      }
+    }
+
+
+    const liveInterval = 1000; // 1 seconds in milliseconds
+    setInterval(connectioncheck, liveInterval);
+
+    async function submitForm() {
+      const checkautoleaddial = document.getElementById("checkautoleaddial");
+      if (checkautoleaddial.checked === true) { dialnext = false; }
+      const breakCheckbox = document.getElementById("breakCheckbox");
+
+      if (selectedAction) {
+        const sendingdata = {
+          bridgeID: calldata.bridgeID,
+          Disposition: selectedAction
+        };
+        try {
+          const response = await fetch(`/user/disposition${username.value}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+            },
+            body: JSON.stringify(sendingdata),
+          });
+
+          if (response) {
+            const result = await response.json();
+            //const result = {message:"disposition done sucessfully."};
+            if (result) {
+              if (result.message === "disposition done sucessfully.") {
+                console.log(result.message);
+                console.log('Selected Action:', selectedAction);
+                //   if(checkautoleaddial.checked===false){
+                //  // leadID();
+                //   }else{
+                const preview = document.getElementById("preview");
+                preview.style.display = "block";
+                if (breakCheckbox.checked === true) { await livebtn(); };
+                //}
+                //const preview = document.getElementById("preview");
+                //const postView = document.getElementById("postview");
+                const Disposition = document.getElementById("Disposition");
+                // postView.style.display = "none";
+                //  preview.style.display = "block";
+                Disposition.style.display = "none";
+                // Trigger the custom event on the element
+                // document.dispatchEvent(customEvent);
+              }
+              else {
+                //failed case
+                console.log(result.message);
+              }
+
+            }
+            else {
+              alert("Unable to execuate due to connection problem");
+            }
+          }
+        }
+        catch (err) {
+          console.log("error:", err);
+
+        }
+
+
+
+
+      } else {
+        $('#alertModal').modal('show');
+      }
+
+
+    }
+
+    function clearForm() {
+      actionButtons.forEach(button => button.classList.remove('active'));
+      selectedAction = null;
+      $('#alertModal').modal('hide');
+    }
+
+    async function displayMessage(message) {
+      const alertModelContant = document.getElementById("alertModelContant1");
+      alertModelContant.innerText = message;
+      $('#alertModal1').modal('show');
+
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Wait for 1.5 seconds
+
+      $('#alertModal1').modal('hide');
+    }
+
+    actionButtons.forEach(button => button.addEventListener('click', handleButtonClick));
+  </script>
+  <script>
+    const L = document.getElementById("liveButton");
+    const L1 = document.getElementById("liveButton1");
+    const B = document.getElementById("breakButton");
+    const B1 = document.getElementById("breakButton1");
+
+    L.addEventListener("click", livebtn);
+    //  L1.addEventListener("click", livebtn);
+    async function livebtn() {
+      console.log(`break function called`)
+      const user = document.getElementById("username").value;
+      console.log(`break function called for ${user}`)
+      //console.log(user);
+
+      try {
+        const response = await fetch(`/user/breakuser:${user}`, {
+          method: "POST",
+        })
+
+
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            //const data={message:"break removed"};
+            alert(data.message);
+            L.style.display = "none";
+            //  L1.style.display = "none";
+            B.style.display = "block";
+            //  B1.style.display = "block";
+          })
+
+      }
+      catch (error) {
+        (error) => {
+          alert("error:", error)
+        }
+      }
+      ;
+    }
+
+    B.addEventListener("click", breakbtn);
+    //B1.addEventListener("click", breakbtn);
+    async function breakbtn() {
+      const user = document.getElementById("username").value;
+      try {
+        const response = await fetch(`/user/removebreakuser:${user}`, {
+          method: "POST",
+        })
+
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            //const data={message:"break applied"};
+            alert(data.message);
+            L.style.display = "block";
+            // L1.style.display = "block";
+            B.style.display = "none";
+            // B1.style.display = "none";
+          })
+
+      }
+      catch (error) {
+        (error) => {
+          alert("error:", error)
+        }
+      }
+
+
+    }
+    const logout = document.getElementById("logout");
+    logout.addEventListener("click", logoutfunction);
+
+    async function logoutfunction() {
+      const user = document.getElementById("username").value;
+      try {
+        const response = await fetch(`/user/logoutuser:${user}`, {
+          method: "POST",
+        })
+
+
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            //const data={message:"logout sucess"};
+            alert(data.message);
+            userlogin = false;
+            location.reload();
+            //console.log(ua);
+            //ua.stop();
+          })
+
+      }
+      catch (error) {
+        (error) => {
+          alert("error:", error)
+        }
+      }
+    }
+  </script>
+  <script>
+
+    const AutoLead = document.getElementById('autoleaddial');
+    const nextlead = document.getElementById("nextlead");
+    const leaddial = document.getElementById('leaddial');
+    // const autoleaddial = document.getElementById("autoleaddial");
+    //  nextlead.addEventListener('click', nextleadID);
+    //AutoLead.addEventListener('click', leadID);
+    // leaddial.addEventListener('click', leaddialfun);
+    // autoleadbutton.addEventListener("click", autoleadfun);
+    var leaddata;
+    var leadid;
+    let dialed = false;
+    var autoleadbutton = false;
+    var dialnext = false;
+   
+
+    // async function autoleadfun() {
+    //   autoleadbutton = !autoleadbutton;
+
+    //   if (autoleadbutton === true) {
+    //     await leadID();
+    //     await leaddial();
+    //   }
+    //   if (autoleadbutton === false) {
+    //     //do nothing
+    //   }
+    // }
+    // document.addEventListener('dispodone', function (e) {
+    //   if (dispoafterautodial === false) {
+    //     autoleadbutton = false;
+    //     autoleadfun();
+    //   }
+    //   else {
+    //     //do nothing
+    //   }
+    // })
+
+    async function leadID() {
+      console.log("button clicked fetching data");
+      dialnext = true;
+      const preview = document.getElementById("preview");
+      const leaddiv = document.getElementById('leaddiv');
+
+      preview.style.display = "none";
+      leaddiv.style.display = "block";
+
+      const user = document.getElementById("username").value;
+      //console.log(user);
+
+      try {
+        const response = await fetch(`/leadforautocall`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user: user })
+        })
+
+
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            leaddata = data.result;
+            leadid = leaddata.leadId;
+            populateleads(leaddata);
+          })
+
+      }
+      catch (error) {
+        (error) => {
+          alert("error:", error)
+        }
+      }
+
+      document.addEventListener('click', function (event) {
+        dialnext = false;
+      });
+      let autodialInterval = setInterval(() => {
+        if (dialnext === true) {
+          leaddialfun();
+          dialnext = false;
+        }
+      }, 30000);
+      //auto call after 30sec
+
+    }
+
+    async function nextleadID() {
+      console.log("next lead button clicked")
+      const user = document.getElementById("username").value;
+
+      try {
+        const response = await fetch(`/nextleadforautocall`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user: user, preleadid: leadid, dialstatus: false })
+        })
+
+
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            leaddata = data.result;
+            leadid = leaddata.leadId;
+            dialed = false;
+            populateleads(leaddata);
+          })
+
+      }
+      catch (error) {
+        (error) => {
+          alert("error:", error)
+        }
+      }
+    }
+
+    async function leaddialfun() {
+
+      const user = document.getElementById("username").value;
+      let x = document.getElementById("postview");
+      let y = document.getElementById("preview");
+      let z = document.getElementById("leaddiv");
+      y.style.display = "none";
+      x.style.display = "block";
+      z.style.display = "none";
+
+
+      //let dialstring = leaddata.number;
+      //console.log()
+      //session = ua.call(`sip:${dialstring}@webrtc.iotcom.io`, options);
+      //api call for manual dial
+      const dialdata = {
+        caller: user,
+        leaddata: leaddata
+      }
+      if (dialdata.leaddata !== null && dialdata.leaddata !== undefined) {
+        const url = "/leaddialnumber";
+        // Make a edit request to the server
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+          },
+          body: JSON.stringify(dialdata),
+
+        })
+          .then((response) => {
+
+            return response.json();
+          })
+          .then((data) => {
+            if (data.message === "Sucess dial req received") {
+              //answer the call and proceed
+              console.log(data.message);
+
+            } else {
+              console.log("response error from server");
+            }
+
+          })
+          .catch((error) => {
+            console.error("Error sending dial request:", error);
+          });
+      } else {
+        alert("No more leads to dial");
+        let x = document.getElementById("postview");
+        let y = document.getElementById("preview");
+        let z = document.getElementById("leaddiv");
+        y.style.display = "block";
+        x.style.display = "none";
+        z.style.display = "none";
+
+      }
+
+    }
+
+    function populateleads(leadsdata) {
+      console.log("respose received");
+
+      const name = document.getElementById("leadfullname");
+      const email = document.getElementById("leademailaddress");
+      const number = document.getElementById("leadphonenumber");
+      const address1 = document.getElementById("leadaddress1");
+      const address2 = document.getElementById("leadaddress2");
+      const country = document.getElementById("leadcountry");
+      const city = document.getElementById("leadcity");
+      const region = document.getElementById("leadregion");
+      const postal = document.getElementById("leadpostal");
+
+      name.value = leadsdata.name || "";
+      email.value = leadsdata.email || "";
+      number.value = leadsdata.number || "";
+      address1.value = leadsdata.address1 || "";
+      address2.value = leadsdata.address2 || "";
+      country.value = leadsdata.country || "";
+      city.value = leadsdata.city || "";
+      region.value = leadsdata.region || "";
+      postal.value = leadsdata.postal || "";
+    }
+  </script>
+  <script>
+    const home = document.getElementById("home");
+
+    home.addEventListener("click", backtohome);
+
+    function backtohome() {
+
+      const preview = document.getElementById("preview");
+      const leaddiv = document.getElementById('leaddiv');
+      const postView = document.getElementById("postview");
+
+      preview.style.display = 'block';
+      leaddiv.style.display = 'none';
+      postView.style.display = "none";
+
+      console.log("home");
+    }
+    function notifyMe() {
+  if (!("Notification" in window)) {
+    // Check if the browser supports notifications
+    alert("This browser does not support desktop notification");
+  } else if (Notification.permission === "granted") {
+    // Check whether notification permissions have already been granted;
+    // if so, create a notification
+    const notification = new Notification('New Notifications!', {
+                        body: 'Please answer the call"',
+                        icon: 'img/1.jpg'   // You Can give image Link to change notification Icon.
+                  });
+    // …
+  } else if (Notification.permission !== "denied") {
+    // We need to ask the user for permission
+    Notification.requestPermission().then((permission) => {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        const notification = new Notification('New Notifications!', {
+                        body: 'Simple Desktop Notification by Iotcom!"',
+                        icon: '1.jpg'
+                        // You Can give image Link to change notification Icon.
+                  });
+        // …
+      }
+    });
+  }}
+  // new notification
+  function CallWaitnotifyMe() {
+  if (!("Notification" in window)) {
+    // Check if the browser supports notifications
+    alert("This browser does not support desktop notification");
+  } else if (Notification.permission === "granted") {
+    // Check whether notification permissions have already been granted;
+    // if so, create a notification
+    const notification = new Notification('New Notifications!', {
+                        body: 'Calls in queue"',
+                        icon: 'img/1.jpg'   // You Can give image Link to change notification Icon.
+                  });
+    // …
+  } else if (Notification.permission !== "denied") {
+    // We need to ask the user for permission
+    Notification.requestPermission().then((permission) => {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        const notification = new Notification('New Notifications!', {
+                        body: 'Calls in queue!',
+                        icon: 'img/1.jpg'
+                        // You Can give image Link to change notification Icon.
+                  });
+        // …
+      }
+    });
+  }}
+
+  // function to set Apivalues
+  function setApivalues (apiData){
+    if(apiData!==undefined){
+       const StartApiData =apiData.find(a=>a.ApiTime=="CallStart" && a.Active==="true");
+       const AgentPopapiData =apiData.find(b=>b.ApiTime=="AgentPopUp" && b.Active==="true");
+       const CallEndApiData =apiData.find(c=>c.ApiTime=="CallEnd" && c.Active==="true");
+       if(StartApiData !==undefined){
+        callstartApi=true;
+       }
+       if(AgentPopapiData !==undefined){
+        agentPOPApi = true;
+       }
+       if(CallEndApiData !== undefined){
+        callendApi =true;
+       }
+    }
+  }
+
+ // function to trigger external Api
+  async function triggerAPI(url, type, payload) {
+  let options = {
+    method: type,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  if (payload && type !== 'GET') {
+    options.body = JSON.stringify(payload);
+  }
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error triggering API:', error);
+    throw error;
+  }
+}
+
+function changeQueDiv(Callque,callqueDiv){
+  if(Callque.length>0 && callqueDiv.style.display =="none" ){
+    callqueDiv.style.display ="block";
+    if(callended===true){
+      playBeep();
+    }
+  }else if(Callque.length==0 && callqueDiv.style.display =="block"){
+    callqueDiv.style.display ="none";
+  }
+}
+
+function playBeep() {
+          console.log("playing beep");
+          const audio = document.getElementById("beepAudio");
+          if(audio.paused || audio.ended){
+          audio.play();
+          }
+        }
+
+
+  </script>
+
+
+
+</body>
+
+</html>

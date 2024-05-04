@@ -56,41 +56,39 @@
       </div>
     </div>
 
-    <div class="signin" id="creds" style="display:bloke">
+    <div class="signin" id="creds" style="display: blocl">
       <div class="login-box">
-        <h2>Login</h2>
+        <h2> Agent Login</h2>
 
         <label for="username">Username</label>
-        <input class="input100" type="text" id="username" placeholder="Type your username" name="username" required />
+        <input class="input100" type="text" id="username" placeholder="Enter Username" name="username" required />
 
-        <label for="password">Password</label>
-        <input
-          class="input100"
-          type="password"
-          id="password"
-          placeholder="Type your password***"
-          name="password"
-          required
-        />
+        <div class="mb-3">
+          <label for="password">Password</label>
+          <div class="password-input-container">
+            <input
+              class="input100"
+              type="password"
+              id="password"
+              placeholder="Enter Password"
+              name="password"
+              required
+            />
+            <span class="password-toggle-icon" onclick="togglePasswordVisibility()">
+              <i class="fa fa-eye fs-5"></i>
+            </span>
+          </div>
+        </div>
 
         <div class="forgot-password">
           <a href="login.html">Admin Login</a>
           <a href="#">Forgot Password?</a>
         </div>
 
-        <!-- <label class="checkbox-label" for="check-me-out">
-        <input type="checkbox" id="exampleCheck1" name="check-me-out"> Check me out
-      </label> -->
 
         <br />
 
-        <button type="submit" id="register" class="login-button" style="background-color: #225d97">Login</button>
-
-        <div class="fa">
-          <a href="#" class="fa fa-facebook"></a>
-          <a href="#" class="fa fa-twitter"></a>
-          <a href="#" class="fa fa-google"></a>
-        </div>
+        <button type="submit" id="register" class="login-button">Login</button>
       </div>
     </div>
 
@@ -179,6 +177,10 @@
           }
         </script>
 
+<div id="callQueue" style="position: fixed; top: 10px; right: 10px; background-color: #f1f1f1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; display: none;">
+    <h6>Calls in Waitings</h6>
+  </div>
+
         <div id="preview" style="display: block">
           <div class="dashboard-box text-center mt-4">
             <p class="fw-bold">WELCOME TO DASHBOARD</p>
@@ -186,7 +188,7 @@
 
           <div class="flex justify-content-around items-center">
             <div style="display: block">
-              <div
+              <div id="mydiv"
                 class="iphone-frame border-8 border-black w-[230px] h-[450px] bg-white overflow-hidden flex flex-col m-14"
               >
                 <div class="flex justify-between items-center px-2" id="mydivheader">
@@ -476,11 +478,11 @@
 
                     <div id="holdDisplay" style="display: none">
                       <div style="display: flex; align-items: center; justify-content: space-around; margin-top: 16px">
-                        <div type="text" style="font-size: 18px" class="text-center text-xl">7023236685</div>
+                        <div type="text" style="font-size: 18px" id="firstNumber" class="text-center text-xl">7023236685</div>
                         <div type="text" style="font-size: 15px" class="text-center text-l text-[#37B7FF]">HOLD...</div>
                       </div>
                       <div style="display: flex; align-items: center; justify-content: space-around">
-                        <div type="text" style="font-size: 18px" class="text-center text-xl">7023236685</div>
+                        <div type="text" style="font-size: 18px" id="secondnumber" class="text-center text-xl">7023236685</div>
                         <div type="text" style="font-size: 15px" class="text-center text-l text-[#37B7FF]">
                           Calling..
                         </div>
@@ -491,9 +493,9 @@
                       <div type="text" class="text-center mt-3 text-l text-[#37B7FF]">00:00</div>
 
                       <div class="scrolling-text" style="display: flex">
-                        <div type="text" class="text-center text-xl">7023236685</div>
+                        <div type="text" id="firstNumber1" class="text-center text-xl">7023236685</div>
                         <div type="text" class="text-center text-xl">conference with</div>
-                        <div type="text" class="text-center text-xl">7877273844</div>
+                        <div type="text" id="secondnumber1" class="text-center text-xl">7877273844</div>
                       </div>
                     </div>
                     <style>
@@ -759,7 +761,7 @@
                 <div class="w-full h-20">
                   <button
                     type="text"
-                    id="dialTimer"
+                    id="returnToprevious"
                     style="
                       font-size: 15px;
                       height: 20px;
@@ -776,7 +778,7 @@
                       Return to Call
                     </p>
                   </button>
-                  <div type="text" id="displayNumber" style="font-size: 17px" class="text-center text-xl">
+                  <div type="text" id="displayNumber1" style="font-size: 17px" class="text-center text-xl">
                     7023236685
                   </div>
 
@@ -925,198 +927,279 @@
               </div>
               <script></script>
               <script>
-                document.getElementById('addCall').addEventListener('click', function () {
-                  const divones = document.getElementById('hangup');
-                  const divtwos = document.getElementById('holdhangup');
+                var conferanceChannel;
+                document.getElementById("addCall").addEventListener("click", function () {
 
-                  if (divones.style.display === 'block') {
-                    divones.style.display = 'none';
-                    divtwos.style.display = 'block';
+                  const divones = document.getElementById("hangup");
+                  const divtwos = document.getElementById("holdhangup");
+
+                  if (divones.style.display === "block") {
+                    divones.style.display = "none";
+                    divtwos.style.display = "block";
                   }
                 });
 
-                document.getElementById('holdhangup').addEventListener('click', async function () {
-                  const user = document.getElementById('username').value;
-                  const url = `/reqHangConf/${user}`;
-                  document.getElementById('holdhangup').classList.add('holddisabled');
-                  await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                      //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
-                    },
-                  })
-                    .then((response) => {
-                      document.getElementById('holdhangup').classList.remove('holddisabled');
-                      return response.json();
-                    })
-                    .then((data) => {
-                      //const data={message:"call hangedUp"};
-                      if (data.message == 'call hangedUp') {
-                        const divones = document.getElementById('hangup');
-                        const divtwos = document.getElementById('holdhangup');
 
-                        if (divtwos.style.display === 'block') {
-                          divones.style.display = 'block';
-                          divtwos.style.display = 'none';
-                        }
-                      } else {
-                        console.log(data.message);
-                        displayMessage(data.message);
-                      }
+
+
+                document.getElementById("holdhangup").addEventListener("click", async function () {
+                  if (conferanceChannel != null && conferanceChannel != undefined) {
+                    const user = document.getElementById("username").value;
+                    const url = `/reqHangConf/${user}`;
+                    document.getElementById("holdhangup").classList.add("holddisabled");
+                    await fetch(url, {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                        //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+                      },
+                      body: JSON.stringify({ channel: conferanceChannel })
+
                     })
-                    .catch((error) => {
-                      console.error('Error sending call answer request:', error);
-                    });
-                });
+                      .then((response) => {
+                        document.getElementById("holdhangup").classList.remove("holddisabled");
+                        return response.json();
+                      })
+                      .then((data) => {
+                        //const data={message:"call hangedUp"};
+                        if (data.message == "call hangedUp") {
+                          const divones = document.getElementById("hangup");
+                          const divtwos = document.getElementById("holdhangup");
+
+                          if (divtwos.style.display === "block") {
+                            divones.style.display = "block";
+                            divtwos.style.display = "none";
+                            holdapply = false;
+                            holdbtn.classList.remove("applyhold");
+                            holdbtn.classList.remove("holddisabled");
+                            document.getElementById("holdDisplay").style.display = "none";
+                            document.getElementById("unholdDisplay").style.display = "block";
+                            document.getElementById("mergecall").style.display = "none";
+                            document.getElementById("addCall").style.display = "block";
+                          };
+
+
+                        } else {
+                          console.log(data.message);
+                          displayMessage(data.message)
+                        }
+
+                      })
+                      .catch((error) => {
+                        console.error("Error sending call answer request:", error);
+                      });
+                  } else {
+                    displayMessage(" No channel to Hangup");
+                  }
+
+                })   
               </script>
 
               <script>
-                document.getElementById('mergecall').addEventListener('click', async function () {
-                  console.log('trying merging the call,hold apply', holdapply);
+                document.getElementById("mergecall").addEventListener("click", async function () {
+                  console.log("trying merging the call,hold apply", holdapply);
                   if (holdapply == true) {
-                    const user = document.getElementById('username').value;
-                    console.log('mergingcall');
+                    const user = document.getElementById("username").value;
+                    console.log("mergingcall");
                     const url = `/reqUnHold/${user}`;
-                    holdbtn.classList.add('holddisabled');
-
+                    // holdbtn.classList.add("holddisabled");
+                    // document.getElementById("mergecall").classList.add("holddisabled");
                     // Make a unhold request to the server
                     await fetch(url, {
-                      method: 'POST',
+                      method: "POST",
                       headers: {
-                        'Content-Type': 'application/json',
+                        "Content-Type": "application/json",
                         //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
-                      },
+                      }
+
                     })
                       .then((response) => {
-                        holdbtn.classList.remove('holddisabled');
+                        // document.getElementById("mergecall").classList.remove("holddisabled");
+                        holdbtn.classList.remove("holddisabled");
                         return response.json();
                       })
                       .then((data) => {
                         // const data ={message:"removed hold"};
-                        if (data.message === 'removed hold') {
+                        if (data.message === "removed hold") {
                           holdapply = false;
-                          holdbtn.classList.remove('applyhold');
-                          const divthree = document.getElementById('holdhangup');
-                          const divfour = document.getElementById('hangup');
+                          holdbtn.classList.remove("applyhold");
+                          const divthree = document.getElementById("holdhangup");
+                          const divfour = document.getElementById("hangup");
 
-                          if (divthree.style.display === 'block') {
-                            divthree.style.display = 'none';
-                            divfour.style.display = 'block';
+                          if (divthree.style.display === "block") {
+                            divthree.style.display = "none";
+                            divfour.style.display = "block";
                           }
-                          const divfive = document.getElementById('mergecall');
-                          const divsix = document.getElementById('addCall');
+                          const divfive = document.getElementById("mergecall");
+                          const divsix = document.getElementById("addCall");
 
-                          if (divfive.style.display === 'block') {
-                            divfive.style.display = 'none';
-                            divsix.style.display = 'block';
+                          if (divfive.style.display === "block") {
+
+                            
+                            divfive.style.display = "none";
+                            divsix.style.display = "block";
                           }
 
-                          const divone = document.getElementById('holdDisplay');
-                          const divtwo = document.getElementById('mergeDisplay');
+                          const divone = document.getElementById("holdDisplay");
+                          const divtwo = document.getElementById("mergeDisplay");
 
-                          if (divone.style.display === 'block') {
-                            divone.style.display = 'none';
-                            divtwo.style.display = 'block';
+                          if (divone.style.display === "block") {
+                            divone.style.display = "none";
+                            divtwo.style.display = "block";
                           }
+
                         } else {
-                          console.log('response error from server');
+                          console.log("response error from server");
                         }
+
                       })
                       .catch((error) => {
-                        console.error('Error sending call answer request:', error);
+                        console.error("Error sending call answer request:", error);
                       });
                   }
+
+
                 });
               </script>
 
+
               <script>
-                const button1 = document.getElementById('addCall');
-                const button2 = document.getElementById('dialConfNumber');
+
+
+
+                const button1 = document.getElementById("addCall");
+                const button2 = document.getElementById("dialConfNumber");
+                const button3=document.getElementById("returnToprevious");
+                function toggleDivs1() {
+                  const divA = document.getElementById("afterCall");
+                  const divB = document.getElementById("conferenceDialer");
+                  divA.style.display = "none";
+                  divB.style.display = "block";
+
+                };
+                function toggleDivs2() {
+                  const divA = document.getElementById("afterCall");
+                  const divB = document.getElementById("conferenceDialer");
+                  document.getElementById("holdhangup").style.display="none";
+                  document.getElementById("hangup").style.display="block";
+                  divA.style.display = "block";
+                  divB.style.display = "none";
+
+                };
+
 
                 function toggleDivs() {
-                  const divA = document.getElementById('afterCall');
-                  const divB = document.getElementById('conferenceDialer');
-                  divA.style.display = divA.style.display === 'none' ? 'block' : 'none';
-                  divB.style.display = divB.style.display === 'none' ? 'block' : 'none';
-                }
+                  const divA = document.getElementById("afterCall");
+                  const divB = document.getElementById("conferenceDialer");
+                  divA.style.display = "block";
+                  divB.style.display = "none";
 
-                button1.addEventListener('click', toggleDivs);
-                button2.addEventListener('click', confdialCall);
+                };
 
+                button1.addEventListener("click", toggleDivs1);
+                button2.addEventListener("click", confdialCall);
+                 button3.addEventListener("click",toggleDivs2);
                 async function confdialCall() {
-                  const confNumber = document.getElementById('phoneNumber').value;
-                  if (confNumber != undefined && confNumber != '') {
+                  const confNumber = document.getElementById("phoneNumber").value;
+                  if (confNumber != undefined && confNumber != "") {
                     //console.log(confNumber);
-                    const user = document.getElementById('username').value;
+                    const user = document.getElementById("username").value;
+                    document.getElementById("secondnumber").innerText = confNumber;
+                    document.getElementById("secondnumber1").innerText = confNumber;
                     const url = `/reqConf/${user}`;
-                    button2.classList.add('holddisabled');
+                    button2.classList.add("holddisabled");
                     await fetch(url, {
-                      method: 'POST',
+                      method: "POST",
                       headers: {
-                        'Content-Type': 'application/json',
+                        "Content-Type": "application/json",
                         //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
                       },
                       body: JSON.stringify({
-                        confNumber: confNumber,
-                      }),
+                        confNumber: confNumber
+
+                      })
+
                     })
                       .then((response) => {
-                        button2.classList.remove('holddisabled');
+                        button2.classList.remove("holddisabled");
 
                         return response.json();
                       })
                       .then((data) => {
                         // const data={message:"conferance call dialed"};
-                        if (data.message === 'conferance call dialed') {
+                        if (data.message === "conferance call dialed") {
+                          conferanceChannel = data.result;
                           holdapply = true;
-                          holdbtn.classList.add('applyhold');
-                          console.log('conferance call ');
+                          holdbtn.classList.add("applyhold");
+                          holdbtn.classList.add("holddisabled");
+                          console.log("conferance call ")
                           toggleDivs();
                           toggleSVGs();
+
                         } else {
                           console.log(data.message);
                         }
+
                       })
                       .catch((error) => {
-                        console.error('Error sending call answer request:', error);
+                        console.error("Error sending call answer request:", error);
                       });
+
+
                   } else {
+
                     displayMessage();
+
                   }
+
+
                 }
+
               </script>
 
               <script>
                 function toggleSVGs() {
-                  const svg1 = document.getElementById('addCall');
-                  const svg2 = document.getElementById('mergecall');
-                  const box1 = document.getElementById('unholdDisplay');
-                  const box2 = document.getElementById('holdDisplay');
+                  const svg1 = document.getElementById("addCall");
+                  const svg2 = document.getElementById("mergecall");
+                  const box1 = document.getElementById("unholdDisplay");
+                  const box2 = document.getElementById("holdDisplay");
+                  const button6 = document.getElementById("holdhangup");
 
-                  svg1.style.display = svg1.style.display === 'none' ? 'block' : 'none';
-                  svg2.style.display = svg2.style.display === 'none' ? 'block' : 'none';
-                  box1.style.display = box1.style.display === 'none' ? 'block' : 'none';
-                  box2.style.display = box2.style.display === 'none' ? 'block' : 'none';
+                  svg1.style.display = "none";
+                  svg2.style.display = "block";
+                  box1.style.display = "none";
+                  box2.style.display = "block";
+                  button6.style.display = "block";
                 }
               </script>
-              <script></script>
+              <script>
+
+              </script>
+
+
+
+
             </div>
+
           </div>
+
+
+
+
 
           <script>
             function appendcopyNumber(num) {
-              document.getElementById('phoneNumber').value += num;
+              document.getElementById("phoneNumber").value += num;
             }
 
             function clearconferenceNumber() {
-              let phoneNumber = document.getElementById('phoneNumber');
+              let phoneNumber = document.getElementById("phoneNumber");
               phoneNumber.value = phoneNumber.value.slice(0, -1);
             }
 
             function dialNumber() {
-              let phoneNumber = document.getElementById('phoneNumber').value;
-              alert('Dialing ' + phoneNumber);
+              let phoneNumber = document.getElementById("phoneNumber").value;
+              alert("Dialing " + phoneNumber);
               // Add code here to actually dial the number
             }
             document.body.addEventListener('keydown', function (e) {
@@ -1157,7 +1240,7 @@
           </div>
           <img class="phonesvg" src="phonesvg.svg" alt="" />
         </div>
-
+       </div> 
         <div class="auto-leads" style="display: none" id="leaddiv">
           <div class="Lead-form-container">
             <div class="leadform">
@@ -1261,1352 +1344,1612 @@
               </div>
             </div>
           </div>
-        </div>
+       
       </section>
     </div>
 
-    <script src="jssip-3.10.0.min.js"></script>
-    <script src="script.js"></script>
-    <script></script>
-    <script>
-      const divones = document.getElementById('hangup');
-      const divtwos = document.getElementById('holdhangup');
+  <script src="jssip-3.10.0.min.js"></script>
+  <script src="scriptnew.js"></script>
+  <script>
 
-      if (divones.style.display === 'block') {
-        divones.style.display = 'none';
-        divtwos.style.display = 'block';
-      }
-    </script>
-    <script>
-      dragElement(document.getElementById('meradiv'));
+  </script>
 
-      function dragElement(elmnt) {
-        var pos1 = 0,
-          pos2 = 0,
-          pos3 = 0,
-          pos4 = 0;
+  <script>
+    dragElement(document.getElementById("meradiv"));
 
-        if (document.getElementById(elmnt.id + 'header')) {
-          document.getElementById(elmnt.id + 'header').onmousedown = dragMouseDown;
-          document.getElementById(elmnt.id + 'header').addEventListener('touchstart', touchStart, { passive: false });
-        } else {
-          elmnt.onmousedown = dragMouseDown;
-          elmnt.addEventListener('touchstart', touchStart, { passive: false });
-        }
+    function dragElement(elmnt) {
+      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
-        function dragMouseDown(e) {
-          e = e || window.event;
-          e.preventDefault();
-          // get the mouse cursor position at startup:
-          pos3 = e.clientX;
-          pos4 = e.clientY;
-          document.onmouseup = closeDragElement;
-          // call a function whenever the cursor moves:
-          document.onmousemove = elementDrag;
-        }
-
-        function elementDrag(e) {
-          e = e || window.event;
-          e.preventDefault();
-          // calculate the new cursor position:
-          pos1 = pos3 - e.clientX;
-          pos2 = pos4 - e.clientY;
-          pos3 = e.clientX;
-          pos4 = e.clientY;
-          // set the element's new position:
-          elmnt.style.top = elmnt.offsetTop - pos2 + 'px';
-          elmnt.style.left = elmnt.offsetLeft - pos1 + 'px';
-        }
-
-        function closeDragElement() {
-          // stop moving when the mouse button is released:
-          document.onmouseup = null;
-          document.onmousemove = null;
-        }
-
-        function touchStart(e) {
-          // Get the initial touch position
-          var touch = e.touches[0];
-          pos3 = touch.clientX;
-          pos4 = touch.clientY;
-          elmnt.addEventListener('touchmove', touchMove, { passive: false });
-          elmnt.addEventListener('touchend', touchEnd);
-        }
-
-        function touchMove(e) {
-          e.preventDefault();
-          var touch = e.touches[0];
-          // calculate the new touch position
-          pos1 = pos3 - touch.clientX;
-          pos2 = pos4 - touch.clientY;
-          pos3 = touch.clientX;
-          pos4 = touch.clientY;
-          // set the element's new position
-          elmnt.style.top = elmnt.offsetTop - pos2 + 'px';
-          elmnt.style.left = elmnt.offsetLeft - pos1 + 'px';
-        }
-
-        function touchEnd() {
-          elmnt.removeEventListener('touchmove', touchMove);
-          elmnt.removeEventListener('touchend', touchEnd);
-        }
-      }
-    </script>
-
-    <script>
-      // Function to update the current time with AM/PM
-      function updateCurrentTime(id) {
-        let currentTimeElement = document.getElementById(id);
-        let currentTime = new Date();
-
-        // Extract hours, minutes, and seconds
-        let hours = currentTime.getHours();
-        let minutes = currentTime.getMinutes();
-
-        // Determine AM/PM
-        let meridiem = hours < 12 ? 'AM' : 'PM';
-
-        // Convert 2~4-hour time to 12-hour time
-        hours = hours % 12 === 0 ? 12 : hours % 12;
-
-        // Add leading zeros if needed
-        hours = hours < 10 ? '0' + hours : hours;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-
-        // Display the current time with AM/PM in the "currentTime" element
-        currentTimeElement.textContent = hours + ':' + minutes + meridiem;
+      if (document.getElementById(elmnt.id + "header")) {
+        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+        document.getElementById(elmnt.id + "header").addEventListener("touchstart", touchStart, { passive: false });
+      } else {
+        elmnt.onmousedown = dragMouseDown;
+        elmnt.addEventListener("touchstart", touchStart, { passive: false });
       }
 
-      // Update the time every second (1000 milliseconds)
-      setInterval(updateCurrentTime('currentTime'), 1000);
-      setInterval(updateCurrentTime('currenttime'), 1000);
-
-      // Initial call to display the time immediately
-      updateCurrentTime('currentTime');
-      updateCurrentTime('currenttime');
-    </script>
-
-    <script>
-      const audio = document.querySelector('audio');
-      const element = document.getElementById('register');
-      const localvideo = document.getElementById('localvideo');
-      const remotevideo = document.getElementById('remotevideo');
-      const regUser = document.getElementById('regUser');
-      const leadinfo = document.getElementById('rishi');
-      let holdbtn = document.getElementById('holdbtn');
-      holdbtn.addEventListener('click', togglehold);
-      // Create a custom event
-      const customEvent = new CustomEvent('dispodone');
-
-      element.addEventListener('click', startphone);
-      const dialelemnt = document.getElementById('dialbtn');
-      dialelemnt.addEventListener('click', dialfunc);
-      const hangupButton = document.getElementById('hangup');
-      hangupButton.addEventListener('click', endCall);
-      const toggleMuteButton = document.getElementById('toggleMuteButton');
-      toggleMuteButton.addEventListener('click', toggleMute);
-      //const maximizeButton = document.getElementById('maximize');
-      // maximizeButton.addEventListener('click', maximize);
-      const audioOnlyButton = document.getElementById('audioOnly');
-      audioOnlyButton.addEventListener('click', audioOnly);
-      const Callernumber = document.getElementById('phonenumber');
-
-      const retryelement = document.getElementById('retry');
-      retryelement.addEventListener('click', retryregistration);
-      const phoneClickButton = document.getElementById('phoneClickButton');
-      phoneClickButton.addEventListener('click', switchPhone);
-      const displayNumber = document.getElementById('displayNumber');
-      const dialTimer = document.getElementById('dialTimer');
-      var imginholdbtn = document.querySelector('#holdbtn img');
-
-      var ua;
-      var options;
-      var session;
-      let isAudioOnly = false;
-      let isFullscreen = false;
-      var callended = true; //declaring var for handing end call function
-      var calldata;
-      var leads;
-      var holdapply = false;
-      var userlogin = false;
-      var phone1hide = false;
-      var Callnumber;
-      let startTime;
-      let intervalId;
-
-      const phone1div = document.getElementById('mydiv');
-      async function togglehold() {
-        const user = document.getElementById('username').value;
-        if (holdapply === false) {
-          console.log('applying hold');
-          holdbtn.classList.add('holddisabled');
-          const url = `/reqHold/${user}`;
-          // Make a hold request to the server
-          await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
-            },
-          })
-            .then((response) => {
-              holdbtn.classList.remove('holddisabled');
-              return response.json();
-            })
-            .then((data) => {
-              //const data={message:"hold applied"};
-              if (data.message === 'hold applied') {
-                holdapply = true;
-                holdbtn.classList.add('applyhold');
-              } else {
-                console.log('response error from server');
-              }
-            })
-            .catch((error) => {
-              console.error('Error sending call answer request:', error);
-            });
-
-          //holdbtn.style.color="red";
-        } else {
-          console.log('removing hold');
-          const url = `/reqUnHold/${user}`;
-          holdbtn.classList.add('holddisabled');
-
-          // Make a unhold request to the server
-          await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
-            },
-          })
-            .then((response) => {
-              holdbtn.classList.remove('holddisabled');
-              return response.json();
-            })
-            .then((data) => {
-              // const data={message:"removed hold"};
-              if (data.message === 'removed hold') {
-                holdapply = false;
-                holdbtn.classList.remove('applyhold');
-              } else {
-                console.log('response error from server');
-              }
-            })
-            .catch((error) => {
-              console.error('Error sending call answer request:', error);
-            });
-        }
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
       }
 
-      async function checkMicrophoneAvailability() {
-        try {
-          // Check if getUserMedia is available in the browser
-          if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            // Try to access the user's microphone
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            console.log('Microphone is available');
-            // Microphone is available, do something here
-            return true;
-          } else {
-            console.error('getUserMedia is not supported in this browser');
-            // getUserMedia is not supported in this browser
-            return false;
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+
+      function closeDragElement() {
+        // stop moving when the mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+
+      function touchStart(e) {
+        // Get the initial touch position
+        var touch = e.touches[0];
+        pos3 = touch.clientX;
+        pos4 = touch.clientY;
+        elmnt.addEventListener("touchmove", touchMove, { passive: false });
+        elmnt.addEventListener("touchend", touchEnd);
+      }
+
+      function touchMove(e) {
+        e.preventDefault();
+        var touch = e.touches[0];
+        // calculate the new touch position
+        pos1 = pos3 - touch.clientX;
+        pos2 = pos4 - touch.clientY;
+        pos3 = touch.clientX;
+        pos4 = touch.clientY;
+        // set the element's new position
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+
+      function touchEnd() {
+        elmnt.removeEventListener("touchmove", touchMove);
+        elmnt.removeEventListener("touchend", touchEnd);
+      }
+    }
+
+  </script>
+
+
+  <script>
+
+    // Function to update the current time with AM/PM
+    function updateCurrentTime(id) {
+      let currentTimeElement = document.getElementById(id);
+      let currentTime = new Date();
+
+      // Extract hours, minutes, and seconds
+      let hours = currentTime.getHours();
+      let minutes = currentTime.getMinutes();
+
+
+      // Determine AM/PM
+      let meridiem = (hours < 12) ? "AM" : "PM";
+
+      // Convert 2~4-hour time to 12-hour time
+      hours = (hours % 12 === 0) ? 12 : hours % 12;
+
+      // Add leading zeros if needed
+      hours = (hours < 10) ? "0" + hours : hours;
+      minutes = (minutes < 10) ? "0" + minutes : minutes;
+
+      // Display the current time with AM/PM in the "currentTime" element
+      currentTimeElement.textContent = hours + ":" + minutes + meridiem;
+    }
+
+    // Update the time every second (1000 milliseconds)
+    setInterval(updateCurrentTime("currentTime"), 1000);
+    setInterval(updateCurrentTime("currenttime"), 1000);
+
+    // Initial call to display the time immediately
+    updateCurrentTime("currentTime");
+    updateCurrentTime("currenttime");
+  </script>
+
+  <script>
+    const audio = document.getElementById('remoteaudio');
+    const element = document.getElementById("register");
+    const localvideo = document.getElementById("localvideo");
+    const remotevideo = document.getElementById("remotevideo");
+    const regUser = document.getElementById("regUser");
+    const leadinfo = document.getElementById("rishi");
+    let holdbtn = document.getElementById("holdbtn");
+    holdbtn.addEventListener("click", togglehold);
+    // Create a custom event
+    const customEvent = new CustomEvent('dispodone')
+
+    element.addEventListener("click", startphone);
+    const dialelemnt = document.getElementById("dialbtn");
+    dialelemnt.addEventListener("click", dialfunc)
+    const hangupButton = document.getElementById("hangup");
+    hangupButton.addEventListener("click", ()=>endCall("button clicked"));
+    const toggleMuteButton = document.getElementById('toggleMuteButton');
+    toggleMuteButton.addEventListener('click', toggleMute);
+    //const maximizeButton = document.getElementById('maximize');
+    // maximizeButton.addEventListener('click', maximize);
+    const audioOnlyButton = document.getElementById('audioOnly');
+    audioOnlyButton.addEventListener('click', audioOnly);
+    const Callernumber = document.getElementById("phonenumber");
+
+    const retryelement = document.getElementById("retry");
+    retryelement.addEventListener("click", retryregistration);
+    const phoneClickButton = document.getElementById("phoneClickButton");
+    phoneClickButton.addEventListener("click", switchPhone);
+    const displayNumber = document.getElementById("displayNumber");
+    const displayNumber1 = document.getElementById("displayNumber1");
+    const dialTimer = document.getElementById("dialTimer");
+    var imginholdbtn = document.querySelector("#holdbtn img");
+
+    var ua;
+    var options;
+    var session;
+    let isAudioOnly = false;
+    let isFullscreen = false;
+    var callended = true; //declaring var for handing end call function
+    var calldata;
+    var leads;
+    var holdapply = false;
+    var userlogin = false;
+    var phone1hide = false;
+    var Callnumber;
+    let startTime;
+    let intervalId;
+    var dialclicked=false;
+    var externalApi;
+    var callstartApi=false;
+    var agentPOPApi =false;
+    var callendApi =false;
+    
+
+    const phone1div = document.getElementById("mydiv");
+    async function togglehold() {
+      const user = document.getElementById("username").value;
+      if (holdapply === false) {
+        console.log("applying hold");
+        holdbtn.classList.add("holddisabled");
+        const url = `/reqHold/${user}`;
+        // Make a hold request to the server
+        await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
           }
-        } catch (error) {
-          console.error('Error accessing microphone:', error);
-          // Microphone is not available or access was denied
+
+        })
+          .then((response) => {
+            holdbtn.classList.remove("holddisabled");
+            return response.json();
+          })
+          .then((data) => {
+            //const data={message:"hold applied"};
+            if (data.message === "hold applied") {
+              holdapply = true;
+              holdbtn.classList.add("applyhold");
+
+            } else {
+              console.log("response error from server");
+            }
+
+          })
+          .catch((error) => {
+            console.error("Error sending call answer request:", error);
+          });
+
+        //holdbtn.style.color="red";
+
+      } else {
+        console.log("removing hold");
+        const url = `/reqUnHold/${user}`;
+        holdbtn.classList.add("holddisabled");
+
+        // Make a unhold request to the server
+        await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+          }
+
+        })
+          .then((response) => {
+            holdbtn.classList.remove("holddisabled");
+            return response.json();
+          })
+          .then((data) => {
+            // const data={message:"removed hold"};
+            if (data.message === "removed hold") {
+              holdapply = false;
+              holdbtn.classList.remove("applyhold");
+            } else {
+              console.log("response error from server");
+            }
+
+          })
+          .catch((error) => {
+            console.error("Error sending call answer request:", error);
+          });
+      }
+    }
+
+    async function checkMicrophoneAvailability() {
+      try {
+        // Check if getUserMedia is available in the browser
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          // Try to access the user's microphone
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          console.log('Microphone is available');
+          // Microphone is available, do something here
+          return true;
+        } else {
+          console.error('getUserMedia is not supported in this browser');
+          // getUserMedia is not supported in this browser
           return false;
         }
+      } catch (error) {
+        console.error('Error accessing microphone:', error);
+        // Microphone is not available or access was denied
+        return false;
+      }
+    }
+
+
+    function switchPhone() {
+      if (phone1hide === false) {
+        phone1hide = true;
+        phone1div.style.display = "none";
+      }
+      else {
+        phone1hide = false;
+        phone1div.style.display = "block";
       }
 
-      function switchPhone() {
-        if (phone1hide === false) {
-          phone1hide = true;
-          phone1div.style.display = 'none';
-        } else {
-          phone1hide = false;
-          phone1div.style.display = 'block';
+    }
+    function startTimer() {
+      // If not running, start the stopwatch
+      startTime = new Date().getTime();
+      intervalId = setInterval(updateDisplay, 1000);
+
+    }
+    function resetTime() {
+      // Reset the stopwatch
+      clearInterval(intervalId);
+    }
+
+    function updateDisplay() {
+      // Update the elapsed time on the display
+      const currentTime = new Date().getTime();
+      const elapsedMilliseconds = currentTime - startTime;
+      const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+      const hours = Math.floor(elapsedSeconds / 3600);
+      const minutes = Math.floor((elapsedSeconds % 3600) / 60);
+      const seconds = elapsedSeconds % 60;
+
+      const displayText = `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      dialTimer.innerText = displayText;
+    }
+
+    function formfill(leads) {
+      const name = document.getElementById("fullname");
+      const email = document.getElementById("emailaddress");
+      const address1 = document.getElementById("address1");
+      const address2 = document.getElementById("address2");
+      const country = document.getElementById("country");
+      const city = document.getElementById("city");
+      const region = document.getElementById("region");
+      const postal = document.getElementById("postal");
+
+      name.value = leads.name || "";
+      email.value = leads.email || "";
+      address1.value = leads.address1 || "";
+      address2.value = leads.address2 || "";
+      country.value = leads.country || "";
+      city.value = leads.city || "";
+      region.value = leads.region || "";
+      postal.value = leads.postal || "";
+
+
+    }
+    function audioOnly() {
+      console.log("No video div to hide");
+      // if (isAudioOnly) {
+      //   // Switch back to video
+
+      //   localvideo.style.display = 'block';
+      //   isAudioOnly = false;
+      // } else {
+      //   // Switch to audio-only
+
+      //   localvideo.style.display = 'none';
+      //   isAudioOnly = true;
+      // }
+    }
+    function maximize() {
+
+
+
+      if (!isFullscreen) {
+        // If not in fullscreen, maximize
+        if (remotevideo.requestFullscreen) {
+          remotevideo.requestFullscreen();
+        } else if (remotevideo.mozRequestFullScreen) {
+          remotevideo.mozRequestFullScreen();
+        } else if (remotevideo.webkitRequestFullscreen) {
+          remotevideo.webkitRequestFullscreen();
+        } else if (remotevideo.msRequestFullscreen) {
+          remotevideo.msRequestFullscreen();
         }
-      }
-      function startTimer() {
-        // If not running, start the stopwatch
-        startTime = new Date().getTime();
-        intervalId = setInterval(updateDisplay, 1000);
-      }
-      function resetTime() {
-        // Reset the stopwatch
-        clearInterval(intervalId);
-      }
-
-      function updateDisplay() {
-        // Update the elapsed time on the display
-        const currentTime = new Date().getTime();
-        const elapsedMilliseconds = currentTime - startTime;
-        const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
-        const hours = Math.floor(elapsedSeconds / 3600);
-        const minutes = Math.floor((elapsedSeconds % 3600) / 60);
-        const seconds = elapsedSeconds % 60;
-
-        const displayText = `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        dialTimer.innerText = displayText;
-      }
-
-      function formfill(leads) {
-        const name = document.getElementById('fullname');
-        const email = document.getElementById('emailaddress');
-        const address1 = document.getElementById('address1');
-        const address2 = document.getElementById('address2');
-        const country = document.getElementById('country');
-        const city = document.getElementById('city');
-        const region = document.getElementById('region');
-        const postal = document.getElementById('postal');
-
-        name.value = leads.name || '';
-        email.value = leads.email || '';
-        address1.value = leads.address1 || '';
-        address2.value = leads.address2 || '';
-        country.value = leads.country || '';
-        city.value = leads.city || '';
-        region.value = leads.region || '';
-        postal.value = leads.postal || '';
-      }
-      function audioOnly() {
-        console.log('No video div to hide');
-        // if (isAudioOnly) {
-        //   // Switch back to video
-
-        //   localvideo.style.display = 'block';
-        //   isAudioOnly = false;
-        // } else {
-        //   // Switch to audio-only
-
-        //   localvideo.style.display = 'none';
-        //   isAudioOnly = true;
-        // }
-      }
-      function maximize() {
-        if (!isFullscreen) {
-          // If not in fullscreen, maximize
-          if (remotevideo.requestFullscreen) {
-            remotevideo.requestFullscreen();
-          } else if (remotevideo.mozRequestFullScreen) {
-            remotevideo.mozRequestFullScreen();
-          } else if (remotevideo.webkitRequestFullscreen) {
-            remotevideo.webkitRequestFullscreen();
-          } else if (remotevideo.msRequestFullscreen) {
-            remotevideo.msRequestFullscreen();
-          }
-          isFullscreen = true; // Update fullscreen state
-        } else {
-          // If already in fullscreen, minimize
-          if (document.exitFullscreen) {
-            document.exitFullscreen();
-          } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-          } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-          } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-          }
-          isFullscreen = false; // Update fullscreen state
+        isFullscreen = true; // Update fullscreen state
+      } else {
+        // If already in fullscreen, minimize
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
         }
+        isFullscreen = false; // Update fullscreen state
+      }
+    }
+
+    async function endCall(buttunpressed) {
+      const hangup = document.getElementById("hangup");
+      const holdhangup = document.getElementById("holdhangup");
+      const unholdisplay = document.getElementById("unholdDisplay");
+      const mergedisplay = document.getElementById("mergeDisplay");
+
+
+      if (mergedisplay.style.display === "block") {
+        mergedisplay.style.display = "none";
+        unholdisplay.style.display = "block";
+
+      }
+      if (holdhangup.style.display === "block") {
+        holdhangup.style.display = "none";
+        //hangup.style.display = "block";
       }
 
-      async function endCall() {
-        const hangup = document.getElementById('hangup');
-        const holdhangup = document.getElementById('holdhangup');
-        const unholdisplay = document.getElementById('unholdDisplay');
-        const mergedisplay = document.getElementById('mergeDisplay');
 
-        if (mergedisplay.style.display === 'block') {
-          mergedisplay.style.display = 'none';
-          unholdisplay.style.display = 'block';
-        }
-        if (holdhangup.style.display === 'block') {
-          holdhangup.style.display = 'none';
-          hangup.style.display = 'block';
-        }
+      // console.log("session",session);
+      console.log(" line no 1658 callended", callended);
+      // Check if there is an active call session (session variable is defined)
+      if (session && callended === false) {
+        //callended =false;
+        //  if ( callended === false) {
+        try {
+          callended = true;
+          const response = await fetch(`/user/callended${username.value}`, {
+            method: "POST",
+          });
 
-        // console.log("session",session);
-        console.log(' line no 1658 callended', callended);
-        // Check if there is an active call session (session variable is defined)
-        if (session && callended === false) {
-          //callended =false;
-          //  if ( callended === false) {
-          try {
-            callended = true;
-            const response = await fetch(`/user/callended${username.value}`, {
-              method: 'POST',
-            });
+          if (response) {
+            const result = await response.json();
+            // const result={message:"call ended sucessfully."};
+            if (result) {
+              if (result.message === "call ended sucessfully.") {
+                console.log(result.message);
+                // Terminate the call session
+                session.terminate();
+                // Reset the video elements
+                //localvideo.srcObject = null;
+                //remotevideo.srcObject = null;
 
-            if (response) {
-              const result = await response.json();
-              // const result={message:"call ended sucessfully."};
-              if (result) {
-                if (result.message === 'call ended sucessfully.') {
-                  console.log(result.message);
-                  // Terminate the call session
-                  session.terminate();
-                  // Reset the video elements
-                  //localvideo.srcObject = null;
-                  //remotevideo.srcObject = null;
-
-                  // Hide the video call UI and show the preview UI
-                  const preview = document.getElementById('preview');
-                  const postView = document.getElementById('postview');
-                  const disposition = document.getElementById('Disposition');
-                  postView.style.display = 'none';
-                  preview.style.display = 'none';
-                  disposition.style.display = 'block';
-                  // Remove the hang-up button
-                  // hangupButton.style.display = "none";
-                } else {
-                  //failed case
-                  console.log(result.message);
-                }
-              } else {
-                alert('Unable to execuate due to connection problem');
+                // Hide the video call UI and show the preview UI
+                const preview = document.getElementById("preview");
+                const postView = document.getElementById("postview");
+                const disposition = document.getElementById("Disposition");
+                postView.style.display = "none";
+                preview.style.display = "none";
+                disposition.style.display = "block";
+                // Remove the hang-up button
+                // hangupButton.style.display = "none";
               }
+              else {
+                //failed case
+                console.log(result.message);
+              }
+
             }
-          } catch (err) {
-            console.log('error:', err);
+            else {
+              alert("Unable to execuate due to connection problem");
+            }
           }
         }
-      }
-      function toggleMute() {
-        // Check if there is an active call session (session variable is defined)
-        if (session) {
-          // Toggle the mute state of the call
-          const isMuted = session.isMuted().audio;
+        catch (err) {
+          console.log("error:", err);
 
-          if (isMuted) {
-            // If currently muted, unmute the call
-            session.unmute({
-              audio: true, // Unmute the audio
-            });
-          } else {
-            // If currently unmuted, mute the call
-            session.mute({
-              audio: true, // Mute the audio
-            });
-          }
-
-          // Optionally, you can update the UI to reflect the mute state
-          updateMuteButtonState(isMuted);
         }
-      }
 
-      // Function to update the UI of the mute/unmute button
-      function updateMuteButtonState(isMuted) {
-        // Update the button's appearance based on the mute state
+
+      }else{
+        dialclicked=false;
+        if(buttunpressed){
+        displayMessage("No Call to hangup");
+        }
+
+      }
+    }
+    function toggleMute() {
+      // Check if there is an active call session (session variable is defined)
+      if (session) {
+        // Toggle the mute state of the call
+        const isMuted = session.isMuted().audio;
+
         if (isMuted) {
-          // Set the button to show as muted
-          toggleMuteButton.classList.remove('muted');
+          // If currently muted, unmute the call
+          session.unmute({
+            audio: true, // Unmute the audio
+          });
         } else {
-          // Set the button to show as unmuted
-          toggleMuteButton.classList.add('muted');
+          // If currently unmuted, mute the call
+          session.mute({
+            audio: true, // Mute the audio
+
+          });
         }
+
+        // Optionally, you can update the UI to reflect the mute state
+        updateMuteButtonState(isMuted);
       }
+    }
 
-      async function startphone() {
-        const isMicroPhone = await checkMicrophoneAvailability();
-        if (isMicroPhone === true) {
-          var socket = new JsSIP.WebSocketInterface('wss://devapp.iotcom.io/ws');
+    // Function to update the UI of the mute/unmute button
+    function updateMuteButtonState(isMuted) {
+      // Update the button's appearance based on the mute state
+      if (isMuted) {
+        // Set the button to show as muted
+        toggleMuteButton.classList.remove('muted');
+      } else {
+        // Set the button to show as unmuted
+        toggleMuteButton.classList.add('muted');
+      }
+    }
 
-          let user = document.getElementById('username').value;
-          let extension = user.replace('@', '-');
-          let pass = document.getElementById('password').value;
-          console.log(user);
-          console.log(pass);
 
-          function playBeep() {
-            console.log('playing beep');
-            const audio = document.getElementById('beepAudio');
-            audio.play();
-          }
+    async function startphone() {
+      console.log("start button clicked");
+      const isMicroPhone = await checkMicrophoneAvailability();
+      if (isMicroPhone === true) {
+        var socket = new JsSIP.WebSocketInterface(
+          "wss://devapp.iotcom.io:8089/ws"
+        );
 
-          let configuration = {
-            sockets: [socket],
-            uri: `sip:${extension}@devapp.iotcom.io`,
-            authorization_user: extension,
-            password: pass,
-          };
+        let user = document.getElementById("username").value;
+        let extension = user.replace("@", "-");
+        let pass = document.getElementById("password").value
+        console.log(user)
+        console.log(pass)
 
-          ua = new JsSIP.UA(configuration);
+       
 
-          const url = `/userlogin/${user}`;
+        let configuration = {
+          sockets: [socket],
+          uri: `sip:${extension}@devapp.iotcom.io`,
+          authorization_user: extension,
+          password: pass,
+        };
+
+        ua = new JsSIP.UA(configuration);
+
+        const url = `/userlogin/${user}`;
+        // Make a edit request to the server
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+          }, body: JSON.stringify({ password: pass }),
+
+
+        })
+          .then((response) => {
+
+            return response.json();
+          })
+          .then((data) => {
+            //const data={message:"success,Proceed to login"};
+            console.log(data.message);
+            if (data.message === "success,Proceed to login") {
+              console.log("starting ua");
+              ua.start();
+
+            } else if (data.message === "User already login somewhere else") {
+              alert(data.message);
+
+            }
+            else if (data.message === "wrong login info") {
+              let x = document.getElementById("statusfailed");
+              let y = document.getElementById("creds");
+              let z = document.getElementById("registrationfailededuser");
+              z.innerText = document.getElementById("username").value
+              y.style.display = "none";
+              x.style.display = "block";
+
+            }
+          })
+          .catch((error) => {
+            console.error("Error sending login rquest:", error);
+          });
+
+
+
+
+        ua.on("registered", (data) => {
+          let x = document.getElementById("status");
+          let y = document.getElementById("creds");
+          let p = document.getElementById("preview");
+          const userName = document.getElementById("username").value;
+          regUser.textContent = userName;
+
+
+
+          y.style.display = "none";
+          x.style.display = "block";
+          // p.style.display="block";
+          console.log(data.response.data);
+
+          // now send response to backend that you are ready to take call
+          const url = `/userready/${userName}`;
           // Make a edit request to the server
           fetch(url, {
-            method: 'POST',
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
               //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
-            },
-            body: JSON.stringify({ password: pass }),
+            }
+
           })
             .then((response) => {
+
               return response.json();
             })
             .then((data) => {
-              //const data={message:"success,Proceed to login"};
+              //const data1={message:"success"};
               console.log(data.message);
-              if (data.message === 'success,Proceed to login') {
-                ua.start();
+              if (data.message === "success") {
+                console.log("user ready to take call");
+                 externalApi=data.Allapi;
+                 setApivalues(externalApi);
+                // we can use this in future to create login session for agents
                 userlogin = true;
-              } else if (data.message === 'User already login somewhere else') {
+              } else if (data.message === "failed,logout and login again") {
                 alert(data.message);
-              } else if (data.message === 'wrong login info') {
-                let x = document.getElementById('statusfailed');
-                let y = document.getElementById('creds');
-                let z = document.getElementById('registrationfailededuser');
-                z.innerText = document.getElementById('username').value;
-                y.style.display = 'none';
-                x.style.display = 'block';
               }
             })
             .catch((error) => {
-              console.error('Error sending login rquest:', error);
+              console.error("Error sending login rquest:", error);
             });
 
-          ua.on('registered', (data) => {
-            let x = document.getElementById('status');
-            let y = document.getElementById('creds');
-            let p = document.getElementById('preview');
-            const userName = document.getElementById('username').value;
-            regUser.textContent = userName;
+        });
+        ua.on("registrationFailed", (data) => {
 
-            y.style.display = 'none';
-            x.style.display = 'block';
-            // p.style.display="block";
-            console.log(data.response.data);
+          let x = document.getElementById("statusfailed");
+          let y = document.getElementById("creds");
+          let z = document.getElementById("registrationfailededuser");
+          z.innerText = document.getElementById("username").value
+          y.style.display = "none";
+          x.style.display = "block";
+          console.log(data.response.data);
 
-            // now send response to backend that you are ready to take call
-            const url = `/userready/${userName}`;
-            // Make a edit request to the server
-            fetch(url, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
-              },
-            })
-              .then((response) => {
-                return response.json();
-              })
-              .then((data) => {
-                //const data1={message:"success"};
-                console.log(data1.message);
-                if (data1.message === 'success') {
-                  console.log('user ready to take call');
-                  // we can use this in future to create login session for agents
-                } else if (data1.message === 'failed,logout and login again') {
-                  alert(data1.message);
-                }
-              })
-              .catch((error) => {
-                console.error('Error sending login rquest:', error);
-              });
-          });
-          ua.on('registrationFailed', (data) => {
-            let x = document.getElementById('statusfailed');
-            let y = document.getElementById('creds');
-            let z = document.getElementById('registrationfailededuser');
-            z.innerText = document.getElementById('username').value;
-            y.style.display = 'none';
-            x.style.display = 'block';
-            console.log(data.response.data);
-          });
+        })
 
-          // Add an event listener for the 'stopped' event
-          ua.on('stopped', function (event) {
-            console.log('ua Stopeed');
-            // This callback function will be called when the 'stopped' event occurs
-            const x = document.getElementById('status');
-            const y = document.getElementById('creds');
-            //let p = document.getElementById("preview");
+        // Add an event listener for the 'stopped' event
+        ua.on('stopped', function (event) {
+          console.log("ua Stopeed");
+          // This callback function will be called when the 'stopped' event occurs
+          const x = document.getElementById("status");
+          const y = document.getElementById("creds");
+          //let p = document.getElementById("preview");
 
-            y.style.display = 'blocl';
-            x.style.display = 'none';
-          });
+          y.style.display = "blocl";
+          x.style.display = "none";
 
-          ua.on('newRTCSession', (data) => {
-            //console.log(data.request.from._uri._user);
-            const currentNum = 9865326526;
-            //const currentNum = data.request.from._uri._user;
-            console.log('request Data line no 1228', data);
-            if (currentNum !== 'anonymous') {
-              Callnumber = currentNum;
+        });
+
+
+
+        ua.on("newRTCSession", (data) => {
+          //console.log(data.request.from._uri._user);
+          //const currentNum=9865326526;
+          const currentNum = data.request.from._uri._user;
+          console.log("request Data line no 1228", data);
+          if (currentNum !== "anonymous") {
+            Callnumber = currentNum;
+          }
+          callended = false;
+          session = data.session;
+
+
+          //adding eventlisners to listen various event for handling call disconnection
+          session.on("ended", (e) => {
+
+            console.log("Call ended");
+            dialclicked=false;
+            endCall();
+            if(callendApi===true){
+              const urlData = externalApi.find(a=>a.ApiTime==="CallEnd");
+              triggerAPI(urlData.ApiURL,urlData.ApiType,urlData.ApiPayload);
+             }
+            resetTime();
+            if (holdapply === true) {
+              holdapply = false;
+              holdbtn.classList.remove("applyhold");
+            };
+            muteclicked = false;
+            document.getElementById('toggleMuteButton').style.backgroundColor = "#6B7280"
+            const HOLDHANGUP = document.getElementById("holdhangup");
+            const HANGUP = document.getElementById("hangup");
+            HANGUP.style.display="none";
+            if (HOLDHANGUP.style.display === "block") {
+              HOLDHANGUP.style.display = "none";
+             // HANGUP.style.display = "block";
+
             }
-            callended = false;
-            session = data.session;
+            document.getElementById("conferenceDialer").style.display = "none";
+            document.getElementById("holdDisplay").style.display = "none";
+            document.getElementById("mergeDisplay").style.display = "none";
+            document.getElementById("unholdDisplay").style.display = "block";
+          });
 
-            //adding eventlisners to listen various event for handling call disconnection
-            session.on('ended', (e) => {
-              console.log('Call ended');
-              endCall();
-              resetTime();
-              if (holdapply === true) {
-                holdapply = false;
-                holdbtn.classList.remove('applyhold');
-              }
+
+          session.on("removestream", (e) => {
+            console.log("remote stream removed", e);
+          });
+          session.on("addstream", (e) => { console.log("remote stream added", e) });
+
+          console.log("Call Direction is " + session.direction);
+
+          if (session.direction === "incoming") {
+            console.log(session);
+           // playBeep();
+            notifyMe();
+            let x = document.getElementById("postview");
+            let y = document.getElementById("preview");
+            let z = document.getElementById("Disposition");
+            x.style.display = "block";
+            y.style.display = "none";
+            displayNumber.innerText = Callnumber;
+            displayNumber1.innerText = Callnumber;
+            document.getElementById("firstNumber").innerText = Callnumber;
+            document.getElementById("firstNumber1").innerText = Callnumber;
+
+            let localStream; // Declare a variable to hold the local stream
+
+            navigator.mediaDevices.getUserMedia({ audio: true }).then((s) => {
+              localStream = s; // Store the local stream in a variable
+              // localvideo.srcObject = s;
+            }).catch((err) => {
+              console.log("error while getting media", err)
             });
-            session.on('removestream', (e) => {
-              console.log('remote stream removed', e);
-            });
-            session.on('addstream', (e) => {
-              console.log('remote stream added', e);
-            });
+            answercall();
+            session.answer();
+            const HANGUP = document.getElementById("hangup");
+            HANGUP.style.display="block";
+            if(callstartApi===true){
+              const urlData = externalApi.find(a=>a.ApiTime=="CallStart");
+               triggerAPI(urlData.ApiURL,urlData.ApiType,urlData.ApiPayload);
+            }
+             if(agentPOPApi===true){
+              const urlData = externalApi.find(a=>a.ApiTime==="AgentPopUp");
+              triggerAPI(urlData.ApiURL,urlData.ApiType,urlData.ApiPayload);
+             }
 
-            console.log('Call Direction is ' + session.direction);
+            // session.connection.addEventListener("track", function (e){
+            //   if (e.streams.length === 0){
+            //     console.log("caller disconnected");
+            //   }
 
-            if (session.direction === 'incoming') {
-              console.log(session);
-              playBeep();
-              let x = document.getElementById('postview');
-              let y = document.getElementById('preview');
-              let z = document.getElementById('Disposition');
-              x.style.display = 'block';
-              y.style.display = 'none';
-              displayNumber.innerText = Callnumber;
+            // });
+            // session.connection.addEventListener('streamEnded', function(data) { 
+            //   console.log("remote stream ended");
+            // });
+            // session.connection.onclose=()=>{
+            //   console.log("call dead")
+            // };
 
-              let localStream; // Declare a variable to hold the local stream
 
-              navigator.mediaDevices
-                .getUserMedia({ audio: true })
-                .then((s) => {
-                  localStream = s; // Store the local stream in a variable
-                  // localvideo.srcObject = s;
-                })
-                .catch((err) => {
-                  console.log('error while getting media', err);
-                });
-              answercall();
-              session.answer();
-
-              // session.connection.addEventListener("track", function (e){
-              //   if (e.streams.length === 0){
-              //     console.log("caller disconnected");
-              //   }
-
-              // });
-              // session.connection.addEventListener('streamEnded', function(data) {
-              //   console.log("remote stream ended");
-              // });
-              // session.connection.onclose=()=>{
-              //   console.log("call dead")
-              // };
-
-              session.connection.addEventListener('track', function (e) {
-                console.log('remote stream added');
-                console.log(e);
-                const track = e.track;
-                console.log('Using audio device: ' + track);
-                e.streams[0].oninactive = function () {
-                  x.style.display = 'none';
-                  y.style.display = 'none';
-                  z.style.display = 'block';
-                  console.log('Stream ended');
-
-                  // When the stream becomes inactive, stop the local stream
-                  if (localStream) {
-                    localStream.getTracks().forEach((track) => track.stop());
-                  }
-                };
-                if (track.kind === 'audio') {
-                  audio.srcObject = e.streams[0];
-                } else {
-                  remotevideo.srcObject = e.streams[0];
-                }
-              });
-
-              // Add a hang-up button for the receiver
-              //const hangupButton = document.getElementById("hangup");
-              // hangupButton.style.display = "block";
-              //hangupButton.addEventListener("click", endCall);
-            } else if (session.direction === 'outgoing') {
-              console.log('outgoing call');
-              let x = document.getElementById('postview');
-              let y = document.getElementById('preview');
-              let z = document.getElementById('Disposition');
-              y.style.display = 'none';
-              x.style.display = 'block';
-              answercall();
-
-              let localStream; // Declare a variable to hold the local stream
-
-              navigator.mediaDevices.getUserMedia({ video: true }).then((s) => {
-                localStream = s; // Store the local stream in a variable
-                localvideo.srcObject = s;
-              });
-
-              console.log(session.connection);
-              session.connection.addEventListener('track', function (e) {
-                console.log('remote stream added');
-                console.log(e);
-                const track = e.track;
-                console.log('Using audio device: ' + track);
+            session.connection.addEventListener("track", function (e) {
+              console.log("remote stream added");
+              console.log(e);
+              const track = e.track;
+              console.log("Using audio device: " + track);
+              e.streams[0].oninactive = function () {
+                x.style.display = "none";
+                y.style.display = "none";
+                z.style.display = "block";
+                console.log("Stream ended");
 
                 // When the stream becomes inactive, stop the local stream
-                e.streams[0].oninactive = function () {
-                  x.style.display = 'none';
-                  y.style.display = 'none';
-                  z.style.display = 'block';
-                  console.log('Stream ended');
-
-                  if (localStream) {
-                    localStream.getTracks().forEach((track) => track.stop());
-                  }
-                };
-
+                if (localStream) {
+                  localStream.getTracks().forEach((track) => track.stop());
+                }
+              };
+              if (track.kind === "audio") {
                 audio.srcObject = e.streams[0];
+              } else {
                 remotevideo.srcObject = e.streams[0];
-              });
+              }
+            });
 
-              // Add a hang-up button for the caller
-              const hangupButton = document.getElementById('hangup');
-              hangupButton.style.display = 'block';
-              hangupButton.addEventListener('click', endCall);
-            } else {
-            }
-          });
+            // Add a hang-up button for the receiver
+            //const hangupButton = document.getElementById("hangup");
+            // hangupButton.style.display = "block";
+            //hangupButton.addEventListener("click", endCall);
+          }
+          else if (session.direction === "outgoing") {
+            console.log("outgoing call");
+            let x = document.getElementById("postview");
+            let y = document.getElementById("preview");
+            let z = document.getElementById("Disposition");
+            y.style.display = "none";
+            x.style.display = "block";
+            answercall();
 
-          // Register callbacks to desired call events
-          var eventHandlers = {
-            progress: function (e) {
-              console.log('call is in progress');
-            },
-            failed: function (e) {
-              console.log('call failed with cause: ' + e.data.cause);
-            },
-            ended: function (e) {
-              console.log('call ended with cause: ' + e.cause);
+            let localStream; // Declare a variable to hold the local stream
+
+            navigator.mediaDevices.getUserMedia({ video: true }).then((s) => {
+              localStream = s; // Store the local stream in a variable
+              localvideo.srcObject = s;
+            });
+
+            console.log(session.connection);
+            session.connection.addEventListener("track", function (e) {
+              console.log("remote stream added");
               console.log(e);
-            },
-            confirmed: function (e) {
-              console.log('call confirmed');
-            },
+              const track = e.track;
+              console.log("Using audio device: " + track);
 
-            addstream: function (e) {
-              console.log('remote stream added');
-            },
-          };
+              // When the stream becomes inactive, stop the local stream
+              e.streams[0].oninactive = function () {
+                x.style.display = "none";
+                y.style.display = "none";
+                z.style.display = "block";
+                console.log("Stream ended");
 
-          options = {
-            eventHandlers: eventHandlers,
-            mediaConstraints: { audio: true, video: false },
-          };
+                if (localStream) {
+                  localStream.getTracks().forEach((track) => track.stop());
+                }
+              };
 
-          //var session = ua.call('sip:webrtc_client1@webrtc.iotcom.io', options);
+              audio.srcObject = e.streams[0];
+              remotevideo.srcObject = e.streams[0];
+            });
 
-          // setTimeout(() => {
-          //   ua.call("sip:webrtc_client1@webrtc.iotcom.io", options);
-          // }, 5000);
-        } else {
-          alert((message = 'Microphone Not available,check device setting'));
+            // Add a hang-up button for the caller
+            const hangupButton = document.getElementById("hangup");
+            hangupButton.style.display = "block";
+            hangupButton.addEventListener("click", ()=>endCall("button pressed"));
+          }
+          else { }
+        });
+
+
+
+        // Register callbacks to desired call events
+        var eventHandlers = {
+          progress: function (e) {
+            console.log("call is in progress");
+          },
+          failed: function (e) {
+            console.log("call failed with cause: " + e.data.cause);
+          },
+          ended: function (e) {
+            console.log("call ended with cause: " + e.cause);
+            console.log(e);
+          },
+          confirmed: function (e) {
+            console.log("call confirmed");
+          },
+
+          addstream: function (e) {
+            console.log("remote stream added");
+
+          },
+        };
+
+        options = {
+          eventHandlers: eventHandlers,
+          mediaConstraints: { audio: true, video: false },
+        };
+
+        //var session = ua.call('sip:webrtc_client1@webrtc.iotcom.io', options);
+
+        // setTimeout(() => {
+        //   ua.call("sip:webrtc_client1@webrtc.iotcom.io", options);
+        // }, 5000);
+      } else {
+        alert(message = "Microphone Not available,check device setting");
+      }
+    }
+    async function dialfunc() {
+      if(dialclicked==false){
+        dialclicked=true;
+      const user = document.getElementById("username").value;
+      let dialstring = document.getElementById("dialnumber").value;
+      Callnumber = dialstring;
+      console.log()
+      //session = ua.call(`sip:${dialstring}@webrtc.iotcom.io`, options);
+      //api call for manual dial
+      const dialdata = {
+        caller: user,
+        receiver: dialstring,
+      }
+      const url = "/dialnumber";
+      // Make a edit request to the server
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+        },
+        body: JSON.stringify(dialdata),
+
+      })
+        .then((response) => {
+
+          return response.json();
+        })
+        .then((data) => {
+          // const data={message:"Sucess dial req received"};
+          if (data === "Sucess dial req received") {
+            //answer the call and proceed
+            console.log(data);
+          } else {
+            displayMessage(data);
+            dialclicked=false;
+           // resetTime();
+          }
+
+        })
+        .catch((error) => {
+          console.error("Error sending dial request:", error);
+        });
+
+      }else{
+          displayMessage("Already working on previous click");
+      }
+
+    }
+
+    async function answercall() {
+      console.log("answering call");
+      const user = document.getElementById("username").value;
+      const url = `/useroncall/${user}`;
+
+      // Make a edit request to the server
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+        }
+
+      })
+        .then((response) => {
+
+          return response.json();
+        })
+        .then((data) => {
+          // const data={message:"Sucess answer the call",
+          //  currentcalldata:{
+          //     bridgeID:"hyjgjhgjh454154525dfgdsf",
+          //     channelId:"dsfds565656dsf"
+          //  }};
+          if (data.message === "Sucess answer the call") {
+            //answer the call and proceed
+            console.log(data.message);
+            calldata = data.currentcalldata;
+            leads = data.leads[0];
+            startTimer();
+            // return formfill(leads);
+
+          } else {
+            console.log("response error from server");
+            let x = document.getElementById("postview");
+            let y = document.getElementById("preview");
+            y.style.display = "block";
+            x.style.display = "none";
+            resetTime();
+          }
+
+        })
+        .catch((error) => {
+          console.error("Error sending call answer request:", error);
+        });
+
+
+    }
+
+    function retryregistration() {
+      console.log("retry clicked")
+      let x = document.getElementById("statusfailed");
+      let y = document.getElementById("creds");
+      y.style.display = "flex";
+      x.style.display = "none";
+
+    }
+  </script>
+  <script>
+    let currentNumber = "";
+
+    function appendNumber(input) {
+      // check if div preview is open or not
+      const preview = document.getElementById("preview");
+      const loginStatus = document.getElementById("status");
+      if (preview.style.display === "block" && loginStatus.style.display !== "none") {
+        // If input is a digit or '*' or '#'
+        if (/^\d$|^[\*\#]$/.test(input)) {
+          currentNumber += input;
+          document.getElementById("dialnumber").value = currentNumber;
+        } else if (input.type === "click") {
+          // If input is from the dial pad
+          let number = input.target.textContent;
+          currentNumber += number;
+          document.getElementById("dialnumber").value = currentNumber;
         }
       }
-      async function dialfunc() {
-        const user = document.getElementById('username').value;
-        let x = document.getElementById('postview');
-        let y = document.getElementById('preview');
-        y.style.display = 'none';
-        x.style.display = 'block';
+    }
 
-        muteclicked = false;
-        document.getElementById('toggleMuteButton').style.backgroundColor = '#6B7280';
-        const HOLDHANGUP = document.getElementById('holdhangup');
-        const HANGUP = document.getElementById('hangup');
-        if (HOLDHANGUP.style.display === 'block') {
-          HOLDHANGUP.style.display = 'none';
-          HANGUP.style.display = 'block';
+    function clearNumber() {
+      currentNumber = currentNumber.slice(0, -1); // Remove the last character
+      document.getElementById("dialnumber").value = currentNumber;
+    }
+
+
+    document.addEventListener("keydown", function (event) {
+      const preview = document.getElementById("preview");
+      const loginBoard = document.getElementById("creds");
+      const loginStatus = document.getElementById("status");
+      const conferanview = document.getElementById("conferenceDialer");
+      // If a digit key is pressed
+      if (event.key >= '0' && event.key <= '9' && preview.style.display === "block" && loginStatus.style.display !== "none") {
+        appendNumber(event.key);
+      } else if (event.key === "Backspace" && preview.style.display === "block" && loginStatus.style.display !== "none") {
+        // If Backspace key is pressed
+        clearNumber();
+      } else if (event.key === "Enter" && preview.style.display === "block" && loginStatus.style.display !== "none") {
+        // If Enter key is pressed, perform dialing action
+        dialfunc();
+      } else if (event.key === "Enter" && loginBoard.style.display !== "none" && loginStatus.style.display === "none") {
+        startphone();
+      } else if (event.key >= '0' && event.key <= '9' && preview.style.display === "none" && conferanview.style.display === "block") {
+        appendcopyNumber(event.key);
+      } else if (event.key === "Enter" && preview.style.display === "none" && conferanview.style.display === "block") {
+        confdialCall()
+      }else if (event.key === "Backspace" && preview.style.display === "none" && conferanview.style.display === "block") {
+        clearconferenceNumber();
+      }
+
+    });
+
+
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const actionButtons = document.querySelectorAll('.btn-primary');
+    let selectedAction = null;
+
+    function handleButtonClick(event) {
+      actionButtons.forEach(button => button.classList.remove('active'));
+      event.target.classList.add('active');
+      selectedAction = event.target.getAttribute('data-action');
+    }
+
+    async function connectioncheck() {
+      if (userlogin === true) {
+        const user = document.getElementById("username").value;
+        try {
+          const response = await Promise.race([
+            fetch("/userconnection", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ user: user }),
+            }),
+            new Promise((_, reject) => {
+              // Create a timer that rejects after 3 seconds
+              setTimeout(() => {
+              //  console.log("timeout code");
+                reject(new Error('Timeout')); // Timeout after 3 seconds
+              }, 3000); // 3 seconds in milliseconds
+            }),
+          ]);
+
+          if (response.status === 401) {
+            // Unauthorized response handling: redirect to index page or handle as needed
+            window.location.href = "/index.html"; // Replace with your index page URL
+          } else {
+            const data = await response.json();
+                  // console.log("line no 2348",data.message);
+            if (data.message === "ok connection for user") {
+                const Callque = data.currentCallqueue;
+                const callqueDiv = document.getElementById("callQueue");
+                changeQueDiv(Callque,callqueDiv);
+                
+              // empty timeout array for short conn. problem
+              timeoutarray = [];
+            } else if (data.message =="poor connection problem ,please login again") {
+              console.log("connection problem block need to alert");
+              alert(data.message);
+              userlogin = false;
+              logoutfunction();
+              //window.location.href = `/forcelogout/${user}`;
+            } else {
+              console.log("other block");
+              // Handle other cases as needed
+            }
+          }
+        } catch (err) {
+          if (err.message === 'Timeout') {
+            // Handle the timeout case
+            const timeout = { timeout: true };
+            timeoutarray.push(timeout);
+            if (timeoutarray.length > 2) {
+              alert('Connection problem: The request timed out');
+            } else {
+              console.log("slight connection problem");
+            }
+          } else {
+            console.log("Error in connection check function", err);
+          }
+        }
+      }
+    }
+
+
+    const liveInterval = 1000; // 1 seconds in milliseconds
+    setInterval(connectioncheck, liveInterval);
+
+    async function submitForm() {
+      const checkautoleaddial = document.getElementById("checkautoleaddial");
+      if (checkautoleaddial.checked === true) { dialnext = false; }
+      const breakCheckbox = document.getElementById("breakCheckbox");
+
+      if (selectedAction) {
+        const sendingdata = {
+          bridgeID: calldata.bridgeID,
+          Disposition: selectedAction
+        };
+        try {
+          const response = await fetch(`/user/disposition${username.value}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+            },
+            body: JSON.stringify(sendingdata),
+          });
+
+          if (response) {
+            const result = await response.json();
+            //const result = {message:"disposition done sucessfully."};
+            if (result) {
+              if (result.message === "disposition done sucessfully.") {
+                console.log(result.message);
+                console.log('Selected Action:', selectedAction);
+                //   if(checkautoleaddial.checked===false){
+                //  // leadID();
+                //   }else{
+                const preview = document.getElementById("preview");
+                preview.style.display = "block";
+                if (breakCheckbox.checked === true) { await livebtn(); };
+                //}
+                //const preview = document.getElementById("preview");
+                //const postView = document.getElementById("postview");
+                const Disposition = document.getElementById("Disposition");
+                // postView.style.display = "none";
+                //  preview.style.display = "block";
+                Disposition.style.display = "none";
+                // Trigger the custom event on the element
+                // document.dispatchEvent(customEvent);
+              }
+              else {
+                //failed case
+                console.log(result.message);
+              }
+
+            }
+            else {
+              alert("Unable to execuate due to connection problem");
+            }
+          }
+        }
+        catch (err) {
+          console.log("error:", err);
+
         }
 
-        let dialstring = document.getElementById('dialnumber').value;
-        Callnumber = dialstring;
-        console.log();
-        //session = ua.call(`sip:${dialstring}@webrtc.iotcom.io`, options);
-        //api call for manual dial
-        const dialdata = {
-          caller: user,
-          receiver: dialstring,
-        };
-        const url = '/dialnumber';
+
+
+
+      } else {
+        $('#alertModal').modal('show');
+      }
+
+
+    }
+
+    function clearForm() {
+      actionButtons.forEach(button => button.classList.remove('active'));
+      selectedAction = null;
+      $('#alertModal').modal('hide');
+    }
+
+    async function displayMessage(message) {
+      const alertModelContant = document.getElementById("alertModelContant1");
+      alertModelContant.innerText = message;
+      $('#alertModal1').modal('show');
+
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Wait for 1.5 seconds
+
+      $('#alertModal1').modal('hide');
+    }
+
+    actionButtons.forEach(button => button.addEventListener('click', handleButtonClick));
+  </script>
+  <script>
+    const L = document.getElementById("liveButton");
+    const L1 = document.getElementById("liveButton1");
+    const B = document.getElementById("breakButton");
+    const B1 = document.getElementById("breakButton1");
+
+    L.addEventListener("click", livebtn);
+    //  L1.addEventListener("click", livebtn);
+    async function livebtn() {
+      console.log(`break function called`)
+      const user = document.getElementById("username").value;
+      console.log(`break function called for ${user}`)
+      //console.log(user);
+
+      try {
+        const response = await fetch(`/user/breakuser:${user}`, {
+          method: "POST",
+        })
+
+
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            //const data={message:"break removed"};
+            alert(data.message);
+            L.style.display = "none";
+            //  L1.style.display = "none";
+            B.style.display = "block";
+            //  B1.style.display = "block";
+          })
+
+      }
+      catch (error) {
+        (error) => {
+          alert("error:", error)
+        }
+      }
+      ;
+    }
+
+    B.addEventListener("click", breakbtn);
+    //B1.addEventListener("click", breakbtn);
+    async function breakbtn() {
+      const user = document.getElementById("username").value;
+      try {
+        const response = await fetch(`/user/removebreakuser:${user}`, {
+          method: "POST",
+        })
+
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            //const data={message:"break applied"};
+            alert(data.message);
+            L.style.display = "block";
+            // L1.style.display = "block";
+            B.style.display = "none";
+            // B1.style.display = "none";
+          })
+
+      }
+      catch (error) {
+        (error) => {
+          alert("error:", error)
+        }
+      }
+
+
+    }
+    const logout = document.getElementById("logout");
+    logout.addEventListener("click", logoutfunction);
+
+    async function logoutfunction() {
+      const user = document.getElementById("username").value;
+      try {
+        const response = await fetch(`/user/logoutuser:${user}`, {
+          method: "POST",
+        })
+
+
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            //const data={message:"logout sucess"};
+            alert(data.message);
+            userlogin = false;
+            location.reload();
+            //console.log(ua);
+            //ua.stop();
+          })
+
+      }
+      catch (error) {
+        (error) => {
+          alert("error:", error)
+        }
+      }
+    }
+  </script>
+  <script>
+
+    const AutoLead = document.getElementById('autoleaddial');
+    const nextlead = document.getElementById("nextlead");
+    const leaddial = document.getElementById('leaddial');
+    // const autoleaddial = document.getElementById("autoleaddial");
+    //  nextlead.addEventListener('click', nextleadID);
+    //AutoLead.addEventListener('click', leadID);
+    // leaddial.addEventListener('click', leaddialfun);
+    // autoleadbutton.addEventListener("click", autoleadfun);
+    var leaddata;
+    var leadid;
+    let dialed = false;
+    var autoleadbutton = false;
+    var dialnext = false;
+   
+
+    // async function autoleadfun() {
+    //   autoleadbutton = !autoleadbutton;
+
+    //   if (autoleadbutton === true) {
+    //     await leadID();
+    //     await leaddial();
+    //   }
+    //   if (autoleadbutton === false) {
+    //     //do nothing
+    //   }
+    // }
+    // document.addEventListener('dispodone', function (e) {
+    //   if (dispoafterautodial === false) {
+    //     autoleadbutton = false;
+    //     autoleadfun();
+    //   }
+    //   else {
+    //     //do nothing
+    //   }
+    // })
+
+    async function leadID() {
+      console.log("button clicked fetching data");
+      dialnext = true;
+      const preview = document.getElementById("preview");
+      const leaddiv = document.getElementById('leaddiv');
+
+      preview.style.display = "none";
+      leaddiv.style.display = "block";
+
+      const user = document.getElementById("username").value;
+      //console.log(user);
+
+      try {
+        const response = await fetch(`/leadforautocall`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user: user })
+        })
+
+
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            leaddata = data.result;
+            leadid = leaddata.leadId;
+            populateleads(leaddata);
+          })
+
+      }
+      catch (error) {
+        (error) => {
+          alert("error:", error)
+        }
+      }
+
+      document.addEventListener('click', function (event) {
+        dialnext = false;
+      });
+      let autodialInterval = setInterval(() => {
+        if (dialnext === true) {
+          leaddialfun();
+          dialnext = false;
+        }
+      }, 30000);
+      //auto call after 30sec
+
+    }
+
+    async function nextleadID() {
+      console.log("next lead button clicked")
+      const user = document.getElementById("username").value;
+
+      try {
+        const response = await fetch(`/nextleadforautocall`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user: user, preleadid: leadid, dialstatus: false })
+        })
+
+
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            leaddata = data.result;
+            leadid = leaddata.leadId;
+            dialed = false;
+            populateleads(leaddata);
+          })
+
+      }
+      catch (error) {
+        (error) => {
+          alert("error:", error)
+        }
+      }
+    }
+
+    async function leaddialfun() {
+
+      const user = document.getElementById("username").value;
+      let x = document.getElementById("postview");
+      let y = document.getElementById("preview");
+      let z = document.getElementById("leaddiv");
+      y.style.display = "none";
+      x.style.display = "block";
+      z.style.display = "none";
+
+
+      //let dialstring = leaddata.number;
+      //console.log()
+      //session = ua.call(`sip:${dialstring}@webrtc.iotcom.io`, options);
+      //api call for manual dial
+      const dialdata = {
+        caller: user,
+        leaddata: leaddata
+      }
+      if (dialdata.leaddata !== null && dialdata.leaddata !== undefined) {
+        const url = "/leaddialnumber";
         // Make a edit request to the server
         fetch(url, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
           },
           body: JSON.stringify(dialdata),
+
         })
           .then((response) => {
+
             return response.json();
           })
           .then((data) => {
-            // const data={message:"Sucess dial req received"};
-            if (data.message === 'Sucess dial req received') {
+            if (data.message === "Sucess dial req received") {
               //answer the call and proceed
               console.log(data.message);
+
             } else {
-              console.log(data);
-              //console.log("response error from server");
-              let x = document.getElementById('postview');
-              let y = document.getElementById('preview');
-              y.style.display = 'block';
-              x.style.display = 'none';
-              resetTime();
+              console.log("response error from server");
             }
+
           })
           .catch((error) => {
-            console.error('Error sending dial request:', error);
+            console.error("Error sending dial request:", error);
           });
+      } else {
+        alert("No more leads to dial");
+        let x = document.getElementById("postview");
+        let y = document.getElementById("preview");
+        let z = document.getElementById("leaddiv");
+        y.style.display = "block";
+        x.style.display = "none";
+        z.style.display = "none";
+
       }
 
-      async function answercall() {
-        console.log('answering call');
-        const user = document.getElementById('username').value;
-        const url = `/useroncall/${user}`;
+    }
 
-        // Make a edit request to the server
-        fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
-          },
-        })
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            // const data={message:"Sucess answer the call",
-            //  currentcalldata:{
-            //     bridgeID:"hyjgjhgjh454154525dfgdsf",
-            //     channelId:"dsfds565656dsf"
-            //  }};
-            if (data.message === 'Sucess answer the call') {
-              //answer the call and proceed
-              console.log(data.message);
-              calldata = data.currentcalldata;
-              leads = data.leads[0];
-              startTimer();
-              // return formfill(leads);
-            } else {
-              console.log('response error from server');
-              let x = document.getElementById('postview');
-              let y = document.getElementById('preview');
-              y.style.display = 'block';
-              x.style.display = 'none';
-              resetTime();
-            }
-          })
-          .catch((error) => {
-            console.error('Error sending call answer request:', error);
-          });
+    function populateleads(leadsdata) {
+      console.log("respose received");
+
+      const name = document.getElementById("leadfullname");
+      const email = document.getElementById("leademailaddress");
+      const number = document.getElementById("leadphonenumber");
+      const address1 = document.getElementById("leadaddress1");
+      const address2 = document.getElementById("leadaddress2");
+      const country = document.getElementById("leadcountry");
+      const city = document.getElementById("leadcity");
+      const region = document.getElementById("leadregion");
+      const postal = document.getElementById("leadpostal");
+
+      name.value = leadsdata.name || "";
+      email.value = leadsdata.email || "";
+      number.value = leadsdata.number || "";
+      address1.value = leadsdata.address1 || "";
+      address2.value = leadsdata.address2 || "";
+      country.value = leadsdata.country || "";
+      city.value = leadsdata.city || "";
+      region.value = leadsdata.region || "";
+      postal.value = leadsdata.postal || "";
+    }
+  </script>
+  <script>
+    const home = document.getElementById("home");
+
+    home.addEventListener("click", backtohome);
+
+    function backtohome() {
+
+      const preview = document.getElementById("preview");
+      const leaddiv = document.getElementById('leaddiv');
+      const postView = document.getElementById("postview");
+
+      preview.style.display = 'block';
+      leaddiv.style.display = 'none';
+      postView.style.display = "none";
+
+      console.log("home");
+    }
+    function notifyMe() {
+  if (!("Notification" in window)) {
+    // Check if the browser supports notifications
+    alert("This browser does not support desktop notification");
+  } else if (Notification.permission === "granted") {
+    // Check whether notification permissions have already been granted;
+    // if so, create a notification
+    const notification = new Notification('New Notifications!', {
+                        body: 'Please answer the call"',
+                        icon: 'img/1.jpg'   // You Can give image Link to change notification Icon.
+                  });
+    // …
+  } else if (Notification.permission !== "denied") {
+    // We need to ask the user for permission
+    Notification.requestPermission().then((permission) => {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        const notification = new Notification('New Notifications!', {
+                        body: 'Simple Desktop Notification by Iotcom!"',
+                        icon: '1.jpg'
+                        // You Can give image Link to change notification Icon.
+                  });
+        // …
       }
-
-      function retryregistration() {
-        console.log('retry clicked');
-        let x = document.getElementById('statusfailed');
-        let y = document.getElementById('creds');
-        y.style.display = 'flex';
-        x.style.display = 'none';
+    });
+  }}
+  // new notification
+  function CallWaitnotifyMe() {
+  if (!("Notification" in window)) {
+    // Check if the browser supports notifications
+    alert("This browser does not support desktop notification");
+  } else if (Notification.permission === "granted") {
+    // Check whether notification permissions have already been granted;
+    // if so, create a notification
+    const notification = new Notification('New Notifications!', {
+                        body: 'Calls in queue"',
+                        icon: 'img/1.jpg'   // You Can give image Link to change notification Icon.
+                  });
+    // …
+  } else if (Notification.permission !== "denied") {
+    // We need to ask the user for permission
+    Notification.requestPermission().then((permission) => {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        const notification = new Notification('New Notifications!', {
+                        body: 'Calls in queue!',
+                        icon: 'img/1.jpg'
+                        // You Can give image Link to change notification Icon.
+                  });
+        // …
       }
-    </script>
-    <script>
-      let currentNumber = '';
+    });
+  }}
 
-      function appendNumber(input) {
-        // check if div preview is open or not
-        const preview = document.getElementById('preview');
-        const loginStatus = document.getElementById('status');
-        if (preview.style.display === 'block' && loginStatus.style.display !== 'none') {
-          // If input is a digit or '*' or '#'
-          if (/^\d$|^[\*\#]$/.test(input)) {
-            currentNumber += input;
-            document.getElementById('dialnumber').value = currentNumber;
-          } else if (input.type === 'click') {
-            // If input is from the dial pad
-            let number = input.target.textContent;
-            currentNumber += number;
-            document.getElementById('dialnumber').value = currentNumber;
+  // function to set Apivalues
+  function setApivalues (apiData){
+    if(apiData!==undefined){
+       const StartApiData =apiData.find(a=>a.ApiTime=="CallStart" && a.Active==="true");
+       const AgentPopapiData =apiData.find(b=>b.ApiTime=="AgentPopUp" && b.Active==="true");
+       const CallEndApiData =apiData.find(c=>c.ApiTime=="CallEnd" && c.Active==="true");
+       if(StartApiData !==undefined){
+        callstartApi=true;
+       }
+       if(AgentPopapiData !==undefined){
+        agentPOPApi = true;
+       }
+       if(CallEndApiData !== undefined){
+        callendApi =true;
+       }
+    }
+  }
+
+ // function to trigger external Api
+  async function triggerAPI(url, type, payload) {
+  let options = {
+    method: type,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  if (payload && type !== 'GET') {
+    options.body = JSON.stringify(payload);
+  }
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error triggering API:', error);
+    throw error;
+  }
+}
+
+function changeQueDiv(Callque,callqueDiv){
+  if(Callque.length>0 && callqueDiv.style.display =="none" ){
+    callqueDiv.style.display ="block";
+    if(callended===true){
+      playBeep();
+    }
+  }else if(Callque.length==0 && callqueDiv.style.display =="block"){
+    callqueDiv.style.display ="none";
+  }
+}
+
+function playBeep() {
+          console.log("playing beep");
+          const audio = document.getElementById("beepAudio");
+          if(audio.paused || audio.ended){
+          audio.play();
           }
         }
-      }
 
-      function clearNumber() {
-        currentNumber = currentNumber.slice(0, -1); // Remove the last character
-        document.getElementById('dialnumber').value = currentNumber;
-      }
 
-      document.addEventListener('keydown', function (event) {
-        const preview = document.getElementById('preview');
-        const loginBoard = document.getElementById('creds');
-        const loginStatus = document.getElementById('status');
-        // If a digit key is pressed
-        if (
-          event.key >= '0' &&
-          event.key <= '9' &&
-          preview.style.display === 'block' &&
-          loginStatus.style.display !== 'none'
-        ) {
-          appendNumber(event.key);
-        } else if (
-          event.key === 'Backspace' &&
-          preview.style.display === 'block' &&
-          loginStatus.style.display !== 'none'
-        ) {
-          // If Backspace key is pressed
-          clearNumber();
-        } else if (event.key === 'Enter' && preview.style.display === 'block' && loginStatus.style.display !== 'none') {
-          // If Enter key is pressed, perform dialing action
-          dialfunc();
-        } else if (
-          event.key === 'Enter' &&
-          loginBoard.style.display !== 'none' &&
-          loginStatus.style.display === 'none'
-        ) {
-          startphone();
-        }
-      });
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      const actionButtons = document.querySelectorAll('.btn-primary');
-      let selectedAction = null;
+  </script>
 
-      function handleButtonClick(event) {
-        actionButtons.forEach((button) => button.classList.remove('active'));
-        event.target.classList.add('active');
-        selectedAction = event.target.getAttribute('data-action');
-      }
 
-      async function connectioncheck() {
-        if (userlogin === true) {
-          const user = document.getElementById('username').value;
-          try {
-            const response = await Promise.race([
-              fetch('/userconnection', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ user: user }),
-              }),
-              new Promise((_, reject) => {
-                // Create a timer that rejects after 3 seconds
-                setTimeout(() => {
-                  reject(new Error('Timeout')); // Timeout after 3 seconds
-                }, 3000); // 3 seconds in milliseconds
-              }),
-            ]);
 
-            if (response.status === 401) {
-              // Unauthorized response handling: redirect to index page or handle as needed
-              window.location.href = '/index.html'; // Replace with your index page URL
-            } else {
-              const data = await response.json();
+</body>
 
-              if (data.message === 'ok connection for user') {
-                // empty timeout array for short conn. problem
-                timeoutarray = [];
-              } else if (data.message === 'poor connection problem, please login again') {
-                alert(data.message);
-                userlogin = false;
-                window.location.href = `/forcelogout/${user}`;
-              } else {
-                // Handle other cases as needed
-              }
-            }
-          } catch (err) {
-            if (err.message === 'Timeout') {
-              // Handle the timeout case
-              const timeout = { timeout: true };
-              timeoutarray.push(timeout);
-              if (timeoutarray.length > 2) {
-                alert('Connection problem: The request timed out');
-              } else {
-                console.log('slight connection problem');
-              }
-            } else {
-              console.log('Error in connection check function', err);
-            }
-          }
-        }
-      }
-
-      const liveInterval = 1000; // 1 seconds in milliseconds
-      setInterval(connectioncheck, liveInterval);
-
-      async function submitForm() {
-        const checkautoleaddial = document.getElementById('checkautoleaddial');
-        if (checkautoleaddial.checked === true) {
-          dialnext = false;
-        }
-        const breakCheckbox = document.getElementById('breakCheckbox');
-
-        if (selectedAction) {
-          const sendingdata = {
-            bridgeID: '84786tgfhfght',
-            Disposition: selectedAction,
-          };
-          try {
-            const response = await fetch(`/user/disposition${username.value}`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
-              },
-              body: JSON.stringify(sendingdata),
-            });
-
-            if (response) {
-              //const result = {message:"disposition done sucessfully."};
-              if (result) {
-                if (result.message === 'disposition done sucessfully.') {
-                  console.log(result.message);
-                  console.log('Selected Action:', selectedAction);
-                  //   if(checkautoleaddial.checked===false){
-                  //  // leadID();
-                  //   }else{
-                  const preview = document.getElementById('preview');
-                  preview.style.display = 'block';
-                  if (breakCheckbox.checked === true) {
-                    await livebtn();
-                  }
-                  //}
-                  //const preview = document.getElementById("preview");
-                  //const postView = document.getElementById("postview");
-                  const Disposition = document.getElementById('Disposition');
-                  // postView.style.display = "none";
-                  //  preview.style.display = "block";
-                  Disposition.style.display = 'none';
-                  // Trigger the custom event on the element
-                  // document.dispatchEvent(customEvent);
-                } else {
-                  //failed case
-                  console.log(result.message);
-                }
-              } else {
-                alert('Unable to execuate due to connection problem');
-              }
-            }
-          } catch (err) {
-            console.log('error:', err);
-          }
-        } else {
-          $('#alertModal').modal('show');
-        }
-      }
-
-      function clearForm() {
-        actionButtons.forEach((button) => button.classList.remove('active'));
-        selectedAction = null;
-        $('#alertModal').modal('hide');
-      }
-
-      async function displayMessage(message) {
-        const alertModelContant = document.getElementById('alertModelContant1');
-        alertModelContant.innerText = message;
-        $('#alertModal1').modal('show');
-
-        await new Promise((resolve) => setTimeout(resolve, 1500)); // Wait for 1.5 seconds
-
-        $('#alertModal1').modal('hide');
-      }
-
-      actionButtons.forEach((button) => button.addEventListener('click', handleButtonClick));
-    </script>
-    <script>
-      const L = document.getElementById('liveButton');
-      const L1 = document.getElementById('liveButton1');
-      const B = document.getElementById('breakButton');
-      const B1 = document.getElementById('breakButton1');
-
-      L.addEventListener('click', livebtn);
-      //  L1.addEventListener("click", livebtn);
-      async function livebtn() {
-        console.log(`break function called`);
-        const user = document.getElementById('username').value;
-        console.log(`break function called for ${user}`);
-        //console.log(user);
-
-        try {
-          const response = await fetch(`/user/breakuser:${user}`, {
-            method: 'POST',
-          })
-            .then((response) => {
-              return response.json();
-            })
-            .then((data) => {
-              //const data={message:"break removed"};
-              alert(data.message);
-              L.style.display = 'none';
-              //  L1.style.display = "none";
-              B.style.display = 'block';
-              //  B1.style.display = "block";
-            });
-        } catch (error) {
-          (error) => {
-            alert('error:', error);
-          };
-        }
-      }
-
-      B.addEventListener('click', breakbtn);
-      //B1.addEventListener("click", breakbtn);
-      async function breakbtn() {
-        const user = document.getElementById('username').value;
-        try {
-          const response = await fetch(`/user/removebreakuser:${user}`, {
-            method: 'POST',
-          })
-            .then((response) => {
-              return response.json();
-            })
-            .then((data) => {
-              //const data={message:"break applied"};
-              alert(data.message);
-              L.style.display = 'block';
-              // L1.style.display = "block";
-              B.style.display = 'none';
-              // B1.style.display = "none";
-            });
-        } catch (error) {
-          (error) => {
-            alert('error:', error);
-          };
-        }
-      }
-      const logout = document.getElementById('logout');
-      logout.addEventListener('click', logoutfunction);
-
-      async function logoutfunction() {
-        const user = document.getElementById('username').value;
-        try {
-          const response = await fetch(`/user/logoutuser:${user}`, {
-            method: 'POST',
-          })
-            .then((response) => {
-              return response.json();
-            })
-            .then((data) => {
-              //const data={message:"logout sucess"};
-              alert(data.message);
-              userlogin = false;
-              location.reload();
-              //console.log(ua);
-              //ua.stop();
-            });
-        } catch (error) {
-          (error) => {
-            alert('error:', error);
-          };
-        }
-      }
-    </script>
-    <script>
-      const AutoLead = document.getElementById('autoleaddial');
-      const nextlead = document.getElementById('nextlead');
-      const leaddial = document.getElementById('leaddial');
-      // const autoleaddial = document.getElementById("autoleaddial");
-      //  nextlead.addEventListener('click', nextleadID);
-      //AutoLead.addEventListener('click', leadID);
-      // leaddial.addEventListener('click', leaddialfun);
-      // autoleadbutton.addEventListener("click", autoleadfun);
-      var leaddata;
-      var leadid;
-      let dialed = false;
-      var autoleadbutton = false;
-      var dialnext = false;
-
-      // async function autoleadfun() {
-      //   autoleadbutton = !autoleadbutton;
-
-      //   if (autoleadbutton === true) {
-      //     await leadID();
-      //     await leaddial();
-      //   }
-      //   if (autoleadbutton === false) {
-      //     //do nothing
-      //   }
-      // }
-      // document.addEventListener('dispodone', function (e) {
-      //   if (dispoafterautodial === false) {
-      //     autoleadbutton = false;
-      //     autoleadfun();
-      //   }
-      //   else {
-      //     //do nothing
-      //   }
-      // })
-
-      async function leadID() {
-        console.log('button clicked fetching data');
-        dialnext = true;
-        const preview = document.getElementById('preview');
-        const leaddiv = document.getElementById('leaddiv');
-
-        preview.style.display = 'none';
-        leaddiv.style.display = 'block';
-
-        const user = document.getElementById('username').value;
-        //console.log(user);
-
-        try {
-          const response = await fetch(`/leadforautocall`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user: user }),
-          })
-            .then((response) => {
-              return response.json();
-            })
-            .then((data) => {
-              leaddata = data.result;
-              leadid = leaddata.leadId;
-              populateleads(leaddata);
-            });
-        } catch (error) {
-          (error) => {
-            alert('error:', error);
-          };
-        }
-
-        document.addEventListener('click', function (event) {
-          dialnext = false;
-        });
-        let autodialInterval = setInterval(() => {
-          if (dialnext === true) {
-            leaddialfun();
-            dialnext = false;
-          }
-        }, 30000);
-        //auto call after 30sec
-      }
-
-      async function nextleadID() {
-        console.log('next lead button clicked');
-        const user = document.getElementById('username').value;
-
-        try {
-          const response = await fetch(`/nextleadforautocall`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user: user, preleadid: leadid, dialstatus: false }),
-          })
-            .then((response) => {
-              return response.json();
-            })
-            .then((data) => {
-              leaddata = data.result;
-              leadid = leaddata.leadId;
-              dialed = false;
-              populateleads(leaddata);
-            });
-        } catch (error) {
-          (error) => {
-            alert('error:', error);
-          };
-        }
-      }
-
-      async function leaddialfun() {
-        const user = document.getElementById('username').value;
-        let x = document.getElementById('postview');
-        let y = document.getElementById('preview');
-        let z = document.getElementById('leaddiv');
-        y.style.display = 'none';
-        x.style.display = 'block';
-        z.style.display = 'none';
-
-        //let dialstring = leaddata.number;
-        //console.log()
-        //session = ua.call(`sip:${dialstring}@webrtc.iotcom.io`, options);
-        //api call for manual dial
-        const dialdata = {
-          caller: user,
-          leaddata: leaddata,
-        };
-        if (dialdata.leaddata !== null && dialdata.leaddata !== undefined) {
-          const url = '/leaddialnumber';
-          // Make a edit request to the server
-          fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
-            },
-            body: JSON.stringify(dialdata),
-          })
-            .then((response) => {
-              return response.json();
-            })
-            .then((data) => {
-              if (data.message === 'Sucess dial req received') {
-                //answer the call and proceed
-                console.log(data.message);
-              } else {
-                console.log('response error from server');
-              }
-            })
-            .catch((error) => {
-              console.error('Error sending dial request:', error);
-            });
-        } else {
-          alert('No more leads to dial');
-          let x = document.getElementById('postview');
-          let y = document.getElementById('preview');
-          let z = document.getElementById('leaddiv');
-          y.style.display = 'block';
-          x.style.display = 'none';
-          z.style.display = 'none';
-        }
-      }
-
-      function populateleads(leadsdata) {
-        console.log('respose received');
-
-        const name = document.getElementById('leadfullname');
-        const email = document.getElementById('leademailaddress');
-        const number = document.getElementById('leadphonenumber');
-        const address1 = document.getElementById('leadaddress1');
-        const address2 = document.getElementById('leadaddress2');
-        const country = document.getElementById('leadcountry');
-        const city = document.getElementById('leadcity');
-        const region = document.getElementById('leadregion');
-        const postal = document.getElementById('leadpostal');
-
-        name.value = leadsdata.name || '';
-        email.value = leadsdata.email || '';
-        number.value = leadsdata.number || '';
-        address1.value = leadsdata.address1 || '';
-        address2.value = leadsdata.address2 || '';
-        country.value = leadsdata.country || '';
-        city.value = leadsdata.city || '';
-        region.value = leadsdata.region || '';
-        postal.value = leadsdata.postal || '';
-      }
-    </script>
-    <script>
-      const home = document.getElementById('home');
-
-      home.addEventListener('click', backtohome);
-
-      function backtohome() {
-        const preview = document.getElementById('preview');
-        const leaddiv = document.getElementById('leaddiv');
-        const postView = document.getElementById('postview');
-
-        preview.style.display = 'block';
-        leaddiv.style.display = 'none';
-        postView.style.display = 'none';
-
-        console.log('home');
-      }
-    </script>
-  </body>
 </html>

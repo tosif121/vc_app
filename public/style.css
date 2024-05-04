@@ -44,7 +44,7 @@ html {
 
 .password-toggle-icon {
   position: absolute;
-  right: 0px;
+  right: 10px;
   top: 40%;
   transform: translateY(-50%);
   cursor: pointer;
@@ -434,11 +434,11 @@ html {
   width: 290px;
   border-radius: 48px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  border: #225d97 solid;
+  border: #2196f3 solid;
 }
 
 .header {
-  background-color: #225d97;
+  background-color: #2196f3;
   color: #ffffff;
   padding: 20px;
   text-align: center;
@@ -458,7 +458,7 @@ html {
   padding: 20px;
   border: none;
   border-radius: 50%;
-  background-color: #225d97;
+  background-color: #2196f3;
   font-weight: bold;
   color: #ffffff;
   cursor: pointer;
@@ -489,7 +489,7 @@ html {
 }
 
 .call-button {
-  background-color: #225d97;
+  background-color: #2196f3;
   color: #ffffff;
   padding: 15px 30px;
   border: none;
@@ -997,7 +997,7 @@ input[type='password'] {
 
 /* Add focus styles for the input fields */
 .input100:focus {
-  border: 1px solid #00498e;
+  border: 1px solid #2196f3 !important;
 }
 
 .input100 {
@@ -1019,13 +1019,9 @@ input[type='password'] {
   margin-right: 20px;
 }
 
-input[type='checkbox'] {
-  margin-right: 5px;
-  margin-top: 40px;
-}
 
 .login-button {
-  background-color: #225d97 !important;
+  background-color: #2196f3 !important;
   width: 100%;
   color: #ffffff;
   border: 1px solid transparent;
@@ -1040,8 +1036,8 @@ input[type='checkbox'] {
 .login-button:hover {
   transition: all 0.4s;
   background-color: transparent !important;
-  color: #225d97;
-  border: 1px solid #225d97;
+  color: #2196f3;
+  border: 1px solid #2196f3;
 }
 
 /* Align the "Forgot Password?" link to the left */
@@ -1061,42 +1057,11 @@ input[type='checkbox'] {
 
 .forgot-password a:hover {
   text-decoration: underline;
-  color: #00498e;
+  color: #2196f3;
   transition: all 0.4s;
 }
 
-.fa {
-  font-size: 20px;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.fa-icons {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  justify-content: center;
-}
-.fa-facebook {
-  background: #3b5998;
-  color: white;
-}
 
-.fa-twitter {
-  background: #55acee;
-  color: white;
-}
-
-.fa-google {
-  background: #dd4b39;
-  color: white;
-}
 
 .statusfailed {
   text-align: center;
@@ -1119,7 +1084,7 @@ input[type='checkbox'] {
 }
 /* Style the retry button */
 .btn-retry {
-  background-color: #00498e;
+  background-color: #2196f3;
   color: #ffffff;
   font-weight: bold;
   border: none;
@@ -1133,8 +1098,8 @@ input[type='checkbox'] {
 .btn-retry:hover {
   transition: all 0.4s;
   background-color: transparent !important;
-  color: #225d97;
-  border: 1px solid #225d97;
+  color: #2196f3;
+  border: 1px solid #2196f3;
 }
 
 @media screen and (max-width: 768px) {

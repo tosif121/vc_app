@@ -1144,7 +1144,7 @@ video {
 }
 
 .border-b {
-  border-bottom-width: 1px;
+  border-bottom-width: 1px !important;
 }
 
 .border-black {
@@ -1224,7 +1224,7 @@ video {
 
 .bg-\[\#2981C1\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(41 129 193 / var(--tw-bg-opacity));
+  background-color: rgb(33 150 243 / var(--tw-bg-opacity));
 }
 
 .bg-\[\#D5E4EF\] {

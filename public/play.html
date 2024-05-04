@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date picker</title>
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+</head>
+<body>
+    <div class="date-range">
+        <input type="text" class="form-control" id="date-range-picker" placeholder="Select Date Range">
+        <div id="dateValue"></div>
+        <button id="subbtn" type="button">Submit</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+
+         // Initialize Flatpickr for date range selection
+         flatpickr("#date-range-picker", {
+            mode: "range",
+            dateFormat: "Y-m-d",
+            onChange: function (selectedDates, dateStr, instance) {
+                StartDate = selectedDates[1];
+                EndDate = selectedDates[0];
+                if (StartDate !== null && EndDate !== null) {
+                    loadcallData(StartDate, EndDate);
+                }
+                else {
+                    console.log(StartDate, EndDate);
+                    console.log("select date properly");
+                }
+            },
+        });
+
+        function loadcallData(a,b){
+           const para = document.getElementById("dateValue");
+            para.innerHTML=`<table class="table">
+                <tr>
+                    <th>first Value</th>
+                    <th>second Value</th>
+                </tr>
+                <tr>
+                    <td>${a}</td>
+                    <td>${b}</td>
+                </tr>
+                </table> `;
+        }
+
+
+    </script>
+
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
