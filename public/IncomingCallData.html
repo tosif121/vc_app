@@ -566,7 +566,7 @@
 
       async function fetchData() {
         try {
-          const response = await fetch('https://devapp.iotcom.io/campaigndetails', {
+          const response = await fetch('/campaigndetails', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },
@@ -649,7 +649,7 @@
            
             
               console.log(formattedDates);
-        fetch('https://devapp.iotcom.io/callData', {
+        fetch('/callData', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

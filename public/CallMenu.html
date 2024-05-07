@@ -337,8 +337,8 @@
         </div>
 
         <div
-          class="modal fade modal-xl"
-          id="editModal"
+        class="modal fade modal-xl"
+        id="editModal"
           tabindex="-1"
           role="dialog"
           aria-labelledby="editModalLabel"
@@ -795,7 +795,7 @@
       });
 
       async function createdom() {
-        await fetch('https://devapp.iotcom.io/callmenuname', {
+        await fetch('/callmenuname', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
           },
@@ -1098,7 +1098,7 @@
         }
       }
 
-      fetch('https://devapp.iotcom.io/sounddetails', {
+      fetch('/sounddetails', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
         },
@@ -1123,7 +1123,7 @@
         });
 
       let campaigndetails;
-      fetch('https://devapp.iotcom.io/campaigndetails', {
+      fetch('/campaigndetails', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
         },
@@ -1206,7 +1206,7 @@
           };
           console.log(CallmenuData);
           try {
-            const response = await fetch('https://devapp.iotcom.io/createcallmenu', {
+            const response = await fetch('/createcallmenu', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

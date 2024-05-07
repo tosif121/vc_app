@@ -106,12 +106,11 @@
           </div>
         </div>
 
-        <div class="forgot-password">
+        <div class="forgot-password mb-3">
           <a href="login.html">Admin Login</a>
           <a href="#">Forgot Password?</a>
         </div>
 
-        <br />
 
         <button type="submit" id="register" class="login-button">Login</button>
       </div>
@@ -178,8 +177,8 @@
                 <li class="nav-item">
                   <a class="nav-link" href="#"> Group Meeting </a>
                 </li>
-
-                <button id="liveButton" class="break_button text-white btn" onclick="performbreak()">Break</button>
+                <!-- onclick="performbreak()" -->
+                <button id="liveButton" class="break_button text-white btn" onclick="showmodalbtn()" >Break</button>
                 <button id="breakButton" class="live_button btn text-white" style="display: none">Live</button>
 
                 <button id="autoleaddial" class="autolead_button btn text-white" style="display: none">
@@ -208,6 +207,148 @@
           }
         </script>
         <div class="container">
+          <script>
+            function showmodalbtn(){
+              const modal = document.getElementById("myModalbtns");
+             modal.style.display="flex";
+             setTimeout(function() {
+    modal.style.height = "100vh";
+  },.5); // Delay the height transition slightly for smoother animation
+ 
+            }
+         
+            
+            function closemodalbtn(){
+              const modal = document.getElementById("myModalbtns");
+              modal.style.height = "0";
+  setTimeout(function() {
+    modal.style.display = "none";
+  }, 500);
+            }
+          </script>
+          
+          <div id="myModalbtns" style="
+          display: none;  position: absolute; 
+          z-index: 59;
+          width: 100%;
+          left: 0;
+          top: 0;
+          height:0;
+          
+           
+     
+          fill-opacity:1px;
+ 
+          justify-content: right;
+          align-items: center;
+          transition: height 1s ease-in-out;
+          
+          ">
+          
+           
+            <div  style="height: 220px;
+            width: 200px;
+            background-color: #fff;
+            margin-right: 150px;
+            margin-top:-300px;"
+              class="    flex-col rounded-md border-[2px] border-gray-300 shadow-lg">
+            
+             <div style="display: flex;
+             flex-direction: column;
+             justify-content: space-between;
+             align-items: center;
+             width: 100%;
+             height: 80%;">
+             <nav>
+              <ul>
+                <li onclick="closemodalbtn()">Tea break
+                  <span></span><span></span><span></span><span></span>
+                </li>
+                <li onclick="closemodalbtn()">Lunch break
+                  <span></span><span></span><span></span><span></span>
+                </li>
+                <li onclick="closemodalbtn()">Training break
+                  <span></span><span></span><span></span><span></span>
+                </li>
+               
+              </ul>
+            </nav>
+             </div>
+             <style>
+               
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    --c: rgb(32, 125, 218);
+    color: var(--c);
+    font-size: 16px;
+    border: 0.3em solid var(--c);
+    border-radius: 0.5em;
+    width: 10.7em;
+    height: 3em;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: sans-serif;
+    letter-spacing: 0.1em;
+    text-align: center;
+    line-height: 3em;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: 0.5s;
+    margin: 1em;
+    cursor: pointer;
+}
+
+nav ul li span {
+    position: absolute;
+    width: 28%;
+    height: 100%;
+    background-color: var(--c);
+    transform: translateY(150%);
+    border-radius: 50%;
+    left: calc((var(--n) - 1) * 25%);
+    transition: 0.5s;
+    transition-delay: calc((var(--n) - 1) * 0.1s);
+    z-index: -1;
+}
+
+nav ul li:hover {
+    color: rgb(255, 255, 255);
+}
+
+nav ul li:hover span {
+    transform: translateY(0) scale(2);
+}
+
+nav ul li span:nth-child(1) {
+    --n: 1;
+}
+
+nav ul li span:nth-child(2) {
+    --n: 2;
+}
+
+nav ul li span:nth-child(3) {
+    --n: 3;
+}
+
+ 
+
+             </style>
+               </div>
+      
+  
+    
+          </div>
+          <script>
+
+          </script>
           <div id="preview" style="display: block">
             <div class="dashboard-box text-center mt-4">
               <p class="fw-bold">WELCOME TO DASHBOARD</p>
@@ -1263,7 +1404,9 @@
           </script>
 
           <div class="neeche containerimage">
-            <div class="w-[500px] h-[200px] flex-col rounded-md border-[2px] border-gray-300 shadow-lg">
+            <div style="height: 500px;
+            margin-top: 100px;"
+             class="w-[500px]   flex-col rounded-md border-[2px] border-gray-300 shadow-lg">
               <div class="h-[30px] mt-1 mx-1 flex items-center rounded-md border-gray-300 border-opacity-5">
                 <div
                   class="w-[125px] h-[25px] bg-[#2981C1] mx-1 rounded-md text-[0.80rem] text-white font-[600] flex justify-center items-center px-1 hover:cursor-pointer"
@@ -1282,16 +1425,104 @@
                     <img src="user-icon.jpg" alt="" />
                   </div>
                   <div class="w-[80%] h-full flex-col">
-                    <div class="w-[98%] h-7 bg-white flex items-center font-[500]">No info found</div>
-                    <div class="w-[98%] h-7 bg-white flex items-center font-[500]">-----</div>
-                    <div class="w-[98%] h-7 bg-white flex items-center font-[500]">-----</div>
-                    <div class="w-[98%] h-7 bg-white flex items-center font-[500]">-----</div>
+                    <div class="form">
+                      <label for="" style="font-size: 14px;
+                      font-weight: 500;">Name</label>
+                      <div class="w-[80%]flex ">
+            
+                        <input  type="text"  style="margin-bottom: 15px;
+                        width: 45%;" required placeholder="First name">  
+                        <input  type="text"  style="margin-bottom: 15px;
+                        width: 45%;" required placeholder="Last name">  
+            
+                      </div>
+            
+                      <div class="inputBox">
+                        <label for="" style="font-size: 14px;
+                        font-weight: 500;">Number</label>
+                        <input  type="text" disabled style="margin-bottom: 15px; width:45%;"  >  
+            
+                       
+                        
+                        <input  type="text" disabled placeholder="Alternate number" style="margin-bottom: 15px; width:45%;"  >  
+            
+                      </div>
+                      <div class="inputBox">
+                        <label for="" style="font-size: 14px;
+                        font-weight: 500;">Email</label>
+                        <input  type="text"  style="margin-bottom: 15px;" required placeholder="Enter your email">  
+            
+                      </div>
+                       
+                      <div class="inputBox">
+                        <label for="" style="font-size: 14px;
+                        font-weight: 500;
+                        ;">Comment</label>
+                        <textarea id="message" name="message" maxlength="100" placeholder="Your comment here!" style="max-height: 140px;
+                        min-height: 20px;"></textarea> 
+            
+                      </div>
+                       
+                      
+                          
+                        
+                       
+            
+                    
+                      
+                      
+             
+       
+            
+                      </div>
+            
+                      
+            
+                    </div>
+                    <style>
+                      
+                      .form .inputBox
+{
+  position: relative;
+  width: 100%;
+}
+.form .inputBox input 
+{
+  position: relative;
+  width: 80%;
+ 
+  
+  
+ 
+  border-radius: 4px;
+  color: #373737;
+  font-weight: 400;
+  font-size: 15px;
+}
+.form .inputBox i 
+{
+  position: absolute;
+  left: 0;
+ 
+  font-style: normal;
+  color: #5f5e5e;
+  transition: 0.5s;
+  pointer-events: none;
+}
+.form .inputBox input:focus ~ i,
+.form .inputBox input:valid ~ i
+{
+  transform: translateY(-7.5px);
+ 
+  color: #fff;
+}
+                    </style>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <img class="phonesvg" src="phonesvg.svg" alt="" />
+          <img class="phonesvg " src="phonesvg.svg" alt="" />
         </div>
         </div>
 
@@ -1343,6 +1574,130 @@
         </div>
 
         <div id="Disposition" style="display: none">
+          <div id="myModal" style="
+          display: none;  position: absolute; 
+          z-index:999999;
+          width: 100%;
+          height:0;
+          top: 0px;
+           
+     
+          fill-opacity:1px;
+ 
+          justify-content: center;
+          align-items: center;
+          transition: height 1s ease-in-out;
+          ">
+          
+           
+            <div  style="height: 500px;background-color: #fff;"
+              class="w-[500px]   flex-col rounded-md border-[2px] border-gray-300 shadow-lg">
+              <span onclick="closemodal()" style="margin-right: 5px;" class="close">&times;</span>
+               <div class="h-[154px] flex justify-center items-center">
+                 <div class="h-[110px] w-[98%] flex items-center">
+                   <div class="w-[100px] h-[95px] bg-[#A5A9AC] rounded-full mx-2">
+                     <img src="user-icon.jpg" alt="" />
+                   </div>
+                   <div class="w-[80%] h-full flex-col">
+                     <div class="form">
+                       <label for="" style="font-size: 14px;
+                       font-weight: 500;">Name</label>
+                       <div class="w-[80%]flex ">
+             
+                         <input  type="text"  style="margin-bottom: 15px;
+                         width: 45%;" required placeholder="First name">  
+                         <input  type="text"  style="margin-bottom: 15px;
+                         width: 45%;" required placeholder="Last name">  
+             
+                       </div>
+             
+                       <div class="inputBox">
+                         <label for="" style="font-size: 14px;
+                         font-weight: 500;">Number</label>
+                         <input  type="text" disabled style="margin-bottom: 15px; width:45%;"  >  
+             
+                        
+                         
+                         <input  type="text" disabled placeholder="Alternate number" style="margin-bottom: 15px; width:45%;"  >  
+             
+                       </div>
+                       <div class="inputBox">
+                         <label for="" style="font-size: 14px;
+                         font-weight: 500;">Email</label>
+                         <input  type="text"  style="margin-bottom: 15px;" required placeholder="Enter your email">  
+             
+                       </div>
+                        
+                       <div class="inputBox">
+                         <label for="" style="font-size: 14px;
+                         font-weight: 500;
+                         ;">Comment</label>
+                         <textarea id="message" name="message" maxlength="100" placeholder="Your comment here!" style="max-height: 140px;
+                         min-height: 20px;"></textarea> 
+             
+                       </div>
+                        
+                       
+                           
+                         
+                        
+             
+                     
+                       
+                       
+              
+        
+             
+                       </div>
+             
+                       
+             
+                     </div>
+                     <style>
+                       
+                       .form .inputBox
+        {
+        position: relative;
+        width: 100%;
+        }
+        .form .inputBox input 
+        {
+        position: relative;
+        width: 80%;
+        
+        
+        
+        
+        border-radius: 4px;
+        color: #373737;
+        font-weight: 400;
+        font-size: 15px;
+        }
+        .form .inputBox i 
+        {
+        position: absolute;
+        left: 0;
+        
+        font-style: normal;
+        color: #5f5e5e;
+        transition: 0.5s;
+        pointer-events: none;
+        }
+        .form .inputBox input:focus ~ i,
+        .form .inputBox input:valid ~ i
+        {
+        transform: translateY(-7.5px);
+        
+        color: #fff;
+        }
+                     </style>
+                   </div>
+                 </div>
+               </div>
+      
+  
+    
+          </div>
           <div class="bg-white shadow-lg p-3 rounded my-5">
             <h2 class="mb-5 text-center">Disposition Call</h2>
             <form id="callForm">
@@ -1378,11 +1733,39 @@
 
                 <input type="checkbox" class="m-0" id="breakCheckbox" value="Yes" />
                 <label1 for="breakCheckbox" style="color: #222; font-weight: bold">Add Break</label1>
+                <button  onclick="showmodal()" type="button" class="btn btn-secondary text-secondary mb-2">
+                  See Form
+                </button>
               </div>
             </form>
           </div>
 
           <!-- Modal for displaying alert message -->
+        
+
+<script>
+  function showmodal(){
+    const modal = document.getElementById("myModal");
+    modal.style.display="flex";
+    setTimeout(function() {
+modal.style.height = "100vh";
+},.5); // Delay the height transition slightly for smoother animation
+
+  }
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+  function closemodal(){
+    const modal = document.getElementById("myModal");
+    modal.style.height = "0";
+    setTimeout(function() {
+      modal.style.display = "none";
+    }, 500);
+  }
+</script>
+
           <div
             class="modal fade modal-lg"
             id="alertModal"
@@ -1393,9 +1776,10 @@
           >
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
-                <div class="modal-body text-center" id="alertModelContant">
+                <div style="display: block;" class="modal-body text-center" id="alertModelContant">
                   Please select an action before submitting.
                 </div>
+                
               </div>
             </div>
           </div>
@@ -1901,6 +2285,8 @@
                 z.innerText = document.getElementById('username').value;
                 y.style.display = 'none';
                 x.style.display = 'block';
+              }else{
+                displayMessage(data.message);
               }
             })
             .catch((error) => {
@@ -2518,7 +2904,7 @@
             })
             .then((data) => {
               //const data={message:"break removed"};
-              alert(data.message);
+            
               L.style.display = 'none';
               //  L1.style.display = "none";
               B.style.display = 'block';
@@ -2866,5 +3252,6 @@
         }
       }
     </script>
+ 
   </body>
 </html>
