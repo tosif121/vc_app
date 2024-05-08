@@ -21,6 +21,16 @@
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
 
+    <!-- pagination JQuery -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/buttons/2.1.1/css/buttons.dataTables.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+
     <!-- <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
@@ -267,7 +277,7 @@
                     required
                   />
                 </div>
-                <input type="submit" class="btn btn-primary" id="submitbtn" value="Submit" />
+                <input type="button" class="btn btn-primary" id="submitbtn"  />
               </form>
             </div>
             <div class="table-responsive rounded">
@@ -275,10 +285,15 @@
                 <thead class="thead">
                   <tr>
                     <th>Agent</th>
+                    <th>Total Calls</th>
                     <th>Waiting for Call</th>
                     <th>ON Call</th>
                     <th>Disposition Time</th>
+                    <th>Training Break</th>
+                    <th>LunchBreak</th>
+                    <th>TeaBreak</th>
                     <th>Break Time</th>
+                    <th>Hold Time</th>
                     <th>Total Login Time</th>
                     <th>Action</th>
                   </tr>
@@ -330,6 +345,16 @@
     ></a>
     <!-- Date Range JS Files -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+     <!-- Include jQuery -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+     <!-- Include DataTables CSS -->
+     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+ 
+     <!-- Include DataTables JavaScript -->
+     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+     <script src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
+     <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
     <script>
       const storedUsername = document.getElementById('displayUsername');
       const storedUsername1 = document.getElementById('displayUsername1');
@@ -340,7 +365,7 @@
       var detaileddata = {};
 
       document.addEventListener('DOMContentLoaded', function () {
-        ALH();
+        AgentLoginHours();
         const storedUsername = JSON.parse(localStorage.getItem('admininfo')).user;
         const storedorg = JSON.parse(localStorage.getItem('admininfo')).organization;
 
@@ -354,9 +379,9 @@
         }
       });
 
-      submitButton.addEventListener('click', ALH);
+      submitButton.addEventListener('click', AgentLoginHours);
 
-      function ALH() {
+      function AgentLoginHours() {
         let dateobj;
 
         if (dateselect.value) {
@@ -434,11 +459,13 @@
                     const startTime = new Date(mainarray[a].Time).getTime();
                     const endTime = new Date(mainarray[a + 1].Time).getTime();
                     const duration = endTime - startTime;
+                    const subType = mainarray[a].Type;
 
                     const Data = {
                       startingStatus,
                       endStatus,
                       duration,
+                      subType,
                       Action: action(startingStatus, endStatus),
                     };
 
@@ -456,24 +483,41 @@
 
                   const summary = {
                     user,
+                    TotalCalls : 0 ,
                     waitingforcall: 0,
                     oncall: 0,
                     break: 0,
                     disposition: 0,
                     totallogintime: 0,
+                    hold : 0 ,
+                    TeaBreak : 0 ,
+                    LunchBreak : 0 ,
+                    TrainingBreak : 0,
+                    
                   };
 
                   userData.forEach((data) => {
                     if (data.Action === 'WaitingForCall') {
                       summary.waitingforcall += data.duration;
                     } else if (data.Action === 'OnCall') {
+                      summary.TotalCalls +=1;
                       summary.oncall += data.duration;
                     } else if (data.Action === 'Disposition') {
                       summary.disposition += data.duration;
                     } else if (data.Action === 'Offline') {
                       summary.offline += data.duration;
+                    }else if(data.Action ==='Hold'){
+                      summary.hold +=data.duration;  
                     } else {
                       summary.break += data.duration;
+                      if(data.subType==="TrainingBreak"){
+                        summary.TrainingBreak +=data.duration
+                      }else if(data.subType === "LunchBreak"){
+                        summary.LunchBreak +=data.duration
+                      }else{
+                        summary.TeaBreak  += data.duration
+                      }
+
                     }
 
                     summary.totallogintime = summary.waitingforcall + summary.oncall + summary.disposition;
@@ -485,6 +529,10 @@
                   summary.break = msToHMS(summary.break);
                   summary.disposition = msToHMS(summary.disposition);
                   summary.totallogintime = msToHMS(summary.totallogintime);
+                  summary.hold = msToHMS (summary.hold);
+                  summary.LunchBreak = msToHMS (summary.LunchBreak);
+                  summary.TrainingBreak = msToHMS (summary.TrainingBreak);
+                  summary.TeaBreak = msToHMS (summary.TeaBreak);
 
                   userSummaryArray.push(summary);
                 }
@@ -499,6 +547,7 @@
       }
 
       function populatedetailed(userData) {
+        
         console.log('populatedetailed');
         const table = document.getElementById('modaltable').getElementsByTagName('tbody')[0];
         table.innerHTML = '';
@@ -514,6 +563,7 @@
           cell2.textContent = formatDateTime(call.Time) || '-';
           cell3.textContent = call.Status || '-';
         });
+       
       }
 
       function formatDateTime(dateTimeString) {
@@ -536,6 +586,8 @@
       }
 
       function populateagent(userSummaryArray) {
+        const Dttable = $('#table').DataTable();
+        Dttable.destroy();
         console.log('populateagent');
         const table = document.getElementById('table').getElementsByTagName('tbody')[0];
         table.innerHTML = '';
@@ -549,14 +601,25 @@
             let cell5 = newRow.insertCell(4);
             let cell6 = newRow.insertCell(5);
             let cell7 = newRow.insertCell(6);
+            let cell8 = newRow.insertCell(7);
+            let cell9 = newRow.insertCell(8);
+            let cell10 = newRow.insertCell(9);
+            let cell11 = newRow.insertCell(10);
+            let cell12 = newRow.insertCell(11);
 
             // Assuming call object properties exist and match the cell positions
             cell1.textContent = call.user;
-            cell2.textContent = call.waitingforcall;
-            cell3.textContent = call.oncall;
-            cell4.textContent = call.disposition;
-            cell5.textContent = call.break;
-            cell6.textContent = call.totallogintime;
+            cell2.textContent = call.TotalCalls;
+            cell3.textContent = call.waitingforcall;
+            cell4.textContent = call.oncall;
+            cell5.textContent = call.disposition;
+            cell6.textContent = call.TrainingBreak;
+            cell7.textContent = call.LunchBreak ;
+            cell8.textContent = call.TeaBreak;
+            cell9.textContent = call.break;
+            cell10.textContent = call.hold ;
+            cell11.textContent = call.totallogintime;
+
 
             // Create a button element and set its class and innerHTML
             let actionButton = document.createElement('button');
@@ -566,12 +629,18 @@
             actionButton.setAttribute('data-bs-target', '#myModal');
 
             // Append the button to the 8th cell
-            cell7.appendChild(actionButton);
+            cell12.appendChild(actionButton);
             actionButton.addEventListener('click', function () {
               populatedetailed(detaileddata[call.user]);
             });
           });
         }
+        $(document).ready(function () {
+          $('#table').DataTable({
+            dom: 'Blfrtip',
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+          });
+        });
       }
 
       function action(a, b) {
@@ -584,7 +653,10 @@
           Action = 'WaitingForCall';
         } else if (a === 'INUSE') {
           Action = 'OnCall';
-        } else {
+        }else if(a==='Hold'){
+          Action = 'Hold'
+        }
+         else {
           Action = 'Invalid';
         }
         return Action;

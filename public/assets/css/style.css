@@ -176,6 +176,7 @@ table thead tr th {
   font-size: 14px;
   text-align: center;
   border-left: 1px solid #d3d3d4 !important;
+  padding: 1.5rem;
 }
 table thead tr th {
   background-color: #2196f3 !important;
