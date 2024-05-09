@@ -35,7 +35,7 @@
 
           <ul id="sidebar-nav" class="flex gap-10 me-10">
             <li class="">
-              <a class="" href="agentdashBoard.html"> Dashboard </a>
+              <a class="active" href="agentdashBoard.html"> Dashboard </a>
             </li>
             <li class="">
               <a class="" href="agentIncomingDrop.html"> Drop Calls </a>
@@ -50,6 +50,7 @@
         <div class="relative inline-block">
           <button class="py-2 px-4 rounded inline-flex items-center focus:outline-none" id="dropdown-btn">
             <img src="img/shiv.jpg" alt="Profile" class="rounded-full w-10 h-10" />
+            <span class="d-none d-md-block dropdown-toggle ps-2" id="displayUsername"></span>
             <svg class="fill-current ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
               <path
                 d="M10 12.586L4.293 6.879a1 1 0 0 0-1.414 1.414l6.364 6.364a1 1 0 0 0 1.414 0l6.364-6.364a1 1 0 0 0-1.414-1.414L10 12.586z"
@@ -168,7 +169,10 @@
             <div class="modal-content">
               <!-- Modal Body -->
               <div class="modal-body">
-                <table class="min-w-full text-left text-sm font-light text-surface dark:text-white mb-4" id="modaltable">
+                <table
+                  class="min-w-full text-left text-sm font-light text-surface dark:text-white mb-4"
+                  id="modaltable"
+                >
                   <thead class="border-b border-neutral-200 font-medium dark:border-white/10">
                     <tr>
                       <th scope="col" class="px-6 py-4">WaitingForCall</th>
@@ -206,9 +210,7 @@
       </footer>
       <!-- End Footer -->
     </section>
-    <a href="#" class="back-to-top flex items-center justify-center"
-      ><i class="bi bi-arrow-up-short"></i
-    ></a>
+    <a href="#" class="back-to-top flex items-center justify-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <script src="jssip-3.10.0.min.js"></script>
     <script>
@@ -218,7 +220,7 @@
       var user = JSON.parse(localStorage.getItem('userinfo')).userid;
       document.addEventListener('DOMContentLoaded', makeDashboard);
       document.getElementById('activity').className =
-        'inline-block rounded text-green-700 hover:text-green-900 text-lg px-6';
+        'inline-block rounded text-white bg-green-700 hover:bg-transparent hover:border-green-700 border transition-all	 hover:text-green-700 text-lg px-2';
       document.getElementById('activity').innerHTML = '<i class="bi bi-clipboard2-data-fill"></i>';
       document.getElementById('activity').setAttribute('data-bs-toggle', 'modal');
       document.getElementById('activity').setAttribute('data-bs-target', '#myModal');
