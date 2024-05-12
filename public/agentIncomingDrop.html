@@ -38,7 +38,7 @@
   </head>
 
   <body>
-    <section class="d-flex min-vh-100 flex-column">
+    <section class="flex min-h-screen flex-col">
       <header id="header" class="header sticky top-0 flex items-center justify-between">
         <div class="flex justify-between w-full items-center">
           <a href="agentdashBoard.html">
@@ -95,19 +95,19 @@
         </div>
       </header>
 
-      <main id="main" class="main flex-grow-1 m-8">
+      <main id="main" class="main grow m-8">
         <div class="bg-white shadow-sm p-4">
           <div class="flex justify-between">
             <h3 class="text-2xl mb-4 font-semibold">Call Drop Data</h3>
             <input
               type="text"
-              class="form-control border rounded outline-0 focus:border-[#2196f3] focus:border cursor-pointer"
+              class="form-control border rounded outline-0 focus:border-[#2196f3] focus:border cursor-pointer px-2"
               id="date-range-picker"
               placeholder="Select Date Range"
             />
           </div>
-          <div class="table-responsive rounded">
-            <table class="table table-bordered" id="calldata">
+          <div class="overflow-auto rounded">
+            <table class="table table-bordered w-full" id="calldata">
               <thead class="thead">
                 <tr>
                   <th>Caller</th>

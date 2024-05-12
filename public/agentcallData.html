@@ -20,6 +20,7 @@
 
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
 
     <!-- pagination JQuery -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
@@ -38,7 +39,7 @@
   </head>
 
   <body>
-    <section class="d-flex min-vh-100 flex-column">
+    <section class="flex min-h-screen flex-col">
       <header id="header" class="header sticky top-0 flex items-center justify-between">
         <div class="flex justify-between w-full items-center">
           <a href="agentdashBoard.html">
@@ -95,18 +96,18 @@
         </div>
       </header>
 
-      <main id="main" class="main flex-grow-1 m-8">
+      <main id="main" class="main grow m-8">
         <div class="bg-white shadow-sm p-4">
-          <div class="flex justify-between">
+          <div class="flex justify-between mb-3">
             <h3 class="text-2xl mb-4 font-semibold">Incoming Call Data</h3>
             <input
               type="text"
-              class="form-control border rounded outline-0 focus:border-[#2196f3] focus:border cursor-pointer"
+              class="border rounded outline-0 focus:border-[#2196f3] focus:border cursor-pointer px-2"
               id="date-range-picker"
               placeholder="Select Date Range"
             />
           </div>
-          <div class="table-responsive rounded">
+          <div class="overflow-auto rounded">
             <table class="table table-bordered" id="calldata">
               <thead class="thead">
                 <tr>
@@ -129,13 +130,20 @@
           </div>
         </div>
         <div
-          class="modal fixed inset-0 z-50 overflow-y-auto top-50"
+          class="modal fixed inset-0 z-[100] overflow-y-auto top-50 hidden transition-all duration-1000"
           id="musicPlayerModal"
-          aria-labelledby="musicPlayerModalLabel"
-          aria-hidden="true"
         >
-          <div class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <div class="modal-content bg-white rounded-md shadow-md p-6">
+          <div
+            class="fixed top-0 flex items-center justify-center left-0 w-full h-full bg-black bg-opacity-50 z-[100]"
+            id="modalContainer"
+          >
+            <div
+              class="modal-content bg-white rounded-md shadow-md p-6 transform transition-transform ease-in-out w-1/4"
+            >
+              <div class="text-2xl cursor-pointer w-max absolute top-0 end-0" id="closeModalButton">
+                <i class="bx bx-x"></i>
+              </div>
+
               <div id="wave" class="flex items-center justify-center">
                 <img src="/img/animation-loading.gif" />
               </div>
@@ -224,12 +232,18 @@
     <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
 
     <script>
+      document.getElementById('closeModalButton').addEventListener('click', closeModal);
+
+      function closeModal() {
+        const modal = document.getElementById('musicPlayerModal');
+        modal.classList.add('hidden');
+      }
+
       var campaignlist;
       let callDetails = []; // Declare userDetails outside the fetch function
       let filteredData = [];
       let StartDate;
       let EndDate;
-      const modal = document.getElementById('musicPlayerModal');
 
       const storedUsername = JSON.parse(localStorage.getItem('userinfo')).userid;
       const storedorg = JSON.parse(localStorage.getItem('userinfo')).adminuser;
@@ -426,10 +440,8 @@
 
           var playButton = document.createElement('button');
           playButton.className =
-            'inline-block rounded text-white bg-green-700 hover:bg-transparent hover:border-green-700 border transition-all	 hover:text-green-700 text-lg px-2';
+            'inline-block rounded text-white bg-green-700 hover:bg-transparent hover:border-green-700 border transition-all	hover:text-green-700 text-lg px-2';
           playButton.innerHTML = ' <i class="bi bi-headphones"></i>';
-          playButton.setAttribute('data-bs-toggle', 'modal');
-          playButton.setAttribute('data-bs-target', '#musicPlayerModal');
           playButton.addEventListener('click', () => playaudio(index));
           actioncell1.appendChild(playButton);
           const audioname = call.bridgeID;
@@ -444,6 +456,8 @@
             if (audioSource) {
               audioElement.src = audioSource;
               document.body.appendChild(audioElement);
+              const modal = document.getElementById('musicPlayerModal');
+              modal.classList.remove('hidden');
             }
 
             const playpauseBtn = document.getElementById('playpause-track101');
@@ -569,6 +583,7 @@
             });
           }
         });
+
         $(document).ready(function () {
           $('#calldata').DataTable({
             dom: 'Blfrtip',
