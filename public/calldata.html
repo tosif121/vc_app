@@ -247,49 +247,47 @@
 
       <main id="main" class="main grow m-2">
         <div class="bg-white shadow-sm p-4">
-          <div class="table-container shadow-lg p-3 bg-white">
-            <div class="flex justify-between mb-4 items-center">
-              <h3 class="text-2xl font-semibold">Call Data</h3>
-              <div class="date-range mb-3">
-                <input
-                  type="text"
-                  class="border outline-0 p-2 rounded focus:border-[#2196f3]"
-                  id="date-range-picker"
-                  placeholder="Select Date Range"
-                />
-              </div>
+          <div class="flex justify-between mb-4 items-center">
+            <h3 class="text-2xl font-semibold">Call Data</h3>
+            <div class="date-range mb-3">
+              <input
+                type="text"
+                class="border outline-0 p-2 rounded focus:border-[#2196f3]"
+                id="date-range-picker"
+                placeholder="Select Date Range"
+              />
             </div>
+          </div>
 
-            <div class="overflow-x-auto whitespace-nowrap">
-              <table class="table-auto w-full border-collapse" id="calldata">
-                <thead class="thead">
-                  <tr>
-                    <th>Campaign</th>
-                    <th>IVR Menu</th>
-                    <th>Customer Number</th>
-                    <th>Call Type</th>
-                    <th>Agent Name</th>
-                    <th>Start Time</th>
-                    <th>Answered Time</th>
-                    <th>End Time</th>
-                    <th>Waiting Queue Time</th>
-                    <th>Disposition</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>District</th>
-                    <th>State</th>
-                    <th>PinCode</th>
-                    <th>Call Duration</th>
-                    <th>Listen</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- call records will be added dynamically -->
-                </tbody>
-              </table>
-            </div>
+          <div class="overflow-x-auto whitespace-nowrap">
+            <table class="table-auto w-full border-collapse" id="calldata">
+              <thead class="thead">
+                <tr>
+                  <th>Campaign</th>
+                  <th>IVR Menu</th>
+                  <th>Customer Number</th>
+                  <th>Call Type</th>
+                  <th>Agent Name</th>
+                  <th>Start Time</th>
+                  <th>Answered Time</th>
+                  <th>End Time</th>
+                  <th>Waiting Queue Time</th>
+                  <th>Disposition</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th>City</th>
+                  <th>District</th>
+                  <th>State</th>
+                  <th>PinCode</th>
+                  <th>Call Duration</th>
+                  <th>Listen</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- call records will be added dynamically -->
+              </tbody>
+            </table>
           </div>
         </div>
         <div
@@ -398,13 +396,21 @@
     <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
 
     <script>
-      document.getElementById('closeModalButton').addEventListener('click', closeModal);
+      const modalContainer = document.getElementById('modalContainer');
+      const closeModalButton = document.getElementById('closeModalButton');
+      const modal = document.getElementById('musicPlayerModal');
 
       function closeModal() {
-        const modal = document.getElementById('musicPlayerModal');
         modal.classList.add('hidden');
       }
 
+      modalContainer.addEventListener('click', function (event) {
+        if (event.target === modalContainer) {
+          closeModal();
+        }
+      });
+
+      closeModalButton.addEventListener('click', closeModal);
       var campaignlist;
       var callmenulist;
       let callDetails = []; // Declare userDetails outside the fetch function
@@ -418,7 +424,7 @@
 
       async function fetchData() {
         try {
-          const response = await fetch('https://devapp.iotcom.io/campaigndetails', {
+          const response = await fetch('/campaigndetails', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },
@@ -448,7 +454,7 @@
 
       async function fetchData1() {
         try {
-          const response = await fetch('https://devapp.iotcom.io/allContacts', {
+          const response = await fetch('/allContacts', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },
@@ -475,7 +481,7 @@
 
       async function fetchData2() {
         try {
-          const response = await fetch('https://devapp.iotcom.io/callmenuname', {
+          const response = await fetch('/callmenuname', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },
@@ -548,7 +554,7 @@
 
         console.log(formattedDates);
         filteredData = [];
-        fetch('https://devapp.iotcom.io/callData', {
+        fetch('/callData', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
