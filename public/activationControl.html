@@ -372,7 +372,7 @@
       });
 
       async function createdom() {
-        fetch('https://devapp.iotcom.io/activationDetails', {
+        fetch('/activationDetails', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
           },
@@ -489,7 +489,7 @@
               Active: Active1 == 'true' ? true : false,
             };
             console.log(newData);
-            const url = `https://devapp.iotcom.io/activation/${adminuser1}`;
+            const url = `/activation/${adminuser1}`;
 
             // Make an edit request to the server
             fetch(url, {

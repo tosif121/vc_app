@@ -175,7 +175,7 @@
                 >
                   <thead class="border-b border-neutral-200 font-medium dark:border-white/10">
                     <tr>
-                      <th scope="col" class="px-6 py-4">WaitingForCall</th>
+        
                       <th scope="col" class="px-6 py-4">Action Type</th>
                       <th scope="col" class="px-6 py-4">Time</th>
                       <th scope="col" class="px-6 py-4">Status</th>
@@ -229,7 +229,7 @@
       });
 
       async function makeDashboard() {
-        await fetch(`${mainurl}/agentDashboardData`, {
+        await fetch(`/agentDashboardData`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

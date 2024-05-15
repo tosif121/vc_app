@@ -350,7 +350,7 @@
         });
 
         async function createdom() {
-          fetch('https://devapp.iotcom.io/broadcastAdminDetails', {
+          fetch('/broadcastAdminDetails', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },

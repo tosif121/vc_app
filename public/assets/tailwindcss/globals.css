@@ -1,0 +1,88 @@
+::-webkit-scrollbar {
+  width: 8px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background-color: #ebebeb;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  background: #2196f3;
+}
+
+body {
+  scroll-behavior: smooth;
+  font-family: 'Poppins', sans-serif;
+}
+.dataTables_wrapper .dataTables_filter input,
+select {
+  outline: unset !important;
+}
+
+.dataTables_wrapper .dataTables_filter input:focus {
+  border-color: #2196f3;
+}
+
+.dt-button {
+  background-color: #2196f3 !important;
+  color: #fff !important;
+  border: 1px solid #2196f3 !important;
+}
+
+.dataTables_length {
+  margin-left: 12px;
+}
+
+table.dataTable.no-footer,
+table td,
+table,
+th {
+  border-bottom: 1px solid #dddd !important;
+}
+
+table tbody tr td {
+  padding: 1.2rem !important;
+  font-size: 15px;
+}
+
+table tbody tr:hover {
+  transition: all 0.4s;
+  background: #f1f5fa !important;
+}
+.dataTables_paginate.paging_simple_numbers {
+  margin: 12px 6px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+  background-color: #ddd !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+  background-color: #ddd !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button button:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: #2196f3 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  background: #fff !important;
+  box-shadow: 0 3px 16px 0 rgba(35, 47, 62, 0.15) !important;
+  border: 1px solid transparent !important;
+  margin: 0 5px;
+  font-size: 14px;
+  border-radius: 5px !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  background-color: #2196f3 !important;
+  color: #ffffff !important;
+  border-color: #2196f3 !important;
+}
+
+.back-to-top.active {
+  visibility: visible;
+}

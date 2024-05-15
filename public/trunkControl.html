@@ -263,7 +263,7 @@
             </div>
           </div>
         </div>
-
+        <div id="openEditModalButton" style="display: none;">fake modal to remove err</div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       </main>
       <!-- End #main -->
@@ -285,7 +285,7 @@
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
+    <!-- <script src="assets/js/main.js"></script> -->
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
@@ -359,7 +359,7 @@
                     alert(result.message);
                     Object.keys(ApiData).forEach((key) => delete ApiData[key]);
                   } else if (result.message === 'Cli Added successfully') {
-                    modal.classList.remove('hidden');
+                   // modal.classList.remove('hidden');
                     var notification = document.getElementById('successMessage');
                     notification.classList.add('show-notification');
 
@@ -388,7 +388,7 @@
       });
 
       async function createdom() {
-        fetch('https://devapp.iotcom.io/cliDetails', {
+        fetch('/cliDetails', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
           },
@@ -531,7 +531,7 @@
               })
               .then((data) => {
                 console.log(data.message); // You can do something with the response from the server if needed
-                modal.classList.remove('hidden');
+               // modal.classList.remove('hidden');
                 var notification = document.getElementById('EditMessage');
                 notification.classList.add('show-notification');
 

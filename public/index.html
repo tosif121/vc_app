@@ -47,12 +47,12 @@
       fill: aqua;
     }
 
-    .call_btn,
-    .call_btn:hover {
+    .call_btn{
       border: 1px solid #2196f3 !important;
       background-color: transparent !important;
       color: #222 !important;
     }
+   
 
     .active {
       color: #fff !important;
@@ -79,7 +79,7 @@
     </div>
   </div>
 
-  <div class="signin" id="creds" style="display: blcol">
+  <div class="signin" id="creds" style="display: blocl">
     <div class="login-box">
       <h2>Agent Login</h2>
 
@@ -119,14 +119,38 @@
 
   <div id="status" style="display: none">
     <script>
-      function showmodaldata() {
+      async function showmodaldata() {
         console.log("asdfasfasdfasdfasdfasd")
         const modal = document.getElementById("myModaldata");
-        modal.style.display = "flex";
-        setTimeout(function () {
-          modal.style.height = "100vh";
-        }, .5); // Delay the height transition slightly for smoother animation
+        const user = document.getElementById('username').value;
+        const div = document.getElementById("callText");
+        const circlediv = document.getElementById("circleAnimation");
+        div.innerText = null;
+        circlediv.style.display="none";
+     
+        
+        try {
 
+          const response = await fetch(`/usermissedCalls/${user}`, {
+            method: 'POST',
+          });
+          const data = await response.json();
+          if (data.result) {
+            changeMissedCallTableContent(data.result);
+            modal.style.display = "flex";
+            setTimeout(function () {
+              modal.style.height = "100vh";
+            }, .5); // Delay the height transition slightly for smoother animation
+          } else {
+            changeMissedCallTableContent([]);
+            modal.style.display = "flex";
+            setTimeout(function () {
+              modal.style.height = "100vh";
+            }, .5); // Delay the height transition slightly for smoother animation
+          }
+        } catch (err) {
+          console.log("error occured while fetching missed calls", err);
+        }
       }
 
 
@@ -139,7 +163,7 @@
       }
     </script>
 
- 
+
     <audio id="remoteaudio" autoplay></audio>
 
     <section class="home-section sticky-top p-0">
@@ -147,7 +171,7 @@
         <div class="d-flex justify-content-between">
           <div class="">
             <a href="index.html" class="logo">
-              <img src="./img/logo.png" width="180" class="img-fluid" alt="iotcom" />
+              <img src="./img/logo.png" width="180" class="img-fluid" alt="iotcom"/>
             </a>
           </div>
           <div class="toggle-btn">
@@ -163,7 +187,69 @@
                 <a class="nav-link" id="home"> Home </a>
               </li>
               <li class="nav-item" onclick='showmodaldata()'>
-                <a   class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse"  >
+                <div id="circleAnimation" style="margin-top: -5px;
+                margin-left: -10px;
+                position: absolute;
+                display: none;">
+                  <div   class="ping-circle"></div>
+                  <div  id="callText"  class="circle"></div>
+
+                </div>
+               
+                <style>.ping-circle {
+                  position: absolute;
+                display: flex;
+                  width: 15px;
+                
+                  height: 15px;
+                  background-color: red;
+                  border-radius: 100%;
+                  animation: ping 2s infinite;
+              }
+              .circle {
+                  position: absolute;
+                display: flex;
+                  width: 15px;
+                  height: 15px;
+                  background-color: red;
+                  border-radius: 50%;
+                  justify-content: center;
+                  align-items: center;
+                  color: white;
+                  font-size: 11px;
+                  font-weight: 800;
+                  
+                 
+              }
+              
+              @keyframes ping {
+                  0% {
+                      transform: scale(1);
+                      opacity: 1;
+                  }
+                  75% {
+                      transform: scale(2);
+                      opacity: 0;
+                  }
+                  100% {
+                      transform: scale(2);
+                      opacity: 0;
+                  }
+              }
+              
+              .ping-circle::before {
+                  content: '';
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  
+                  background-color: green;
+                  border-radius: 50%;
+                  transform: translate(-50%, -50%);
+                  animation: ping 2s infinite;
+                  opacity: 0.5;
+              }</style>
+                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse">
                   Dropcalls
                 </a>
 
@@ -185,16 +271,32 @@
               </button>
 
               <li class="nav-item me-5">
-                <button id="logout" class="logout_btn" onclick="performlogout()">
-                  <i class="bx bx-log-out"></i>
-                  Logout
-                </button>
+                
               </li>
             </ul>
 
-            <div class="profile d-flex align-items-center gap-2 me-3">
-              <img src="img/shiv.jpg" alt="Profile" class="rounded-circle" width="35" height="35" />
-              <span class="logo_name text-black fw-semibold" id="regUser"></span>
+            <div  class="profile d-flex align-items-center gap-4 me-3">
+              
+              
+              <sl-dropdown   >
+                <sl-button slot="trigger" style="width: 50px;" class="text-[#333333] hover:text-[#2196f3]"  caret><img src="img/shiv.jpg" style="  margin-left: -35px; margin-top: -20px; position: absolute;" alt="Profile" class="rounded-circle" width="35" height="35" /><img src="oui_arrow-up.png" style=" position: absolute; rotate: 180deg; margin-top: -10px; margin-right: -50px;" alt="">
+                 </sl-button>
+                <sl-menu style="width: 170px;
+                height: auto;
+                display: flex;
+                justify-content: center;
+                gap: 8px;
+                margin-top: 25px;
+                padding: 10px;" class="w-52 h-auto justify-between   flex rounded-lg gap-y-2 flex-col bg-white shadow-lg mt-6 py-2 shadow-gray-400">
+                   <sl-menu-item value="cut" class="self-start ml-3   text-[#333333] hover:text-[#2196f3] " ><span class="logo_name text-black fw-semibold" style="word-wrap: break-word;" id="regUser"></span> </sl-menu-item>
+                  <sl-menu-item value="cut" class="self-start ml-3   text-[#333333] hover:text-[#2196f3] " ><a href="agentdashBoard.html" target="_blank">Agent Dashboard</a></sl-menu-item>
+                  <sl-menu-item value="copy" class="text-[#333333] self-start ml-3  hover:text-[#2196f3]" ><button id="logout" class="logout_btn" onclick="performlogout()">
+                    <i class="bx bx-log-out"></i>
+                    Logout
+                  </button> </sl-menu-item>
+                  </sl-menu>
+              </sl-dropdown>
+             
             </div>
           </div>
         </div>
@@ -225,186 +327,130 @@
         transition: height 1s ease-in-out;
         
         ">
-  
-  <style>
-    @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
- h1, h2, h3, h4, h5, h6 {
-	 margin: 0;
-}
- 
- .tabled {
-	 box-sizing: border-box;
-	 padding: 24px;
-	 font-family: 'Source Sans Pro', sans-serif;
-	 margin: 0;
-	 width: 100%;
-	 border: 1px solid #bdbdbd;
-}
- .tabled-header {
-	 display: flex;
-	 width: 100%;
-	 background:  rgb(32, 125, 218);
-	 padding: 18px 0;
-}
- .tabled-row {
-	 display: flex;
-	 width: 100%;
-	 padding: 18px 0;
-}
- .tabled-row:nth-of-type(odd) {
-	 background: #eee;
-}
- .tabled-data, .header__item {
-	 flex: 1 1 20%;
-	 text-align: center;
-}
-.tabled-data{
-display: flex;
-justify-content: center;
-align-items: center;
-}
- .header__item {
-	 text-transform: uppercase;
-}
- .filter__link {
-	  
-	 text-decoration: none;
-	 position: relative;
-	 display: inline-block;
-	 padding-left: 24px;
-	 padding-right: 24px;
-}
- .filter__link::after {
-	 content: '';
-	 position: absolute;
-	 right: -18px;
-	 
-	 font-size: 12px;
-	 top: 50%;
-	 transform: translateY(-50%);
-}
- .filter__link.desc::after {
-	 content: '(desc)';
-}
- .filter__link.asc::after {
-	 content: '(asc)';
-}
- 
-  </style>
-        <div style="height: auto;
+
+          <style>
+            @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+              margin: 0;
+            }
+
+            .tabled {
+              box-sizing: border-box;
+              padding: 24px;
+              font-family: 'Source Sans Pro', sans-serif;
+              margin: 0;
+              width: 100%;
+              border: 1px solid #bdbdbd;
+            }
+
+            .tabled-header {
+              display: flex;
+              width: 100%;
+              background: rgb(32, 125, 218);
+              padding: 18px 0;
+            }
+
+            .tabled-row {
+              display: flex;
+              width: 100%;
+              padding: 18px 0;
+            }
+
+            .tabled-row:nth-of-type(odd) {
+              background: #eee;
+            }
+
+            .tabled-data,
+            .header__item {
+              flex: 1 1 20%;
+              text-align: center;
+            }
+
+            .tabled-data {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+
+            .header__item {
+              text-transform: uppercase;
+            }
+
+            .filter__link {
+
+              text-decoration: none;
+              position: relative;
+              display: inline-block;
+              padding-left: 24px;
+              padding-right: 24px;
+            }
+
+            .filter__link::after {
+              content: '';
+              position: absolute;
+              right: -18px;
+
+              font-size: 12px;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+
+            .filter__link.desc::after {
+              content: '(desc)';
+            }
+
+            .filter__link.asc::after {
+              content: '(asc)';
+            }
+          </style>
+          <div style="height: auto;
           width: 600px;
           background-color: #fff;
           " class="    flex-col rounded-md border-[2px] border-gray-300 shadow-lg">
-  
-          <div style="display: flex;
+
+            <div style="display: flex;
            flex-direction: column;
            justify-content: space-between;
            align-items: center;
            width: 100%;
            height: 80%;">
-            	<div class="tabled">
-                <div   style="display: flex; justify-content: flex-end;">
-                  <button onclick="closemodaldata()"  style="rotate: 45deg;
+              <div class="tabled">
+                <div style="display: flex; justify-content: flex-end;">
+                  <button onclick="closemodaldata()" style="rotate: 45deg;
                   font-size: 30px;
                   margin-top:-20px;
                   color: #2f2f2f;
                     ">+</button>
-                    <style>
-               
-                    </style>
+                  <style>
+
+                  </style>
                 </div>
-                <div  class="tabled-header">
-                  <div   class="header__item"><a style="background-color: rgb(32, 125, 218);
-                  color: #ffffff;" id="name" class="filter__link"  >Name</a></div>
-                  <div class="header__item"><a style="background-color: rgb(32, 125, 218);   color: #ffffff;" id="wins" class="filter__link filter__link--number"  >Number</a></div>
-                  <div class="header__item"><a style="background-color: rgb(32, 125, 218);    color: #ffffff;" id="draws" class="filter__link filter__link--number"  >Call</a></div>
-             
+                <div class="tabled-header">
+                  <div class="header__item"><a style="background-color: rgb(32, 125, 218);
+                  color: #ffffff;" id="name" class="filter__link">Number</a></div>
+                  <div class="header__item"><a style="background-color: rgb(32, 125, 218);   color: #ffffff;" id="wins"
+                      class="filter__link filter__link--number">Time</a></div>
+                  <div class="header__item"><a style="background-color: rgb(32, 125, 218);    color: #ffffff;"
+                      id="draws" class="filter__link filter__link--number">Call</a></div>
+
                 </div>
-                <div class="tabled-content">	
-                  <div class="tabled-row">		
-                    <div class="tabled-data">sures</div>
-                    <div class="tabled-data">7023236685</div>
-                    <div class="tabled-data"> <div class="jsprt call-touch" onclick="closemodaldata()"  style="background-color: #22c55e;
-                    cursor: pointer;">
-                      <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone"
-                        class="svg-inline--fa fa-phone" role="img" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512" width="16" height="16">
-                        <path fill="currentColor"
-                          d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z">
-                        </path>
-                      </svg>
-                    </div></div>
-             
-                  </div>
-                  <div class="tabled-row">
-                    <div class="tabled-data">rames</div>
-                    <div class="tabled-data">7023236685</div>
-                    <div class="tabled-data"> <div class="jsprt call-touch" onclick="closemodaldata()"  style="
-                    cursor: pointer; background-color: #22c55e">
-                      <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone"
-                        class="svg-inline--fa fa-phone" role="img" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512" width="16" height="16">
-                        <path fill="currentColor"
-                          d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z">
-                        </path>
-                      </svg>
-                    </div></div>
-               
-                  </div>
-                  <div class="tabled-row">
-                    <div class="tabled-data">rajes</div>
-                    <div class="tabled-data">7023236685</div>
-                    <div class="tabled-data"> <div class="jsprt call-touch" onclick="closemodaldata()"  style="background-color: #22c55e;
-                    cursor: pointer;">
-                      <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone"
-                        class="svg-inline--fa fa-phone" role="img" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512" width="16" height="16">
-                        <path fill="currentColor"
-                          d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z">
-                        </path>
-                      </svg>
-                    </div></div>
-             
-                  </div>
-                  <div class="tabled-row">
-                    <div class="tabled-data">lokes</div>
-                    <div class="tabled-data">7023236685</div>
-                    <div class="tabled-data"> <div class="jsprt call-touch" onclick="closemodaldata()"  style="background-color: #22c55e;
-                    cursor: pointer;">
-                      <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone"
-                        class="svg-inline--fa fa-phone" role="img" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512" width="16" height="16">
-                        <path fill="currentColor"
-                          d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z">
-                        </path>
-                      </svg>
-                    </div></div>
-             
-                  </div>
-                  <div class="tabled-row">
-                    <div class="tabled-data">rajes</div>
-                    <div class="tabled-data">7023236685</div>
-                    <div class="tabled-data"> <div class="jsprt call-touch" onclick="closemodaldata()"  style="background-color: #22c55e;
-                    cursor: pointer;">
-                      <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone"
-                        class="svg-inline--fa fa-phone" role="img" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512" width="16" height="16">
-                        <path fill="currentColor"
-                          d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z">
-                        </path>
-                      </svg>
-                    </div></div>
-             
-                  </div>
-                </div>	
+                <div class="tabled-content" id="missedcallTable">
+                  <!-- content will be displayed here dynamically -->
+                </div>
               </div>
+            </div>
+
           </div>
-      
+
+
+
         </div>
-  
-  
-  
-      </div>
 
 
 
@@ -435,7 +481,7 @@ align-items: center;
 
         <div id="myModalbtns" style="
           display: none;  position: absolute; 
-          z-index: 59;
+          z-index: 100;
           width: 100%;
           left: 0;
           top: 0;
@@ -455,7 +501,7 @@ align-items: center;
           <div style="height: 170px;
             width: 150px;
             background-color: #fff;
-            margin-right: 160px;
+            margin-right: 7%;
             margin-top:-325px;" class="    flex-col rounded-md border-[2px] border-gray-300 shadow-lg">
 
             <div style="display: flex;
@@ -1342,9 +1388,9 @@ align-items: center;
               });
             </script>
 
-            <div class="neeche containerimage">
-              <div style="height: 500px;
-            margin-top: 100px;" class="w-[500px]   flex-col rounded-md border-[2px] border-gray-300 shadow-lg">
+            <div class="neeche containerimage ">
+              <div style="height: 570px;
+            margin-top: 150px; " class="w-[500px]   flex-col rounded-md border-[2px] border-gray-300 shadow-lg">
                 <div class="h-[30px] mt-1 mx-1 flex items-center rounded-md border-gray-300 border-opacity-5">
                   <div
                     class="w-[125px] h-[25px] bg-[#2981C1] mx-1 rounded-md text-[0.80rem] text-white font-[600] flex justify-center items-center px-1 hover:cursor-pointer">
@@ -1366,37 +1412,69 @@ align-items: center;
                       font-weight: 500;">Name</label>
                         <div class="w-[80%]flex ">
 
-                          <input type="text" style="margin-bottom: 15px;
-                        width: 45%;" required placeholder="First name">
-                          <input type="text" style="margin-bottom: 15px;
-                        width: 45%;" required placeholder="Last name">
+                          <input type="text" id="firstName" style="
+                         height: 36px;
+                          margin-bottom: 6px;
+                        width: 45%;" placeholder="First name">
+                          <input type="text" id="lastName" style="
+                          height: 36px;margin-bottom: 6px;
+                        width: 45%;" placeholder="Last name">
 
                         </div>
 
                         <div class="inputBox">
                           <label for="" style="font-size: 14px;
                         font-weight: 500;">Number</label>
-                          <input type="text" disabled style="margin-bottom: 15px; width:45%;">
+                          <input type="number" id="contactNumber" disabled style="margin-bottom: 6px; width:45%; height: 36px;">
 
 
 
-                          <input type="text" disabled placeholder="Alternate number"
-                            style="margin-bottom: 15px; width:45%;">
+                          <input type="number" id="alternateNumber" placeholder="Alternate number"
+                            style="margin-bottom: 6px; width:45%; height: 36px;">
 
                         </div>
+                        
+                        <label for="" style="font-size: 14px;
+                         font-weight: 500;">Address</label>
+                          
+                        
+                          <input type="text" id="Contactaddress" style="margin-bottom: 6px;width: 91%; height: 36px;" placeholder="Enter your local Address">
+    
+                        
+                    <div class="w-[80%]flex ">
+
+                      <input type="text" id="ContactState"  style="
+                      height: 36px;margin-bottom: 6px;
+                         width: 45%;" placeholder="State">
+                      <input type="text" id="ContactDistrict"  style="
+                      height: 36px;margin-bottom: 6px;
+                         width: 45%;" placeholder="District">
+
+                    </div>
+                    <div class="w-[80%]flex ">
+
+                      <input type="text" id="ContactCity" style="
+                      height: 36px;margin-bottom: 10px;
+                         width: 45%;" placeholder="City">
+                      <input type="number" id="ContactPincode" style="
+                      height: 36px;margin-bottom: 10px;
+                         width: 45%;" placeholder="Pincode">
+
+                    </div>
                         <div class="inputBox">
                           <label for="" style="font-size: 14px;
-                        font-weight: 500;">Email</label>
-                          <input type="text" style="margin-bottom: 15px;" required placeholder="Enter your email">
+                        font-weight: 500;  ">Email</label>
+                          <input type="text" style="margin-bottom: 6px; height: 36px;" id="emailId" placeholder="Enter your email">
 
                         </div>
+                        
 
                         <div class="inputBox">
                           <label for="" style="font-size: 14px;
                         font-weight: 500;
                         ;">Comment</label>
-                          <textarea id="message" name="message" maxlength="100" placeholder="Your comment here!" style="max-height: 140px;
-                        min-height: 20px;"></textarea>
+                          <textarea id="comment" name="message" maxlength="100" placeholder="Your comment here!" style="max-height: 100px;
+                        min-height: 50px;"></textarea>
 
                         </div>
 
@@ -1508,7 +1586,7 @@ align-items: center;
         </div>
       </div>
 
-      <div id="Disposition" style="display: none">
+      <div id="Disposition" style="display:none">
         <div id="myModal" style="
           display: none;  position: absolute; 
           z-index:999999;
@@ -1525,7 +1603,7 @@ align-items: center;
           ">
 
 
-          <div style="height: 500px;background-color: #fff;"
+          <div style="height: 600px;background-color: #fff;"
             class="w-[500px]   flex-col rounded-md border-[2px] border-gray-300 shadow-lg">
             <span onclick="closemodal()" style="margin-right: 5px;" class="close">&times;</span>
             <div class="h-[154px] flex justify-center items-center">
@@ -1539,37 +1617,61 @@ align-items: center;
                        font-weight: 500;">Name</label>
                     <div class="w-[80%]flex ">
 
-                      <input type="text" style="margin-bottom: 15px;
-                         width: 45%;" required placeholder="First name">
-                      <input type="text" style="margin-bottom: 15px;
-                         width: 45%;" required placeholder="Last name">
+                      <input type="text" id="firstName1" style="margin-bottom: 15px;
+                         width: 45%;" placeholder="First name">
+                      <input type="text" id="lastName1" style="margin-bottom: 15px;
+                         width: 45%;" placeholder="Last name">
 
                     </div>
 
                     <div class="inputBox">
                       <label for="" style="font-size: 14px;
                          font-weight: 500;">Number</label>
-                      <input type="text" disabled style="margin-bottom: 15px; width:45%;">
+                      <input type="number" id="contactNumber1" disabled style="margin-bottom: 15px; width:45%;">
 
 
 
-                      <input type="text" disabled placeholder="Alternate number"
+                      <input type="number" id="alternateNumber1" placeholder="Alternate number"
                         style="margin-bottom: 15px; width:45%;">
+
+                    </div>
+                    <label for="" style="font-size: 14px;
+                         font-weight: 500;">Address</label>
+                          
+                        
+                          <input type="text" id="Contactaddress1"  style="margin-bottom: 10px;" placeholder="Enter your local Address">
+    
+                        
+                    <div class="w-[80%]flex ">
+
+                      <input type="text" id="ContactState1"  style="margin-bottom: 10px;
+                         width: 45%;" placeholder="State">
+                      <input type="text" id="ContactDistrict1"  style="margin-bottom: 10px;
+                         width: 45%;" placeholder="District">
+
+                    </div>
+                    <div class="w-[80%]flex ">
+
+                      <input type="text" id="ContactCity1" style="margin-bottom: 10px;
+                         width: 45%;" placeholder="City">
+                      <input type="text" id="ContactPincode1" style="margin-bottom: 10px;
+                         width: 45%;" placeholder="Pincode">
 
                     </div>
                     <div class="inputBox">
                       <label for="" style="font-size: 14px;
                          font-weight: 500;">Email</label>
-                      <input type="text" style="margin-bottom: 15px;" required placeholder="Enter your email">
+                      <input type="text" id="emailId1" style="margin-bottom: 15px;" placeholder="Enter your email">
 
                     </div>
+                     
 
                     <div class="inputBox">
                       <label for="" style="font-size: 14px;
                          font-weight: 500;
                          ;">Comment</label>
-                      <textarea id="message" name="message" maxlength="100" placeholder="Your comment here!" style="max-height: 140px;
-                         min-height: 20px;"></textarea>
+                      <textarea id="comment1" name="message" maxlength="100" placeholder="Your comment here!" style="max-height: 100px;
+                         min-height: 50px;"></textarea>
 
                     </div>
 
@@ -1701,7 +1803,7 @@ align-items: center;
           }
         </script>
 
-        <div class="modal fade modal-lg" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel"
+        <!-- <div class="modal fade modal-lg" id="alertModal"  tabindex="-1"   aria-labelledby="alertModalLabel"
           aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -1711,13 +1813,14 @@ align-items: center;
 
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </section>
   </div>
 
   <script src="jssip-3.10.0.min.js"></script>
   <script src="script.js"></script>
+  <script src="contactForm.js"></script>
   <script></script>
 
   <script>
@@ -1874,11 +1977,25 @@ align-items: center;
     var holdapply = false;
     var userlogin = false;
     var phone1hide = false;
+    var contactData = {
+      firstName: "",
+      LastName: "",
+      contactNumber: "",
+      alternateNumber: "",
+      emailId: "",
+      comment: "",
+      Contactaddress:"",
+      ContactState : "",
+      ContactDistrict : "",
+      ContactCity : "",
+      ContactPincode : ""
+     };
     var socket;
     var Callnumber;
     let startTime;
     let intervalId;
     var dialclicked = false;
+    var baseUrl= "samwad.iotcom.io";
 
     const phone1div = document.getElementById('mydiv');
     async function togglehold() {
@@ -2076,6 +2193,7 @@ align-items: center;
 
       // console.log("session",session);
       console.log(' line no 1658 callended', callended);
+      fillduplicateContactForm();
       // Check if there is an active call session (session variable is defined)
       if (session && callended === false) {
         //callended =false;
@@ -2164,7 +2282,7 @@ align-items: center;
       console.log('start button clicked');
       const isMicroPhone = await checkMicrophoneAvailability();
       if (isMicroPhone === true) {
-        socket = new JsSIP.WebSocketInterface('wss://devapp.iotcom.io:8089/ws');
+        socket = new JsSIP.WebSocketInterface(`wss://${baseUrl}:8089/ws`);
 
 
         let user = document.getElementById('username').value;
@@ -2173,15 +2291,11 @@ align-items: center;
         console.log(user);
         console.log(pass);
 
-        function playBeep() {
-          console.log('playing beep');
-          const audio = document.getElementById('beepAudio');
-          audio.play();
-        }
+
 
         let configuration = {
           sockets: [socket],
-          uri: `sip:${extension}@devapp.iotcom.io`,
+          uri: `sip:${extension}@${baseUrl}`,
           authorization_user: extension,
           password: pass,
         };
@@ -2189,7 +2303,7 @@ align-items: center;
         ua = new JsSIP.UA(configuration);
 
 
-        const url = `https://devapp.iotcom.io/userlogin/${user}`;
+        const url = `/userlogin/${user}`;
         // Make a edit request to the server
         fetch(url, {
           method: 'POST',
@@ -2207,6 +2321,16 @@ align-items: center;
             console.log(data.message);
             if (data.message === 'success,Proceed to login') {
               console.log('starting ua');
+              const token = data.token;
+              const userinfo = data.userData;
+              if(token){
+                console.log("token received");
+              localStorage.setItem('jwtToken', token);
+              }
+              if(userinfo){
+                console.log("user info received");
+              localStorage.setItem('userinfo', JSON.stringify(userinfo));
+              }
               ua.start();
             } else if (data.message === 'User already login somewhere else') {
               alert(data.message);
@@ -2290,6 +2414,7 @@ align-items: center;
         });
 
         ua.on('newRTCSession', (data) => {
+          console.log("new request received");
           //console.log(data.request.from._uri._user);
           //const currentNum=9865326526;
           const currentNum = data.request.from._uri._user;
@@ -2530,7 +2655,7 @@ align-items: center;
             console.error('Error sending dial request:', error);
           });
       } else {
-        displayMessage('Already working on previous click');
+        displayMessage('Call is already in progress');
       }
     }
 
@@ -2560,9 +2685,9 @@ align-items: center;
             //answer the call and proceed
             console.log(data.message);
             calldata = data.currentcalldata;
-            leads = data.leads[0];
+            contactData = data.contactData;
+            fillContactForm(contactData);
             startTimer();
-            // return formfill(leads);
           } else {
             console.log('response error from server');
             let x = document.getElementById('postview');
@@ -2680,6 +2805,7 @@ align-items: center;
       if (userlogin === true) {
         const user = document.getElementById('username').value;
         try {
+          localStorage.setItem("reqTime", `${Date.now()}`);
           const response = await Promise.race([
             fetch('/userconnection', {
               method: 'POST',
@@ -2735,7 +2861,7 @@ align-items: center;
     }
 
     const liveInterval = 1000; // 1 seconds in milliseconds
-    setInterval(() => { sendMessageToAsterisk(ua); }, 3000);
+    //setInterval(() => { sendMessageToAsterisk(ua); }, 3000);
     setInterval(connectioncheck, 5000);
 
 
@@ -2749,6 +2875,7 @@ align-items: center;
       const breakCheckbox = document.getElementById('breakCheckbox');
 
       if (selectedAction) {
+        await checkUpdateandUpdateContact(contactData,username.value);
         const sendingdata = {
           bridgeID: calldata.bridgeID,
           Disposition: selectedAction,
@@ -2799,7 +2926,16 @@ align-items: center;
           console.log('error:', err);
         }
       } else {
-        $('#alertModal').modal('show');
+        // $('#alertModal').modal('show');
+        displayMessage("Please select an action before submitting.");
+      }
+    }
+
+    function playBeep() {
+      console.log("playing beep");
+      const beepaudio = document.getElementById("beepAudio");
+      if (beepaudio.paused || beepaudio.ended) {
+        beepaudio.play();
       }
     }
 
@@ -2903,6 +3039,7 @@ align-items: center;
             //const data={message:"logout sucess"};
             alert(data.message);
             userlogin = false;
+            localStorage.setItem("logoutTime", `${new Date()}`);
             location.reload();
             //console.log(ua);
             //ua.stop();
@@ -3201,12 +3338,172 @@ align-items: center;
       if (userlogin === true) {
         const text = 'dev@shiv';
 
-        ua.sendMessage('asterisk@devapp.iotcom.io', text);
+        ua.sendMessage(`asterisk@${baseUrl}`, text);
+        localStorage.setItem("messagesendTime", `${Date.now()}`);
       }
+    }
+    // function to change data of missedcall model 
+    function changeMissedCallTableContent(array) {
+      const tablecontent = document.getElementById("missedcallTable");
+      tablecontent.innerHTML = "";
+      if (array.length > 0) {
+        array.forEach(function (call, index) {
+          const tabledRow = document.createElement('div');
+          tabledRow.classList.add('tabled-row');
+
+          // Create three inner divs with class "tabled-data"
+          const data1 = createDataDiv(call.Caller);
+          const data2 = createDataDiv(convertDate(call.startTime));
+          const data3 = createDataDivWithButton();
+
+          // Append the inner divs to the main container div
+          tabledRow.appendChild(data1);
+          tabledRow.appendChild(data2);
+          tabledRow.appendChild(data3);
+
+          tablecontent.appendChild(tabledRow);
+          data3.addEventListener("click", () => { missedCallDial(call.Caller) });
+
+        })
+      }
+      else {
+        const paragraph = document.createElement("p");
+        paragraph.classList.add("text-center");
+        paragraph.textContent = "No more Misssed Calls";
+        tablecontent.appendChild(paragraph);
+      }
+    }
+    // Helper function to create a "tabled-data" div with specified text content
+    function createDataDiv(textContent) {
+      const dataDiv = document.createElement('div');
+      dataDiv.classList.add('tabled-data');
+      dataDiv.textContent = textContent;
+      return dataDiv;
+    }
+    // function dateconverter 
+    function convertDate(timestamp) {
+      const convDate = new Date(timestamp);
+      const dateString = convDate.toString();
+      const parts = dateString.split(" ");
+      const reqFormate = parts[2] + "/" + parts[1] + "/" + parts[3] + "\n" + parts[4];
+      return (reqFormate);
+    }
+    // Helper function to create a "tabled-data" div with a button
+    function createDataDivWithButton() {
+      const dataDiv = document.createElement('div');
+      dataDiv.classList.add('tabled-data');
+
+      const buttonDiv = document.createElement('div');
+      buttonDiv.classList.add('jsprt', 'call-touch');
+      buttonDiv.style.backgroundColor = '#22c55e';
+      buttonDiv.style.cursor = 'pointer';
+      buttonDiv.setAttribute('onclick', 'closemodaldata()');
+
+      const svgIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svgIcon.setAttribute('aria-hidden', 'true');
+      svgIcon.setAttribute('focusable', 'false');
+      svgIcon.setAttribute('data-prefix', 'fas');
+      svgIcon.setAttribute('data-icon', 'phone');
+      svgIcon.setAttribute('class', 'svg-inline--fa fa-phone');
+      svgIcon.setAttribute('role', 'img');
+      svgIcon.setAttribute('viewBox', '0 0 512 512');
+      svgIcon.setAttribute('width', '16');
+      svgIcon.setAttribute('height', '16');
+
+      const pathIcon = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      pathIcon.setAttribute('fill', 'currentColor');
+      pathIcon.setAttribute('d', 'M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z'); // Replace '...' with the full 'd' attribute content for the SVG path
+
+      svgIcon.appendChild(pathIcon);
+      buttonDiv.appendChild(svgIcon);
+      dataDiv.appendChild(buttonDiv);
+
+      return dataDiv;
+    }
+
+    async function missedCallDial(number) {
+      if (dialclicked == false) {
+        dialclicked = true;
+        const user = document.getElementById('username').value;
+        Callnumber = number.slice(-10);
+
+        const dialdata = {
+          caller: user,
+          receiver: Callnumber,
+        };
+        const url = '/dialmissedcall';
+        // Make a edit request to the server
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
+          },
+          body: JSON.stringify(dialdata),
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            // const data={message:"Sucess dial req received"};
+            if (data === 'Sucess dial req received') {
+              //answer the call and proceed
+              // console.log(data.message);
+              closemodaldata();
+            } else {
+              closemodaldata();
+              displayMessage(data);
+              dialclicked = false;
+              // resetTime();
+            }
+          })
+          .catch((error) => {
+            console.error('Error sending dial request:', error);
+          });
+      } else {
+        closemodaldata();
+        displayMessage('Call is already in progress');
+      }
+
     }
 
 
+
+
+
+    async function countcall() {
+      if (userlogin === true) {
+        const div = document.getElementById("callText");
+        const circlediv = document.getElementById("circleAnimation");
+        const user = document.getElementById('username').value;
+        
+       try {
+
+          const response = await fetch(`/usermissedCalls/${user}`, {
+            method: 'POST',
+          });
+          const data = await response.json();
+          if (data.result) {
+            const misscallcount = data.result.length;
+            div.innerText = misscallcount;
+            circlediv.style.display="block";
+
+            
+          } else {
+            div.innerText = null;
+            circlediv.style.display="none";
+          }
+        } catch (err) {
+          console.log("error occured while fetching missed calls", err);
+        }
+      }
+    }
+
+  setInterval(countcall, 60000);
+
+
   </script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/components/dropdown/dropdown.js"></script>
 
 </body>
 

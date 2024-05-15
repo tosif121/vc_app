@@ -346,7 +346,7 @@
         });
 
         async function createdom() {
-          fetch('https://devapp.iotcom.io/allNumDetails', {
+          fetch('/allNumDetails', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },

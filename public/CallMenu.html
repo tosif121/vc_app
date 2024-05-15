@@ -118,6 +118,9 @@
                   <li>
                     <a href="form.html"> <i class="bi bi-chevron-right"></i><span>Upload Campaign</span> </a>
                   </li>
+                  <li>
+                    <a href="offlineCampaign.html"> <i class="bi bi-chevron-right"></i><span>Offline Campaign</span> </a>
+                  </li>
                   <!-- Add more items as needed -->
                 </ul>
               </li>
@@ -147,22 +150,32 @@
 
               <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
-                  <span>Call Data</span>  
+                  <span>Call Reports</span> <i class="bi bi-chevron-down ms-2"></i>
                 </a>
                 <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                   <li>
+                    <a href="aprReport.html">
+                      <i class="bi bi-chevron-right"></i><span>Agent performance report</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="calldata.html">
+                      <i class="bi bi-chevron-right"></i><span>Call detail report</span>
+                    </a>
+                  </li>
+                  <li>
                     <a href="IncomingCallData.html">
-                      <i class="bi bi-chevron-right"></i><span>Incoming Call Data</span>
+                      <i class="bi bi-chevron-right"></i><span>Incoming Call reports</span>
                     </a>
                   </li>
 
                   <li>
                     <a href="OutgoinfCallData.html">
-                      <i class="bi bi-chevron-right"></i><span>Outgoing Call Data</span>
+                      <i class="bi bi-chevron-right"></i><span>Outgoing Call reports</span>
                     </a>
                   </li>
                   <li>
-                    <a href="incomingDrop.html"> <i class="bi bi-chevron-right"></i><span>Drop CallData</span> </a>
+                    <a href="incomingDrop.html"> <i class="bi bi-chevron-right"></i><span>Drop Call reports</span> </a>
                   </li>
                   <!-- Add more items as needed -->
                 </ul>
@@ -409,6 +422,7 @@
                             <option value="callmenu">Callmenu</option>
                             <option value="hangup">Hangup</option>
                             <option value="campaign">Campaign</option>
+                            <option value="offline">Offline Campaign</option>
                           </select>
                         </div>
                       </div>
@@ -436,6 +450,14 @@
                           <label for="campaignOption1">Campaign specific options:</label>
                           <!-- Campaign specific options here -->
                           <select class="form-control" id="campaignInput1">
+                            <option value="" disabled selected>Select a campaign</option>
+                            <!-- Campaign specific options here -->
+                          </select>
+                        </div>
+                        <div id="offcampaignOption1" style="display: none">
+                          <label for="offcampaignOption1">Campaign specific options:</label>
+                          <!-- Campaign specific options here -->
+                          <select class="form-control" id="offcampaignInput1">
                             <option value="" disabled selected>Select a campaign</option>
                             <!-- Campaign specific options here -->
                           </select>
@@ -480,6 +502,7 @@
                             <option value="callmenu">Callmenu</option>
                             <option value="hangup">Hangup</option>
                             <option value="campaign">Campaign</option>
+                            <option value="offline">Offline Campaign</option>
                           </select>
                         </div>
                       </div>
@@ -507,6 +530,15 @@
                           <label for="campaignOption2">Campaign specific options:</label>
                           <!-- Campaign specific options here -->
                           <select class="form-control" id="campaignInput2">
+                            <option value="" disabled selected>Select a campaign</option>
+                            <!-- Campaign specific options here -->
+                          </select>
+                        </div>
+
+                        <div id="offcampaignOption2" style="display: none">
+                          <label for="offcampaignOption2">Campaign specific options:</label>
+                          <!-- Campaign specific options here -->
+                          <select class="form-control" id="offcampaignInput2">
                             <option value="" disabled selected>Select a campaign</option>
                             <!-- Campaign specific options here -->
                           </select>
@@ -551,6 +583,7 @@
                             <option value="callmenu">Callmenu</option>
                             <option value="hangup">Hangup</option>
                             <option value="campaign">Campaign</option>
+                            <option value="offline">Offline Campaign</option>
                           </select>
                         </div>
                       </div>
@@ -578,6 +611,15 @@
                           <label for="campaignOption">Campaign specific options:</label>
                           <!-- Campaign specific options here -->
                           <select class="form-control" id="campaignInput3">
+                            <option value="" disabled selected>Select a campaign</option>
+                            <!-- Campaign specific options here -->
+                          </select>
+                        </div>
+
+                        <div id="offcampaignOption3" style="display: none">
+                          <label for="offcampaignOption">Campaign specific options:</label>
+                          <!-- Campaign specific options here -->
+                          <select class="form-control" id="offcampaignInput3">
                             <option value="" disabled selected>Select a campaign</option>
                             <!-- Campaign specific options here -->
                           </select>
@@ -622,6 +664,7 @@
                             <option value="callmenu">Callmenu</option>
                             <option value="hangup">Hangup</option>
                             <option value="campaign">Campaign</option>
+                            <option value="offline">Offline Campaign</option>
                           </select>
                         </div>
                       </div>
@@ -649,6 +692,15 @@
                           <label for="campaignOption4">Campaign specific options:</label>
                           <!-- Campaign specific options here -->
                           <select class="form-control" id="campaignInput4">
+                            <option value="" disabled selected>Select a campaign</option>
+                            <!-- Campaign specific options here -->
+                          </select>
+                        </div>
+
+                        <div id="offcampaignOption4" style="display: none">
+                          <label for="offcampaignOption4">Campaign specific options:</label>
+                          <!-- Campaign specific options here -->
+                          <select class="form-control" id="offcampaignInput4">
                             <option value="" disabled selected>Select a campaign</option>
                             <!-- Campaign specific options here -->
                           </select>
@@ -693,6 +745,7 @@
                             <option value="callmenu">Callmenu</option>
                             <option value="hangup">Hangup</option>
                             <option value="campaign">Campaign</option>
+                            <option value="offline">Offline Campaign</option>
                           </select>
                         </div>
                       </div>
@@ -720,6 +773,15 @@
                           <label for="campaignOption5">Campaign specific options:</label>
                           <!-- Campaign specific options here -->
                           <select class="form-control" id="campaignInput5">
+                            <option value="" disabled selected>Select a campaign</option>
+                            <!-- Campaign specific options here -->
+                          </select>
+                        </div>
+
+                        <div id="offcampaignOption5" style="display: none">
+                          <label for="offcampaignOption5">Campaign specific options:</label>
+                          <!-- Campaign specific options here -->
+                          <select class="form-control" id="offcampaignInput5">
                             <option value="" disabled selected>Select a campaign</option>
                             <!-- Campaign specific options here -->
                           </select>
@@ -934,6 +996,10 @@
             action1 = document.getElementById('campaignInput1').value;
             action1 = parseInt(action1, 10);
             console.log('action1', action1);
+          }else if (type1 === 'offline') {
+            action1 = document.getElementById('offcampaignInput1').value;
+            action1 = parseInt(action1, 10);
+            console.log('action1', action1);
           } else {
             //hangup option
             action1 = 'Hangup';
@@ -946,6 +1012,9 @@
             action2 = document.getElementById('callmenuInput2').value;
           } else if (type2 === 'campaign') {
             action2 = document.getElementById('campaignInput2').value;
+            action2 = parseInt(action2, 10);
+          }else if (type2 === 'offline') {
+            action2 = document.getElementById('offcampaignInput2').value;
             action2 = parseInt(action2, 10);
           } else {
             //hangup option
@@ -960,6 +1029,9 @@
           } else if (type3 === 'campaign') {
             action3 = document.getElementById('campaignInput3').value;
             action3 = parseInt(action3, 10);
+          }else if (type3 === 'offline') {
+            action3 = document.getElementById('offcampaignInput3').value;
+            action3 = parseInt(action3, 10);
           } else {
             //hangup option
             action3 = 'Hangup';
@@ -973,6 +1045,9 @@
           } else if (type4 === 'campaign') {
             action4 = document.getElementById('campaignInput4').value;
             action4 = parseInt(action4, 10);
+          }else if (type4 === 'offline') {
+            action4 = document.getElementById('offcampaignInput4').value;
+            action4 = parseInt(action4, 10);
           } else {
             //hangup option
             action4 = 'Hangup';
@@ -985,6 +1060,9 @@
             action5 = document.getElementById('callmenuInput5').value;
           } else if (type5 === 'campaign') {
             action5 = document.getElementById('campaignInput5').value;
+            action5 = parseInt(action5, 10);
+          }else if (type5 === 'offline') {
+            action5 = document.getElementById('offcampaignInput5').value;
             action5 = parseInt(action5, 10);
           } else {
             //hangup option
@@ -1151,6 +1229,35 @@
           console.error('Error fetching campaign details:', error);
         });
 
+        let offcampaigndetails;
+      fetch('/offcampaigndetails', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+        },
+      })
+        .then((response) => {
+          if (response.status === 401) {
+            // Unauthorized response handling: redirect to index page or handle as needed
+            window.location.href = '/login.html'; // Replace with your index page URL
+          } else if (!response.ok) {
+            throw new Error('Network response was not ok');
+          } else {
+            return response.json();
+          }
+        })
+        .then((data) => {
+          offcampaigndetails = data.result;
+          console.log(offcampaigndetails);
+          optioncreate(offcampaigndetails, 'offcampaignInput1');
+          optioncreate(offcampaigndetails, 'offcampaignInput2');
+          optioncreate(offcampaigndetails, 'offcampaignInput3');
+          optioncreate(offcampaigndetails, 'offcampaignInput4');
+          optioncreate(offcampaigndetails, 'offcampaignInput5');
+        })
+        .catch((error) => {
+          console.error('Error fetching campaign details:', error);
+        });
+
       function optioncreate(Array, SelectID) {
         const Data = Array || [];
         // Generate new options based on selected supplier
@@ -1171,6 +1278,7 @@
           var callmenuOptions = document.getElementById('callmenuOptions' + index);
           var hangupOption = document.getElementById('hangupOption' + index);
           var campaignOption = document.getElementById('campaignOption' + index);
+          var offcampaignOption = document.getElementById('offcampaignOption' + index);
 
           // Add event listener to each routeSelect element
           routeSelect.addEventListener('change', function () {
@@ -1178,6 +1286,7 @@
             callmenuOptions.style.display = 'none';
             hangupOption.style.display = 'none';
             campaignOption.style.display = 'none';
+            offcampaignOption.style.display = 'none';
 
             // Show the selected option's corresponding div
             if (routeSelect.value === 'callmenu') {
@@ -1186,6 +1295,8 @@
               hangupOption.style.display = 'block';
             } else if (routeSelect.value === 'campaign') {
               campaignOption.style.display = 'block';
+            } else if (routeSelect.value === 'offline') {
+              offcampaignOption.style.display = 'block';
             }
           });
         })(i);
@@ -1254,6 +1365,10 @@
             document.getElementById(`campaignOption${a}`).style.display = "block";
             document.getElementById(`campaignInput${a}`).value = c ;
             document.getElementById(`campaignInput${a}`).text = campaigndetails.find(a=>a.campaignID==c).campaignname;
+         }else  if(b==="offline"){
+            document.getElementById(`offcampaignOption${a}`).style.display = "block";
+            document.getElementById(`offcampaignInput${a}`).value = c ;
+            document.getElementById(`offcampaignInput${a}`).text = offcampaigndetails.find(a=>a.campaignID==c).campaignname;
          }else if(b==="callmenu"){
           document.getElementById(`callmenuOptions${a}`).style.display = "block";
           document.getElementById(`callmenuInput${a}`).value = c ;

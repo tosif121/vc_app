@@ -259,7 +259,7 @@
 
       async function fetchData() {
         try {
-          const response = await fetch('https://devapp.iotcom.io/agentcampaigndetails', {
+          const response = await fetch('/agentcampaigndetails', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -327,7 +327,7 @@
         };
 
         console.log(formattedDates);
-        fetch('https://devapp.iotcom.io/agentcallData', {
+        fetch('/agentcallData', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

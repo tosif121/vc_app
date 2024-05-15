@@ -115,6 +115,9 @@
                   <li>
                     <a href="form.html"> <i class="bi bi-chevron-right"></i><span>Upload Campaign</span> </a>
                   </li>
+                  <li>
+                    <a href="offlineCampaign.html"> <i class="bi bi-chevron-right"></i><span>Offline Campaign</span> </a>
+                  </li>
                   <!-- Add more items as needed -->
                 </ul>
               </li>
@@ -144,22 +147,32 @@
 
               <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
-                  <span>Call Data</span> <i class="bi bi-chevron-down ms-2"></i>
+                  <span>Call Reports</span> <i class="bi bi-chevron-down ms-2"></i>
                 </a>
                 <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                   <li>
+                    <a href="aprReport.html">
+                      <i class="bi bi-chevron-right"></i><span>Agent performance report</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="calldata.html">
+                      <i class="bi bi-chevron-right"></i><span>Call detail report</span>
+                    </a>
+                  </li>
+                  <li>
                     <a href="IncomingCallData.html">
-                      <i class="bi bi-chevron-right"></i><span>Incoming Call Data</span>
+                      <i class="bi bi-chevron-right"></i><span>Incoming Call reports</span>
                     </a>
                   </li>
 
                   <li>
                     <a href="OutgoinfCallData.html">
-                      <i class="bi bi-chevron-right"></i><span>Outgoing Call Data</span>
+                      <i class="bi bi-chevron-right"></i><span>Outgoing Call reports</span>
                     </a>
                   </li>
                   <li>
-                    <a href="incomingDrop.html"> <i class="bi bi-chevron-right"></i><span>Drop CallData</span> </a>
+                    <a href="incomingDrop.html"> <i class="bi bi-chevron-right"></i><span>Drop Call reports</span> </a>
                   </li>
                   <!-- Add more items as needed -->
                 </ul>
@@ -266,8 +279,10 @@
                         <th>User ID</th>
                         <th>Username</th>
                         <th>Campaign</th>
+                        <th>number</th>
+                        <th>Edit Campaign</th>
                         <th>Change Pass</th>
-                        <th>Edit</th>
+                        <th>Forcelogout</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -303,6 +318,10 @@
                     <select class="form-select shadow-none" id="CampaignEdit" name="Campaign" type="number" required>
                       <!-- options will be added dynamically -->
                     </select>
+                  </div>
+                  <div class="form-group my-3">
+                    <label class="mb-2" for="number">Contact Number</label>
+                    <input type="text" class="form-control shadow-none" id="number" name="number" />
                   </div>
                   <div class="text-center mt-3">
                     <button type="button" class="btn-primary btn fw-medium px-3 py-2 fs-14" id="edituserlist">
@@ -360,6 +379,11 @@
             <p>Password changed successfully!</p>
           </div>
         </div>
+        <div class="notification" id="logoutuser">
+          <div class="notification-content">
+            <p>User Logout Successfully!</p>
+          </div>
+        </div>
       </main>
       <!-- End #main -->
 
@@ -389,6 +413,7 @@
       var UserID;
       var Username;
       var UserID1;
+      var number ;
       var Username1;
       var Campaignedit;
       const campaignSelect = document.getElementById('CampaignEdit');
@@ -496,6 +521,7 @@
             user.userid,
             user.username,
             campaignlist.find((a) => a.campaignID === user.campaign)?.campaignName,
+            user.number
           ];
 
           for (let i = 0; i < userData.length; i++) {
@@ -515,11 +541,20 @@
           const passeditButton = document.createElement('button');
           passeditButton.className = 'btn btn-primary px-2 py-1 rounded-1 fs-14';
           passeditButton.innerHTML = '<i class="bi bi-lock"></i>';
-          const passeditcell = newRow.insertCell(userData.length);
+          const passeditcell = newRow.insertCell(userData.length+1);
           passeditcell.appendChild(passeditButton);
 
           // Move the event listener outside the loop
           passeditButton.addEventListener('click', () => showpassEditModal(userData, index));
+
+          const forceButton = document.createElement('button');
+          forceButton.className = 'btn btn-primary px-2 py-1 rounded-1 fs-14';
+          forceButton.innerHTML = '<i class="bi bi-box-arrow-right"></i>';
+          const forcecell = newRow.insertCell(userData.length+2);
+          forcecell.appendChild(forceButton);
+
+          // Move the event listener outside the loop
+          forceButton.addEventListener('click', () => forceLogout(userData, index));
         });
       }
 
@@ -528,6 +563,7 @@
         $('#editModal').modal('show');
         UserID = document.getElementById('UserID').value = userData[0];
         Username = document.getElementById('Username').value = userData[1];
+        number = document.getElementById("number").value = userData[3];
       }
 
       function showpassEditModal(userData, index) {
@@ -539,11 +575,13 @@
       // Add a new event listener
       editUserListButton.addEventListener('click', async () => {
         Campaignedit = document.getElementById('CampaignEdit').value;
+        const newnumber = document.getElementById("number").value;
 
         if (Campaignedit) {
           let newData = {
             userid: UserID,
             campaign: parseInt(Campaignedit, 10),
+            number : newnumber?newnumber:null
           };
           console.log(newData);
           const url = `/updateuserlist`;
@@ -574,6 +612,7 @@
               UserID = null;
               Campaignedit = null;
               Username = null;
+              number = null;
 
               var notification = document.getElementById('EditMessage');
               notification.classList.add('show-notification');
@@ -643,6 +682,39 @@
           alert('Enter all values');
         }
       });
+
+      async function forceLogout(userData,index){
+
+        fetch('/forcelogout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+          },
+          body: JSON.stringify({ username: userData[0] }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log('Force logout successful:', data);
+            // Add any additional logic here based on API response
+            const notification = document.getElementById('logoutuser');
+            notification.classList.add('show-notification');
+
+            setTimeout(function () {
+              notification.classList.remove('show-notification');
+            }, 1000);
+          })
+          .catch((error) => {
+            console.error('Error during force logout:', error);
+            // Handle errors or display messages to the user
+          });
+
+      }
 
       function signOut() {
         // Clear localStorage (optional)

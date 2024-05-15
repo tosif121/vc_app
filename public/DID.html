@@ -116,6 +116,9 @@
                   <li>
                     <a href="form.html"> <i class="bi bi-chevron-right"></i><span>Upload Campaign</span> </a>
                   </li>
+                  <li>
+                    <a href="offlineCampaign.html"> <i class="bi bi-chevron-right"></i><span>Offline Campaign</span> </a>
+                  </li>
                   <!-- Add more items as needed -->
                 </ul>
               </li>
@@ -145,22 +148,32 @@
 
               <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
-                  <span>Call Data</span>  
+                  <span>Call Reports</span> <i class="bi bi-chevron-down ms-2"></i>
                 </a>
                 <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                   <li>
+                    <a href="aprReport.html">
+                      <i class="bi bi-chevron-right"></i><span>Agent performance report</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="calldata.html">
+                      <i class="bi bi-chevron-right"></i><span>Call detail report</span>
+                    </a>
+                  </li>
+                  <li>
                     <a href="IncomingCallData.html">
-                      <i class="bi bi-chevron-right"></i><span>Incoming Call Data</span>
+                      <i class="bi bi-chevron-right"></i><span>Incoming Call reports</span>
                     </a>
                   </li>
 
                   <li>
                     <a href="OutgoinfCallData.html">
-                      <i class="bi bi-chevron-right"></i><span>Outgoing Call Data</span>
+                      <i class="bi bi-chevron-right"></i><span>Outgoing Call reports</span>
                     </a>
                   </li>
                   <li>
-                    <a href="incomingDrop.html"> <i class="bi bi-chevron-right"></i><span>Drop CallData</span> </a>
+                    <a href="incomingDrop.html"> <i class="bi bi-chevron-right"></i><span>Drop Call reports</span> </a>
                   </li>
                   <!-- Add more items as needed -->
                 </ul>
@@ -349,6 +362,7 @@
                       <option value="" disabled selected>Select Option</option>
                       <option value="callmenu">Call Menu</option>
                       <option value="campaign">Campaign</option>
+                      <option value="offline">Offline Campaign</option>
                       <option value="hangup">Hangup</option>
                     </select>
                   </div>
@@ -417,6 +431,7 @@
                       <option value="" disabled selected>Select Option</option>
                       <option value="callmenu">callmenu</option>
                       <option value="campaign">campaign</option>
+                      <option value="offline">Offline Campaign</option>
                       <option value="hangup">hangup</option>
                     </select>
                   </div>
@@ -438,6 +453,7 @@
         <script>
           let campaignDetails;
           let callmenuDetails;
+          let offcampaigndetails;
           var DIDdetails;
           var Numbers;
 
@@ -500,6 +516,30 @@
               console.error('Error fetching user details:', error);
             });
 
+            fetch('/offcampaigndetails', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+            },
+          })
+            .then((response) => {
+              if (response.status === 401) {
+                // Unauthorized response handling: redirect to index page or handle as needed
+                window.location.href = '/login.html'; // Replace with your index page URL
+              } else if (!response.ok) {
+                throw new Error('Network response was not ok');
+              } else {
+                return response.json();
+              }
+            })
+            .then((data) => {
+              offcampaigndetails = data.result;
+
+              console.log(offcampaigndetails);
+            })
+            .catch((error) => {
+              console.error('Error fetching user details:', error);
+            });
+
           document.addEventListener('DOMContentLoaded', async function () {
             createdom()
               .then(() => {
@@ -548,6 +588,11 @@
                 file.transferID = campaignDetails.find(
                   (campaign) => campaign.campaignID === file.transferID
                 ).campaignname;
+              }else if (file.transfertype === 'offline'){
+                file.transferID = offcampaigndetails.find(
+                  (campaign) => campaign.campaignID === file.transferID
+                ).campaignname;
+
               } else if (file.transfertype === 'callmenu') {
                 file.transferID = callmenuDetails.find((a) => a.callmenuid === file.transferID).callmenuname;
               }
@@ -656,6 +701,8 @@
               console.log(newData);
               if (newData.transfertype === 'campaign') {
                 newData.transferID = parseInt(newData.transferID, 10);
+              }else if(newData.transfertype === 'offline'){
+                newData.transferID = parseInt(newData.transferID, 10);
               }
               const url = `/DID/${newDIDid}`;
 
@@ -711,6 +758,8 @@
               optioncreate(callmenuDetails, 'transferID1');
             } else if (selectedTransferOption1 === 'campaign') {
               optioncreate(campaignDetails, 'transferID1');
+            }else if(selectedTransferOption1 ==="offline"){
+              optioncreate(offcampaigndetails,'transferID1');
             } else {
               // create option for hangup
               optioncreate([{ name: 'hangup' }], 'transferID1');
@@ -728,6 +777,8 @@
               optioncreate(callmenuDetails, 'transferID');
             } else if (selectedTransferOption === 'campaign') {
               optioncreate(campaignDetails, 'transferID');
+            }else if(selectedTransferOption === "offline"){
+              optioncreate(offcampaigndetails,'transferID');
             } else {
               // Clear and disable the "Transfer ID" select field
               optioncreate([{ name: 'hangup' }], 'transferID');
@@ -763,7 +814,7 @@
                 transferID: newParkMusic,
               };
               //console.log(DIDData);
-              if (DIDData.transfertype === 'campaign') {
+              if (DIDData.transfertype === 'campaign' || DIDData.transfertype === 'offline') {
                 DIDData.transferID = parseInt(DIDData.transferID, 10);
               }
               try {

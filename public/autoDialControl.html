@@ -352,7 +352,7 @@
           });
 
           async function createdom() {
-            fetch('https://devapp.iotcom.io/autodialAdminDetails', {
+            fetch('/autodialAdminDetails', {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
               },

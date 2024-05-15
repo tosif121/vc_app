@@ -212,7 +212,7 @@
           enddate: Dateinterval.startdate.toISOString().substring(0, 10),
         };
 
-        fetch('https://devapp.iotcom.io/agentcallData', {
+        fetch('/agentcallData', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -142,138 +142,241 @@
 
   <body>
     <!-- ======= Header ======= -->
-    <header style="height: 70px;" id="header" class="header fixed-top d-flex align-items-center">
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-
-      <div
-        class="d-flex align-items-center justify-content-center"
-        style="padding: 2vw"
-      >
+    <header id="header" class="header sticky-top d-flex align-items-center">
+      <div class="d-flex align-items-center justify-content-center">
         <a href="admindashboard.html" class="logo d-flex align-items-center">
           <img src="./img/logo.png" alt="iotcom" />
         </a>
       </div>
-      <!-- End Logo -->
+      <div class="ms-auto d-flex align-items-end">
+        <div id="sidebar" class="sidebar me-5">
+          <ul class="sidebar-nav d-flex gap-4" id="sidebar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="admindashboard.html">
+                <!-- <i class="bi bi-grid"></i> -->
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <!-- End Dashboard Nav -->
 
-      <div class="search-bar" style="display: none">
-        <form
-          class="search-form d-flex align-items-center"
-          method="POST"
-          action="#"
-        >
-          <input
-            type="text"
-            name="query"
-            placeholder="Search"
-            title="Enter search keyword"
-          />
-          <button type="submit" title="Search">
-            <i class="bi bi-search"></i>
-          </button>
-        </form>
-      </div>
-      <!-- End Search Bar -->
+            <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                <!-- <i class="bi bi-gem"></i> -->
+                <span>Users</span><i class="bi bi-chevron-down ms-2"></i>
+              </a>
+              <ul id="icons-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                  <a href="adduser.html"> <i class="bi bi-chevron-right"></i><span>Add New Users</span> </a>
+                </li>
+                <li>
+                  <a href="userlist.html"> <i class="bi bi-chevron-right"></i><span>User List</span> </a>
+                </li>
+                <li>
+                  <a href="AgentLoginHours.html">
+                    <i class="bi bi-chevron-right"></i><span>Agent Login Hours</span>
+                  </a>
+                </li>
 
-      <nav class="header-nav ms-auto">
-        <ul class="d-flex align-items-center">
-          <li class="nav-item d-block d-lg-none">
-            <a
-              class="nav-link nav-icon search-bar-toggle"
-              href="#"
-              style="display: none"
-            >
+                <li>
+                  <a href="Forcelogout.html"> <i class="bi bi-chevron-right"></i><span>Force Logout</span> </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Broadcast Section -->
+            <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-target="#Broadcast-nav" data-bs-toggle="collapse" href="#">
+                <!-- <i class="bi bi-broadcast"></i> -->
+                <span>Broadcast</span><i class="bi bi-chevron-down ms-2"></i>
+              </a>
+              <ul id="Broadcast-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                  <a href="broadcast.html"> <i class="bi bi-chevron-right"></i><span>Add Broadcast</span> </a>
+                </li>
+                <li>
+                  <a href="Broadcastform.html"> <i class="bi bi-chevron-right"></i><span>Upload Broadcast</span> </a>
+                </li>
+                <li>
+                  <a href="broadCastReport.html">
+                    <i class="bi bi-chevron-right"></i><span>Broadcast Report</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="broadCastSummary.html">
+                    <i class="bi bi-chevron-right"></i><span>Broadcast Summary</span>
+                  </a>
+                </li>
+                <!-- Add more items as needed -->
+              </ul>
+            </li>
+
+            <!-- campagian Section -->
+            <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-target="#Campaign-nav" data-bs-toggle="collapse" href="#">
+                <!-- <i class="bi bi-layout-text-window-reverse"></i> -->
+                <span>Campaign</span><i class="bi bi-chevron-down ms-2"></i>
+              </a>
+              <ul id="Campaign-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                  <a href="newcampaign.html"> <i class="bi bi-chevron-right"></i><span>Add Campaign</span> </a>
+                </li>
+
+                <li>
+                  <a href="form.html"> <i class="bi bi-chevron-right"></i><span>Upload Campaign</span> </a>
+                </li>
+                <li>
+                  <a href="offlineCampaign.html"> <i class="bi bi-chevron-right"></i><span>Offline Campaign</span> </a>
+                </li>
+                <!-- Add more items as needed -->
+              </ul>
+            </li>
+            <!-- End Blank Page Nav -->
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="CallMenu.html">
+                <!-- <i class="bi bi-telephone-plus"></i> -->
+                <span>Call Menu</span>
+              </a>
+            </li>
+            <!-- End Blank Page Nav -->
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="AudioStore.html">
+                <!-- <i class="bi bi-file-earmark-music"></i> -->
+                <span>Audio Store</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="DID.html">
+                <!-- <i class="bi bi-card-list"></i> -->
+                <span>DID</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
+                <span>Call Reports</span> <i class="bi bi-chevron-down ms-2"></i>
+              </a>
+              <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                  <a href="aprReport.html">
+                    <i class="bi bi-chevron-right"></i><span>Agent performance report</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="calldata.html">
+                    <i class="bi bi-chevron-right"></i><span>Call detail report</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="IncomingCallData.html">
+                    <i class="bi bi-chevron-right"></i><span>Incoming Call reports</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="OutgoinfCallData.html">
+                    <i class="bi bi-chevron-right"></i><span>Outgoing Call reports</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="incomingDrop.html"> <i class="bi bi-chevron-right"></i><span>Drop Call reports</span> </a>
+                </li>
+                <!-- Add more items as needed -->
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <!-- End Logo -->
+
+        <div class="search-bar" style="display: none">
+          <form class="search-form d-flex align-items-center" method="POST" action="#">
+            <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
+            <button type="submit" title="Search">
               <i class="bi bi-search"></i>
-            </a>
-          </li>
-          <!-- End Search Icon-->
+            </button>
+          </form>
+        </div>
+        <!-- End Search Bar -->
 
-          <li class="nav-item dropdown pe-3">
-            <a
-              class="nav-link nav-profile d-flex align-items-center pe-0"
-              href="#"
-              data-bs-toggle="dropdown"
-            >
-              <img src="img/shiv.jpg" alt="Profile" class="rounded-circle" />
-              <span
-                class="d-none d-md-block dropdown-toggle ps-2"
-                id="displayUsername"
-              ></span> </a
-            ><!-- End Profile Iamge Icon -->
+        <nav class="header-nav ms-auto">
+          <ul class="d-flex align-items-center">
+            <li class="nav-item d-block d-lg-none">
+              <a class="nav-link nav-icon search-bar-toggle" href="#" style="display: none">
+                <i class="bi bi-search"></i>
+              </a>
+            </li>
+            <!-- End Search Icon-->
 
-            <ul
-              class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
-            >
-              <li class="dropdown-header">
-                <h6 id="displayUsername1">Shiv Shekhawat</h6>
-                <span id="displayorg">Web Designer</span>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
+            <li class="nav-item dropdown pe-3">
+              <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                <img src="img/shiv.jpg" alt="Profile" class="rounded-circle" />
+                <span class="d-none d-md-block dropdown-toggle ps-2 text-capitalize" id="displayUsername"></span> </a
+              ><!-- End Profile Iamge Icon -->
 
-              <li>
-                <a
-                  class="dropdown-item d-flex align-items-center"
-                  href="users-profile.html"
-                >
-                  <i class="bi bi-person"></i>
-                  <span>My Profile</span>
-                </a>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                <li class="dropdown-header text-capitalize">
+                  <h6 id="displayUsername1">Shiv Shekhawat</h6>
+                  <span id="displayorg">Web Designer</span>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
 
-              <li>
-                <a
-                  class="dropdown-item d-flex align-items-center"
-                  href="users-profile.html"
-                >
-                  <i class="bi bi-gear"></i>
-                  <span>Account Settings</span>
-                </a>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                    <i class="bi bi-person"></i>
+                    <span>My Profile</span>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
 
-              <li>
-                <a
-                  class="dropdown-item d-flex align-items-center"
-                  href="pages-faq.html"
-                >
-                  <i class="bi bi-question-circle"></i>
-                  <span>Need Help?</span>
-                </a>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                    <i class="bi bi-gear"></i>
+                    <span>Account Settings</span>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
 
-              <li>
-                <a
-                  class="dropdown-item d-flex align-items-center"
-                  href="#"
-                  onclick="signOut()"
-                >
-                  <i class="bi bi-box-arrow-right"></i>
-                  <span>Sign Out</span>
-                </a>
-              </li>
-            </ul>
-            <!-- End Profile Dropdown Items -->
-          </li>
-          <!-- End Profile Nav -->
-        </ul>
-      </nav>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                    <i class="bi bi-question-circle"></i>
+                    <span>Need Help?</span>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="#" onclick="signOut()">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Sign Out</span>
+                  </a>
+                </li>
+              </ul>
+              <!-- End Profile Dropdown Items -->
+            </li>
+            <!-- End Profile Nav -->
+          </ul>
+        </nav>
+      </div>
       <!-- End Icons Navigation -->
     </header>
-
     <main style="margin-top: 150px;" id="main" class="flex-grow-1">
       <div class="container-fluid">
         <div class="p-3 m-2 bg-white shadow-sm rounded-1">
           <div class="d-flex align-items-center justify-content-between">
-            <h3 class="text-center mb-4">Daily Login Data</h3>
+            <h3 class="text-center mb-4">
+              Agent performance report
+              </h3>
               <div class="position-relative">
                 <input
                 type="text"
@@ -285,21 +388,22 @@
           </div>
           <div class="table-responsive rounded">
             <table class="table table-bordered" id="table">
-              <thead class="thead">
-                <tr>
-                  <th>Agent</th>
-                  <th>Date</th>
-                  <th>Total Calls</th>
-                  <th>Waiting for Call</th>
-                  <th>ON Call</th>
-                  <th>Disposition Time</th>
-                  <th>Training Break</th>
-                  <th>LunchBreak</th>
-                  <th>TeaBreak</th>
-                  <th>Break Time</th>
-                  <th>Hold Time</th>
-                  <th>Total Login Time</th>
-                  <th>Action</th>
+              <thead class="thead" style="background-color: #2196f3; color: white; height: 50px;">
+                <tr  style="background-color: #2196f3;
+                color: #ffffff; ">
+                  <th style="background-color: #ffffff;  ">Agent</th>
+                  <th style="background-color: #ffffff;">Date</th>
+                  <th style="background-color: #ffffff;">Total Calls</th>
+                  <th style="background-color: #ffffff;">Waiting for Call</th>
+                  <th style="background-color: #ffffff;">ON Call</th>
+                  <th style="background-color: #ffffff;" >Disposition Time</th>
+                  <th style="background-color: #ffffff;">Training Break</th>
+                  <th style="background-color: #ffffff;">LunchBreak</th>
+                  <th style="background-color: #ffffff;">TeaBreak</th>
+                  <th style="background-color: #ffffff;">Break Time</th>
+                  <th style="background-color: #ffffff;">Hold Time</th>
+                  <th style="background-color: #ffffff;">Total Login Time</th>
+                  <th style="background-color: #ffffff;">Action</th>
                 </tr>
               </thead>
               <tbody>

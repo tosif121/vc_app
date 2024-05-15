@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Favicons -->
+      <link href="favicon.png" rel="icon" />
+    <title>Document</title>
+    <link rel="stylesheet" href="offlinecampaign.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
+    <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet"
+  />
+
+    
+ 
+
+
+</head>
+ <body>
+  
+ </body>
+ <section class="w-[100%] h-[100%]  ">
+  <div id="myModal" style="
+  display: none;  position: absolute; 
+  z-index:999999;
+  width: 100%;
+  height:0;
+  top: 0px;
+  fill-opacity:1;
+  justify-content: center;
+  align-items: center;
+  transition: height 1s ease-in-out;
+  ">
+
+
+  <div style="height: 550px;background-color: #fff;"
+    class="w-[800px]   flex-col rounded-md border-[2px] border-gray-300 shadow-lg">
+    <div class="w-[100%] flex justify-between   px-4 items-center    shadow-sm shadow-gray-300">
+      <p  id="exampleModalLabel" class="text-[20px] font-normal text-[#333333]">New Campaign</p>
+      <button onclick="closemodal()"  class=" text-[37px] text-gray-500 hover:text-gray-700">&times;</button>
+    </div>
+    
+     <div id="addForm" class="w-[100%] h-[100%] px-3 flex flex-col py-3 ">
+       <label for="Campaign name" class="text-[20px] font-normal  mb-3 text-[#333333]">Campaign Name:</label>
+       <input id="newName" type="text" class="w-[100%] h-10 px-3 font-normal text-lg text-[#333333] outline-[#2196f3] outline-[1px] border-[#d3d3d3] border-[1px] rounded-md">
+
+       <label for="Description:" class="text-[20px] font-normal mt-5 mb-3 text-[#333333]">Description:</label>
+       <input id="newDescription" type="text" class="w-[100%] h-10 px-3 font-normal text-lg text-[#333333] outline-[#2196f3] outline-[1px] border-[#d3d3d3] border-[1px] rounded-md">
+
+       <label for="Campaign name" class="text-[20px] font-normal mt-5 mb-3 text-[#333333]">Transfer-Logic:</label>
+       <select id="newActive" class="form-control w-[100%] h-10 px-3 font-normal text-lg text-[#333333] outline-[#2196f3] outline-[1px] border-[#d3d3d3] border-[1px] rounded-md bg-white " id="newActive1" name="newActive1">
+        <option value="" disabled selected>Select Option</option>
+        <option value="LongestWait">Longest-Wait</option>
+        <option value="LeastCall">LeastCall</option>
+        <option value="Priority">Agent Priority</option>
+      </select>
+       
+       <label for="Campaign name" class="text-[20px] font-normal mt-5 mb-3 text-[#333333]">Wait Music:</label>
+     <!-- Add options for Wait Music as needed -->
+       <select id="newWaitMusic" class="form-control w-[100%] h-10 px-3 font-normal text-lg text-[#333333] outline-[#2196f3] outline-[1px] border-[#d3d3d3] border-[1px] rounded-md bg-white " id="newActive1" name="newActive1">
+         <!-- options will be added dynamically -->
+      </select>
+      <div class="w-[100%] mt-6  flex justify-center  ">
+        <button   id="addRowBtn" class="text-white text-lg bg-[#2196f3] py-1 px-3 rounded-md border-[#2196f3] border-[1px] transition-all hover:bg-white hover:text-[#2196f3]   ">Submit</button>
+ 
+      </div>
+      
+       
+       
+     </div>
+  </div>
+
+
+
+</div>
+<div id="editModal" style="
+display: none;  position: absolute; 
+z-index:999999;
+width: 100%;
+height:0;
+top: 0px;
+fill-opacity:1;
+justify-content: center;
+align-items: center;
+transition: height 1s ease-in-out;
+">
+
+
+<div style="height: 550px;background-color: #fff;"
+  class="w-[800px]   flex-col rounded-md border-[2px] border-gray-300 shadow-lg">
+  <div class="w-[100%] flex justify-between   px-4 items-center    shadow-sm shadow-gray-300">
+    <p class="text-[20px] font-normal text-[#333333]"  id="exampleModalLabel1" >Edit Campaign</p>
+    <button onclick="closemodaled()"  class=" text-[37px] text-gray-500 hover:text-gray-700">&times;</button>
+  </div>
+  
+   <div id="editForm" class="w-[100%] h-[100%] px-3 flex flex-col py-3 ">
+     <label for="Campaign name" class="text-[20px] font-normal  mb-3 text-[#333333]">Campaign Name:</label>
+     <input id="newName1" type="text" class="w-[100%] h-10 px-3 font-normal text-lg text-[#333333] outline-[#2196f3] outline-[1px] border-[#d3d3d3] border-[1px] rounded-md">
+
+     <label for="Description:" class="text-[20px] font-normal mt-5 mb-3 text-[#333333]">Description:</label>
+     <input id="newDescription1" type="text" class="w-[100%] h-10 px-3 font-normal text-lg text-[#333333] outline-[#2196f3] outline-[1px] border-[#d3d3d3] border-[1px] rounded-md">
+
+     <label for="Campaign name" class="text-[20px] font-normal mt-5 mb-3 text-[#333333]">Transfer-Logic:</label>
+     <select  id="newActive1" class="form-control w-[100%] h-10 px-3 font-normal text-lg text-[#333333] outline-[#2196f3] outline-[1px] border-[#d3d3d3] border-[1px] rounded-md bg-white " id="newActive1" name="newActive1">
+      <option value="" disabled selected>Select Option</option>
+      <option value="LongestWait">Longest-Wait</option>
+      <option value="LeastCall">LeastCall</option>
+      <option value="Priority">Agent Priority</option>
+    </select>
+     
+     <label for="Campaign name" class="text-[20px] font-normal mt-5 mb-3 text-[#333333]">Wait Music:</label>
+    <!-- Add options for Wait Music as needed -->
+     <select id="newWaitMusic1" class="form-control w-[100%] h-10 px-3 font-normal text-lg text-[#333333] outline-[#2196f3] outline-[1px] border-[#d3d3d3] border-[1px] rounded-md bg-white " id="newActive1" name="newActive1">
+       <!-- options will be added dynamically -->
+    </select>
+    <div class="w-[100%] mt-6  flex justify-center  ">
+      <button  id="addRowBtn1" class="text-white text-lg bg-[#2196f3] py-1 px-3 rounded-md border-[#2196f3] border-[1px] transition-all hover:bg-white hover:text-[#2196f3]   ">Submit</button>
+
+    </div>
+    
+     
+     
+   </div>
+</div>
+
+
+
+</div>
+<script>
+  function showmodaled() {
+    const modal = document.getElementById("editModal");
+    modal.style.display = "flex";
+    setTimeout(function () {
+      modal.style.height = "100vh";
+    }, .5); // Delay the height transition slightly for smoother animation
+
+  }
+  window.onclick = function (event) {
+    const modal = document.getElementById("editModal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+  function closemodaled() {
+    const modal = document.getElementById("editModal");
+    modal.style.height = "0";
+    setTimeout(function () {
+      modal.style.display = "none";
+    }, 500);
+  }
+</script>
+  <nav class="fixed top-0  shadow-gray-300 shadow-md  h-[70px] w-full flex justify-between items-center px-1">
+    <div class="logo h-[60px] mt-3 w-[200px] ">
+      <img src="logo 3 (1).png" alt="">
+    
+    </div>
+    <div class="w-[70%]   h-full flex justify-between items-center">
+      
+        <!-- <div class="dropdown-selection">
+          <sl-dropdown>
+            <sl-button slot="trigger" caret>Edit</sl-button>
+            <sl-menu>
+              <sl-menu-item value="cut">Cut</sl-menu-item>
+              <sl-menu-item value="copy">Copy</sl-menu-item>
+              <sl-menu-item value="paste">Paste</sl-menu-item>
+            </sl-menu>
+          </sl-dropdown>
+        </div>
+        
+      </div> -->
+      <button class="text-md text-[#333333]   hover:text-[#2196f3]">
+        <a class="nav-link" href="admindashboard.html"> Dashboard</a>
+       
+      </button>
+      <button class="text-md  text-[#333333]  "   >
+         <div class="dropdown-selection"   >
+          <sl-dropdown   >
+            <sl-button slot="trigger"  class="text-[#333333] hover:text-[#2196f3]"  caret>Users</sl-button>
+            <sl-menu  class="py-2  w-auto h-auto justify-between flex  rounded-lg gap-y-2 px-4 flex-col bg-white shadow-lg mt-7 ml-[-50px] pb-2 shadow-gray-400">
+              <sl-menu-item  value="cut" class="text-[#333333] self-start  hover:text-[#2196f3]" ><a href="adduser.html"> Add New Users</a></sl-menu-item>
+              <sl-menu-item value="copy" class="text-[#333333] self-start  hover:text-[#2196f3]" ><a href="userlist.html"> User List</a></sl-menu-item>
+              <sl-menu-item value="paste" class="text-[#333333] self-start hover:text-[#2196f3]" > <a href="AgentLoginHours.html">Agent Login Hours</a> </sl-menu-item>
+              <sl-menu-item value="paste" class="text-[#333333] self-start  hover:text-[#2196f3]" ><a href="Forcelogout.html">Force Logout</a> </sl-menu-item>
+            </sl-menu>
+          </sl-dropdown>
+        </div>
+        
+     
+      </button>
+      <button class="text-md  text-[#333333]  "   >
+        <div class="dropdown-selection"   >
+         <sl-dropdown   >
+           <sl-button slot="trigger"  class="text-[#333333] hover:text-[#2196f3]"  caret>Broadcast</sl-button>
+           <sl-menu  class="py-2  w-auto h-auto justify-between flex  rounded-lg gap-y-2 px-4 flex-col bg-white shadow-lg mt-7 ml-[-50px] pb-2 shadow-gray-400">
+            <sl-menu-item  value="cut" class="text-[#333333] self-start  hover:text-[#2196f3]" > <a href="broadcast.html"> <i class="bi bi-chevron-right"></i><span>Add Broadcast</span> </a></sl-menu-item>
+            <sl-menu-item value="copy" class="text-[#333333] self-start  hover:text-[#2196f3]" ><a href="Broadcastform.html"> <i class="bi bi-chevron-right"></i><span>Upload Broadcast</span> </a></sl-menu-item>
+            <sl-menu-item value="paste" class="text-[#333333] self-start hover:text-[#2196f3]" > <a href="broadCastReport.html">
+              <i class="bi bi-chevron-right"></i><span>Broadcast Report</span>
+            </a> </sl-menu-item>
+            <sl-menu-item value="paste" class="text-[#333333] self-start  hover:text-[#2196f3]" ><a href="broadCastSummary.html">
+              <i class="bi bi-chevron-right"></i><span>Broadcast Summary</span>
+            </a></sl-menu-item>
+          </sl-menu>
+         </sl-dropdown>
+       </div>
+       
+    
+     </button>
+     <button class="text-md  text-[#333333]  "   >
+      <div class="dropdown-selection"   >
+       <sl-dropdown   >
+         <sl-button slot="trigger"  class="text-[#333333] hover:text-[#2196f3]"  caret>Campaign</sl-button>
+         <sl-menu  class="py-2  w-auto h-auto justify-between flex  rounded-lg gap-y-2 px-4 flex-col bg-white shadow-lg mt-7 ml-[-50px] pb-2 shadow-gray-400">
+          <sl-menu-item  value="cut" class="text-[#333333] self-start  hover:text-[#2196f3]" ><a href="newcampaign.html" class="active">
+            <i class="bi bi-chevron-right"></i><span>Add Campaign</span>
+          </a></sl-menu-item>
+          <sl-menu-item value="copy" class="text-[#333333] self-start  hover:text-[#2196f3]" ><a href="form.html"> <i class="bi bi-chevron-right"></i><span>Upload Campaign</span> </a></sl-menu-item>
+            </sl-menu>
+       </sl-dropdown>
+     </div>
+     
+    
+    </button>
+    <button class="text-md text-[#333333]   hover:text-[#2196f3]">
+      <a class="nav-link collapsed" href="CallMenu.html">
+        <!-- <i class="bi bi-telephone-plus"></i> -->
+        <span>Call Menu</span>
+      </a>
+    </button>
+    <button class="text-md text-[#333333]   hover:text-[#2196f3]">
+      <a class="nav-link collapsed" href="AudioStore.html">
+        <!-- <i class="bi bi-file-earmark-music"></i> -->
+        <span>Audio Store</span>
+      </a>
+    </button>
+    <button class="text-md text-[#333333]   hover:text-[#2196f3]">
+      <a class="nav-link collapsed" href="DID.html">
+        <!-- <i class="bi bi-card-list"></i> -->
+        <span>Add/Show DID</span>
+      </a>
+    </button>
+    <button class="text-md text-[#333333]  ">
+      <div class="dropdown-selection"   >
+       <sl-dropdown   >
+         <sl-button slot="trigger"  class="text-[#333333] hover:text-[#2196f3]"  caret>Call Data</sl-button>
+         <sl-menu  class="py-2  w-auto h-auto justify-between flex  rounded-lg gap-y-2 px-4 flex-col bg-white shadow-lg mt-7 ml-[-50px] pb-2 shadow-gray-400">
+          <sl-menu-item  value="cut" class="text-[#333333] self-start  hover:text-[#2196f3]" ><a href="IncomingCallData.html">
+            <i class="bi bi-chevron-right"></i><span>Incoming Call reports</span>
+          </a></sl-menu-item>
+          <sl-menu-item value="copy" class="text-[#333333] self-start  hover:text-[#2196f3]" ><a href="OutgoinfCallData.html">
+            <i class="bi bi-chevron-right"></i><span>Outgoing Call reports</span>
+          </a></sl-menu-item>
+          <sl-menu-item value="paste" class="text-[#333333] self-start hover:text-[#2196f3]" > <a href="incomingDrop.html"> <i class="bi bi-chevron-right"></i><span>Drop Call reports</span> </a></sl-menu-item>
+          <sl-menu-item value="paste" class="text-[#333333] self-start  hover:text-[#2196f3]" ><a href="Forcelogout.html">Force Logout</a> </sl-menu-item>
+        </sl-menu>
+       </sl-dropdown>
+     </div>
+     
+    
+    </button>
+     
+      
+    </div>
+    
+     
+    <button class="w-10   h-full flex justify-center items-center mr-3">
+     
+      <div class="dropdown-selection"   >
+        <sl-dropdown   >
+          <sl-button slot="trigger"  class="text-[#333333] hover:text-[#2196f3]"  caret> <img src="shiv.jpg" class=" w-auto h-[35px] rounded-full"  alt=""></sl-button>
+          <sl-menu class="w-52 h-auto justify-between   flex rounded-lg gap-y-2 flex-col bg-white shadow-lg mt-6 py-2 shadow-gray-400">
+            <div class="w-full flex flex-col items-start">
+              <p id="displayUsername1" class="text-lg font-medium text-[#4d4d4d] self-start ml-3 ">Shiv Shekhawat</p>
+              <p id="displayorg" class="text-md font-medium text-[#363636] self-start ml-3">Web Designer</p>
+            </div>
+            <sl-menu-item value="cut" class="self-start ml-3   text-[#333333] hover:text-[#2196f3] " ><i class="fas fa-user text-gray-500 mr-2"></i>My Profile</sl-menu-item>
+            <sl-menu-item value="copy" class="text-[#333333] self-start ml-3  hover:text-[#2196f3]" ><i class="fas fa-toolbox text-gray-500 mr-2"></i>Account Setting</sl-menu-item>
+            <sl-menu-item value="copy" class="text-[#333333] self-start ml-3  hover:text-[#2196f3]" ><i class="fas fa-question-circle text-gray-500 mr-2 "></i>Need Help?</sl-menu-item>
+            <sl-menu-item value="copy" class="text-[#333333] self-start ml-3  hover:text-[#2196f3]" ><i class="fas fa-sign-out-alt text-gray-500  mr-2"></i>SignOut</sl-menu-item>
+          </sl-menu>
+        </sl-dropdown>
+      </div>
+    
+    </button>
+     </nav>
+     <div class="bg-[#f8f9fa] w-[100%] h-[80%] mt-[75px] flex flex-col items-center ">
+      <div class=" w-[95%] mt-6 rounded-md h-auto pb-4 bg-white shadow-lg shadow-gray-300 ">
+        <div class="h-[70px] w-[100%] flex justify-between items-center px-5">
+          <p class="text-[27px] font-medium text-[#333333]">Offline Campaign Data</p>
+          <button onclick="showmodal()" class="text-white text-md bg-[#2196f3] py-2 px-5 rounded-lg border-[#2196f3] border-[1px] transition-all hover:bg-white hover:text-[#2196f3] ">New Offline Campaign</button>
+ 
+        </div>
+        <div class="mt-2 w-[100%] h-[100%]   " >
+          <div class="table-wrapper rounded-md overflow-hidden">
+            <table class="fl-table">
+                <thead>
+                <tr  >
+                    <th>Campaign Name</th>
+     
+                    <th>Description</th>
+                    <th>Wait Music</th>
+                    <th>Transfer-Logic</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody id="fileTable">
+                  <!-- <tr>                  
+                <td> asdkjfhasdjk</td>
+                <td>asdfasdf</td>
+                <td>asdfasdf</td>
+                <td>asdfasdf</td>
+                <td>  <button onclick="showmodaled()" class="mx-auto my-auto flex justify-center items-center  w-7 h-7 border-[1px] border-green-500 bg-green-500 hover:bg-white rounded-md  transition-all"><i class="fas fa-pen text-white hover:text-green-500"></i></button></td>
+                <td>  <button class="mx-auto my-auto flex justify-center items-center  w-7 h-7  border-[1px] border-red-500 bg-red-500 rounded-md transition-all hover:bg-white"><i class="fas fa-trash text-white hover:text-red-500"></i></button></td>
+              </tr> -->
+                  
+                <tbody>
+            </table>
+        </div>
+      
+
+        <style>
+          .table-wrapper{
+    margin: 10px  ;
+   
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;  
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 17px;
+    border: 1px solid #dddddd;
+}
+
+.fl-table td {
+    border-left: 1px solid #dddddd;
+    font-size: 15px;
+}
+
+.fl-table thead th {
+    color: #333333;
+   
+   
+}
+
+
+.fl-table thead th:nth-child(odd) {
+    color: #333333;
+ 
+}
+
+.fl-table tr:nth-child(even) {
+    background: #F8F8F8;
+}
+
+/* Responsive */
+
+@media (max-width: 767px) {
+    .fl-table {
+        display: block;
+        width: 100%;
+    }
+    .table-wrapper:before{
+        content: "Scroll horizontally >";
+        display: block;
+        text-align: right;
+        font-size: 11px;
+        color: white;
+        padding: 0 0 10px;
+    }
+    .fl-table thead, .fl-table tbody, .fl-table thead th {
+        display: block;
+    }
+    .fl-table thead th:last-child{
+        border-bottom: none;
+    }
+    .fl-table thead {
+        float: left;
+    }
+    .fl-table tbody {
+        width: auto;
+        position: relative;
+        overflow-x: auto;
+    }
+    .fl-table td, .fl-table th {
+        padding: 20px .625em .625em .625em;
+        height: 60px;
+        vertical-align: middle;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 120px;
+        font-size: 13px;
+        text-overflow: ellipsis;
+    }
+    .fl-table thead th {
+        text-align: left;
+        border-bottom: 1px solid #f7f7f9;
+    }
+    .fl-table tbody tr {
+        display: table-cell;
+    }
+    .fl-table tbody tr:nth-child(odd) {
+        background: none;
+    }
+    .fl-table tr:nth-child(even) {
+        background: transparent;
+    }
+    .fl-table tr td:nth-child(odd) {
+        background: #F8F8F8;
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tr td:nth-child(even) {
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tbody td {
+        display: block;
+        text-align: center;
+    }
+}
+        </style>
+         
+
+        </div>
+ 
+      </div>
+       
+     </div>
+ </section>
+
+<style>
+  /* For WebKit based browsers */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 5px;
+  display: none;
+ 
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1C2434;
+}
+
+</style>
+ 
+<script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/components/dropdown/dropdown.js"></script>
+<script>
+ 
+  const container = document.querySelector('.dropdown-selection');
+  const dropdown = container.querySelector('sl-dropdown');
+
+  dropdown.addEventListener('sl-select', event => {
+    const selectedItem = event.detail.item;
+    console.log(selectedItem.value);
+  });
+ 
+</script>
+<script>
+  function showmodal() {
+    const modal = document.getElementById("myModal");
+    modal.style.display = "flex";
+    setTimeout(function () {
+      modal.style.height = "100vh";
+    }, .5); // Delay the height transition slightly for smoother animation
+
+  }
+  window.onclick = function (event) {
+    const modal = document.getElementById("myModal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+  function closemodal() {
+    const modal = document.getElementById("myModal");
+    modal.style.height = "0";
+    setTimeout(function () {
+      modal.style.display = "none";
+    }, 500);
+  }
+</script>
+
+<script>
+  const storedUsername = JSON.parse(localStorage.getItem('admininfo')).user;
+  const storedorg = JSON.parse(localStorage.getItem('admininfo')).organization;
+  var offCampaigndetails;
+  if (storedUsername) {
+    //document.getElementById('displayUsername').innerText = storedUsername;
+    document.getElementById('displayUsername1').innerText = storedUsername;
+    document.getElementById('displayorg').innerText = storedorg;
+  } else {
+    document.getElementById('displayUsername').innerText = 'No stored username found.';
+    document.getElementById('displayUsernam1').innerText = 'No stored username found.';
+  }
+
+  var sounddetails;
+  fetch('/sounddetails', {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+    },
+  })
+    .then((response) => {
+      if (response.status === 401) {
+        // Unauthorized response handling: redirect to index page or handle as needed
+        window.location.href = '/login.html'; // Replace with your index page URL
+      } else if (!response.ok) {
+        throw new Error('Network response was not ok');
+      } else {
+        return response.json();
+      }
+    })
+    .then((data) => {
+      soundDetails = data.result;
+      console.log(soundDetails);
+      optioncreate(soundDetails, 'newWaitMusic');
+      optioncreate(soundDetails, 'newWaitMusic1');
+    })
+    .catch((error) => {
+      console.error('Error fetching user details:', error);
+    });
+
+  function optioncreate(Array, idoption) {
+    const Data = Array || [];
+    // Generate new options based on selected supplier
+    const optionSelect = document.getElementById(idoption);
+    Data.forEach((obj) => {
+      const option = document.createElement('option');
+      option.class = 'form.select';
+      option.value = obj.name;
+      option.text = obj.name;
+      optionSelect.appendChild(option);
+    });
+  }
+
+  document.getElementById('addRowBtn').addEventListener('click', async function () {
+    // Get input values (including the new call transfer option)
+    const newId = document.getElementById('newName').value;
+    const newName = document.getElementById('newName').value;
+    const newDescription = document.getElementById('newDescription').value;
+    const newTransferLogic = document.getElementById('newActive').value;
+    const newWaitMusic = document.getElementById('newWaitMusic').value;
+
+    // Check if all fields are filled
+    if (newId && newName && newDescription && newTransferLogic && newWaitMusic) {
+      const campaignData = {
+        campaignname: newName,
+        campaignID: newId,
+        campaigndes: newDescription,
+        transferLogic : newTransferLogic,
+        waitsoundid : newWaitMusic,
+      };
+      console.log(campaignData);
+
+      try {
+        const response = await fetch('/createoffcampign', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+          },
+          body: JSON.stringify(campaignData),
+        });
+
+        if (response) {
+          if (response.status === 401) {
+            // Unauthorized response handling: redirect to index page or handle as needed
+            window.location.href = '/login.html'; // Replace with your index page URL
+          } else {
+            const result = await response.json();
+            console.log(result);
+            if (result) {
+              if (result.message === 'duplicate offline campaign Name') {
+                alert(result.message);
+                Object.keys(campaignData).forEach((key) => delete campaignData[key]);
+              } else if (result.message === 'database error in saving data to database') {
+                alert(result.message);
+                Object.keys(campaignData).forEach((key) => delete campaignData[key]);
+              } else if (result.message === 'offline campaign created successfully') {
+                closemodal();
+                var notification = document.getElementById('successMessage');
+                notification.classList.add('show-notification');
+
+                setTimeout(function () {
+                  notification.classList.remove('show-notification');
+                  createdom();
+                }, 1000); // Hide the notification after 5 seconds
+              }
+            }
+          }
+        } else {
+          alert('failed to create campaign due to server error,try after some time');
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        alert('Error in app coding data in creating campaign.');
+      }
+    } else {
+      // If not all fields are filled, display an error message
+      alert('Please fill out all fields before adding the campaign and select a call transfer option.');
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    createdom();
+  });
+
+  async function createdom() {
+    fetch('/offcampaigndetails', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+      },
+    })
+      .then((response) => {
+        if (response.status === 401) {
+          // Unauthorized response handling: redirect to index page or handle as needed
+          window.location.href = '/login.html'; // Replace with your index page URL
+        } else if (!response.ok) {
+          throw new Error('Network response was not ok');
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        offCampaigndetails = data.result;
+        console.log(offCampaigndetails);
+        refreshTable(offCampaigndetails);
+      })
+      .catch((error) => {
+        console.error('Error fetching campaign details:', error);
+      });
+  }
+
+  function refreshTable(file) {
+    const audioFiles = file || [];
+    console.log(audioFiles);
+    var table = document.getElementById('fileTable');
+    table.innerHTML = '';
+
+    audioFiles.forEach(function (file, index) {
+      const newRow = table.insertRow(table.rows.length);
+      const cell1 = newRow.insertCell(0);
+      const cell2 = newRow.insertCell(1);
+      const cell3 = newRow.insertCell(2);
+      const cell4 = newRow.insertCell(3);
+      const cell5 = newRow.insertCell(4);
+      const cell6 = newRow.insertCell(5);
+
+      // cell1.textContent = file.campaignID || file.campaignid;
+      cell1.textContent = file.campaignname;
+      cell2.textContent = file.campaigndes || file.campaigndescription;
+      cell3.textContent = file.transferLogic;
+      cell4.textContent = file.waitsoundid;
+      var editButton = document.createElement('button');
+      editButton.className = 'mx-auto my-auto flex justify-center items-center  w-7 h-7 border-[1px] border-green-500 bg-green-500 hover:bg-white rounded-md  transition-all';
+      editButton.innerHTML = '<i class="fas fa-pen text-white hover:text-green-500"></i>';
+      cell5.appendChild(editButton);
+
+      var deleteButton = document.createElement('button');
+      deleteButton.className = 'mx-auto my-auto flex justify-center items-center  w-7 h-7  border-[1px] border-red-500 bg-red-500 rounded-md transition-all hover:bg-white';
+      deleteButton.innerHTML = '<i class="fas fa-trash text-white hover:text-red-500"></i>';
+      cell6.appendChild(deleteButton);
+
+      editButton.addEventListener('click', () => editcallmenu(file, index));
+      deleteButton.addEventListener('click', () => deletecallmenu(file, index));
+    });
+  }
+
+  // Function to delete callmenu from data
+  function deletecallmenu(file, index) {
+    const confirmation = window.confirm(`Do you really want to delete Current ${file.campaignname} ?`);
+    if (confirmation) {
+      const campaignID = file.campaignID; // getting callmenu id
+      const url = `/offcampaign/${campaignID}`;
+
+      // Make a DELETE request to the server
+      fetch(url, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+        },
+      })
+        .then((response) => {
+          if (response.status === 401) {
+            // Unauthorized response handling: redirect to index page or handle as needed
+            window.location.href = '/login.html'; // Replace with your index page URL
+          } else if (!response.ok) {
+            throw new Error('Failed to delete campaign');
+          } else {
+            return response.json();
+          }
+        })
+        .then((data) => {
+          console.log(data.message); // You can do something with the response from the server if needed
+
+          var notification = document.getElementById('DeleteMessage');
+          notification.classList.add('show-notification');
+
+          setTimeout(function () {
+            notification.classList.remove('show-notification');
+            createdom();
+          }, 1000);
+        })
+        .catch((error) => {
+          console.error('Error deleting campaign:', error);
+        });
+    }
+  }
+
+  function editcallmenu(file, index) {
+  
+    const newcampaign1 = file.campaignID;
+    let newName1 = (document.getElementById('newName1').value = file.campaignname);
+    let newDescription1 = (document.getElementById('newDescription1').value = file.campaigndes);
+    let newActive1 = (document.getElementById('newActive1').value = file.transferLogic);
+    let newWaitMusic1 = (document.getElementById('newWaitMusic1').value = file.waitsoundid);
+    showmodaled();
+
+    function handleAddRowBtnClick() {
+      const newName1 = document.getElementById('newName1').value;
+      const newDescription1 = document.getElementById('newDescription1').value;
+      const newActive1 = document.getElementById('newActive1').value;
+      const newWaitMusic1 = document.getElementById('newWaitMusic1').value;
+
+      const newData = {
+        campaignname: newName1,
+        campaignID: newcampaign1,
+        campaigndes: newDescription1,
+        transferLogic: newActive1,
+        waitsoundid: newWaitMusic1,
+      };
+      console.log(newData);
+      const url = `/offcampaign/${newcampaign1}`;
+
+      // Make an edit request to the server
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+        },
+        body: JSON.stringify(newData),
+      })
+        .then((response) => {
+          if (response.status === 401) {
+            // Unauthorized response handling: redirect to index page or handle as needed
+            window.location.href = '/login.html'; // Replace with your index page URL
+          } else if (!response.ok) {
+            throw new Error('Failed to update campaign');
+          } else {
+            return response.json();
+          }
+        })
+        .then((data) => {
+          console.log(data.message); // You can do something with the response from the server if needed
+          closemodaled();
+
+          var notification = document.getElementById('EditMessage');
+          notification.classList.add('show-notification');
+
+          setTimeout(function () {
+            notification.classList.remove('show-notification');
+            createdom();
+          }, 1000);
+        })
+        .catch((error) => {
+          console.error('Error Updating campaign:', error);
+        });
+    }
+
+    // Add event listener to the "Add Row" button
+    document.getElementById('addRowBtn1').addEventListener('click', handleAddRowBtnClick);
+
+   
+   // Remove event listener when the modal is hidden
+   const editModal = document.getElementById('editModal');
+    editModal.addEventListener('hidden.bs.modal', function () {
+        addRowBtn.removeEventListener('click', handleAddRowBtnClick);
+    });
+  }
+
+  function signOut() {
+    // Clear localStorage (optional)
+    localStorage.removeItem('admininfo');
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('didData');
+
+    // Redirect to the desired location
+    window.location.href = '/login.html';
+  }
+</script>
+</html>
