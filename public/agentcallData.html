@@ -349,9 +349,12 @@
             console.log(callDetails);
             const uniqueBridgeIDs = new Set();
             if (callDetails !== null) {
-              callDetails = callDetails.filter((x) => x.agent === storedUsername);
+              callDetails = callDetails.filter((x) => x.agent === storedUsername || x.agent===`transferBy-${storedUsername}`);
               console.log(callDetails);
               callDetails.forEach((entry) => {
+                if(entry.agent==`transferBy-${storedUsername}`){
+                  entry.Type = `transfer-${entry.Type}`;
+                }
                 entry.duration = Math.floor((entry.hanguptime - entry.startTime) / 1000); // assuming both times are in milliseconds
                 entry.hanguptime = formatDateTime(entry.hanguptime);
                 entry.anstime = formatDateTime(entry.anstime);

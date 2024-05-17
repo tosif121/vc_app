@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   const dropdownToggles = document.querySelectorAll('.cursor-pointer:not(#musicPlayerModal .cursor-pointer)');
-  
+
   dropdownToggles.forEach(function (toggle) {
     toggle.addEventListener('click', function () {
       const dropdownMenu = this.nextElementSibling;
@@ -42,3 +42,25 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+function hideSkeletonLoader() {
+  tableBody.innerHTML = '';
+}
+
+function showSkeletonLoader(rows, cols) {
+  for (let i = 0; i < rows; i++) {
+    const row = document.createElement('div');
+    row.classList.add('flex', 'gap-2');
+
+    const cells = [];
+
+    for (let j = 0; j < cols; j++) {
+      const cell = document.createElement('div');
+      cell.classList.add('bg-[#e0e0e0]', 'rounded', 'm-2', 'flex-1', 'p-3', 'cell');
+      cells.push(cell);
+    }
+
+    row.append(...cells);
+    tableBody.appendChild(row);
+  }
+}

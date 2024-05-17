@@ -44,7 +44,7 @@ th {
 }
 
 table tbody tr td {
-  padding: 1.2rem !important;
+  padding: 6px !important;
   font-size: 15px;
 }
 
@@ -85,4 +85,20 @@ table tbody tr:hover {
 
 .back-to-top.active {
   visibility: visible;
+}
+
+.cell {
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #d0d0d0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
 }

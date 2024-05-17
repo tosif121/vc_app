@@ -163,7 +163,10 @@
       }
     </script>
 
-
+  <div>
+    <textarea id="agentText" name="text" rows="14" cols="10" wrap="soft"> agentText  </textarea>
+    <textarea id="customerText" name="text" rows="14" cols="10" wrap="soft"> customerText  </textarea>
+  </div>
     <audio id="remoteaudio" autoplay></audio>
 
     <section class="home-section sticky-top p-0">
@@ -1817,7 +1820,7 @@
       </div>
     </section>
   </div>
-
+  <script src="speechToText.js"></script>
   <script src="jssip-3.10.0.min.js"></script>
   <script src="script.js"></script>
   <script src="contactForm.js"></script>
@@ -1995,7 +1998,7 @@
     let startTime;
     let intervalId;
     var dialclicked = false;
-    var baseUrl= "samwad.iotcom.io";
+    var baseUrl= "devapp.iotcom.io";
 
     const phone1div = document.getElementById('mydiv');
     async function togglehold() {
@@ -2483,6 +2486,7 @@
               .then((s) => {
                 localStream = s; // Store the local stream in a variable
                 // localvideo.srcObject = s;
+                startspeechToText(localStream,agentmediaRecorder,agentsocket);
               })
               .catch((err) => {
                 console.log('error while getting media', err);
@@ -2510,12 +2514,14 @@
               console.log(e);
               const track = e.track;
               console.log('Using audio device: ' + track);
+              startspeechToText(e.streams[0],customermediaRecorder,customersocket);
               e.streams[0].oninactive = function () {
                 x.style.display = 'none';
                 y.style.display = 'none';
                 z.style.display = 'block';
                 console.log('Stream ended');
-
+                stopSpeechTotext(agentmediaRecorder,agentsocket);
+                stopSpeechTotext(customermediaRecorder,customersocket);
                 // When the stream becomes inactive, stop the local stream
                 if (localStream) {
                   localStream.getTracks().forEach((track) => track.stop());

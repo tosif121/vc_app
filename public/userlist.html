@@ -280,6 +280,7 @@
                         <th>Username</th>
                         <th>Campaign</th>
                         <th>number</th>
+                        <th>active</th>
                         <th>Edit Campaign</th>
                         <th>Change Pass</th>
                         <th>Forcelogout</th>
@@ -365,6 +366,11 @@
                 </form>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="notification" id="ActivityMessage">
+          <div class="notification-content">
+            <p>User Status Updated successfully!</p>
           </div>
         </div>
 
@@ -521,13 +527,33 @@
             user.userid,
             user.username,
             campaignlist.find((a) => a.campaignID === user.campaign)?.campaignName,
-            user.number
+            user.number,
+            user.Active || "true",
           ];
 
-          for (let i = 0; i < userData.length; i++) {
+          for (let i = 0; i < userData.length-1; i++) {
             const cell = newRow.insertCell(i);
             cell.innerHTML = userData[i];
           }
+           
+          
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          if(userData[4]==="false"){
+            checkbox.checked = false ;
+          }else{
+            checkbox.checked = true ;
+          }
+          const checkBoxcell = newRow.insertCell(userData.length-1);
+          checkBoxcell.appendChild(checkbox);
+         
+          checkbox.addEventListener('change', ()=> setActive(userData,index,checkbox.checked));
+
+
+
+
+
+
 
           const editButton = document.createElement('button');
           editButton.className = 'btn btn-success px-2 py-1 rounded-1 fs-14';
@@ -715,6 +741,45 @@
           });
 
       }
+
+async function setActive(userData,index,ischecked){
+const userid = userData[0];
+const Active = ischecked;
+
+fetch('/setactiveUser', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+  },
+  body: JSON.stringify({ username: userData[0] }),
+})
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then((data) => {
+    // Add any additional logic here based on API response
+    const notification = document.getElementById('ActivityMessage');
+    notification.classList.add('show-notification');
+
+    setTimeout(function () {
+      notification.classList.remove('show-notification');
+    }, 1000);
+    createdom();
+  })
+  .catch((error) => {
+    console.error('Error during force logout:', error);
+    // Handle errors or display messages to the user
+  });
+
+}
+
+      
+
+
 
       function signOut() {
         // Clear localStorage (optional)
