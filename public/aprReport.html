@@ -257,7 +257,6 @@
               />
             </div>
           </div>
-
           <div class="overflow-x-auto whitespace-nowrap">
             <table class="table-auto w-full border-collapse" id="table">
               <thead class="thead">
@@ -282,6 +281,7 @@
               </tbody>
             </table>
           </div>
+          <div id="tableLoder"></div>
         </div>
         <!-- Modal -->
         <div
@@ -327,8 +327,10 @@
 
     <!-- End Footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
+    <a
+      href="#"
+      class="back-to-top invisible flex items-center justify-center bg-[#2196f3] text-white fixed bottom-4 end-4 rounded-full w-10 h-10 hover:bg-white hover:text-[#2196f3] border-[#2196f3] border transition-all"
+      ><i class="bi bi-arrow-up-short text-2xl"></i
     ></a>
     <!-- Date Range JS Files -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -345,7 +347,7 @@
       const modalContainer = document.getElementById('modalContainer');
       const closeModalButton = document.getElementById('closeModalButton');
       const modal = document.getElementById('myModal');
-
+      const tableBody = document.getElementById('tableLoder');
       function closeModal() {
         modal.classList.add('hidden');
       }
@@ -435,6 +437,7 @@
           };
         }
         const url = '/agentlogindata';
+        showSkeletonLoader(10, 10);
 
         fetch(url, {
           method: 'POST',
@@ -585,6 +588,7 @@
             } else {
               populateagent([]);
             }
+            hideSkeletonLoader();
           });
       }
 
