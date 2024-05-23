@@ -14,7 +14,7 @@ html {
 }
 
 #mydiv {
-  left: 149px;
+  left: 100px;
 }
 .modal {
   display: none; /* Hidden by default */
@@ -692,7 +692,7 @@ html {
   z-index: 10;
 }
 #meradiv {
-  left: 149px;
+  
   z-index: 10;
 }
 

@@ -39,6 +39,58 @@
 
   <body>
     <section class="flex min-h-screen flex-col">
+      <div id="myModaldata" style="
+      display: none;  position: absolute; 
+      z-index: 100;
+      width: 100%;
+      left: 0;
+      top: 0;
+      height:0;
+      
+       
+ 
+      fill-opacity:1px;
+
+      justify-content: center;
+      align-items: center;
+      transition: height 1s ease-in-out;
+      
+      ">
+
+       
+        <div style="height: auto;
+        width: 600px;
+        background-color: #fff;
+        " class="    flex-col rounded-md border-[2px] border-gray-300 shadow-lg">
+
+          <div style="display: flex;
+         flex-direction: column;
+         justify-content: space-between;
+         align-items: center;
+         width: 100%;
+         height: 80%;">
+            <div class="tabled">
+              <div style="display: flex; justify-content: flex-end;">
+                <button onclick="closemodalbtn()" style="rotate: 45deg;
+                font-size: 30px;
+                margin-top:-20px;
+                color: #2f2f2f;
+                  ">+</button>
+               
+              </div>
+              <div>
+                
+              </div>
+              
+               
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
       <header
         id="header"
         class="header sticky top-0 flex items-center bg-white justify-between p-2 shadow-[0_0_07px_0px_rgba(0,0,0,0.2)] z-50"
@@ -257,10 +309,31 @@
               />
             </div>
           </div>
+          <script>
+            function showmodalbtn() {
+              const modal = document.getElementById("myModaldata");
+              modal.style.display = "flex";
+              setTimeout(function () {
+                modal.style.height = "100vh";
+              }, .5); // Delay the height transition slightly for smoother animation
+  
+            }
+  
+  
+            function closemodalbtn() {
+              const modal = document.getElementById("myModaldata");
+              modal.style.height = "0";
+              setTimeout(function () {
+                modal.style.display = "none";
+              }, 500);
+            }
+          </script>
+  
           <div class="overflow-x-auto whitespace-nowrap">
             <table class="table-auto w-full border-collapse" id="calldata">
               <thead class="thead">
                 <tr>
+                  <audio src=""></audio>
                   <th>Campaign</th>
                   <th>IVR Menu</th>
                   <th>Customer Number</th>
@@ -282,7 +355,30 @@
                   <th>Listen</th>
                 </tr>
               </thead>
+              
               <tbody>
+                <!-- <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td>sdfsd</td>
+                <td><button onclick="showmodalbtn()" class="inline-block rounded text-white bg-green-700 hover:bg-transparent hover:border-green-700 border transition-all	hover:text-green-700 text-lg px-2 py-1"> <i class="bi bi-headphones"></i> </button></td>
+                  -->
+
+
                 <!-- call records will be added dynamically -->
               </tbody>
             </table>
@@ -550,7 +646,7 @@
 
       async function loadcallData(StartDate, EndDate) {
         const currentdate = StartDate || new Date();
-        var pastTimestamp = new Date().setDate(currentdate.getDate() - 7);
+        var pastTimestamp = new Date().setDate(currentdate.getDate() - 1);
         const pastdate = EndDate || new Date(pastTimestamp);
         const Dateinterval = {
           startdate: new Date(currentdate),
@@ -583,9 +679,10 @@
           })
           .then((data) => {
             callDetails = data.result;
+            filteredData = []; // reset filterData
             console.log(callDetails);
             const uniqueBridgeIDs = new Set();
-            if (callDetails !== null) {
+            if (callDetails !== null && callDetails !== undefined) {
               callDetails.forEach((entry) => {
                 entry.duration = Math.floor(((entry.hanguptime || entry.calldisconnecttime) - entry.startTime) / 1000);
                 entry.waitingqueueTime =
@@ -615,6 +712,8 @@
                   uniqueBridgeIDs.add(bridgeID);
                 }
               });
+              populatecalls(filteredData);
+            }else{
               populatecalls(filteredData);
             }
             hideSkeletonLoader();
@@ -837,14 +936,14 @@
         const day = String(istDate.getDate()).padStart(2, '0');
         const month = String(istDate.getMonth() + 1).padStart(2, '0');
         const year = istDate.getFullYear();
-        const formattedDate = `${day}/${month}/${year}`;
+        const formattedDate = `${year}/${month}/${day}`;
 
         const formattedTime = istDate.toLocaleString('en-US', {
           timeZone: 'Asia/Kolkata',
           hour: 'numeric',
           minute: 'numeric',
           second: 'numeric',
-          hour12: true,
+          hour12: false,
         });
 
         const istDateFormat = `${formattedDate}\n\n\n${formattedTime}`;

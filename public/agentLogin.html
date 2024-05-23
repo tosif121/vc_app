@@ -80,7 +80,7 @@
           // console.log("valid username")
           const logindata = { username: username, password: password };
           try {
-            const response = await fetch('/agentLogin', {
+            const response = await fetch('https://devapp.iotcom.io/agentLogin', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

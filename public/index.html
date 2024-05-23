@@ -290,7 +290,7 @@
                 padding: 10px;" class="w-52 h-auto justify-between   flex rounded-lg gap-y-2 flex-col bg-white shadow-lg mt-6 py-2 shadow-gray-400">
                    <sl-menu-item value="cut" class="self-start ml-3   text-[#333333] hover:text-[#2196f3] " ><span class="logo_name text-black fw-semibold" style="word-wrap: break-word;" id="regUser"></span> </sl-menu-item>
                   <sl-menu-item value="cut" class="self-start ml-3   text-[#333333] hover:text-[#2196f3] " ><a href="agentdashBoard.html" target="_blank">Agent Dashboard</a></sl-menu-item>
-                  <sl-menu-item value="copy" class="text-[#333333] self-start ml-3  hover:text-[#2196f3]" ><button id="logout" class="logout_btn" onclick="performlogout()">
+                  <sl-menu-item value="copy" class="text-[#333333] self-start ml-3  hover:text-[#2196f3]" ><button id="logout" class="logout_btn" >
                     <i class="bx bx-log-out"></i>
                     Logout
                   </button> </sl-menu-item>
@@ -1995,7 +1995,7 @@
     let startTime;
     let intervalId;
     var dialclicked = false;
-    var baseUrl= "samwad.iotcom.io";
+    var baseUrl= window.location.host;
 
     const phone1div = document.getElementById('mydiv');
     async function togglehold() {
@@ -2413,6 +2413,7 @@
 
         });
 
+
         ua.on('newRTCSession', (data) => {
           console.log("new request received");
           //console.log(data.request.from._uri._user);
@@ -2471,6 +2472,8 @@
             let z = document.getElementById('Disposition');
             x.style.display = 'block';
             y.style.display = 'none';
+
+            setTimeout(()=>{document.getElementById('preview').style.display="none";},1500);
             displayNumber.innerText = Callnumber;
             displayNumber1.innerText = Callnumber;
             document.getElementById('firstNumber').innerText = Callnumber;
@@ -2900,18 +2903,24 @@
                 //   if(checkautoleaddial.checked===false){
                 //  // leadID();
                 //   }else{
-                const preview = document.getElementById('preview');
-                preview.style.display = 'block';
+                  const preview = document.getElementById('preview');
+                  const postview = document.getElementById('postview');
+                  const Disposition = document.getElementById('Disposition');
+               
+                  preview.style.display="block";
+                  Disposition.style.display = 'none';
+               
+                
                 if (breakCheckbox.checked === true) {
                   await livebtn("TeaBreak");
                 }
                 //}
                 //const preview = document.getElementById("preview");
                 //const postView = document.getElementById("postview");
-                const Disposition = document.getElementById('Disposition');
+                
                 // postView.style.display = "none";
                 //  preview.style.display = "block";
-                Disposition.style.display = 'none';
+                
                 // Trigger the custom event on the element
                 // document.dispatchEvent(customEvent);
               } else {
@@ -3037,7 +3046,8 @@
           })
           .then((data) => {
             //const data={message:"logout sucess"};
-            alert(data.message);
+            //alert(data.message);
+            displayMessage(data.message);
             userlogin = false;
             localStorage.setItem("logoutTime", `${new Date()}`);
             location.reload();
@@ -3336,9 +3346,10 @@
 
     function sendMessageToAsterisk(ua) {
       if (userlogin === true) {
-        const text = 'dev@shiv';
+        const user = document.getElementById('username').value;
+       // const text = user;
 
-        ua.sendMessage(`asterisk@${baseUrl}`, text);
+        ua.sendMessage(`heartbeat@${baseUrl}`, user);
         localStorage.setItem("messagesendTime", `${Date.now()}`);
       }
     }
@@ -3499,7 +3510,7 @@
       }
     }
 
-  setInterval(countcall, 60000);
+  setInterval(countcall, 20000);
 
 
   </script>

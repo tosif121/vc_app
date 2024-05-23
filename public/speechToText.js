@@ -33,11 +33,11 @@ customersocket.onmessage = (msg) => {
    // console.log(text.isFixed);
     if(text.isFixed === "true" || text.isFixed === true){
         customerText = customerText + text.data;
-      recgtext.value = customerText ;
+      recgtext1.value = customerText ;
      // console.log("new final Data", text.data);
      // console.log('Updated agentText:', agentText);
     }else{
-      recgtext.value = customerText + text.data;
+      recgtext1.value = customerText + text.data;
     }
   
   };
@@ -45,7 +45,6 @@ customersocket.onmessage = (msg) => {
 
 
  function startspeechToText(stream,mediaRecorder,websocket){
- 
   mediaRecorder = new MediaRecorder(stream, {
     //audioBitsPerSecond: 8000 * 16,
     mimeType: "audio/webm;codecs=opus",

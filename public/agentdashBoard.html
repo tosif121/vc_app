@@ -10,7 +10,6 @@
 
     <!-- Favicons -->
     <link href="./img/favicon.png" rel="icon" />
-
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect" />
     <link
@@ -18,32 +17,46 @@
       rel="stylesheet"
     />
 
+    <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- pagination JQuery -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/buttons/2.1.1/css/buttons.dataTables.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/tailwindcss/globals.css" rel="stylesheet" />
+    <script src="assets/tailwindcss/tailwindcss.js"></script>
   </head>
-
   <body>
     <section class="flex min-h-screen flex-col">
-      <header id="header" class="header sticky top-0 flex items-center justify-between">
+      <header
+        id="header"
+        class="header sticky top-0 flex items-center bg-white justify-between p-2 shadow-[0_0_07px_0px_rgba(0,0,0,0.2)] z-50"
+      >
         <div class="flex justify-between w-full items-center">
           <a href="agentdashBoard.html">
-            <img src="./img/logo.png" alt="iotcom" class="w-56" />
+            <img src="./img/logo.png" alt="iotcom" class="w-48" />
           </a>
+          <ul class="flex gap-4 me-5" id="sidebar-nav">
+            <li>
+              <a class="text-[#2196f3] hover:text-[#2196f3] transition-all" href="agentdashBoard.html"> Dashboard </a>
+            </li>
 
-          <ul id="sidebar-nav" class="flex gap-10 me-10">
-            <li class="">
-              <a class="active" href="agentdashBoard.html"> Dashboard </a>
+            <li>
+              <a class="text-black hover:text-[#2196f3] transition-all" href="agentIncomingDrop.html"> Drop Calls </a>
             </li>
-            <li class="">
-              <a class="" href="agentIncomingDrop.html"> Drop Calls </a>
+            <li>
+              <a class="text-black hover:text-[#2196f3] transition-all" href="agentcallData.html"> My Calls </a>
             </li>
-            <li class="">
-              <a class="" href="agentcallData.html"> My Calls </a>
-            </li>
-            <!-- End Dashboard Nav -->
           </ul>
         </div>
 
@@ -83,85 +96,80 @@
         </div>
       </header>
 
-      <main id="main" class="main grow m-8">
+      <main id="main" class="main grow m-2">
         <audio id="remoteaudio" autoplay style="display: none"></audio>
         <div class="flex align-items-center gap-10 mb-4">
-          <div class="bg-white shadow-sm w-full p-4 rounded-sm">
+          <div class="bg-white shadow-[0_0_07px_0px_rgba(0,0,0,0.2)] w-full p-4 rounded-sm">
             <div class="flex items-center justify-between">
-              <div class="">
+              <div>
                 <p class="font-bold text-2xl" id="totalCalls">10</p>
                 <h5 class="text-xl font-semibold">Total Calls</h5>
               </div>
-              <div class="">
+              <div>
                 <i class="text-3xl text-[#2196f3] bi bi-people-fill"></i>
               </div>
             </div>
           </div>
-          <div class="bg-white shadow-sm w-full p-4 rounded-sm">
+          <div class="bg-white shadow-[0_0_07px_0px_rgba(0,0,0,0.2)] w-full p-4 rounded-sm">
             <div class="flex items-center justify-between">
-              <div class="">
+              <div>
                 <p class="font-bold text-2xl" id="dropCalls">0</p>
                 <h5 class="text-xl font-semibold">Total Drop Calls</h5>
               </div>
-              <div class="">
+              <div>
                 <i class="text-3xl text-[#2196f3] bi bi-person-check-fill"></i>
               </div>
             </div>
           </div>
-          <div class="bg-white shadow-sm w-full p-4 rounded-sm">
+          <div class="bg-white shadow-[0_0_07px_0px_rgba(0,0,0,0.2)] w-full p-4 rounded-sm">
             <div class="flex items-center justify-between">
-              <div class="">
+              <div>
                 <p class="font-bold text-2xl" id="myCalls">0</p>
                 <h5 class="text-xl font-semibold">My Calls</h5>
               </div>
-              <div class="">
+              <div>
                 <i class="text-3xl text-[#2196f3] bi bi-telephone-inbound-fill"></i>
               </div>
             </div>
           </div>
-          <div class="bg-white shadow-sm w-full p-4 rounded-sm">
+          <div class="bg-white shadow-[0_0_07px_0px_rgba(0,0,0,0.2)] w-full p-4 rounded-sm">
             <div class="flex items-center justify-between">
-              <div class="">
+              <div>
                 <p class="font-bold text-2xl" id="avgdur">0</p>
                 <h5 class="text-xl font-semibold">Average Duration</h5>
               </div>
-              <div class="">
+              <div>
                 <i class="text-3xl text-[#2196f3] bi bi-bell-fill"></i>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="flex flex-col mb-4">
-          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-hidden">
-                <table class="min-w-full text-left text-sm font-light text-surface dark:text-white">
-                  <thead class="border-b border-neutral-200 font-medium dark:border-white/10">
-                    <tr>
-                      <th scope="col" class="px-6 py-4">WaitingForCall</th>
-                      <th scope="col" class="px-6 py-4">OnCall</th>
-                      <th scope="col" class="px-6 py-4">Break</th>
-                      <th scope="col" class="px-6 py-4">Disposition</th>
-                      <th scope="col" class="px-6 py-4">Total login Time</th>
-                      <th scope="col" class="px-6 py-4">Activity</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b border-neutral-200 dark:border-white/10">
-                      <td class="whitespace-nowrap px-6 py-4" id="waitingforcall"></td>
-                      <td class="whitespace-nowrap px-6 py-4" id="oncall"></td>
-                      <td class="whitespace-nowrap px-6 py-4" id="break"></td>
-                      <td class="whitespace-nowrap px-6 py-4" id="disposition"></td>
-                      <td class="whitespace-nowrap px-6 py-4" id="totallogintime"></td>
-                      <td class="whitespace-nowrap px-6 py-4"><button id="activity">Activity</button></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+        <div class="overflow-x-auto whitespace-nowrap">
+          <table class="table-auto w-full border-collapse" id="calldata">
+            <thead>
+              <tr>
+                <th scope="col">WaitingForCall</th>
+                <th scope="col">OnCall</th>
+                <th scope="col">Break</th>
+                <th scope="col">Disposition</th>
+                <th scope="col">Total login Time</th>
+                <th scope="col">Activity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-neutral-200 dark:border-white/10">
+                <td class="whitespace-nowrap" id="waitingforcall"></td>
+                <td class="whitespace-nowrap" id="oncall"></td>
+                <td class="whitespace-nowrap" id="break"></td>
+                <td class="whitespace-nowrap" id="disposition"></td>
+                <td class="whitespace-nowrap" id="totallogintime"></td>
+                <td class="whitespace-nowrap"><button id="activity">Activity</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+        <div id="tableLoder"></div>
 
         <!-- Modal -->
         <div class="modal" id="myModal">
@@ -175,7 +183,6 @@
                 >
                   <thead class="border-b border-neutral-200 font-medium dark:border-white/10">
                     <tr>
-        
                       <th scope="col" class="px-6 py-4">Action Type</th>
                       <th scope="col" class="px-6 py-4">Time</th>
                       <th scope="col" class="px-6 py-4">Status</th>
@@ -189,11 +196,11 @@
         </div>
 
         <div class="flex h-screen gap-5 mb-4">
-          <div class="bg-white shadow-sm p-3 rounded-sm w-1/2 h-full">
+          <div class="bg-white shadow-[0_0_07px_0px_rgba(0,0,0,0.2)] p-3 rounded-sm w-1/2 h-full">
             <canvas class="w-full h-full" id="mychart"></canvas>
           </div>
 
-          <div class="bg-white shadow-sm p-3 rounded-sm w-1/2 h-full">
+          <div class="bg-white shadow-[0_0_07px_0px_rgba(0,0,0,0.2)] p-3 rounded-sm w-1/2 h-full">
             <canvas class="w-full h-full" id="earning"></canvas>
           </div>
         </div>
@@ -229,7 +236,7 @@
       });
 
       async function makeDashboard() {
-        await fetch(`/agentDashboardData`, {
+        await fetch(`https://devapp.iotcom.io/agentDashboardData`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
