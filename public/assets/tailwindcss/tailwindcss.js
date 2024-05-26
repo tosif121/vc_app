@@ -64,3 +64,42 @@ function showSkeletonLoader(rows, cols) {
     tableBody.appendChild(row);
   }
 }
+
+function formatDateTime(dateTimeString) {
+  const dateTime = new Date(dateTimeString);
+
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  const day = dateTime.getDate();
+  const monthIndex = dateTime.getMonth();
+  const year = dateTime.getFullYear();
+
+  const hours = dateTime.getHours().toString().padStart(2, '0');
+  const minutes = dateTime.getMinutes().toString().padStart(2, '0');
+  const seconds = dateTime.getSeconds().toString().padStart(2, '0');
+
+  const formattedDate = `${day} ${months[monthIndex]}, ${year}`;
+
+  const formattedTime = `${hours}:${minutes}:${seconds}`;
+
+  return `${formattedDate} ${formattedTime}`;
+}
+
+function signOut() {
+  localStorage.removeItem('userinfo');
+  localStorage.removeItem('jwtToken');
+  window.location.href = '/login.html';
+}

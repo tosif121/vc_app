@@ -1995,6 +1995,7 @@
     let startTime;
     let intervalId;
     var dialclicked = false;
+
     var baseUrl= window.location.host;
 
     const phone1div = document.getElementById('mydiv');
@@ -2303,7 +2304,7 @@
         ua = new JsSIP.UA(configuration);
 
 
-        const url = `/userlogin/${user}`;
+        const url = `https://samwad.iotcom.io/${user}`;
         // Make a edit request to the server
         fetch(url, {
           method: 'POST',

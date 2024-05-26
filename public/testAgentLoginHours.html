@@ -784,11 +784,11 @@ Object.keys(userArrays).forEach(user => {
 
       // Function to convert milliseconds to "h:m:s" format
       function msToHMS(duration) {
-  const seconds = Math.floor((duration / 1000) % 60).toString().padStart(2, '0');
-  const minutes = Math.floor((duration / (1000 * 60)) % 60).toString().padStart(2, '0');
-  const hours = Math.floor((duration / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
-  return `${hours}:${minutes}:${seconds}`;
-}
+        const seconds = Math.floor((duration / 1000) % 60);
+        const minutes = Math.floor((duration / (1000 * 60)) % 60);
+        const hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+        return `${hours}h ${minutes}m ${seconds}s`;
+      }
       function signOut() {
         // Clear localStorage (optional)
         localStorage.removeItem('admininfo');

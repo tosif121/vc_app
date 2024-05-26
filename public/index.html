@@ -746,6 +746,573 @@
           </div>
           <img class="phonesvg" src="phonesvg.svg" id="phoneClickButton" alt="" />
         </div>
+        <div id="dialview" style="display: none">
+          <div class="container-dial">
+            <div  id="mharadiv" class="upr left-6 top-12 w-[230px] h-[450px] absolute">
+              <div
+                class="iphone-frame border-8 top-12 border-black w-[230px] h-[450px] bg-white overflow-hidden flex flex-col m-14 absolute">
+                <div class="flex justify-between items-center px-2"  >
+                  <div class="jaguar mt-1 font-medium" id="currentTime"></div>
+                  <div class="norch absolute z-50 ml-[58px] h-7 w-[77px] bg-black rounded-b-lg"></div>
+                  <div class="flex items-center space-x-2 me-1">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="signal"
+                      class="svg-inline--fa fa-signal" role="img" xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 640 512" width="14" height="14">
+                      <path fill="currentColor"
+                        d="M576 0c17.7 0 32 14.3 32 32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V32c0-17.7 14.3-32 32-32zM448 96c17.7 0 32 14.3 32 32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V128c0-17.7 14.3-32 32-32zM352 224V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V224c0-17.7 14.3-32 32-32s32 14.3 32 32zM192 288c17.7 0 32 14.3 32 32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V320c0-17.7 14.3-32 32-32zM96 416v64c0 17.7-14.3 32-32 32s-32-14.3-32-32V416c0-17.7 14.3-32 32-32s32 14.3 32 32z">
+                      </path>
+                    </svg><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="wifi"
+                      class="svg-inline--fa fa-wifi" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
+                      width="14" height="14">
+                      <path fill="currentColor"
+                        d="M54.2 202.9C123.2 136.7 216.8 96 320 96s196.8 40.7 265.8 106.9c12.8 12.2 33 11.8 45.2-.9s11.8-33-.9-45.2C549.7 79.5 440.4 32 320 32S90.3 79.5 9.8 156.7C-2.9 169-3.3 189.2 8.9 202s32.5 13.2 45.2 .9zM320 256c56.8 0 108.6 21.1 148.2 56c13.3 11.7 33.5 10.4 45.2-2.8s10.4-33.5-2.8-45.2C459.8 219.2 393 192 320 192s-139.8 27.2-190.5 72c-13.3 11.7-14.5 31.9-2.8 45.2s31.9 14.5 45.2 2.8c39.5-34.9 91.3-56 148.2-56zm64 160a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z">
+                      </path>
+                    </svg><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="battery-full"
+                      class="svg-inline--fa fa-battery-full" role="img" xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 576 512" width="14" height="14">
+                      <path fill="currentColor"
+                        d="M464 160c8.8 0 16 7.2 16 16V336c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16H464zM80 96C35.8 96 0 131.8 0 176V336c0 44.2 35.8 80 80 80H464c44.2 0 80-35.8 80-80V320c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32V176c0-44.2-35.8-80-80-80H80zm368 96H96V320H448V192z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+                <div   style="display: block">
+                  <div class="w-full h-20 flex-col">
+                    <div   style="display: block">
+                      <div type="text" style="display: flex;
+                      justify-content: center;" class="text-center mt-3 text-l text-[#37B7FF]">Dialing   
+                        <img src="Untitled design.gif" style="height: 22px; margin-top: 5px;" alt="">
+                      </div>
+                      <script>
+                        dragElement(document.getElementById('mharadiv'));
+                    
+                        function dragElement(elmnt) {
+                          var pos1 = 0,
+                            pos2 = 0,
+                            pos3 = 0,
+                            pos4 = 0;
+                    
+                          if (document.getElementById(elmnt.id + 'header')) {
+                            document.getElementById(elmnt.id + 'header').onmousedown = dragMouseDown;
+                            document.getElementById(elmnt.id + 'header').addEventListener('touchstart', touchStart, { passive: false });
+                          } else {
+                            elmnt.onmousedown = dragMouseDown;
+                            elmnt.addEventListener('touchstart', touchStart, { passive: false });
+                          }
+                    
+                          function dragMouseDown(e) {
+                            e = e || window.event;
+                            e.preventDefault();
+                            // get the mouse cursor position at startup:
+                            pos3 = e.clientX;
+                            pos4 = e.clientY;
+                            document.onmouseup = closeDragElement;
+                            // call a function whenever the cursor moves:
+                            document.onmousemove = elementDrag;
+                          }
+                    
+                          function elementDrag(e) {
+                            e = e || window.event;
+                            e.preventDefault();
+                            // calculate the new cursor position:
+                            pos1 = pos3 - e.clientX;
+                            pos2 = pos4 - e.clientY;
+                            pos3 = e.clientX;
+                            pos4 = e.clientY;
+                            // set the element's new position:
+                            elmnt.style.top = elmnt.offsetTop - pos2 + 'px';
+                            elmnt.style.left = elmnt.offsetLeft - pos1 + 'px';
+                          }
+                    
+                          function closeDragElement() {
+                            // stop moving when the mouse button is released:
+                            document.onmouseup = null;
+                            document.onmousemove = null;
+                          }
+                    
+                          function touchStart(e) {
+                            // Get the initial touch position
+                            var touch = e.touches[0];
+                            pos3 = touch.clientX;
+                            pos4 = touch.clientY;
+                            elmnt.addEventListener('touchmove', touchMove, { passive: false });
+                            elmnt.addEventListener('touchend', touchEnd);
+                          }
+                    
+                          function touchMove(e) {
+                            e.preventDefault();
+                            var touch = e.touches[0];
+                            // calculate the new touch position
+                            pos1 = pos3 - touch.clientX;
+                            pos2 = pos4 - touch.clientY;
+                            pos3 = touch.clientX;
+                            pos4 = touch.clientY;
+                            // set the element's new position
+                            elmnt.style.top = elmnt.offsetTop - pos2 + 'px';
+                            elmnt.style.left = elmnt.offsetLeft - pos1 + 'px';
+                          }
+                    
+                          function touchEnd() {
+                            elmnt.removeEventListener('touchmove', touchMove);
+                            elmnt.removeEventListener('touchend', touchEnd);
+                          }
+                        }
+                      </script>
+                       
+                      <div type="text" id="displayNumber" class="text-center text-xl">7023236685</div>
+                    </div>
+
+                  </div>
+                  <div class="dial-pad w-full h-[300px] bg-white px-[20px] py-3 flex justify-center items-center">
+                    <div class="flex flex-col w-full h-full bg-white">
+                      <div class="w-full h-[39px] mb-3 flex items-center justify-around">
+                        <div class="w-[39px] h-full rounded-full p-2 text-center justify-center"></div>
+                        <div class="w-[39px] h-full rounded-full p-2 text-center justify-center"></div>
+                        <div class="w-[39px] h-full rounded-full p-2 text-center justify-center"></div>
+                      </div>
+                      <div class="w-full h-[39px] mb-3 flex items-center justify-around">
+                        <div class="w-[39px] h-full rounded-full p-2 text-center justify-center"></div>
+                        <div class="w-[39px] h-full rounded-full p-2 text-center justify-center"></div>
+                        <div class="w-[39px] h-full rounded-full p-2 text-center justify-center"></div>
+                      </div>
+                      <div class="w-full h-[39px] mb-3 flex items-center justify-around">
+                        <div class="w-[39px] h-full rounded-full p-2 text-center justify-center"></div>
+                        <div class="w-[39px] h-full rounded-full p-2 text-center justify-center"></div>
+                        <div class="w-[39px] h-full rounded-full p-2 text-center justify-center"></div>
+                      </div>
+                      <div class="w-full h-[39px] mb-1 flex items-center justify-around">
+                        <div 
+                          class="nun clear-button w-[38px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center">
+                          <svg class="jiggle" width="9" height="12" fill="white" viewBox="0 0 11 12"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect width="3" height="12" />
+                            <rect x="6" width="3" height="12" />
+                          </svg>
+                        </div>
+                        <!-- fill="#37B7FF" -->
+
+                        <div  
+                          class="nun clear-button w-[38px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="70" height="50" viewBox="0 0 52 32"
+                            fill="none">
+                            <path
+                              d="M33.2698 0H4.73021C2.11771 0 0 1.78333 0 3.98333V28.0167C0 30.2167 2.11771 32 4.73021 32H33.2698C35.8823 32 38 30.2167 38 28.0167V3.98333C38 1.78333 35.8823 0 33.2698 0ZM52.0125 3.14167L41.1667 9.44167V22.5583L52.0125 28.85C54.1104 30.0667 57 28.825 57 26.7V5.29167C57 3.175 54.1203 1.925 52.0125 3.14167Z"
+                              fill="#83888E" />
+                          </svg>
+                        </div>
+                        <div     style="display:none; width: 38px; padding:
+                          11px; background-color: #6B7280; height: 39px; border-radius: 200px; " class=>
+                          <!-- nun clear-button w-[38px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center
+                             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="51" viewBox="0 0 64 51" fill="none">
+                        <path d="M23.8922  w-50 h-43 0 2 123 100    5.84928L14.0067 15.2998H2.66667C1.19333 15.2998 0 16.4408 0 17.8497V33.1489C0 34.5567 1.19333 35.6988 2.66667 35.6988H14.0067L23.8922 45.1493C25.5622 46.7462 28.4444 45.6242 28.4444 43.3463V7.65226C28.4444 5.37224 25.56 4.25454 23.8922 5.84928ZM49.8167 0.422285C48.5756 -0.356491 46.9078 -0.0281937 46.0933 1.16069C45.2778 2.34744 45.6244 3.94218 46.8656 4.72096C54.2289 9.34155 58.6233 17.1091 58.6233 25.5004C58.6233 33.8916 54.2289 41.6592 46.8656 46.2798C45.6244 47.0575 45.2778 48.6533 46.0933 49.839C46.8756 50.9768 48.53 51.3859 49.8167 50.5774C58.6967 45.0038 64 35.6276 64 25.4993C64 15.371 58.6967 5.9959 49.8167 0.422285ZM53.3333 25.4993C53.3333 18.7495 49.7711 12.5438 43.8033 8.89957C42.56 8.14099 40.9111 8.49372 40.1233 9.69216C39.3356 10.8906 39.7033 12.4768 40.9467 13.2365C45.3633 15.9341 48 20.5175 48 25.4993C48 30.4811 45.3633 35.0645 40.9467 37.7621C39.7033 38.5207 39.3356 40.1069 40.1233 41.3064C40.8467 42.4071 42.47 42.915 43.8033 42.099C49.7711 38.4548 53.3333 32.2501 53.3333 25.4993ZM37.5811 17.3322C36.2944 16.6597 34.6711 17.1028 33.9578 18.3363C33.2478 19.5698 33.7178 21.1199 35.0078 21.8009C36.4422 22.5542 37.3333 23.9726 37.3333 25.4993C37.3333 27.0271 36.4422 28.4444 35.0089 29.1977C33.7189 29.8787 33.2489 31.4288 33.9589 32.6623C34.6733 33.9012 36.2978 34.341 37.5822 33.6663C40.7189 32.0142 42.6678 28.8853 42.6678 25.4982C42.6678 22.1111 40.7189 18.9833 37.5811 17.3322Z" fill="white"/>
+                      </svg> -->
+                          <svg width="50" height="43" viewBox="0.5 5 127 100" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M22.5 0C10.0706 0 0 9.62298 0 21.5C0 33.377 10.0706 43 22.5 43C34.9294 43 45 33.377 45 21.5C45 9.62298 34.9294 0 22.5 0ZM22.5 8.32258C26.9093 8.32258 30.4839 11.7383 30.4839 15.9516C30.4839 20.1649 26.9093 23.5806 22.5 23.5806C18.0907 23.5806 14.5161 20.1649 14.5161 15.9516C14.5161 11.7383 18.0907 8.32258 22.5 8.32258ZM22.5 38.1452C17.1744 38.1452 12.4022 35.8391 9.20867 32.2327C10.9143 29.1637 14.253 27.0484 18.1452 27.0484C18.3629 27.0484 18.5806 27.0831 18.7893 27.1438C19.9688 27.5079 21.2026 27.7419 22.5 27.7419C23.7974 27.7419 25.0403 27.5079 26.2107 27.1438C26.4194 27.0831 26.6371 27.0484 26.8548 27.0484C30.747 27.0484 34.0857 29.1637 35.7913 32.2327C32.5978 35.8391 27.8256 38.1452 22.5 38.1452Z"
+                              fill="white" />
+                            <circle cx="38" cy="32" r="10" />
+                            <rect x="38.7344" y="36.302" width="4.64306" height="43.9017" rx="2"
+                              transform="rotate(136.784 38.7344 36.302)" fill="#6B7280" />
+                            <rect x="35.4714" y="3.66382" width="4.64306" height="43.8479" rx="2"
+                              transform="rotate(42.7223 35.4714 3.66382)" fill="#6B7280" />
+
+                            <defs>
+                              <clipPath id="clip0_98_4">
+                                <rect width="45" height="43" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </div>
+                        <div
+                          class="nun clear-button w-[38px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center">
+                          <svg class="ml-[1px]" xmlns="http://www.w3.org/2000/svg" width="48" height="65"
+                            viewBox="0 0 53 50" fill="none">
+                            <path
+                              d="M6.85713 13C5.03851 13 3.29437 12.3152 2.0084 11.0962C0.722438 9.87721 -8.25001e-06 8.22391 -8.25001e-06 6.50001C-8.25001e-06 4.7761 0.722438 3.1228 2.0084 1.90381C3.29437 0.684825 5.03851 5.16574e-06 6.85713 5.16574e-06C8.67576 5.16574e-06 10.4199 0.684825 11.7059 1.90381C12.9918 3.1228 13.7143 4.7761 13.7143 6.50001C13.7143 8.22391 12.9918 9.87721 11.7059 11.0962C10.4199 12.3152 8.67576 13 6.85713 13ZM24 13C22.1814 13 20.4372 12.3152 19.1513 11.0962C17.8653 9.87721 17.1428 8.22391 17.1428 6.50001C17.1428 4.7761 17.8653 3.1228 19.1513 1.90381C20.4372 0.684825 22.1814 5.16574e-06 24 5.16574e-06C25.8186 5.16574e-06 27.5628 0.684825 28.8487 1.90381C30.1347 3.1228 30.8571 4.7761 30.8571 6.50001C30.8571 8.22391 30.1347 9.87721 28.8487 11.0962C27.5628 12.3152 25.8186 13 24 13ZM41.1428 13C39.3242 13 37.5801 12.3152 36.2941 11.0962C35.0082 9.87721 34.2857 8.22391 34.2857 6.50001C34.2857 4.7761 35.0082 3.1228 36.2941 1.90381C37.5801 0.684825 39.3242 5.16574e-06 41.1428 5.16574e-06C42.9615 5.16574e-06 44.7056 0.684825 45.9916 1.90381C47.2775 3.1228 48 4.7761 48 6.50001C48 8.22391 47.2775 9.87721 45.9916 11.0962C44.7056 12.3152 42.9615 13 41.1428 13ZM6.85713 29.25C5.03851 29.25 3.29437 28.5652 2.0084 27.3462C0.722438 26.1272 -8.25001e-06 24.4739 -8.25001e-06 22.75C-8.25001e-06 21.0261 0.722438 19.3728 2.0084 18.1538C3.29437 16.9348 5.03851 16.25 6.85713 16.25C8.67576 16.25 10.4199 16.9348 11.7059 18.1538C12.9918 19.3728 13.7143 21.0261 13.7143 22.75C13.7143 24.4739 12.9918 26.1272 11.7059 27.3462C10.4199 28.5652 8.67576 29.25 6.85713 29.25ZM24 29.25C22.1814 29.25 20.4372 28.5652 19.1513 27.3462C17.8653 26.1272 17.1428 24.4739 17.1428 22.75C17.1428 21.0261 17.8653 19.3728 19.1513 18.1538C20.4372 16.9348 22.1814 16.25 24 16.25C25.8186 16.25 27.5628 16.9348 28.8487 18.1538C30.1347 19.3728 30.8571 21.0261 30.8571 22.75C30.8571 24.4739 30.1347 26.1272 28.8487 27.3462C27.5628 28.5652 25.8186 29.25 24 29.25ZM41.1428 29.25C39.3242 29.25 37.5801 28.5652 36.2941 27.3462C35.0082 26.1272 34.2857 24.4739 34.2857 22.75C34.2857 21.0261 35.0082 19.3728 36.2941 18.1538C37.5801 16.9348 39.3242 16.25 41.1428 16.25C42.9615 16.25 44.7056 16.9348 45.9916 18.1538C47.2775 19.3728 48 21.0261 48 22.75C48 24.4739 47.2775 26.1272 45.9916 27.3462C44.7056 28.5652 42.9615 29.25 41.1428 29.25ZM6.85713 45.5C5.03851 45.5 3.29437 44.8152 2.0084 43.5962C0.722438 42.3772 -8.25001e-06 40.7239 -8.25001e-06 39C-8.25001e-06 37.2761 0.722438 35.6228 2.0084 34.4038C3.29437 33.1848 5.03851 32.5 6.85713 32.5C8.67576 32.5 10.4199 33.1848 11.7059 34.4038C12.9918 35.6228 13.7143 37.2761 13.7143 39C13.7143 40.7239 12.9918 42.3772 11.7059 43.5962C10.4199 44.8152 8.67576 45.5 6.85713 45.5ZM24 45.5C22.1814 45.5 20.4372 44.8152 19.1513 43.5962C17.8653 42.3772 17.1428 40.7239 17.1428 39C17.1428 37.2761 17.8653 35.6228 19.1513 34.4038C20.4372 33.1848 22.1814 32.5 24 32.5C25.8186 32.5 27.5628 33.1848 28.8487 34.4038C30.1347 35.6228 30.8571 37.2761 30.8571 39C30.8571 40.7239 30.1347 42.3772 28.8487 43.5962C27.5628 44.8152 25.8186 45.5 24 45.5ZM24 65C22.1814 65 20.4372 64.3152 19.1513 63.0962C17.8653 61.8772 17.1428 60.2239 17.1428 58.5C17.1428 56.7761 17.8653 55.1228 19.1513 53.9038C20.4372 52.6848 22.1814 52 24 52C25.8186 52 27.5628 52.6848 28.8487 53.9038C30.1347 55.1228 30.8571 56.7761 30.8571 58.5C30.8571 60.2239 30.1347 61.8772 28.8487 63.0962C27.5628 64.3152 25.8186 65 24 65ZM41.1428 45.5C39.3242 45.5 37.5801 44.8152 36.2941 43.5962C35.0082 42.3772 34.2857 40.7239 34.2857 39C34.2857 37.2761 35.0082 35.6228 36.2941 34.4038C37.5801 33.1848 39.3242 32.5 41.1428 32.5C42.9615 32.5 44.7056 33.1848 45.9916 34.4038C47.2775 35.6228 48 37.2761 48 39C48 40.7239 47.2775 42.3772 45.9916 43.5962C44.7056 44.8152 42.9615 45.5 41.1428 45.5Z"
+                              fill="white" />
+                          </svg>
+                        </div>
+                      </div>
+                      <div class="w-full h-[39px] mb-3 flex items-center justify-around">
+                        <div   style="width: 38px; padding: 11px; background-color: #6B7280; height: 39px;
+                        border-radius: 200px; " class=>
+                          <!-- nun clear-button w-[38px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center
+                           <svg xmlns="http://www.w3.org/2000/svg" width="64" height="51" viewBox="0 0 64 51" fill="none">
+                      <path d="M23.8922  w-50 h-43 0 2 123 100    5.84928L14.0067 15.2998H2.66667C1.19333 15.2998 0 16.4408 0 17.8497V33.1489C0 34.5567 1.19333 35.6988 2.66667 35.6988H14.0067L23.8922 45.1493C25.5622 46.7462 28.4444 45.6242 28.4444 43.3463V7.65226C28.4444 5.37224 25.56 4.25454 23.8922 5.84928ZM49.8167 0.422285C48.5756 -0.356491 46.9078 -0.0281937 46.0933 1.16069C45.2778 2.34744 45.6244 3.94218 46.8656 4.72096C54.2289 9.34155 58.6233 17.1091 58.6233 25.5004C58.6233 33.8916 54.2289 41.6592 46.8656 46.2798C45.6244 47.0575 45.2778 48.6533 46.0933 49.839C46.8756 50.9768 48.53 51.3859 49.8167 50.5774C58.6967 45.0038 64 35.6276 64 25.4993C64 15.371 58.6967 5.9959 49.8167 0.422285ZM53.3333 25.4993C53.3333 18.7495 49.7711 12.5438 43.8033 8.89957C42.56 8.14099 40.9111 8.49372 40.1233 9.69216C39.3356 10.8906 39.7033 12.4768 40.9467 13.2365C45.3633 15.9341 48 20.5175 48 25.4993C48 30.4811 45.3633 35.0645 40.9467 37.7621C39.7033 38.5207 39.3356 40.1069 40.1233 41.3064C40.8467 42.4071 42.47 42.915 43.8033 42.099C49.7711 38.4548 53.3333 32.2501 53.3333 25.4993ZM37.5811 17.3322C36.2944 16.6597 34.6711 17.1028 33.9578 18.3363C33.2478 19.5698 33.7178 21.1199 35.0078 21.8009C36.4422 22.5542 37.3333 23.9726 37.3333 25.4993C37.3333 27.0271 36.4422 28.4444 35.0089 29.1977C33.7189 29.8787 33.2489 31.4288 33.9589 32.6623C34.6733 33.9012 36.2978 34.341 37.5822 33.6663C40.7189 32.0142 42.6678 28.8853 42.6678 25.4982C42.6678 22.1111 40.7189 18.9833 37.5811 17.3322Z" fill="white"/>
+                    </svg> -->
+                          <svg width="50" height="43" viewBox="0.5 5 127 100" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M22.5 0C10.0706 0 0 9.62298 0 21.5C0 33.377 10.0706 43 22.5 43C34.9294 43 45 33.377 45 21.5C45 9.62298 34.9294 0 22.5 0ZM22.5 8.32258C26.9093 8.32258 30.4839 11.7383 30.4839 15.9516C30.4839 20.1649 26.9093 23.5806 22.5 23.5806C18.0907 23.5806 14.5161 20.1649 14.5161 15.9516C14.5161 11.7383 18.0907 8.32258 22.5 8.32258ZM22.5 38.1452C17.1744 38.1452 12.4022 35.8391 9.20867 32.2327C10.9143 29.1637 14.253 27.0484 18.1452 27.0484C18.3629 27.0484 18.5806 27.0831 18.7893 27.1438C19.9688 27.5079 21.2026 27.7419 22.5 27.7419C23.7974 27.7419 25.0403 27.5079 26.2107 27.1438C26.4194 27.0831 26.6371 27.0484 26.8548 27.0484C30.747 27.0484 34.0857 29.1637 35.7913 32.2327C32.5978 35.8391 27.8256 38.1452 22.5 38.1452Z"
+                              fill="white" />
+                            <circle cx="38" cy="32" r="10" fill="white" />
+                            <rect x="37" y="27" width="3" height="11" fill="#6B7280" />
+                            <rect x="33" y="34" width="3.06033" height="10.9424" transform="rotate(-89.845 33 34)"
+                              fill="#6B7280" />
+                          </svg>
+                        </div>
+                        <div  style="display: none"
+                          class="nun clear-button w-[38px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center">
+                          <!-- <svg xmlns="http://www.w3.org/2000/svg" width="64" height="51" viewBox="0 0 64 51" fill="none">
+                    <path d="M23.8922 5.84928L14.0067 15.2998H2.66667C1.19333 15.2998 0 16.4408 0 17.8497V33.1489C0 34.5567 1.19333 35.6988 2.66667 35.6988H14.0067L23.8922 45.1493C25.5622 46.7462 28.4444 45.6242 28.4444 43.3463V7.65226C28.4444 5.37224 25.56 4.25454 23.8922 5.84928ZM49.8167 0.422285C48.5756 -0.356491 46.9078 -0.0281937 46.0933 1.16069C45.2778 2.34744 45.6244 3.94218 46.8656 4.72096C54.2289 9.34155 58.6233 17.1091 58.6233 25.5004C58.6233 33.8916 54.2289 41.6592 46.8656 46.2798C45.6244 47.0575 45.2778 48.6533 46.0933 49.839C46.8756 50.9768 48.53 51.3859 49.8167 50.5774C58.6967 45.0038 64 35.6276 64 25.4993C64 15.371 58.6967 5.9959 49.8167 0.422285ZM53.3333 25.4993C53.3333 18.7495 49.7711 12.5438 43.8033 8.89957C42.56 8.14099 40.9111 8.49372 40.1233 9.69216C39.3356 10.8906 39.7033 12.4768 40.9467 13.2365C45.3633 15.9341 48 20.5175 48 25.4993C48 30.4811 45.3633 35.0645 40.9467 37.7621C39.7033 38.5207 39.3356 40.1069 40.1233 41.3064C40.8467 42.4071 42.47 42.915 43.8033 42.099C49.7711 38.4548 53.3333 32.2501 53.3333 25.4993ZM37.5811 17.3322C36.2944 16.6597 34.6711 17.1028 33.9578 18.3363C33.2478 19.5698 33.7178 21.1199 35.0078 21.8009C36.4422 22.5542 37.3333 23.9726 37.3333 25.4993C37.3333 27.0271 36.4422 28.4444 35.0089 29.1977C33.7189 29.8787 33.2489 31.4288 33.9589 32.6623C34.6733 33.9012 36.2978 34.341 37.5822 33.6663C40.7189 32.0142 42.6678 28.8853 42.6678 25.4982C42.6678 22.1111 40.7189 18.9833 37.5811 17.3322Z" fill="white"/>
+                  </svg> -->
+
+                          <svg width="20" height="15" viewBox="5 0 49 43" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M9.96163 41.3681L10.3 41.6791L10.6384 41.3681L23.5 29.5458L36.3616 41.3681L36.7 41.6791L37.0384 41.3681L40.3384 38.3348L40.7378 37.9676L40.3393 37.5994L28.9661 27.0911L28.9652 27.0902C28.1079 26.3023 27.462 25.4178 27.0202 24.4364C26.578 23.4541 26.3571 22.4227 26.3571 21.3375V11.4142L29.2931 14.0708L29.6312 14.3767L29.9669 14.0681L33.2669 11.0348L33.6674 10.6667L33.2669 10.2986L23.8384 1.63189L23.5 1.32086L23.1616 1.63189L13.7331 10.2986L13.3326 10.6667L13.7331 11.0348L17.0331 14.0681L17.3688 14.3767L17.7069 14.0708L20.6429 11.4142V21.3375C20.6429 22.4227 20.422 23.4541 19.9798 24.4364C19.538 25.4178 18.8921 26.3023 18.0348 27.0902L18.0339 27.0911L6.66069 37.5994L6.26219 37.9676L6.66163 38.3348L9.96163 41.3681Z"
+                              fill="white" stroke="white" />
+                          </svg>
+                        </div>
+
+                        <button   style="
+                          display: block;
+                          width: 38px;
+                          padding: 8px;
+                          height: 39px;
+                          border-radius: 200px;
+                          background-color: #fb7f7f;
+                          text-align: center;
+                           
+                        "
+                           class="nun clear-button w-[38px] p-[11px] h-full rounded-full bg-red-500 text-white rounded-full-touch flex justify-center items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" viewBox="13 -2 55 50"
+                            fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M54.5241 26.0272C51.5918 17.5908 41.8684 15.8222 34.4671 14.5844C30.9544 13.996 27.025 14.0723 23.8164 14.2094C18.2077 14.4534 6.91914 15.9316 3.38821 24.1308C1.86829 27.6625 3.34637 33.7889 7.37987 32.7311L15.9545 30.8963C15.9545 30.8963 18.0584 30.1993 18.1874 27.7961L18.2929 23.8455C18.2929 23.8455 18.4696 22.3151 20.4258 22.1088C26.2144 21.2485 31.5864 21.3979 37.2854 22.7047C39.5085 23.2161 39.2861 24.5916 39.2861 24.5916L39.2126 27.4854C39.1634 29.896 41.2183 30.7397 41.2183 30.7397L49.5409 34.2323C51.3381 34.8432 52.7935 33.9502 53.7281 32.446C54.8413 30.6544 55.2097 28.0015 54.5241 26.0272Z"
+                              fill="#F8FFFF" />
+                          </svg>
+                        </button>
+                        <div   style="
+                          display: none;
+                          width: 38px;
+                          padding: 8px;
+                          height: 39px;
+                          border-radius: 200px;
+                          background-color: #ef4444;
+                          /* background-color: green; */
+                          text-align: center;
+                        ">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" viewBox="13 -2 55 50"
+                            fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M54.5241 26.0272C51.5918 17.5908 41.8684 15.8222 34.4671 14.5844C30.9544 13.996 27.025 14.0723 23.8164 14.2094C18.2077 14.4534 6.91914 15.9316 3.38821 24.1308C1.86829 27.6625 3.34637 33.7889 7.37987 32.7311L15.9545 30.8963C15.9545 30.8963 18.0584 30.1993 18.1874 27.7961L18.2929 23.8455C18.2929 23.8455 18.4696 22.3151 20.4258 22.1088C26.2144 21.2485 31.5864 21.3979 37.2854 22.7047C39.5085 23.2161 39.2861 24.5916 39.2861 24.5916L39.2126 27.4854C39.1634 29.896 41.2183 30.7397 41.2183 30.7397L49.5409 34.2323C51.3381 34.8432 52.7935 33.9502 53.7281 32.446C54.8413 30.6544 55.2097 28.0015 54.5241 26.0272Z"
+                              fill="#F8FFFF" />
+                          </svg>
+                        </div>
+
+                        <div     style="background-color: #6b7280"
+                          class="nun clear-button w-[38px] p-[11px] h-full rounded-full text-white rounded-full-touch flex justify-center items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="30" viewBox="2 0 40 50">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M34.6451 30.0434C35.197 28.4205 35.4778 26.7177 35.4762 25.0035V21.879C35.4762 21.4646 35.3116 21.0673 35.0187 20.7743C34.7257 20.4813 34.3283 20.3167 33.914 20.3167C33.4996 20.3167 33.1022 20.4813 32.8093 20.7743C32.5163 21.0673 32.3517 21.4646 32.3517 21.879V25.0035C32.3517 25.8597 32.2673 26.6908 32.1017 27.5001L34.6451 30.0434ZM26.765 35.4177C24.8819 36.6675 22.6952 37.3833 20.4376 37.489C18.18 37.5946 15.936 37.0861 13.9444 36.0175C11.9529 34.949 10.2884 33.3604 9.12806 31.4209C7.96775 29.4814 7.35505 27.2636 7.35521 25.0035V21.879C7.35521 21.4646 7.19061 21.0673 6.89763 20.7743C6.60464 20.4813 6.20727 20.3167 5.79293 20.3167C5.37859 20.3167 4.98122 20.4813 4.68823 20.7743C4.39525 21.0673 4.23065 21.4646 4.23065 21.879V25.0035C4.2306 28.8765 5.66915 32.6114 8.26721 35.4837C10.8653 38.356 14.4376 40.1609 18.2912 40.5482V46.8754H8.91749C8.50315 46.8754 8.10578 47.04 7.81279 47.333C7.51981 47.626 7.35521 48.0234 7.35521 48.4377C7.35521 48.8521 7.51981 49.2494 7.81279 49.5424C8.10578 49.8354 8.50315 50 8.91749 50H30.7894C31.2037 50 31.6011 49.8354 31.8941 49.5424C32.1871 49.2494 32.3517 48.8521 32.3517 48.4377C32.3517 48.0234 32.1871 47.626 31.8941 47.333C31.6011 47.04 31.2037 46.8754 30.7894 46.8754H21.4157V40.5482C24.1575 40.277 26.778 39.2817 29.0084 37.6642L26.765 35.4177ZM29.2271 24.6286V9.38074C29.2288 7.15777 28.4404 5.00656 27.0026 3.31112C25.5649 1.61569 23.5714 0.486392 21.378 0.124835C19.1847 -0.236722 16.9342 0.192993 15.0283 1.33727C13.1225 2.48154 11.6854 4.2659 10.9734 6.37179L29.2271 24.6286ZM10.4798 19.1294L24.4965 33.1461C23.0709 33.959 21.4568 34.3834 19.8157 34.3768C18.1746 34.3702 16.564 33.9328 15.1449 33.1085C13.7259 32.2841 12.5481 31.1017 11.7294 29.6793C10.9107 28.257 10.4798 26.6447 10.4798 25.0035V19.1294ZM37.4947 41.7324L0 4.23772L2.21219 2.02553L39.7069 39.5202L37.4947 41.7293V41.7324Z"
+                              fill="white" />
+                          </svg>
+                        </div>
+                      
+                      </div>
+                    </div>
+                  </div>
+                  <div style="margin-top: 7px" class="flex justify-center items-center">
+                    <div class="h-[5.1px] rounded-full w-[96PX] z-10 bg-zinc-950"></div>
+                  </div>
+                </div>
+                <style>
+                  .changingText {
+                    animation: highlight 0.75s infinite alternate;
+                    /* Animation to run for 2 seconds, alternate direction, and repeat infinitely */
+                  }
+
+                  @keyframes highlight {
+                    0% {
+                      color: #3eff37;
+                      /* Highlighted color */
+                    }
+
+                    100% {
+                      color: rgb(0, 0, 0);
+                      /* Natural color */
+                    }
+                  }
+                </style>
+                <div   style="display: none">
+                  <div class="w-full h-20">
+                    <button type="text"   style="
+                      font-size: 15px;
+                      height: 20px;
+                      background-color: #20a851;
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                      width: 100%;
+                    " class="changingText text-center mt-2 text-l text-[#37B7FF]">
+                      <p style="margin-left: 2px" class="changingText text-center text-l text-[#37B7FF]">00:00</p>
+                      <p style="margin-right: 2px" class="changingText text-center text-l text-[#37B7FF]">
+                        Return to Call
+                      </p>
+                    </button>
+                    <div type="text"   style="font-size: 17px" class="text-center text-xl">
+                      7023236685
+                    </div>
+
+                    <input type="text" class="text-center text-xl border-bottom border-0 rounded-0"
+                      style="pointer-events: none" placeholder="Enter a number" />
+                  </div>
+                  <div class="dial-pad w-full h-[300px] bg-white px-[20px] py-3 flex justify-center items-center mt-4">
+                    <div class="flex flex-col w-full h-full bg-white">
+                      <div class="w-full h-[39px] mb-3 flex items-center justify-around">
+                        <div onclick="appendcopyNumber(1)"
+                          class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center justify-center rounded-full-touch">
+                          1
+                        </div>
+                        <div onclick="appendcopyNumber(2)"
+                          class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center justify-center rounded-full-touch">
+                          2
+                        </div>
+                        <div onclick="appendcopyNumber(3)"
+                          class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center justify-center rounded-full-touch">
+                          3
+                        </div>
+                      </div>
+                      <div class="w-full h-[39px] mb-3 flex items-center justify-around">
+                        <div onclick="appendcopyNumber(4)"
+                          class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center justify-center rounded-full-touch">
+                          4
+                        </div>
+                        <div onclick="appendcopyNumber(5)"
+                          class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center justify-center rounded-full-touch">
+                          5
+                        </div>
+                        <div onclick="appendcopyNumber(6)"
+                          class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center justify-center rounded-full-touch">
+                          6
+                        </div>
+                      </div>
+                      <div class="w-full h-[39px] mb-3 flex items-center justify-around">
+                        <div onclick="appendcopyNumber(7)"
+                          class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center justify-center rounded-full-touch">
+                          7
+                        </div>
+                        <div onclick="appendcopyNumber(8)"
+                          class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center justify-center rounded-full-touch">
+                          8
+                        </div>
+                        <div onclick="appendcopyNumber(9)"
+                          class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center justify-center rounded-full-touch">
+                          9
+                        </div>
+                      </div>
+                      <div class="w-full h-[39px] mb-3 flex items-center justify-around">
+                        <div onclick="appendcopyNumber('*')"
+                          class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center justify-center rounded-full-touch">
+                          *
+                        </div>
+                        <div onclick="appendcopyNumber(0)"
+                          class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center justify-center rounded-full-touch">
+                          0
+                        </div>
+                        <div onclick="appendcopyNumber('#')"
+                          class="rishi w-[39px] h-full rounded-full bg-neutral-200 p-2 text-center justify-center rounded-full-touch">
+                          #
+                        </div>
+                      </div>
+                      <div class="w-full h-[39px] mb-3 flex items-center justify-around">
+                        <div class="w-[39px] h-full rounded-full p-2 text-center justify-center"></div>
+                        <!-- <div class="jsprt call-touch" id="returnToprevious">
+                          <svg class="svg-inline--fa fa-envelope" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="envelope" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"></path></svg> 
+                      </div> -->
+
+                        <div class="jsprt call-touch" >
+                          <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone"
+                            class="svg-inline--fa fa-phone" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512" width="16" height="16">
+                            <path fill="currentColor"
+                              d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z">
+                            </path>
+                          </svg>
+                        </div>
+                        <div onclick="clearconferenceNumber()"
+                          class="clear-button w-[35px] p-[11px] h-full rounded-full bg-gray-500 text-white rounded-full-touch flex justify-center items-center">
+                          <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="rectangle-xmark"
+                            class="svg-inline--fa fa-rectangle-xmark" role="img" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512" width="16" hanging="16">
+                            <path fill="currentColor"
+                              d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z">
+                            </path>
+                          </svg>
+                        </div>
+                      </div>
+                  
+                    </div>
+                  </div>
+                  <div style="margin-top: 15px" class="flex justify-center items-center">
+                    <div class="h-[5.1px] rounded-full w-[96PX] z-10 bg-zinc-950"></div>
+                  </div>
+                </div>
+                <script></script>
+                 
+
+                
+
+                 
+
+                 
+                <script></script>
+              </div>
+            </div>
+
+          
+
+            <div class="neeche containerimage ">
+              <div style="height: 570px;
+            margin-top: 150px; " class="w-[500px]   flex-col rounded-md border-[2px] border-gray-300 shadow-lg">
+                <div class="h-[30px] mt-1 mx-1 flex items-center rounded-md border-gray-300 border-opacity-5">
+                  <div
+                    class="w-[125px] h-[25px] bg-[#2981C1] mx-1 rounded-md text-[0.80rem] text-white font-[600] flex justify-center items-center px-1 hover:cursor-pointer">
+                    Customer Details
+                  </div>
+                  <div
+                    class="w-[85px] h-[25px] bg-[#EAEFF4] mx-1 rounded-md text-[0.80rem] text-[#A5A9AC] font-[600] flex justify-center items-center hover:cursor-pointer">
+                    Analytics
+                  </div>
+                </div>
+                <div class="h-[154px] flex justify-center items-center">
+                  <div class="h-[110px] w-[98%] flex items-center">
+                    <div class="w-[100px] h-[95px] bg-[#A5A9AC] rounded-full mx-2">
+                      <img src="user-icon.jpg" alt="" />
+                    </div>
+                    <div class="w-[80%] h-full flex-col">
+                      <div class="form">
+                        <label for="" style="font-size: 14px;
+                      font-weight: 500;">Name</label>
+                        <div class="w-[80%]flex ">
+
+                          <input type="text"   style="
+                         height: 36px;
+                          margin-bottom: 6px;
+                        width: 45%;" placeholder="First name">
+                          <input type="text"  style="
+                          height: 36px;margin-bottom: 6px;
+                        width: 45%;" placeholder="Last name">
+
+                        </div>
+
+                        <div class="inputBox">
+                          <label for="" style="font-size: 14px;
+                        font-weight: 500;">Number</label>
+                          <input type="number"   disabled style="margin-bottom: 6px; width:45%; height: 36px;">
+
+
+
+                          <input type="number"  placeholder="Alternate number"
+                            style="margin-bottom: 6px; width:45%; height: 36px;">
+
+                        </div>
+                        
+                        <label for="" style="font-size: 14px;
+                         font-weight: 500;">Address</label>
+                          
+                        
+                          <input type="text"  style="margin-bottom: 6px;width: 91%; height: 36px;" placeholder="Enter your local Address">
+    
+                        
+                    <div class="w-[80%]flex ">
+
+                      <input type="text"    style="
+                      height: 36px;margin-bottom: 6px;
+                         width: 45%;" placeholder="State">
+                      <input type="text"   style="
+                      height: 36px;margin-bottom: 6px;
+                         width: 45%;" placeholder="District">
+
+                    </div>
+                    <div class="w-[80%]flex ">
+
+                      <input type="text"  style="
+                      height: 36px;margin-bottom: 10px;
+                         width: 45%;" placeholder="City">
+                      <input type="number"   style="
+                      height: 36px;margin-bottom: 10px;
+                         width: 45%;" placeholder="Pincode">
+
+                    </div>
+                        <div class="inputBox">
+                          <label for="" style="font-size: 14px;
+                        font-weight: 500;  ">Email</label>
+                          <input type="text" style="margin-bottom: 6px; height: 36px;"  placeholder="Enter your email">
+
+                        </div>
+                        
+
+                        <div class="inputBox">
+                          <label for="" style="font-size: 14px;
+                        font-weight: 500;
+                        ;">Comment</label>
+                          <textarea  name="message" maxlength="100" placeholder="Your comment here!" style="max-height: 100px;
+                        min-height: 50px;"></textarea>
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                      </div>
+
+
+
+                    </div>
+                    <style>
+                      .form .inputBox {
+                        position: relative;
+                        width: 100%;
+                      }
+
+                      .form .inputBox input {
+                        position: relative;
+                        width: 80%;
+
+
+
+
+                        border-radius: 4px;
+                        color: #373737;
+                        font-weight: 400;
+                        font-size: 15px;
+                      }
+
+                      .form .inputBox i {
+                        position: absolute;
+                        left: 0;
+
+                        font-style: normal;
+                        color: #5f5e5e;
+                        transition: 0.5s;
+                        pointer-events: none;
+                      }
+
+                      .form .inputBox input:focus~i,
+                      .form .inputBox input:valid~i {
+                        transform: translateY(-7.5px);
+
+                        color: #fff;
+                      }
+                    </style>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <img class="phonesvg " src="phonesvg.svg" alt="" />
+        </div>
 
         <div id="postview" style="display: none">
           <div class="container-dial">
@@ -781,7 +1348,7 @@
                   <div class="w-full h-20 flex-col">
                     <div id="unholdDisplay" style="display: block">
                       <div type="text" id="dialTimer" class="text-center mt-3 text-l text-[#37B7FF]">00:00</div>
-                      <div type="text" id="displayNumber" class="text-center text-xl">7023236685</div>
+                      <div type="text" id="displayNumber2" class="text-center text-xl">7023236685</div>
                     </div>
 
                     <div id="holdDisplay" style="display: none">
@@ -1342,7 +1909,7 @@
                           console.error('Error sending call answer request:', error);
                         });
                     } else {
-                      displayMessage();
+                      displayMessage("please enter correct no.");
                     }
                   }
                 </script>
@@ -1963,6 +2530,7 @@
     phoneClickButton.addEventListener('click', switchPhone);
     const displayNumber = document.getElementById('displayNumber');
     const displayNumber1 = document.getElementById('displayNumber1');
+    const displayNumber2 = document.getElementById('displayNumber2');
     const dialTimer = document.getElementById('dialTimer');
     var imginholdbtn = document.querySelector('#holdbtn img');
 
@@ -2240,6 +2808,12 @@
         dialclicked = false;
         if (buttunpressed) {
           displayMessage('No Call to hangup');
+          const preview = document.getElementById('preview');
+          const postView = document.getElementById('postview');
+          const disposition = document.getElementById('Disposition');
+           postView.style.display = 'none';
+           preview.style.display = 'none';
+           disposition.style.display = 'block';
         }
       }
     }
@@ -2470,12 +3044,15 @@
             let x = document.getElementById('postview');
             let y = document.getElementById('preview');
             let z = document.getElementById('Disposition');
-            x.style.display = 'block';
+            let d = document.getElementById("dialview");
             y.style.display = 'none';
-
+            d.style.display = "none";
+            x.style.display = 'block';
+            
             setTimeout(()=>{document.getElementById('preview').style.display="none";},1500);
             displayNumber.innerText = Callnumber;
             displayNumber1.innerText = Callnumber;
+            displayNumber2.innerText = Callnumber;
             document.getElementById('firstNumber').innerText = Callnumber;
             document.getElementById('firstNumber1').innerText = Callnumber;
 
@@ -2622,8 +3199,13 @@
         dialclicked = true;
         const user = document.getElementById('username').value;
         let dialstring = document.getElementById('dialnumber').value;
+        const preview = document.getElementById("preview");
+        const dialview = document.getElementById("dialview");
+        preview.style.display  = "none" ;
+        dialview.style.display = "block";
         Callnumber = dialstring;
-        console.log();
+        displayNumber2.innerText = Callnumber;
+        console.log("dial request",new Date());
         //session = ua.call(`sip:${dialstring}@webrtc.iotcom.io`, options);
         //api call for manual dial
         const dialdata = {
@@ -2632,32 +3214,60 @@
         };
         const url = '/dialnumber';
         // Make a edit request to the server
-        fetch(url, {
+    try{
+      const response =  await Promise.race([ fetch(url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             //"Authorization": `Bearer ${localStorage.getItem('jwtToken')}`
           },
           body: JSON.stringify(dialdata),
-        })
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
+        }),
+        new Promise((_, reject) => {
+              // Create a timer that rejects after 3 seconds
+              setTimeout(() => {
+                  console.log("timeout code");
+                reject(new Error('DialTimeout')); // Timeout after 5 seconds
+              }, 5000); // 5 seconds in milliseconds
+            }),
+          ]);
+          if (response.status === 401) {
+            // Unauthorized response handling: redirect to index page or handle as needed
+            window.location.href = '/index.html'; // Replace with your index page URL
+          } else {
+            const data = await response.json();
+          
             // const data={message:"Sucess dial req received"};
             if (data === 'Sucess dial req received') {
               //answer the call and proceed
-              console.log(data.message);
+              console.log(data);
             } else {
+              preview.style.display  = "block" ;
+              dialview.style.display = "none";
               displayMessage(data);
               dialclicked = false;
               // resetTime();
             }
-          })
-          .catch((error) => {
-            console.error('Error sending dial request:', error);
-          });
+          }
+        }
+          
+          catch(error)  {
+            console.log("error occured",error);
+            if (error.message === 'DialTimeout') {
+              console.log("timeout error line no 3257");
+              preview.style.display  = "block" ;
+              dialview.style.display = "none";
+              displayMessage("check your connection,try after some time");
+              dialclicked = false;
+
+            }else{
+              await displayMessage("Check your internet connection",5000);
+              window.location.reload();
+            }
+            //console.error('Error sending dial request:', error);
+          }
       } else {
+
         displayMessage('Call is already in progress');
       }
     }
@@ -2806,6 +3416,7 @@
 
     async function connectioncheck() {
       if (userlogin === true) {
+        const preview = document.getElementById('preview');
         const user = document.getElementById('username').value;
         try {
           localStorage.setItem("reqTime", `${Date.now()}`);
@@ -2837,9 +3448,11 @@
               timeoutarray = [];
             } else if (data.message == 'poor connection problem ,please login again') {
               console.log('connection problem block need to alert');
-              alert(data.message);
+              if(preview.style.display=="block"){
+              displayMessage(data.message);
               userlogin = false;
               logoutfunction();
+              }
               //window.location.href = `/forcelogout/${user}`;
             } else {
               console.log('other block');
@@ -2852,12 +3465,12 @@
             const timeout = { timeout: true };
             timeoutarray.push(timeout);
             if (timeoutarray.length > 2) {
-              alert('Connection problem: The request timed out');
+              //alert('Connection problem: The request timed out');
             } else {
-              console.log('slight connection problem');
+             // console.log('slight connection problem');
             }
           } else {
-            console.log('Error in connection check function', err);
+            //console.log('Error in connection check function', err);
           }
         }
       }
@@ -2865,7 +3478,7 @@
 
     const liveInterval = 1000; // 1 seconds in milliseconds
     //setInterval(() => { sendMessageToAsterisk(ua); }, 3000);
-    setInterval(connectioncheck, 5000);
+    setInterval(connectioncheck, 4000);
 
 
 
@@ -2954,15 +3567,17 @@
       $('#alertModal').modal('hide');
     }
 
-    async function displayMessage(message) {
+    async function displayMessage(message,Time) {
+      
       const alertModelContant = document.getElementById('alertModelContant1');
       alertModelContant.innerText = message;
       $('#alertModal1').modal('show');
 
-      await new Promise((resolve) => setTimeout(resolve, 1500)); // Wait for 1.5 seconds
+      await new Promise((resolve) => setTimeout(resolve,Time?Time:1500)); // Wait for 1.5 seconds
 
       $('#alertModal1').modal('hide');
     }
+    
   </script>
   <script>
     const L = document.getElementById('liveButton');
@@ -3075,6 +3690,7 @@
     let dialed = false;
     var autoleadbutton = false;
     var dialnext = false;
+    var timeoutarray = [] ;
 
     // async function autoleadfun() {
     //   autoleadbutton = !autoleadbutton;
