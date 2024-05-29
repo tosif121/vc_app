@@ -209,39 +209,40 @@
           </ul>
         </div>
 
-        <div class="relative inline-block">
-          <button class="py-2 px-4 rounded inline-flex items-center focus:outline-none" id="dropdown-btn">
+        <div class="relative px-3">
+          <div
+            class="cursor-pointer text-black hover:text-[#2196f3] transition-all flex items-center"
+            id="profileDropdown"
+          >
             <img src="img/shiv.jpg" alt="Profile" class="rounded-full w-10 h-10" />
-            <span class="d-none d-md-block dropdown-toggle ps-2" id="displayUsername"></span>
+            <span class="d-none d-md-block dropdown-toggle ps-2 font-medium" id="displayUsername"></span>
             <svg class="fill-current ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
               <path
                 d="M10 12.586L4.293 6.879a1 1 0 0 0-1.414 1.414l6.364 6.364a1 1 0 0 0 1.414 0l6.364-6.364a1 1 0 0 0-1.414-1.414L10 12.586z"
               />
             </svg>
-          </button>
-          <div
-            class="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 transition-all duration-200 opacity-0 invisible"
-            id="dropdown-menu"
-          >
-            <ul class="py-1 px-3" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-              <li class="py-3 border-b">
-                <h6 id="displayUsername1">Shiv Shekhawat</h6>
-                <span id="displayorg">Web Designer</span>
-              </li>
-              <li class="py-3 border-b">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </li>
-              <li class="py-3 border-b"><i class="bi bi-gear"></i> <span>Account Settings</span></li>
-              <li class="py-3 border-b"><i class="bi bi-question-circle"></i> <span>Need Help?</span></li>
-              <li class="py-3">
-                <a class="dropdown-item d-flex align-items-center" href="#" onclick="signOut()">
-                  <i class="bi bi-box-arrow-right"></i>
-                  <span>Sign Out</span>
-                </a>
-              </li>
-            </ul>
           </div>
+          <ul
+            class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-10 rounded-lg right-0 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 ease-in-out transform origin-top-right"
+            style="max-height: 0"
+          >
+            <li class="p-3 border-b">
+              <h6 id="displayUsername1">Shiv Shekhawat</h6>
+              <span id="displayorg">Web Designer</span>
+            </li>
+            <li class="p-3 border-b">
+              <i class="bi bi-person"></i>
+              <span>My Profile</span>
+            </li>
+            <li class="p-3 border-b"><i class="bi bi-gear"></i> <span>Account Settings</span></li>
+            <li class="p-3 border-b"><i class="bi bi-question-circle"></i> <span>Need Help?</span></li>
+            <li class="p-3">
+              <a class="dropdown-item d-flex align-items-center" href="#" onclick="signOut()">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+          </ul>
         </div>
       </header>
       <main id="main" class="main grow m-2">
@@ -257,28 +258,26 @@
               />
             </div>
           </div>
-          <div class="overflow-x-auto whitespace-nowrap">
-            <table class="table-auto w-full border-collapse" id="calldata">
-              <thead class="thead">
-                <tr>
-                  <th>Caller</th>
-                  <!-- <th>Dial No</th> -->
-                  <th>Campaign</th>
-                  <th>Call received on</th>
-                  <th>Call answered</th>
-                  <th>Call Disconnected</th>
-                  <th>Duration</th>
-                  <th>Agent</th>
-                  <th>Disposition</th>
-                  <th>Listen</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Incoming Call Data
+          <table class="table-auto w-full border-collapse" id="calldata">
+            <thead class="thead">
+              <tr>
+                <th>Caller</th>
+                <!-- <th>Dial No</th> -->
+                <th>Campaign</th>
+                <th>Call received on</th>
+                <th>Call answered</th>
+                <th>Call Disconnected</th>
+                <th>Call Duration</th>
+                <th>Agent</th>
+                <th>Disposition</th>
+                <th>Listen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Incoming Call Data
  will be added dynamically -->
-              </tbody>
-            </table>
-          </div>
+            </tbody>
+          </table>
           <div id="tableLoder"></div>
         </div>
 
@@ -391,19 +390,18 @@
       const closeModalButton = document.getElementById('closeModalButton');
       const modal = document.getElementById('musicPlayerModal');
       const tableBody = document.getElementById('tableLoder');
-      var playpauseBtn = document.getElementById('playpause-track101');
-      const wave = document.getElementById('wave');
-      var audioElement;
-      let isPlaying = false;
 
-      playpauseBtn.addEventListener('click', playpauseTrack);
+      let audioElement;
+      let isPlaying = false;
+      let playpauseBtn;
+
       function closeModal() {
         modal.classList.add('hidden');
         if (audioElement) {
           audioElement.pause();
           audioElement.currentTime = 0;
           isPlaying = false;
-          playpauseBtn.innerHTML = '<i class="bi bi-play-circle-fill text-gray-700 text-4xl"></i>';
+          playpauseBtn.innerHTML = '<i class="bi bi-play-circle-fill text-green-500 text-4xl"></i>';
         }
       }
 
@@ -470,10 +468,29 @@
       }
 
       document.addEventListener('DOMContentLoaded', async function () {
-        //console.log("page startted");
         await fetchData();
+        playpauseBtn = document.getElementById('playpause-track101');
+        playpauseBtn.addEventListener('click', playpauseTrack);
         loadcallData();
       });
+
+      function playpauseTrack() {
+        isPlaying ? pauseTrack() : playTrack();
+      }
+
+      function playTrack() {
+        audioElement.play();
+        isPlaying = true;
+        wave.classList.add('loader');
+        playpauseBtn.innerHTML = '<i class="bi bi-pause-circle-fill text-gray-700 text-4xl"></i>';
+      }
+
+      function pauseTrack() {
+        audioElement.pause();
+        isPlaying = false;
+        wave.classList.remove('loader');
+        playpauseBtn.innerHTML = '<i class="bi bi-play-circle-fill text-green-500 text-4xl"></i>';
+      }
 
       // Initialize Flatpickr for date range selection
       flatpickr('#date-range-picker', {
@@ -482,7 +499,6 @@
         onChange: function (selectedDates, dateStr, instance) {
           let StartDate;
           let EndDate;
-          console.log(selectedDates);
           if (selectedDates.length > 1) {
             DateObj = {
               startdate: dateStr.split(' ')[0],
@@ -497,13 +513,11 @@
             loadcallData(DateObj);
           } else {
             console.log(StartDate, EndDate);
-            console.log('select date properly');
           }
         },
       });
 
       async function loadcallData(DatePicks) {
-        console.log(DatePicks);
         let formattedDates;
         if (DatePicks != null && DatePicks != undefined) {
           formattedDates = {
@@ -519,7 +533,6 @@
           };
         }
 
-        console.log(formattedDates);
         showSkeletonLoader(10, 10);
         fetch('https://devapp.iotcom.io/callData', {
           method: 'POST',
@@ -540,7 +553,6 @@
           })
           .then((data) => {
             callDetails = data.result;
-            console.log(callDetails);
             const uniqueBridgeIDs = new Set();
             if (callDetails !== null && callDetails !== undefined) {
               callDetails = callDetails.filter((x) => x.Type === 'incoming');
@@ -599,29 +611,12 @@
       function populatecalls(filteredData) {
         const Dttable = $('#calldata').DataTable();
         Dttable.destroy();
-        console.log('populate calls');
         const table = document.getElementById('calldata').getElementsByTagName('tbody')[0];
         table.innerHTML = '';
 
         filteredData.forEach(function (call, index) {
           // Change 'file' to 'call'
           let newRow = table.insertRow(table.rows.length);
-          // let cell1 = newRow.insertCell(0);
-          // let cell2 = newRow.insertCell(1);
-          // let cell3 = newRow.insertCell(2);
-          // let cell4 = newRow.insertCell(3);
-          // let cell5 = newRow.insertCell(4);
-          // let cell6 = newRow.insertCell(5);
-          // let cell7 = newRow.insertCell(6);
-          // let cell8 = newRow.insertCell(7); // Fix the index here
-
-          // cell1.textContent = call.Caller;
-          // cell2.textContent = call.dialNumber;
-          // cell3.textContent = call.campaign;
-          // cell4.textContent = call.startTime;
-          // cell5.textContent = call.anstime;
-          // cell6.textContent = call.calldisconnecttime;
-          // cell7.textContent = call.agent;
 
           const calldata = [
             call.Caller,
@@ -652,7 +647,6 @@
             const audioname = filteredData[index]?.bridgeID;
             //Create an Audio element
             audioElement = new Audio();
-            console.log('line number788', audioname);
             // Set the source of the Audio element if the audio file exists
             const audioSource = 'https://devapp.iotcom.io/recording' + audioname + '.wav';
             if (audioSource) {
@@ -676,8 +670,6 @@
 
             let currentTrack = 0;
             let isPlaying = false;
-
-            //console.log(duration);
 
             audioElement.onended = function () {
               wave.classList.remove('loader');
@@ -732,41 +724,16 @@
             });
           }
         });
+
         $(document).ready(function () {
           $('#calldata').DataTable({
             dom: 'Blfrtip',
             buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-            order: [
-              [2, 'desc'], // Column index 2 (zero-based) sorted in descending order
-            ],
+            order: [[5, 'desc']],
+            scrollX: true,
+            scrollCollapse: true,
           });
         });
-      }
-      function playpauseTrack() {
-        isPlaying ? pauseTrack() : playTrack();
-      }
-
-      function playTrack() {
-        console.log(audioElement.duration);
-        audioElement.play();
-        isPlaying = true;
-        wave.classList.add('loader');
-        playpauseBtn.innerHTML = '<i class="bi bi-pause-circle-fill text-gray-700 text-4xl"></i>';
-      }
-      function pauseTrack() {
-        audioElement.pause();
-        isPlaying = false;
-        wave.classList.remove('loader');
-        playpauseBtn.innerHTML = '<i class="bi bi-play-circle-fill text-green-500 text-4xl"></i>';
-      }
-      function signOut() {
-        // Clear localStorage (optional)
-        localStorage.removeItem('admininfo');
-        localStorage.removeItem('jwtToken');
-        localStorage.removeItem('didData');
-
-        // Redirect to the desired location
-        window.location.href = '/login.html';
       }
     </script>
     <!-- Vendor JS Files -->

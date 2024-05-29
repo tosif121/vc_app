@@ -322,7 +322,6 @@
             }
           </script>
 
-          <!-- <div class="overflow-x-auto whitespace-nowrap"> -->
           <table class="table-auto w-full border-collapse whitespace-nowrap" id="calldata">
             <thead class="thead">
               <tr>
@@ -353,7 +352,6 @@
               <!-- call records will be added dynamically -->
             </tbody>
           </table>
-          <!-- </div> -->
           <div id="tableLoder"></div>
         </div>
         <div
@@ -477,13 +475,13 @@
           audioElement.pause();
           audioElement.currentTime = 0;
           isPlaying = false;
-          playpauseBtn.innerHTML = '<i class="bi bi-play-circle-fill text-gray-700 text-4xl"></i>';
+          playpauseBtn.innerHTML = '<i class="bi bi-play-circle-fill text-green-500 text-4xl"></i>';
         }
       }
 
       modalContainer.addEventListener('click', function (event) {
         if (event.target === modalContainer) {
-          closeModal();
+          modal.classList.add('hidden');
         }
       });
 
@@ -770,8 +768,6 @@
             // Show the music modal
             const modal = document.getElementById('musicPlayerModal');
             modal.classList.remove('hidden');
-            // // Play the audio
-            // audioElement.play();
 
             playpauseBtn = document.getElementById('playpause-track101');
             const seekSlider = document.querySelector('.seek-slider');
@@ -841,22 +837,6 @@
             });
           }
         });
-        function playpauseTrack() {
-          isPlaying ? pauseTrack() : playTrack();
-        }
-
-        function playTrack() {
-          audioElement.play();
-          isPlaying = true;
-          wave.classList.add('loader');
-          playpauseBtn.innerHTML = '<i class="bi bi-pause-circle-fill text-gray-700 text-4xl"></i>';
-        }
-        function pauseTrack() {
-          audioElement.pause();
-          isPlaying = false;
-          wave.classList.remove('loader');
-          playpauseBtn.innerHTML = '<i class="bi bi-play-circle-fill text-green-500 text-4xl"></i>';
-        }
 
         $(document).ready(function () {
           $('#calldata').DataTable({

@@ -223,7 +223,7 @@ class AudioFilesProcessor {
     formData.append("SoundID", ID);
     
       
-    fetch("uploadivr", {
+    fetch("https://devapp.iotcom.io/uploadivr", {
       method: "POST",
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`

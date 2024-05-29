@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>Call Records</title>
+    <title>Outgoing Call Data</title>
     <meta content="" name="description" />
     <meta content="" name="keywords" />
 
@@ -13,26 +13,15 @@
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
       rel="stylesheet"
     />
 
     <!-- Vendor CSS Files -->
-    <link
-      href="assets/vendor/bootstrap/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
-      rel="stylesheet"
-    />
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
 
     <!-- pagination JQuery -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"
-    />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
     <link
       rel="stylesheet"
       type="text/css"
@@ -42,588 +31,320 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
-    />
-    <style>
-      .seek_slider,
-      .volume_slider {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        height: 5px;
-        background: #83a9ff;
-        -webkit-transition: 0.2s;
-        transition: opacity 0.2s;
-      }
-
-      .seek_slider::-webkit-slider-thumb,
-      .volume_slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        width: 15px;
-        height: 15px;
-        background: white;
-        border: 3px solid #3774ff;
-        cursor: grab;
-        border-radius: 100%;
-      }
-
-      .seek_slider:hover,
-      .volume_slider:hover {
-        opacity: 1;
-      }
-
-      .seek_slider {
-        width: 60%;
-      }
-
-      .volume_slider {
-        width: 30%;
-      }
-
-      .current-time,
-      .total-duration {
-        padding: 10px;
-      }
-
-      .bridge-container {
-        text-align: center;
-      }
-
-      .bridge-container a {
-        text-decoration: none;
-        color: black;
-      }
-
-      .buttons {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 20px;
-      }
-
-      .buttons i {
-        font-size: 36px;
-        color: #333333;
-      }
-
-      .playpause-track i {
-        color: #2ecc71;
-      }
-
-      .repeat-track,
-      .random-track,
-      .playpause-track,
-      .prev-track,
-      .next-track {
-        padding: 25px;
-        opacity: 0.8;
-        transition: opacity 0.2s;
-      }
-
-      .repeat-track:hover,
-      .random-track:hover,
-      .playpause-track:hover,
-      .prev-track:hover,
-      .next-track:hover {
-        opacity: 1;
-      }
-
-      .loader {
-        height: 70px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .loader .stroke {
-        background: linear-gradient(to right, #9a1d86, #1595be);
-        height: 150%;
-        width: 10px;
-        border-radius: 50px;
-        margin: 0 5px;
-        animation: animate 1.4s linear infinite;
-      }
-
-      @keyframes animate {
-        50% {
-          height: 30%;
-          background: #cf77c1;
-        }
-
-        100% {
-          background: #53b9db;
-          height: 100%;
-        }
-      }
-
-      .stroke:nth-child(1) {
-        animation-delay: 0s;
-      }
-
-      .stroke:nth-child(2) {
-        animation-delay: 0.8s;
-      }
-
-      .stroke:nth-child(3) {
-        animation-delay: 0.6s;
-      }
-
-      .stroke:nth-child(4) {
-        animation-delay: 0.5s;
-      }
-
-      .stroke:nth-child(5) {
-        animation-delay: 0.4s;
-      }
-
-      .stroke:nth-child(6) {
-        animation-delay: 0.2s;
-      }
-
-      .stroke:nth-child(7) {
-        animation-delay: 0s;
-      }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/tailwindcss/globals.css" rel="stylesheet" />
+    <script src="assets/tailwindcss/tailwindcss.js"></script>
   </head>
 
   <body>
-    <section class="d-flex min-vh-100 flex-column">
-      <header id="header" class="header sticky-top d-flex align-items-center">
-        <div class="d-flex align-items-center justify-content-center">
-          <a href="admindashboard.html" class="logo d-flex align-items-center">
-            <img src="./img/logo.png" alt="iotcom" />
+    <section class="flex min-h-screen flex-col">
+      <header
+        id="header"
+        class="header sticky top-0 flex items-center bg-white justify-between p-2 shadow-[0_0_07px_0px_rgba(0,0,0,0.2)] z-50"
+      >
+        <div class="flex justify-between w-full items-center">
+          <a href="trunkControl.html">
+            <img src="./img/logo.png" alt="iotcom" class="w-48" />
           </a>
+          <ul class="flex gap-4 me-5" id="sidebar-nav">
+            <li>
+              <a class="text-black hover:text-[#2196f3] transition-all" href="admindashboard.html"> Dashboard </a>
+            </li>
+
+            <li class="relative">
+              <div
+                class="cursor-pointer text-black hover:text-[#2196f3] transition-all flex items-center"
+                id="usersDropdown"
+              >
+                Users<i class="bi bi-chevron-down ms-2"></i>
+              </div>
+              <ul
+                class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-10 rounded-lg -right-12 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 ease-in-out transform origin-top-right"
+                style="max-height: 0"
+              >
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="adduser.html">
+                    <i class="bi bi-chevron-right me-2"></i>Add New Users
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="userlist.html">
+                    <i class="bi bi-chevron-right me-2"></i>User List
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="AgentLoginHours.html">
+                    <i class="bi bi-chevron-right me-2"></i>Agent Login Hours
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="Forcelogout.html">
+                    <i class="bi bi-chevron-right me-2"></i>Force Logout
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Broadcast Section -->
+            <li class="relative">
+              <div
+                class="cursor-pointer text-black hover:text-[#2196f3] transition-all flex items-center"
+                id="broadcastDropdown"
+              >
+                Broadcast<i class="bi bi-chevron-down ms-2"></i>
+              </div>
+              <ul
+                class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-10 rounded-lg -right-12 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 ease-in-out transform origin-top-right"
+                style="max-height: 0"
+              >
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="broadcast.html">
+                    <i class="bi bi-chevron-right me-2"></i>Add Broadcast
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="Broadcastform.html">
+                    <i class="bi bi-chevron-right me-2"></i>Upload Broadcast
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="broadCastReport.html">
+                    <i class="bi bi-chevron-right me-2"></i>Broadcast Report
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="broadCastSummary.html">
+                    <i class="bi bi-chevron-right me-2"></i>Broadcast Summary
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Campaign Section -->
+            <li class="relative">
+              <div
+                class="cursor-pointer text-black hover:text-[#2196f3] transition-all flex items-center"
+                id="campaignDropdown"
+              >
+                Campaign<i class="bi bi-chevron-down ms-2"></i>
+              </div>
+              <ul
+                class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-10 rounded-lg -right-12 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 ease-in-out transform origin-top-right"
+                style="max-height: 0"
+              >
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="newcampaign.html">
+                    <i class="bi bi-chevron-right me-2"></i>Add Campaign
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="form.html">
+                    <i class="bi bi-chevron-right me-2"></i>Upload Campaign
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="offlineCampaign.html">
+                    <i class="bi bi-chevron-right me-2"></i>Offline Campaign
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Menu Section -->
+            <li class="relative">
+              <a class="text-black hover:text-[#2196f3] transition-all" href="CallMenu.html"> Menu </a>
+            </li>
+
+            <!-- Audio Store Section -->
+            <li class="relative">
+              <a class="text-black hover:text-[#2196f3] transition-all" href="AudioStore.html"> Audio Store </a>
+            </li>
+
+            <!-- DID Section -->
+            <li class="relative">
+              <a class="text-black hover:text-[#2196f3] transition-all" href="DID.html"> DID </a>
+            </li>
+
+            <li class="relative">
+              <div
+                class="cursor-pointer text-[#2196f3] hover:text-[#2196f3] transition-all flex items-center"
+                id="callReports"
+              >
+                Call Reports<i class="bi bi-chevron-down ms-2"></i>
+              </div>
+
+              <ul
+                class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-10 rounded-lg -right-12 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 ease-in-out transform origin-top-right"
+                style="max-height: 0"
+              >
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="aprReport.html">
+                    <i class="bi bi-chevron-right me-2"></i>Agent performance report
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="calldata.html">
+                    <i class="bi bi-chevron-right me-2"></i>Call detail report
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="IncomingCallData.html">
+                    <i class="bi bi-chevron-right me-2"></i>Incoming Call reports
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-[#2196f3] hover:text-[#2196f3] transition-all" href="OutgoinfCallData.html">
+                    <i class="bi bi-chevron-right me-2"></i>Outgoing Call reports
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="incomingDrop.html">
+                    <i class="bi bi-chevron-right me-2"></i>Drop Call reports
+                  </a>
+                </li>
+                <!-- Add more items as needed -->
+              </ul>
+            </li>
+          </ul>
         </div>
-        <div class="ms-auto d-flex align-items-end">
-          <div id="sidebar" class="sidebar me-5">
-            <ul class="sidebar-nav d-flex gap-4" id="sidebar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="admindashboard.html">
-                  <!-- <i class="bi bi-grid"></i> -->
-                  <span>Dashboard</span>
-                </a>
-              </li>
-              <!-- End Dashboard Nav -->
 
-              <li class="nav-item">
-                <a
-                  class="nav-link collapsed"
-                  data-bs-target="#icons-nav"
-                  data-bs-toggle="collapse"
-                  href="#"
-                >
-                  <!-- <i class="bi bi-gem"></i> -->
-                  <span>Users</span> 
-                </a>
-                <ul
-                  id="icons-nav"
-                  class="nav-content collapse"
-                  data-bs-parent="#sidebar-nav"
-                >
-                  <li>
-                    <a href="adduser.html">
-                      <i class="bi bi-chevron-right"></i
-                      ><span>Add New Users</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="userlist.html">
-                      <i class="bi bi-chevron-right"></i><span>User List</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="AgentLoginHours.html">
-                      <i class="bi bi-chevron-right"></i
-                      ><span>Agent Login Hours</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="Forcelogout.html">
-                      <i class="bi bi-chevron-right"></i
-                      ><span>Force Logout</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-
-              <!-- Broadcast Section -->
-              <li class="nav-item">
-                <a
-                  class="nav-link collapsed"
-                  data-bs-target="#Broadcast-nav"
-                  data-bs-toggle="collapse"
-                  href="#"
-                >
-                  <!-- <i class="bi bi-broadcast"></i> -->
-                  <span>Broadcast</span> 
-                </a>
-                <ul
-                  id="Broadcast-nav"
-                  class="nav-content collapse"
-                  data-bs-parent="#sidebar-nav"
-                >
-                  <li>
-                    <a href="broadcast.html">
-                      <i class="bi bi-chevron-right"></i
-                      ><span>Add Broadcast</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="Broadcastform.html">
-                      <i class="bi bi-chevron-right"></i
-                      ><span>Upload Broadcast</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="broadCastReport.html">
-                      <i class="bi bi-chevron-right"></i
-                      ><span>Broadcast Report</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="broadCastSummary.html">
-                      <i class="bi bi-chevron-right"></i
-                      ><span>Broadcast Summary</span>
-                    </a>
-                  </li>
-                  <!-- Add more items as needed -->
-                </ul>
-              </li>
-
-              <!-- campagian Section -->
-              <li class="nav-item">
-                <a
-                  class="nav-link collapsed"
-                  data-bs-target="#Campaign-nav"
-                  data-bs-toggle="collapse"
-                  href="#"
-                >
-                  <!-- <i class="bi bi-layout-text-window-reverse"></i> -->
-                  <span>Campaign</span> 
-                </a>
-                <ul
-                  id="Campaign-nav"
-                  class="nav-content collapse"
-                  data-bs-parent="#sidebar-nav"
-                >
-                  <li>
-                    <a href="newcampaign.html">
-                      <i class="bi bi-chevron-right"></i
-                      ><span>Add Campaign</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="form.html">
-                      <i class="bi bi-chevron-right"></i
-                      ><span>Upload Campaign</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="offlineCampaign.html"> <i class="bi bi-chevron-right"></i><span>Offline Campaign</span> </a>
-                  </li>
-                  <!-- Add more items as needed -->
-                </ul>
-              </li>
-              <!-- End Blank Page Nav -->
-
-              <li class="nav-item">
-                <a class="nav-link collapsed" href="CallMenu.html">
-                  <!-- <i class="bi bi-telephone-plus"></i> -->
-                  <span>Call Menu</span>
-                </a>
-              </li>
-              <!-- End Blank Page Nav -->
-
-              <li class="nav-item">
-                <a class="nav-link collapsed" href="AudioStore.html">
-                  <!-- <i class="bi bi-file-earmark-music"></i> -->
-                  <span>Audio Store</span>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link collapsed" href="DID.html">
-                  <!-- <i class="bi bi-card-list"></i> -->
-                  <span>Add/Show DID</span>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
-                  <span>Call Reports</span> <i class="bi bi-chevron-down ms-2"></i>
-                </a>
-                <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                  <li>
-                    <a href="aprReport.html">
-                      <i class="bi bi-chevron-right"></i><span>Agent performance report</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="calldata.html">
-                      <i class="bi bi-chevron-right"></i><span>Call detail report</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="IncomingCallData.html">
-                      <i class="bi bi-chevron-right"></i><span>Incoming Call reports</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="OutgoinfCallData.html">
-                      <i class="bi bi-chevron-right"></i><span>Outgoing Call reports</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="incomingDrop.html"> <i class="bi bi-chevron-right"></i><span>Drop Call reports</span> </a>
-                  </li>
-                  <!-- Add more items as needed -->
-                </ul>
-              </li>
-            </ul>
-          </div>
-
-          <!-- End Logo -->
-
-          <div class="search-bar" style="display: none">
-            <form
-              class="search-form d-flex align-items-center"
-              method="POST"
-              action="#"
-            >
-              <input
-                type="text"
-                name="query"
-                placeholder="Search"
-                title="Enter search keyword"
+        <div class="relative px-3">
+          <div
+            class="cursor-pointer text-black hover:text-[#2196f3] transition-all flex items-center"
+            id="profileDropdown"
+          >
+            <img src="img/shiv.jpg" alt="Profile" class="rounded-full w-10 h-10" />
+            <span class="d-none d-md-block dropdown-toggle ps-2 font-medium" id="displayUsername"></span>
+            <svg class="fill-current ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path
+                d="M10 12.586L4.293 6.879a1 1 0 0 0-1.414 1.414l6.364 6.364a1 1 0 0 0 1.414 0l6.364-6.364a1 1 0 0 0-1.414-1.414L10 12.586z"
               />
-              <button type="submit" title="Search">
-                <i class="bi bi-search"></i>
-              </button>
-            </form>
+            </svg>
           </div>
-          <!-- End Search Bar -->
-
-          <nav class="header-nav ms-auto">
-            <ul class="d-flex align-items-center">
-              <li class="nav-item d-block d-lg-none">
-                <a
-                  class="nav-link nav-icon search-bar-toggle"
-                  href="#"
-                  style="display: none"
-                >
-                  <i class="bi bi-search"></i>
-                </a>
-              </li>
-              <!-- End Search Icon-->
-
-              <li class="nav-item dropdown pe-3">
-                <a
-                  class="nav-link nav-profile d-flex align-items-center pe-0"
-                  href="#"
-                  data-bs-toggle="dropdown"
-                >
-                  <img
-                    src="img/shiv.jpg"
-                    alt="Profile"
-                    class="rounded-circle"
-                  />
-                  <span
-                    class="d-none d-md-block dropdown-toggle ps-2 text-capitalize"
-                    id="displayUsername"
-                  ></span> </a
-                ><!-- End Profile Iamge Icon -->
-
-                <ul
-                  class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
-                >
-                  <li class="dropdown-header text-capitalize">
-                    <h6 id="displayUsername1">Shiv Shekhawat</h6>
-                    <span id="displayorg">Web Designer</span>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-
-                  <li>
-                    <a
-                      class="dropdown-item d-flex align-items-center"
-                      href="users-profile.html"
-                    >
-                      <i class="bi bi-person"></i>
-                      <span>My Profile</span>
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-
-                  <li>
-                    <a
-                      class="dropdown-item d-flex align-items-center"
-                      href="users-profile.html"
-                    >
-                      <i class="bi bi-gear"></i>
-                      <span>Account Settings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-
-                  <li>
-                    <a
-                      class="dropdown-item d-flex align-items-center"
-                      href="pages-faq.html"
-                    >
-                      <i class="bi bi-question-circle"></i>
-                      <span>Need Help?</span>
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-
-                  <li>
-                    <a
-                      class="dropdown-item d-flex align-items-center"
-                      href="#"
-                      onclick="signOut()"
-                    >
-                      <i class="bi bi-box-arrow-right"></i>
-                      <span>Sign Out</span>
-                    </a>
-                  </li>
-                </ul>
-                <!-- End Profile Dropdown Items -->
-              </li>
-              <!-- End Profile Nav -->
-            </ul>
-          </nav>
+          <ul
+            class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-10 rounded-lg right-0 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 ease-in-out transform origin-top-right"
+            style="max-height: 0"
+          >
+            <li class="p-3 border-b">
+              <h6 id="displayUsername1">Shiv Shekhawat</h6>
+              <span id="displayorg">Web Designer</span>
+            </li>
+            <li class="p-3 border-b">
+              <i class="bi bi-person"></i>
+              <span>My Profile</span>
+            </li>
+            <li class="p-3 border-b"><i class="bi bi-gear"></i> <span>Account Settings</span></li>
+            <li class="p-3 border-b"><i class="bi bi-question-circle"></i> <span>Need Help?</span></li>
+            <li class="p-3">
+              <a class="dropdown-item d-flex align-items-center" href="#" onclick="signOut()">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+          </ul>
         </div>
-        <!-- End Icons Navigation -->
       </header>
-      <!-- End Sidebar-->
-
-      <main id="main" class="main flex-grow-1">
-        <div class="container-fluid">
-          <div class="bg-white shadow-sm rounded p-3 m-2">
-            <div class="d-flex justify-content-between">
-              <h3 class="text-center mb-4">Outgoing Call Data</h3>
+      <main id="main" class="main grow m-2">
+        <div class="bg-white shadow-[0px_-3px_22px_13px_#00000024] rounded-lg p-4">
+          <div class="flex justify-between mb-4 items-center">
+            <h3 class="text-2xl font-semibold">Outgoing Call Data</h3>
+            <div class="date-range mb-3">
               <input
                 type="text"
-                class="form-control shadow-none w-25 mb-3"
+                class="border border-[#aaa] outline-0 p-2 rounded focus:border-[#2196f3]"
                 id="date-range-picker"
                 placeholder="Select Date Range"
               />
             </div>
-            <div class="table-responsive">
-              <table class="table border table_incoming" id="calldata">
-                <thead class="thead">
-                  <tr>
-                    <th>Dial No</th>
-                    <th>Campaign</th>
-                    <th>Call Dialed on</th>
-                    <th>Call answered</th>
-                    <th>Call Disconnected</th>
-                    <th>Call Duration</th>
-                    <th>Agent</th>
-                    <th>Disposition</th>
-                    <th>Listen</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- call records will be added dynamically -->
-                </tbody>
-              </table>
-            </div>
           </div>
+          <table class="table-auto w-full border-collapse whitespace-nowrap" id="calldata">
+            <thead class="thead">
+              <tr>
+                <th>Dial No</th>
+                <th>Campaign</th>
+                <th>Call Dialed on</th>
+                <th>Call answered</th>
+                <th>Call Disconnected</th>
+                <th>Call Duration</th>
+                <th>Agent</th>
+                <th>Disposition</th>
+                <th>Listen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- call records will be added dynamically -->
+            </tbody>
+          </table>
+          <div id="tableLoder"></div>
         </div>
-
         <div
-          class="modal fade modal-md"
+          class="modal fixed inset-0 z-[100] overflow-y-auto top-50 hidden transition-all duration-1000"
           id="musicPlayerModal"
-          tabindex="-1"
-          aria-labelledby="musicPlayerModalLabel"
-          aria-hidden="true"
         >
-          <div class="modal-dialog">
-            <div class="modal-content bg-transparent border-0">
-              <div class="modal-body">
-                <div class="player">
-                  <div class="wrapper border-0 p-4 bg-light rounded">
-                    <div id="wave">
-                      <span class="stroke"></span>
-                      <span class="stroke"></span>
-                      <span class="stroke"></span>
-                      <span class="stroke"></span>
-                      <span class="stroke"></span>
-                      <span class="stroke"></span>
-                      <span class="stroke"></span>
-                    </div>
+          <div
+            class="fixed top-0 flex items-center justify-center left-0 w-full h-full bg-black bg-opacity-50 z-[100]"
+            id="modalContainer"
+          >
+            <div
+              class="modal-content bg-white rounded-md shadow-md p-6 transform transition-transform ease-in-out w-1/4"
+            >
+              <div class="text-2xl cursor-pointer w-max absolute top-0 end-0" id="closeModalButton">
+                <i class="bi bi-x"></i>
+              </div>
 
-                    <div
-                      class="slider_container d-flex align-items-center justify-content-center"
-                    >
-                      <div class="current-time">00:00</div>
-                      <input
-                        type="range"
-                        min="1"
-                        max="100"
-                        value="0"
-                        class="seek_slider"
-                      />
-                      <div class="total-duration" id="totalduration">00:00</div>
-                    </div>
+              <div id="wave" class="flex items-center justify-center mb-3">
+                <img src="/img/animation-loading.gif" />
+              </div>
 
-                    <div
-                      class="slider_container d-flex align-items-center justify-content-center"
-                    >
-                      <!-- Bootstrap Volume Icons -->
-                      <i class="bi bi-volume-down"></i>
-                      <input
-                        type="range"
-                        min="1"
-                        max="100"
-                        value="99"
-                        class="volume_slider"
-                      />
-                      <i class="bi bi-volume-up"></i>
-                    </div>
+              <div class="flex items-center justify-center">
+                <div class="current-time me-2">00:00</div>
+                <input
+                  type="range"
+                  min="1"
+                  max="100"
+                  value="0"
+                  class="appearance-none h-1 cursor-grab bg-blue-500 seek-slider"
+                />
+                <div class="total-duration ms-2" id="totalduration">00:00</div>
+              </div>
 
-                    <div class="bridge-container">
-                      <a>
-                        <i class="bi bi-file-earmark-person"></i>
-                        <span id="bridgeID"></span>
-                      </a>
-                    </div>
+              <div class="flex items-center justify-center">
+                <!-- Bootstrap Volume Icons -->
+                <i class="bi bi-volume-down me-2"></i>
+                <input
+                  type="range"
+                  min="1"
+                  max="100"
+                  value="99"
+                  class="appearance-none h-1 volume-slider cursor-grab bg-blue-500"
+                />
+                <i class="bi bi-volume-up ms-2"></i>
+              </div>
 
-                    <div class="buttons">
-                      <!-- Bootstrap Icons for buttons -->
-                      <div class="random-track">
-                        <i class="bi bi-shuffle"></i>
-                      </div>
-                      <div class="prev-track">
-                        <i class="bi bi-skip-backward-fill"></i>
-                      </div>
-                      <div id="playpause-track101" class="playpause-track">
-                        <i class="bi bi-play-circle-fill"></i>
-                      </div>
-                      <div class="next-track">
-                        <i class="bi bi-skip-forward-fill"></i>
-                      </div>
-                      <div class="repeat-track">
-                        <i class="bi bi-arrow-repeat"></i>
-                      </div>
-                    </div>
-                  </div>
+              <div class="text-center mt-3">
+                <a>
+                  <i class="bi bi-file-earmark-person"></i>
+                  <span id="bridgeID"></span>
+                </a>
+              </div>
+
+              <div class="buttons flex items-center justify-center opacity-80 gap-10 mt-8">
+                <!-- Bootstrap Icons for buttons -->
+                <div class="random-track">
+                  <i class="text-gray-700 text-4xl bi bi-shuffle"></i>
+                </div>
+                <div class="prev-track">
+                  <i class="text-gray-700 text-4xl bi bi-skip-backward-fill"></i>
+                </div>
+                <div id="playpause-track101" class="playpause-track">
+                  <i class="text-green-500 text-4xl bi bi-play-circle-fill"></i>
+                </div>
+                <div class="next-track">
+                  <i class="text-gray-700 text-4xl bi bi-skip-forward-fill"></i>
+                </div>
+                <div class="repeat-track">
+                  <i class="text-gray-700 text-4xl bi bi-arrow-repeat"></i>
                 </div>
               </div>
             </div>
@@ -632,24 +353,20 @@
       </main>
       <!-- End #main -->
 
-      <!-- ======= Footer ======= -->
-      <footer id="footer" class="footer">
+      <footer id="footer" class="footer bg-white text-center p-3 text-md">
         <div class="copyright">
           &copy; Copyright <strong><span>iotcom</span></strong
           >. All Rights Reserved
         </div>
-        <div class="credits">
-          Designed by <a href="https://www.iotcom.io/">Iotcom</a>
-        </div>
+        <div class="credits">Designed by <a href="https://www.iotcom.io/">Iotcom</a></div>
       </footer>
     </section>
-
     <!-- End Footer -->
 
     <a
       href="#"
-      class="back-to-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
+      class="back-to-top invisible flex items-center justify-center bg-[#2196f3] text-white fixed bottom-4 end-4 rounded-full w-10 h-10 hover:bg-white hover:text-[#2196f3] border-[#2196f3] border transition-all"
+      ><i class="bi bi-arrow-up-short text-2xl"></i
     ></a>
 
     <!-- Date Range JS Files -->
@@ -659,18 +376,39 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Include DataTables CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"
-    />
 
     <!-- Include DataTables JavaScript -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
-
     <script>
+      const modalContainer = document.getElementById('modalContainer');
+      const closeModalButton = document.getElementById('closeModalButton');
+      const modal = document.getElementById('musicPlayerModal');
+      const tableBody = document.getElementById('tableLoder');
+
+      let audioElement;
+      let isPlaying = false;
+      let playpauseBtn;
+
+      function closeModal() {
+        modal.classList.add('hidden');
+        if (audioElement) {
+          audioElement.pause();
+          audioElement.currentTime = 0;
+          isPlaying = false;
+          playpauseBtn.innerHTML = '<i class="bi bi-play-circle-fill text-green-500 text-4xl"></i>';
+        }
+      }
+
+      modalContainer.addEventListener('click', function (event) {
+        if (event.target === modalContainer) {
+          closeModal();
+        }
+      });
+
+      closeModalButton.addEventListener('click', closeModal);
+
       var campaignlist;
       let callDetails = []; // Declare userDetails outside the fetch function
       let filteredData = [];
@@ -682,38 +420,33 @@
       };
       let StartDate;
       let EndDate;
-      const modal = document.getElementById("musicPlayerModal");
 
-      const storedUsername = JSON.parse(localStorage.getItem("admininfo")).user;
-      const storedorg = JSON.parse(
-        localStorage.getItem("admininfo")
-      ).organization;
+      const storedUsername = JSON.parse(localStorage.getItem('admininfo')).user;
+      const storedorg = JSON.parse(localStorage.getItem('admininfo')).organization;
 
       if (storedUsername) {
-        document.getElementById("displayUsername").innerText = storedUsername;
-        document.getElementById("displayUsername1").innerText = storedUsername;
-        document.getElementById("displayorg").innerText = storedorg;
+        document.getElementById('displayUsername').innerText = storedUsername;
+        document.getElementById('displayUsername1').innerText = storedUsername;
+        document.getElementById('displayorg').innerText = storedorg;
       } else {
-        document.getElementById("displayUsername").innerText =
-          "No stored username found.";
-        document.getElementById("displayUsernam1").innerText =
-          "No stored username found.";
+        document.getElementById('displayUsername').innerText = 'No stored username found.';
+        document.getElementById('displayUsernam1').innerText = 'No stored username found.';
       }
 
       async function fetchData() {
         try {
-          const response = await fetch("/campaigndetails", {
+          const response = await fetch('https://devapp.iotcom.io/campaigndetails', {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+              Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },
           });
 
           // Use await before checking the status and handling the response
           if (response.status === 401) {
             // Unauthorized response handling: redirect to index page or handle as needed
-            window.location.href = "/login.html"; // Replace with your index page URL
+            window.location.href = '/login.html'; // Replace with your index page URL
           } else if (!response.ok) {
-            throw new Error("Failed to fetch data");
+            throw new Error('Failed to fetch data');
           } else {
             const data1 = await response.json();
             const data = data1.result;
@@ -723,33 +456,49 @@
             }));
           }
         } catch (error) {
-          console.error("Error fetching data:", error);
+          console.error('Error fetching data:', error);
           return {
             campaignlist: [], // Provide a default value in case of an error
           };
         }
       }
 
-      document.addEventListener("DOMContentLoaded", async function () {
-        //console.log("page startted");
+      document.addEventListener('DOMContentLoaded', async function () {
         await fetchData();
+        playpauseBtn = document.getElementById('playpause-track101');
+        playpauseBtn.addEventListener('click', playpauseTrack);
         loadcallData();
       });
 
+      function playpauseTrack() {
+        isPlaying ? pauseTrack() : playTrack();
+      }
+
+      function playTrack() {
+        audioElement.play();
+        isPlaying = true;
+        wave.classList.add('loader');
+        playpauseBtn.innerHTML = '<i class="bi bi-pause-circle-fill text-gray-700 text-4xl"></i>';
+      }
+
+      function pauseTrack() {
+        audioElement.pause();
+        isPlaying = false;
+        wave.classList.remove('loader');
+        playpauseBtn.innerHTML = '<i class="bi bi-play-circle-fill text-green-500 text-4xl"></i>';
+      }
+
       // Initialize Flatpickr for date range selection
-      flatpickr("#date-range-picker", {
-        mode: "range",
-        dateFormat: "Y-m-d",
+      flatpickr('#date-range-picker', {
+        mode: 'range',
+        dateFormat: 'Y-m-d',
         onChange: function (selectedDates, dateStr, instance) {
           let StartDate;
           let EndDate;
-          console.log(selectedDates);
           if (selectedDates.length > 1) {
             DateObj = {
-              startdate: dateStr.split(" ")[0],
-              enddate: dateStr.split(" ")[2]
-                ? dateStr.split(" ")[2]
-                : dateStr.split(" ")[0],
+              startdate: dateStr.split(' ')[0],
+              enddate: dateStr.split(' ')[2] ? dateStr.split(' ')[2] : dateStr.split(' ')[0],
             };
             loadcallData(DateObj);
           } else if (selectedDates.length === 1) {
@@ -760,13 +509,11 @@
             loadcallData(DateObj);
           } else {
             console.log(StartDate, EndDate);
-            console.log("select date properly");
           }
         },
       });
 
       async function loadcallData(DatePicks) {
-        console.log(DatePicks);
         let formattedDates;
         if (DatePicks != null && DatePicks != undefined) {
           formattedDates = {
@@ -781,65 +528,61 @@
             enddate: new Date(currentdate).toISOString().substring(0, 10),
           };
         }
-        console.log(formattedDates);
-        fetch("/callData", {
-          method: "POST",
+
+        showSkeletonLoader(10, 10);
+        fetch('https://devapp.iotcom.io/callData', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
           },
           body: JSON.stringify(formattedDates),
         })
           .then((response) => {
             if (response.status === 401) {
               // Unauthorized response handling: redirect to index page or handle as needed
-              window.location.href = "/login.html"; // Replace with your index page URL
+              window.location.href = '/login.html'; // Replace with your index page URL
             } else if (!response.ok) {
-              throw new Error("Network response was not ok");
+              throw new Error('Network response was not ok');
             }
             return response.json();
           })
           .then((data) => {
             callDetails = data.result;
-            console.log(callDetails);
             const uniqueBridgeIDs = new Set();
-            if (callDetails !== null) {
-              callDetails = callDetails.filter((x) => x.Type !== "incoming");
+            if (callDetails !== null && callDetails !== undefined) {
+              callDetails = callDetails.filter((x) => x.Type === 'incoming');
               filteredData = []; // reset filterdata array
               callDetails.forEach((entry) => {
-                entry.duration = Math.floor(
-                  (entry.hanguptime - entry.startTime) / 1000
-                ); // assuming both times are in milliseconds
+                entry.duration = Math.floor((entry.hanguptime - entry.startTime) / 1000); // assuming both times are in milliseconds
                 entry.hanguptime = formatDateTime(entry.hanguptime);
                 entry.anstime = formatDateTime(entry.anstime);
                 entry.startTime = formatDateTime(entry.startTime);
-                entry.campaign = campaignlist.find(
-                  (a) => a.campaignID === entry.campaign
-                )?.campaignName;
+                entry.campaign = campaignlist.find((a) => a.campaignID === entry.campaign)?.campaignName;
+                if (entry.agent == null || entry.agent == undefined) {
+                  entry.agent = 'none@none';
+                }
 
                 function formatDateTime(dateTimeString) {
                   if (dateTimeString) {
                     const istDate = new Date(dateTimeString);
-                    const day = String(istDate.getDate()).padStart(2, "0");
-                    const month = String(istDate.getMonth() + 1).padStart(
-                      2,
-                      "0"
-                    );
+                    const day = String(istDate.getDate()).padStart(2, '0');
+                    const month = String(istDate.getMonth() + 1).padStart(2, '0');
                     const year = istDate.getFullYear();
                     const formattedDate = `${day}/${month}/${year}`;
 
-                    const formattedTime = istDate.toLocaleString("en-US", {
-                      timeZone: "Asia/Kolkata",
-                      hour: "numeric",
-                      minute: "numeric",
-                      second: "numeric",
+                    const formattedTime = istDate.toLocaleString('en-US', {
+                      timeZone: 'Asia/Kolkata',
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      second: 'numeric',
                       hour12: true,
                     });
 
                     const istDateFormat = `${formattedDate}\n\n\n${formattedTime}`;
                     return istDateFormat;
                   } else {
-                    return "NA";
+                    return 'NA';
                   }
                 }
 
@@ -850,130 +593,90 @@
                 }
               });
               populatecalls(filteredData);
+            } else {
+              filteredData = [];
+              populatecalls(filteredData);
             }
+            hideSkeletonLoader();
           })
           .catch((error) => {
-            console.error("Error fetching call details:", error);
+            console.error('Error fetching call details:', error);
           });
       }
 
       function populatecalls(filteredData) {
-        const Dttable = $("#calldata").DataTable();
+        const Dttable = $('#calldata').DataTable();
         Dttable.destroy();
-        console.log("populate calls");
-        console.log(filteredData);
-        const table = document
-          .getElementById("calldata")
-          .getElementsByTagName("tbody")[0];
-        table.innerHTML = "";
+        const table = document.getElementById('calldata').getElementsByTagName('tbody')[0];
+        table.innerHTML = '';
 
         filteredData.forEach(function (call, index) {
           // Change 'file' to 'call'
           let newRow = table.insertRow(table.rows.length);
-          // let cell1 = newRow.insertCell(0);
-          // let cell2 = newRow.insertCell(1);
-          // let cell3 = newRow.insertCell(2);
-          // let cell4 = newRow.insertCell(3);
-          // let cell5 = newRow.insertCell(4);
-          // let cell6 = newRow.insertCell(5);
-          // let cell7 = newRow.insertCell(6);
-          // let cell8 = newRow.insertCell(7); // Fix the index here
-
-          // cell1.textContent = call.Caller;
-          // cell2.textContent = call.dialNumber;
-          // cell3.textContent = call.campaign;
-          // cell4.textContent = call.startTime;
-          // cell5.textContent = call.anstime;
-          // cell6.textContent = call.calldisconnecttime;
-          // cell7.textContent = call.agent;
 
           const calldata = [
-            call.Caller ? call.Caller : "NA",
+            // call.Caller,
+            call.dialNumber,
             call.campaign,
             call.startTime,
             call.anstime,
             call.hanguptime,
             call.duration,
-            call.agent.split("@")[0],
-            call.Disposition ? call.Disposition : "No Dispodone",
+            call.agent.split('@')[0],
+            call.Disposition ? call.Disposition : 'No Dispodone',
           ];
           for (i = 0; i < calldata.length; i++) {
             const cell = newRow.insertCell(i);
-            cell.innerHTML = calldata[i] !== undefined ? calldata[i] : "NA";
+            cell.innerHTML = calldata[i] !== undefined ? calldata[i] : 'NA';
           }
           const actioncell1 = newRow.insertCell(calldata.length);
 
-          var playButton = document.createElement("button");
-          playButton.className = "btn btn-success play-btn";
+          var playButton = document.createElement('button');
+          playButton.className =
+            'inline-block rounded text-white bg-green-700 hover:bg-transparent hover:border-green-700 border transition-all	hover:text-green-700 text-lg px-2 py-1';
           playButton.innerHTML = ' <i class="bi bi-headphones"></i>';
-          playButton.setAttribute("data-bs-toggle", "modal");
-          playButton.setAttribute("data-bs-target", "#musicPlayerModal");
-          playButton.addEventListener("click", () => playaudio(index));
+          playButton.addEventListener('click', () => playaudio(index));
           actioncell1.appendChild(playButton);
           const audioname = call.bridgeID;
 
           function playaudio(index) {
             const audioname = filteredData[index]?.bridgeID;
             //Create an Audio element
-            const audioElement = new Audio();
-            console.log("line number788", audioname);
+            audioElement = new Audio();
             // Set the source of the Audio element if the audio file exists
-            const audioSource = "/recording" + audioname + ".wav";
+            const audioSource = 'https://devapp.iotcom.io/recording' + audioname + '.wav';
             if (audioSource) {
               audioElement.src = audioSource;
               document.body.appendChild(audioElement);
+              const modal = document.getElementById('musicPlayerModal');
+              modal.classList.remove('hidden');
             }
+            const playpauseBtn = document.getElementById('playpause-track101');
+            const seekSlider = document.querySelector('.seek-slider');
+            const volumeSlider = document.querySelector('.volume-slider');
+            const currentTimeText = document.querySelector('.current-time');
+            const totalDurationText = document.querySelector('.total-duration');
+            const randomBtn = document.querySelector('.random-track');
+            const prevBtn = document.querySelector('.prev-track');
+            const nextBtn = document.querySelector('.next-track');
+            const repeatBtn = document.querySelector('.repeat-track');
 
-            const playpauseBtn = document.getElementById("playpause-track101");
-            const seekSlider = document.querySelector(".seek_slider");
-            const volumeSlider = document.querySelector(".volume_slider");
-            const currentTimeText = document.querySelector(".current-time");
-            const totalDurationText = document.querySelector(".total-duration");
-            const randomBtn = document.querySelector(".random-track");
-            const prevBtn = document.querySelector(".prev-track");
-            const nextBtn = document.querySelector(".next-track");
-            const repeatBtn = document.querySelector(".repeat-track");
-            const wave = document.getElementById("wave");
-
-            const bridgeID = document.getElementById("bridgeID");
+            const bridgeID = document.getElementById('bridgeID');
             bridgeID.textContent = audioname;
 
             let currentTrack = 0;
             let isPlaying = false;
 
-            //console.log(duration);
-
-            function playpauseTrack() {
-              isPlaying ? pauseTrack() : playTrack();
-            }
-
-            function playTrack() {
-              console.log(audioElement.duration);
-              audioElement.play();
-              isPlaying = true;
-              wave.classList.add("loader");
-              playpauseBtn.innerHTML =
-                '<i class="bi bi-pause-circle-fill"></i>';
-            }
-
             audioElement.onended = function () {
-              wave.classList.remove("loader");
+              wave.classList.remove('loader');
               isPlaying = false;
-              playpauseBtn.innerHTML = '<i class="bi bi-play-circle-fill"></i>';
+              playpauseBtn.innerHTML = '<i class="bi bi-play-circle-fill text-green-500 text-4xl"></i>';
             };
-
-            function pauseTrack() {
-              audioElement.pause();
-              isPlaying = false;
-              wave.classList.remove("loader");
-              playpauseBtn.innerHTML = '<i class="bi bi-play-circle-fill"></i>';
-            }
-            playpauseBtn.addEventListener("click", playpauseTrack);
 
             function updateSeekSlider() {
               const duration = audioElement.duration;
               const currentTime = audioElement.currentTime;
-              const displayduration = document.getElementById("totalduration");
+              const displayduration = document.getElementById('totalduration');
               displayduration.innerHTML = formatTime(duration);
               seekSlider.value = (currentTime / duration) * 100;
               currentTimeText.textContent = formatTime(currentTime);
@@ -986,35 +689,15 @@
             function formatTime(time) {
               const minutes = Math.floor(time / 60);
               const seconds = Math.floor(time % 60);
-              return `${
-                minutes < 10 ? "0" : ""
-              }${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+              return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
             }
-
-            // function nextTrack() {
-            //     currentTrack = (currentTrack + 1) % playlist.length;
-            //     loadAndPlayTrack(currentTrack);
-            //     wave.classList.add('loader');
-            // }
-
-            // function prevTrack() {
-            //     currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
-            //     loadAndPlayTrack(currentTrack);
-            //     wave.classList.add('loader');
-            // }
-
-            // function randomTrack() {
-            //     const randomIndex = Math.floor(Math.random() * playlist.length);
-            //     loadAndPlayTrack(randomIndex);
-            // }
 
             function repeatTrack() {
               audioElement.currentTime = 0;
               audioElement.play();
               isPlaying = true;
-              wave.classList.add("loader");
-              playpauseBtn.innerHTML =
-                '<i class="bi bi-pause-circle-fill"></i>';
+              wave.classList.add('loader');
+              playpauseBtn.innerHTML = '<i class="bi bi-pause-circle-fill text-gray-700 text-4xl"></i>';
             }
 
             function seekTo() {
@@ -1023,54 +706,30 @@
               audioElement.currentTime = (seekValue * duration) / 100;
             }
 
-            // function loadAndPlayTrack() {
-            //     audioElement.src = audioSource;
-            //     audioElement.load();
-            //     audioElement.onloadedmetadata = function () {
-            //         audioElement.play();
-            //         isPlaying = true;
-            //         playpauseBtn.innerHTML = '<i class="bi bi-pause-circle-fill"></i>';
-            //         totalDurationText.textContent = formatTime(audioElement.duration);
-            //     };
-            // }
+            repeatBtn.addEventListener('click', repeatTrack);
+            seekSlider.addEventListener('input', seekTo);
+            volumeSlider.addEventListener('input', setVolume);
 
-            // nextBtn.addEventListener("click", nextTrack);
-            // prevBtn.addEventListener("click", prevTrack);
-            // randomBtn.addEventListener("click", randomTrack);
-            repeatBtn.addEventListener("click", repeatTrack);
-            seekSlider.addEventListener("input", seekTo);
-            volumeSlider.addEventListener("input", setVolume);
-
-            audioElement.addEventListener("timeupdate", updateSeekSlider);
-            window.addEventListener("click", (event) => {
+            audioElement.addEventListener('timeupdate', updateSeekSlider);
+            window.addEventListener('click', (event) => {
               if (event.target === modal) {
                 audioElement.src = null;
-                playpauseBtn.innerHTML =
-                  '<i class="bi bi-play-circle-fill"></i>';
-                wave.classList.remove("loader");
+                playpauseBtn.innerHTML = '<i class="bi bi-pause-circle-fill text-gray-700 text-4xl"></i>';
+                wave.classList.remove('loader');
               }
             });
           }
         });
+
         $(document).ready(function () {
-          $("#calldata").DataTable({
-            dom: "Blfrtip",
-            buttons: ["copy", "csv", "excel", "pdf", "print"],
-            order: [
-              [2, "desc"], // Column index 2 (zero-based) sorted in descending order
-            ],
+          $('#calldata').DataTable({
+            dom: 'Blfrtip',
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            order: [[5, 'desc']],
+            scrollX: true,
+            scrollCollapse: true,
           });
         });
-      }
-
-      function signOut() {
-        // Clear localStorage (optional)
-        localStorage.removeItem("admininfo");
-        localStorage.removeItem("jwtToken");
-        localStorage.removeItem("didData");
-
-        // Redirect to the desired location
-        window.location.href = "/login.html";
       }
     </script>
     <!-- Vendor JS Files -->

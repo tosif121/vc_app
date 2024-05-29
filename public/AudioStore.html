@@ -13,13 +13,14 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
       rel="stylesheet"
     />
 
     <!-- Vendor CSS Files -->
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" /> -->
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
     <!--   
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
@@ -29,366 +30,364 @@
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet"> -->
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet" />
-    <link href="wav-conv.css" rel="stylesheet" />
+    <!-- <link href="assets/css/style.css" rel="stylesheet" /> -->
+    <!-- <link href="wav-conv.css" rel="stylesheet" /> -->
     <link href="mainRecorder.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" /> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/tailwindcss/globals.css" rel="stylesheet" />
+    <script src="assets/tailwindcss/tailwindcss.js"></script>
   </head>
 
   <body>
-    <section class="d-flex min-vh-100 flex-column">
-      <header id="header" class="header sticky-top d-flex align-items-center">
-        <div class="d-flex align-items-center justify-content-center">
-          <a href="admindashboard.html" class="logo d-flex align-items-center">
-            <img src="./img/logo.png" alt="iotcom" />
+    <section class="flex min-h-screen flex-col">
+      <header
+        id="header"
+        class="header sticky top-0 flex items-center bg-white justify-between p-2 shadow-[0_0_07px_0px_rgba(0,0,0,0.2)] z-50"
+      >
+        <div class="flex justify-between w-full items-center">
+          <a href="trunkControl.html">
+            <img src="./img/logo.png" alt="iotcom" class="w-48" />
           </a>
+          <ul class="flex gap-4 me-5" id="sidebar-nav">
+            <li>
+              <a class="text-black hover:text-[#2196f3] transition-all" href="admindashboard.html"> Dashboard </a>
+            </li>
+
+            <li class="relative">
+              <div
+                class="cursor-pointer text-black hover:text-[#2196f3] transition-all flex items-center"
+                id="usersDropdown"
+              >
+                Users<i class="bi bi-chevron-down ms-2"></i>
+              </div>
+              <ul
+                class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-10 rounded-lg -right-12 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 ease-in-out transform origin-top-right"
+                style="max-height: 0"
+              >
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="adduser.html">
+                    <i class="bi bi-chevron-right me-2"></i>Add New Users
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="userlist.html">
+                    <i class="bi bi-chevron-right me-2"></i>User List
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="AgentLoginHours.html">
+                    <i class="bi bi-chevron-right me-2"></i>Agent Login Hours
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="Forcelogout.html">
+                    <i class="bi bi-chevron-right me-2"></i>Force Logout
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Broadcast Section -->
+            <li class="relative">
+              <div
+                class="cursor-pointer text-black hover:text-[#2196f3] transition-all flex items-center"
+                id="broadcastDropdown"
+              >
+                Broadcast<i class="bi bi-chevron-down ms-2"></i>
+              </div>
+              <ul
+                class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-10 rounded-lg -right-12 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 ease-in-out transform origin-top-right"
+                style="max-height: 0"
+              >
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="broadcast.html">
+                    <i class="bi bi-chevron-right me-2"></i>Add Broadcast
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="Broadcastform.html">
+                    <i class="bi bi-chevron-right me-2"></i>Upload Broadcast
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="broadCastReport.html">
+                    <i class="bi bi-chevron-right me-2"></i>Broadcast Report
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="broadCastSummary.html">
+                    <i class="bi bi-chevron-right me-2"></i>Broadcast Summary
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Campaign Section -->
+            <li class="relative">
+              <div
+                class="cursor-pointer text-black hover:text-[#2196f3] transition-all flex items-center"
+                id="campaignDropdown"
+              >
+                Campaign<i class="bi bi-chevron-down ms-2"></i>
+              </div>
+              <ul
+                class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-10 rounded-lg -right-12 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 ease-in-out transform origin-top-right"
+                style="max-height: 0"
+              >
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="newcampaign.html">
+                    <i class="bi bi-chevron-right me-2"></i>Add Campaign
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="form.html">
+                    <i class="bi bi-chevron-right me-2"></i>Upload Campaign
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="offlineCampaign.html">
+                    <i class="bi bi-chevron-right me-2"></i>Offline Campaign
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Menu Section -->
+            <li class="relative">
+              <a class="text-black hover:text-[#2196f3] transition-all" href="CallMenu.html"> Menu </a>
+            </li>
+
+            <!-- Audio Store Section -->
+            <li class="relative">
+              <a class="text-[#2196f3] hover:text-[#2196f3] transition-all" href="AudioStore.html"> Audio Store </a>
+            </li>
+
+            <!-- DID Section -->
+            <li class="relative">
+              <a class="text-black hover:text-[#2196f3] transition-all" href="DID.html"> DID </a>
+            </li>
+
+            <li class="relative">
+              <div
+                class="cursor-pointer text-black hover:text-[#2196f3] transition-all flex items-center"
+                id="callReports"
+              >
+                Call Reports<i class="bi bi-chevron-down ms-2"></i>
+              </div>
+
+              <ul
+                class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-10 rounded-lg -right-12 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 ease-in-out transform origin-top-right"
+                style="max-height: 0"
+              >
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="aprReport.html">
+                    <i class="bi bi-chevron-right me-2"></i>Agent performance report
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="calldata.html">
+                    <i class="bi bi-chevron-right me-2"></i>Call detail report
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="IncomingCallData.html">
+                    <i class="bi bi-chevron-right me-2"></i>Incoming Call reports
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="OutgoinfCallData.html">
+                    <i class="bi bi-chevron-right me-2"></i>Outgoing Call reports
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="incomingDrop.html">
+                    <i class="bi bi-chevron-right me-2"></i>Drop Call reports
+                  </a>
+                </li>
+                <!-- Add more items as needed -->
+              </ul>
+            </li>
+          </ul>
         </div>
-        <div class="ms-auto d-flex align-items-end">
-          <div id="sidebar" class="sidebar me-5">
-            <ul class="sidebar-nav d-flex gap-4" id="sidebar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="admindashboard.html">
-                  <!-- <i class="bi bi-grid"></i> -->
-                  <span>Dashboard</span>
-                </a>
-              </li>
-              <!-- End Dashboard Nav -->
 
-              <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-                  <!-- <i class="bi bi-gem"></i> -->
-                  <span>Users</span><i class="bi bi-chevron-down ms-2"></i>
-                </a>
-                <ul id="icons-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                  <li>
-                    <a href="adduser.html"> <i class="bi bi-chevron-right"></i><span>Add New Users</span> </a>
-                  </li>
-                  <li>
-                    <a href="userlist.html"> <i class="bi bi-chevron-right"></i><span>User List</span> </a>
-                  </li>
-                  <li>
-                    <a href="AgentLoginHours.html">
-                      <i class="bi bi-chevron-right"></i><span>Agent Login Hours</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="Forcelogout.html"> <i class="bi bi-chevron-right"></i><span>Force Logout</span> </a>
-                  </li>
-                </ul>
-              </li>
-
-              <!-- Broadcast Section -->
-              <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#Broadcast-nav" data-bs-toggle="collapse" href="#">
-                  <!-- <i class="bi bi-broadcast"></i> -->
-                  <span>Broadcast</span><i class="bi bi-chevron-down ms-2"></i>
-                </a>
-                <ul id="Broadcast-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                  <li>
-                    <a href="broadcast.html"> <i class="bi bi-chevron-right"></i><span>Add Broadcast</span> </a>
-                  </li>
-                  <li>
-                    <a href="Broadcastform.html"> <i class="bi bi-chevron-right"></i><span>Upload Broadcast</span> </a>
-                  </li>
-                  <li>
-                    <a href="broadCastReport.html">
-                      <i class="bi bi-chevron-right"></i><span>Broadcast Report</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="broadCastSummary.html">
-                      <i class="bi bi-chevron-right"></i><span>Broadcast Summary</span>
-                    </a>
-                  </li>
-                  <!-- Add more items as needed -->
-                </ul>
-              </li>
-
-              <!-- campagian Section -->
-              <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#Campaign-nav" data-bs-toggle="collapse" href="#">
-                  <!-- <i class="bi bi-layout-text-window-reverse"></i> -->
-                  <span>Campaign</span><i class="bi bi-chevron-down ms-2"></i>
-                </a>
-                <ul id="Campaign-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                  <li>
-                    <a href="newcampaign.html"> <i class="bi bi-chevron-right"></i><span>Add Campaign</span> </a>
-                  </li>
-
-                  <li>
-                    <a href="form.html"> <i class="bi bi-chevron-right"></i><span>Upload Campaign</span> </a>
-                  </li>
-                  <li>
-                    <a href="offlineCampaign.html"> <i class="bi bi-chevron-right"></i><span>Offline Campaign</span> </a>
-                  </li>
-                  <!-- Add more items as needed -->
-                </ul>
-              </li>
-              <!-- End Blank Page Nav -->
-
-              <li class="nav-item">
-                <a class="nav-link collapsed" href="CallMenu.html">
-                  <!-- <i class="bi bi-telephone-plus"></i> -->
-                  <span>Call Menu</span>
-                </a>
-              </li>
-              <!-- End Blank Page Nav -->
-
-              <li class="nav-item">
-                <a class="nav-link collapsed active" href="AudioStore.html">
-                  <!-- <i class="bi bi-file-earmark-music"></i> -->
-                  <span>Audio Store</span>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link collapsed" href="DID.html">
-                  <!-- <i class="bi bi-card-list"></i> -->
-                  <span>Add/Show DID</span>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
-                  <span>Call Reports</span> <i class="bi bi-chevron-down ms-2"></i>
-                </a>
-                <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                  <li>
-                    <a href="aprReport.html">
-                      <i class="bi bi-chevron-right"></i><span>Agent performance report</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="calldata.html">
-                      <i class="bi bi-chevron-right"></i><span>Call detail report</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="IncomingCallData.html">
-                      <i class="bi bi-chevron-right"></i><span>Incoming Call reports</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="OutgoinfCallData.html">
-                      <i class="bi bi-chevron-right"></i><span>Outgoing Call reports</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="incomingDrop.html"> <i class="bi bi-chevron-right"></i><span>Drop Call reports</span> </a>
-                  </li>
-                  <!-- Add more items as needed -->
-                </ul>
-              </li>
-            </ul>
+        <div class="relative px-3">
+          <div
+            class="cursor-pointer text-black hover:text-[#2196f3] transition-all flex items-center"
+            id="profileDropdown"
+          >
+            <img src="img/shiv.jpg" alt="Profile" class="rounded-full w-10 h-10" />
+            <span class="d-none d-md-block dropdown-toggle ps-2 font-medium" id="displayUsername"></span>
+            <svg class="fill-current ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path
+                d="M10 12.586L4.293 6.879a1 1 0 0 0-1.414 1.414l6.364 6.364a1 1 0 0 0 1.414 0l6.364-6.364a1 1 0 0 0-1.414-1.414L10 12.586z"
+              />
+            </svg>
           </div>
-
-          <!-- End Logo -->
-
-          <div class="search-bar" style="display: none">
-            <form class="search-form d-flex align-items-center" method="POST" action="#">
-              <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
-              <button type="submit" title="Search">
-                <i class="bi bi-search"></i>
-              </button>
-            </form>
-          </div>
-          <!-- End Search Bar -->
-
-          <nav class="header-nav ms-auto">
-            <ul class="d-flex align-items-center">
-              <li class="nav-item d-block d-lg-none">
-                <a class="nav-link nav-icon search-bar-toggle" href="#" style="display: none">
-                  <i class="bi bi-search"></i>
-                </a>
-              </li>
-              <!-- End Search Icon-->
-
-              <li class="nav-item dropdown pe-3">
-                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                  <img src="img/shiv.jpg" alt="Profile" class="rounded-circle" />
-                  <span class="d-none d-md-block dropdown-toggle ps-2 text-capitalize" id="displayUsername"></span> </a
-                ><!-- End Profile Iamge Icon -->
-
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                  <li class="dropdown-header text-capitalize">
-                    <h6 id="displayUsername1">Shiv Shekhawat</h6>
-                    <span id="displayorg">Web Designer</span>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                      <i class="bi bi-person"></i>
-                      <span>My Profile</span>
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                      <i class="bi bi-gear"></i>
-                      <span>Account Settings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                      <i class="bi bi-question-circle"></i>
-                      <span>Need Help?</span>
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center" href="#" onclick="signOut()">
-                      <i class="bi bi-box-arrow-right"></i>
-                      <span>Sign Out</span>
-                    </a>
-                  </li>
-                </ul>
-                <!-- End Profile Dropdown Items -->
-              </li>
-              <!-- End Profile Nav -->
-            </ul>
-          </nav>
+          <ul
+            class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-10 rounded-lg right-0 bg-white shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all duration-300 ease-in-out transform origin-top-right"
+            style="max-height: 0"
+          >
+            <li class="p-3 border-b">
+              <h6 id="displayUsername1">Shiv Shekhawat</h6>
+              <span id="displayorg">Web Designer</span>
+            </li>
+            <li class="p-3 border-b">
+              <i class="bi bi-person"></i>
+              <span>My Profile</span>
+            </li>
+            <li class="p-3 border-b"><i class="bi bi-gear"></i> <span>Account Settings</span></li>
+            <li class="p-3 border-b"><i class="bi bi-question-circle"></i> <span>Need Help?</span></li>
+            <li class="p-3">
+              <a class="dropdown-item d-flex align-items-center" href="#" onclick="signOut()">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+          </ul>
         </div>
-        <!-- End Icons Navigation -->
       </header>
-      <!-- End Sidebar-->
-
-      <main id="main" class="main flex-grow-1">
-        <div class="container-fluid">
-          <div class="bg-white shadow-sm rounded p-3 m-2">
-            <h3 class="my-4 text-center">Upload Audio File</h3>
-            <form id="uploadForm" class="gap-4 align-items-end d-flex">
-              <div class="form-group w-100">
-                <label for="audioFile" class="form-label">Choose Audio File</label>
-                <input type="file" class="form-control" name="audioFile" id="audioFile" accept=".mp3, .wav" required />
-              </div>
-              <div class="form-group w-100">
-                <label for="audioDescription" class="form-label">Audio Description</label>
-                <input type="text" class="form-control mb-0" name="audioDescription" id="audioDescription" required />
-              </div>
-              <button type="submit" class="btn btn-primary mb-1">Upload</button>
-            </form>
-            <div class="d-flex align-items-center">
-              <p class="text-muted mb-0">
-                We Strongly Recommend Uploading 16bit Mono 8k PCM WAV audio only file (.wav)&
-              </p>
-              <a
-                class="cursor-pointer active m-2"
-                id="Converter"
-                data-bs-toggle="modal"
-                data-bs-target="#converterModal"
-              >
-                Convert here
-              </a>
-
-              <a
-                id="Recorder"
-                class="cursor-pointer text-success"
-                data-bs-toggle="modal"
-                data-bs-target="#RecorderModal"
-              >
-                Record
-              </a>
+      <main id="main" class="main grow m-2">
+        <div class="bg-white shadow-[0px_-3px_22px_13px_#00000024] rounded-lg p-4">
+          <h3 class="text-2xl font-semibold">Upload Audio File</h3>
+          <form id="uploadForm" class="mt-3 flex justify-between gap-3 items-end">
+            <div class="form-group w-full">
+              <label for="formFile" class="mb-2 inline-block text-neutral-500 dark:text-neutral-400">Choose file</label>
+              <input
+                name="audioFile"
+                id="audioFile"
+                accept=".mp3, .wav"
+                required
+                type="file"
+                class="relative m-0 block w-full focus:border-[#2196f3] min-w-0 flex-auto cursor-pointer rounded border border-solid border border-[#dddddd] bg-transparent bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-surface transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3 file:py-[0.32rem] file:text-surface focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none dark:border-white/70 dark:text-white file:dark:text-white"
+              />
             </div>
-          </div>
+            <div class="form-group w-full">
+              <label for="audioDescription" class="mb-2 inline-block text-neutral-500 dark:text-neutral-400"
+                >Audio Description:</label
+              >
+              <input
+                type="text"
+                class="rounded border border-solid border border-[#dddddd] outline-0 focus:border-[#2196f3] px-3 py-[0.32rem] w-full"
+                name="audioDescription"
+                id="audioDescription"
+                required
+              />
+            </div>
+            <div class="">
+              <button
+                type="submit"
+                class="hover:text-[#2196f3] hover:bg-white border-[#2196f3] hover:border-[#2196f3] border bg-[#2196f3] px-3 py-[0.32rem] rounded transition-all text-white"
+              >
+                Upload
+              </button>
+            </div>
+          </form>
+          <p class="text-gray-500 my-3">
+            We Strongly Recommend Uploading 16bit Mono 8k PCM WAV audio only file (.wav)
+            <button
+              type="button"
+              id="openConverterModal"
+              class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
+            >
+              Convert
+            </button>
+            <button
+              type="button"
+              id="openrecorderModal"
+              class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
+            >
+              Record
+            </button>
+          </p>
 
           <!-- Modal for MP3 to wav converter -->
           <div
-            class="modal fade modal-lg"
             id="converterModal"
-            tabindex="-1"
-            aria-labelledby="converterModalLabel"
-            aria-hidden="true"
+            class="modal fixed inset-0 z-[100] overflow-y-auto top-50 hidden transition-all duration-1000"
           >
-            <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <div class="overlay-wait"></div>
-                  <div class="container page-wrapper">
-                    <h1><span class="active">MP3</span> to <span class="active">WAV</span> Converter</h1>
-                    <!-- <h2 style="text-decoration: underline;">Processes files in bulk. Accepts most audio formats.</h2> -->
+            <div
+              class="fixed top-0 flex items-center justify-center left-0 w-full h-full bg-black bg-opacity-50 z-[100]"
+              id="closeConverterModal"
+            >
+              <div
+                class="modal-content bg-white rounded-md shadow-md p-6 transform transition-transform ease-in-out w-3/6"
+              >
+                <div>
+                  <h1 class="text-2xl font-bold"><span>MP3</span> to <span>WAV</span> Converter</h1>
+                  <div class="p-3 border border-dashed border-gray-300 rounded mt-4 text-center">
+                    <p class="mb-4">Drag &amp; drop audio files here or</p>
 
-                    <!-- <p class="fx-notice">Consider using this converter in <a href="https://www.mozilla.org/en-US/firefox/new/"
-                                  target="_blank">Firefox</a>.</p>
-                          <p class="fx-notice">Firefox provides much better resampling quality, which is especially noticeable on low
-                              sample rates (e.g., 8000).</p> -->
-
-                    <div class="border d-grid gap-3 rounded p-3 mb-3">
-                      Drag &amp; drop audio files here or
-                      <label class="custom-file-input text-center" for="file-input"></label>
-                      <input id="file-input" type="file" multiple="multiple" accept="audio/*" style="display: none" />
-                      <label for="audioDescription1" class="form-label">Audio Description:</label>
+                    <label
+                      for="file-input"
+                      class="hover:text-[#2196f3] hover:bg-white border-[#2196f3] hover:border-[#2196f3] border bg-[#2196f3] px-3 py-[0.32rem] rounded transition-all text-white cursor-pointer"
+                    >
+                      Select file</label
+                    >
+                    <input id="file-input" type="file" multiple="multiple" accept="audio/*" class="hidden" />
+                    <div class="flex items-center gap-4 mt-4">
+                      <label
+                        for="audioDescription1"
+                        class="mb-2 text-neutral-500 dark:text-neutral-400 whitespace-nowrap"
+                        >Audio Description:</label
+                      >
                       <input
                         type="text"
-                        class="form-control"
+                        class="rounded border border-solid border border-[#dddddd] outline-0 focus:border-[#2196f3] px-3 py-[0.32rem] w-full"
                         name="audioDescription1"
                         id="audioDescription1"
                         required
                       />
                     </div>
+                  </div>
 
-                    <div class="wav-settings mt-2" style="display: none">
-                      <label for="wav-bit-depth">Bit-depth</label>
-                      <select class="form-control" id="wav-bit-depth">
-                        <option value="16" selected>16 Bit</option>
-                        <!-- <option value="8" disabled>8 Bit</option> -->
-                      </select>
-                      <label for="wav-channels" class="mt-2">Channels</label>
-                      <select class="form-control" id="wav-channels">
-                        <option value="mix" selected>1 - mix</option>
-                        <!-- <option value="left">1 - left</option>
-                    <option value="right">1 - right</option>
-                    <option value="both">2 - mix</option> -->
-                      </select>
-                      <label for="wav-sample-rate" class="mt-2">Sample rate</label>
-                      <select class="form-control" id="wav-sample-rate">
-                        <option value="8000" selected>8000</option>
-                        <!-- <option value="10000">10000</option>
-                    <option value="12000">12000</option>
-                    <option value="16000">16000</option>
-                    <option value="20000">20000</option>
-                    <option value="24000">24000</option>
-                    <option value="28000">28000</option>
-                    <option value="32000">32000</option>
-                    <option value="44100">44100</option>
-                    <option value="48000">48000</option> -->
-                      </select>
-                    </div>
+                  <div class="wav-settings mt-4 hidden">
+                    <label for="wav-bit-depth" class="block">Bit-depth</label>
+                    <select class="form-control border border-gray-300 rounded p-2 mt-1" id="wav-bit-depth">
+                      <option value="16" selected>16 Bit</option>
+                    </select>
+                    <label for="wav-channels" class="block mt-3">Channels</label>
+                    <select class="form-control border border-gray-300 rounded p-2 mt-1" id="wav-channels">
+                      <option value="mix" selected>1 - mix</option>
+                    </select>
+                    <label for="wav-sample-rate" class="block mt-3">Sample rate</label>
+                    <select class="form-control border border-gray-300 rounded p-2 mt-1" id="wav-sample-rate">
+                      <option value="8000" selected>8000</option>
+                    </select>
+                  </div>
 
-                    <table class="table file-table">
-                      <thead>
-                        <tr>
-                          <th>S.No</th>
-                          <th>Name</th>
-                          <th>Duration</th>
-                          <th>File Info</th>
-                        </tr>
-                      </thead>
-                      <tbody id="file-table-body">
-                        <!-- Table body content goes here -->
-                      </tbody>
-                    </table>
+                  <table class="table-auto w-full mt-4 border-collapse">
+                    <thead>
+                      <tr>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Duration</th>
+                        <th>File Info</th>
+                      </tr>
+                    </thead>
+                    <tbody id="file-table-body">
+                      <!-- Table body content goes here -->
+                    </tbody>
+                  </table>
 
-                    <div class="mt-3">
-                      <button id="clear-button" type="button" class="btn btn-primary" disabled>Clear</button>
-                      <button id="save-button" type="button" class="btn btn-primary" disabled>Convert and save</button>
-                    </div>
-\ 
+                  <div class="mt-4 flex justify-end space-x-2">
+                    <button
+                      id="clear-button"
+                      type="button"
+                      class="hover:text-[#333] hover:bg-white border-[#333] hover:border-[#333] border bg-[#333] px-3 py-[0.32rem] rounded transition-all text-white cursor-pointer"
+                      disabled
+                    >
+                      Clear
+                    </button>
+                    <button
+                      id="save-button"
+                      type="button"
+                      class="hover:text-[#2196f3] hover:bg-white border-[#2196f3] hover:border-[#2196f3] border bg-[#2196f3] px-3 py-[0.32rem] rounded transition-all text-white cursor-pointer"
+                      disabled
+                    >
+                      Convert and save
+                    </button>
                   </div>
                 </div>
               </div>
@@ -397,53 +396,33 @@
 
           <!-- Modal for audio recording -->
           <div
-            class="modal fade modal-lg"
-            id="RecorderModal"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="RecorderModalLabel"
-            aria-hidden="true"
+            id="recorderModal"
+            class="modal fixed inset-0 z-[100] overflow-y-auto top-50 hidden transition-all duration-1000"
           >
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="maindiv">
-                  <div class="holder">
-                    <div
-                      data-role="controls"
-                      style="
-                        position: relative;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        z-index: 3;
-                      "
-                    >
-                      <canvas
-                        width="300px"
-                        height="300px"
-                        id="test"
-                        style="background-color: #ffffff; z-index: 1"
-                      ></canvas>
-                      <button class="btn btn-primary" style="position: absolute; z-index: 2">Record</button>
-                    </div>
-
-                    <div data-role="recordings" class="container"></div>
-                  </div>
+            <div
+              class="fixed top-0 flex items-center justify-center left-0 w-full h-full bg-black bg-opacity-50 z-[100]"
+            >
+              <div
+                class="modal-content bg-white rounded-md shadow-md p-6 transform transition-transform ease-in-out w-3/6"
+              >
+                <div data-role="controls" class="relative flex items-center justify-center z-3">
+                  <canvas width="300px" height="300px" id="test" class="bg-white z-1"></canvas>
+                  <button class="btn btn-primary bg-blue-500 text-white px-4 py-2 rounded absolute z-2">Record</button>
                 </div>
+
+                <div data-role="recordings" class="container mt-4"></div>
               </div>
             </div>
           </div>
 
-          <h3 class="mt-4">Audio Files</h3>
-          <div class="table-responsive rounded">
-
-          <table class="table">
+          <h3 class="text-2xl font-semibold">Audio Files</h3>
+          <table class="table-auto w-full mt-3 border-collapse">
             <thead>
               <tr>
-                <th scope="col">File ID</th>
-                <th scope="col">Audio File</th>
-                <th scope="col">Audio Description</th>
-                <th scope="col">Play</th>
+                <th>File ID</th>
+                <th>Audio File</th>
+                <th>Audio Description</th>
+                <th>Play</th>
               </tr>
             </thead>
             <tbody id="fileTable">
@@ -454,8 +433,7 @@
       </main>
       <!-- End #main -->
 
-      <!-- ======= Footer ======= -->
-      <footer id="footer" class="footer">
+      <footer id="footer" class="footer bg-white text-center p-3 text-md">
         <div class="copyright">
           &copy; Copyright <strong><span>iotcom</span></strong
           >. All Rights Reserved
@@ -463,14 +441,14 @@
         <div class="credits">Designed by <a href="https://www.iotcom.io/">Iotcom</a></div>
       </footer>
     </section>
-    <!-- End Footer -->
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
+    <a
+      href="#"
+      class="back-to-top invisible flex items-center justify-center bg-[#2196f3] text-white fixed bottom-4 end-4 rounded-full w-10 h-10 hover:bg-white hover:text-[#2196f3] border-[#2196f3] border transition-all"
+      ><i class="bi bi-arrow-up-short text-2xl"></i
     ></a>
 
     <!-- Vendor JS Files -->
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
@@ -527,7 +505,7 @@
         formData.append('SoundID', ID);
 
         console.log(formData);
-        fetch('uploadivr', {
+        fetch('https://devapp.iotcom.io/uploadivr', {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
@@ -549,7 +527,7 @@
 
       let soundDetails = []; // Declare userDetails outside the fetch function
 
-      fetch('/sounddetails', {
+      fetch('https://devapp.iotcom.io/sounddetails', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
         },
@@ -590,14 +568,16 @@
           cell2.textContent = file.name;
           cell3.textContent = file.audiodes;
           var playButton = document.createElement('button');
-          playButton.className = 'btn btn-success px-2 py-1 rounded-1 fs-14';
+          playButton.className =
+            'inline-block rounded text-white bg-green-700 hover:bg-transparent hover:border-green-700 border transition-all	hover:text-green-700 text-lg px-2 py-1';
+
           playButton.innerHTML = '<i class="bi bi-play-fill"></i>';
           cell4.appendChild(playButton);
           var audioname = file.name;
           // Create an Audio element
           var audioElement = new Audio();
           // Set the source of the Audio element
-          audioElement.src = '/' + audioname;
+          audioElement.src = 'https://devapp.iotcom.io/' + audioname;
 
           document.body.appendChild(audioElement);
           var isPlaying = false;
@@ -791,7 +771,7 @@
                         // Use $.ajax for making the POST request
                         $.ajax({
                           type: 'POST',
-                          url: 'uploadivr',
+                          url: 'https://devapp.iotcom.io/uploadivr',
                           data: formData,
                           contentType: false,
                           processData: false,
@@ -860,16 +840,32 @@
           }
         });
       });
+      const modal = document.getElementById('converterModal');
+      const closeModalButton = document.getElementById('closeConverterModal');
+      closeModalButton.addEventListener('click', function (event) {
+        if (event.target === closeModalButton) {
+          modal.classList.add('hidden');
+        }
+      });
 
-      function signOut() {
-        // Clear localStorage (optional)
-        localStorage.removeItem('admininfo');
-        localStorage.removeItem('jwtToken');
-        localStorage.removeItem('didData');
+      document.getElementById('openConverterModal').addEventListener('click', function () {
+        document.getElementById('converterModal').classList.remove('hidden');
+      });
 
-        // Redirect to the desired location
-        window.location.href = '/login.html';
-      }
+      document.getElementById('openrecorderModal').addEventListener('click', function () {
+        document.getElementById('recorderModal').classList.remove('hidden');
+      });
+
+      window.addEventListener('click', function (event) {
+        const converterModal = document.getElementById('converterModal');
+        const recorderModal = document.getElementById('recorderModal');
+        if (event.target === converterModal) {
+          converterModal.classList.add('hidden');
+        }
+        if (event.target === recorderModal) {
+          recorderModal.classList.add('hidden');
+        }
+      });
     </script>
   </body>
 </html>
