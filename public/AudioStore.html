@@ -22,19 +22,7 @@
     <!-- Vendor CSS Files -->
     <!-- <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" /> -->
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-    <!--   
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet"> -->
 
-    <!-- Template Main CSS File -->
-    <!-- <link href="assets/css/style.css" rel="stylesheet" /> -->
-    <!-- <link href="wav-conv.css" rel="stylesheet" /> -->
-    <link href="mainRecorder.css" rel="stylesheet" />
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" /> -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="assets/tailwindcss/globals.css" rel="stylesheet" />
     <script src="assets/tailwindcss/tailwindcss.js"></script>
@@ -312,19 +300,27 @@
               id="closeConverterModal"
             >
               <div
-                class="modal-content bg-white rounded-md shadow-md p-6 transform transition-transform ease-in-out w-3/6"
+                class="modal-content bg-white rounded-md shadow-md p-6 transform transition-transform ease-in-out w-8/12"
               >
                 <div>
                   <h1 class="text-2xl font-bold"><span>MP3</span> to <span>WAV</span> Converter</h1>
-                  <div class="p-3 border border-dashed border-gray-300 rounded mt-4 text-center">
-                    <p class="mb-4">Drag &amp; drop audio files here or</p>
+
+                  <div
+                    id="overlayWait"
+                    class="fixed top-0 flex items-center justify-center left-0 w-full h-full bg-black bg-opacity-50 z-[100] hidden"
+                  >
+                    <span class="text-white text-lg font-semibold">Processing your files, please wait...</span>
+                  </div>
+                  <div class="p-5 border border-dashed border-gray-300 rounded mt-4 text-center drag-and-drop-area">
+                    Drag &amp; drop audio files here or
 
                     <label
                       for="file-input"
-                      class="hover:text-[#2196f3] hover:bg-white border-[#2196f3] hover:border-[#2196f3] border bg-[#2196f3] px-3 py-[0.32rem] rounded transition-all text-white cursor-pointer"
+                      class="hover:text-[#2196f3] ms-2 hover:bg-white border-[#2196f3] hover:border-[#2196f3] border bg-[#2196f3] px-3 py-[0.32rem] rounded transition-all text-white cursor-pointer"
                     >
                       Select file</label
                     >
+
                     <input id="file-input" type="file" multiple="multiple" accept="audio/*" class="hidden" />
                     <div class="flex items-center gap-4 mt-4">
                       <label
@@ -356,7 +352,6 @@
                       <option value="8000" selected>8000</option>
                     </select>
                   </div>
-
                   <table class="table-auto w-full mt-4 border-collapse">
                     <thead>
                       <tr>
@@ -364,11 +359,10 @@
                         <th>Name</th>
                         <th>Duration</th>
                         <th>File Info</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
-                    <tbody id="file-table-body">
-                      <!-- Table body content goes here -->
-                    </tbody>
+                    <tbody id="file-table-body"></tbody>
                   </table>
 
                   <div class="mt-4 flex justify-end space-x-2">
@@ -401,13 +395,18 @@
           >
             <div
               class="fixed top-0 flex items-center justify-center left-0 w-full h-full bg-black bg-opacity-50 z-[100]"
+              id="recordConverterModal"
             >
               <div
                 class="modal-content bg-white rounded-md shadow-md p-6 transform transition-transform ease-in-out w-3/6"
               >
+                <h1 class="text-2xl font-bold">Audio Record</h1>
+
                 <div data-role="controls" class="relative flex items-center justify-center z-3">
                   <canvas width="300px" height="300px" id="test" class="bg-white z-1"></canvas>
-                  <button class="btn btn-primary bg-blue-500 text-white px-4 py-2 rounded absolute z-2">Record</button>
+                  <button class="text-white rinset-0 rounded absolute z-2">
+                    <img src="/img/mic.png" alt="mic" />
+                  </button>
                 </div>
 
                 <div data-role="recordings" class="container mt-4"></div>
@@ -518,6 +517,7 @@
             console.log(data);
             alert('Successfully added audio');
             // Clear the form after a successful submission
+            modal.classList.add('hidden');
             document.getElementById('uploadForm').reset();
           })
           .catch((err) => {
@@ -669,7 +669,7 @@
                   old_level_L = instant_L;
 
                   cnvs_cntxt.clearRect(0, 0, cnvs.width, cnvs.height);
-                  cnvs_cntxt.fillStyle = '#24b300';
+                  cnvs_cntxt.fillStyle = '#dddddd';
 
                   // Calculate the radius of the circle based on the audio level
                   var radius = 90 + 40 * (instant_L / max_level_L);
@@ -704,7 +704,10 @@
                   const url = (window.URL || window.webkitURL).createObjectURL(blob);
 
                   // Prepare the playback
-                  const audioObject = $('<audio controls></audio>').attr('src', url);
+                  const audioObject = $('<audio controls class="border-[#2196f3] border rounded-lg"></audio>').attr(
+                    'src',
+                    url
+                  );
 
                   // Append audio to the list
                   listObject.append(audioObject);
@@ -713,13 +716,14 @@
                   const labelElement = $('<label>')
                     .attr({
                       for: 'audioDescription2',
-                      class: 'form-label',
+                      class: 'mb-2 text-neutral-500 dark:text-neutral-400 whitespace-nowrap',
                     })
                     .text('Audio Description:');
 
                   const inputElement = $('<input>').attr({
                     type: 'text',
-                    class: 'form-control',
+                    class:
+                      'rounded border border-solid border border-[#dddddd] outline-0 focus:border-[#2196f3] px-3 py-[0.32rem] w-full',
                     name: 'audioDescription2',
                     id: 'audioDescription2',
                     required: 'required',
@@ -736,12 +740,14 @@
                   const newButton = $('<button>', {
                     id: 'dynamicButton',
                     text: 'Upload',
+                    class:
+                      'hover:text-[#2196f3] mt-3 hover:bg-white border-[#2196f3] hover:border-[#2196f3] border bg-[#2196f3] px-3 py-[0.32rem] rounded transition-all text-white',
                     click: async function () {
                       try {
                         const audioDescriptionValue = inputElement.val();
                         // console.log(audioDescriptionValue);
                         // console.log(url);
-
+                        modalRecorder.classList.add('hidden');
                         // Define urlToFile function within the same scope
                         async function urlToFile(url, fileName, mimeType) {
                           const response = await fetch(url);
@@ -766,8 +772,6 @@
                         formData.append('files', myFile);
                         formData.append('SoundID', ID);
 
-                        console.log(formData);
-
                         // Use $.ajax for making the POST request
                         $.ajax({
                           type: 'POST',
@@ -782,6 +786,7 @@
                             console.log(data);
                             alert('Successfully added audio');
                             // Clear the form after a successful submission
+                            modal.classList.add('hidden');
                             document.getElementById('uploadForm').reset();
                           },
                           error: function (error) {
@@ -796,15 +801,6 @@
                         alert('Error occurred while uploading audio');
                       }
                     },
-                  });
-
-                  newButton.css({
-                    backgroundColor: '#4CAF50',
-                    color: 'white',
-                    padding: '10px 20px',
-                    borderRadius: '50px',
-                    marginTop: '4rem',
-                    // Add more CSS styles as needed
                   });
 
                   // Append the upload button to the list
@@ -842,9 +838,19 @@
       });
       const modal = document.getElementById('converterModal');
       const closeModalButton = document.getElementById('closeConverterModal');
+
+      const modalRecorder = document.getElementById('recorderModal');
+      const closeModal = document.getElementById('recordConverterModal');
+
       closeModalButton.addEventListener('click', function (event) {
         if (event.target === closeModalButton) {
           modal.classList.add('hidden');
+        }
+      });
+
+      closeModal.addEventListener('click', function (event) {
+        if (event.target === closeModal) {
+          modalRecorder.classList.add('hidden');
         }
       });
 

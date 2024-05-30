@@ -104,7 +104,6 @@ table tbody tr:hover {
   }
 }
 
-
-.dataTables_wrapper.no-footer .dataTables_scrollBody{
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
   border: unset !important;
 }
