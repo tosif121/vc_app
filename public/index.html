@@ -263,9 +263,10 @@
                 <a class="nav-link" href="#"> Group Meeting </a>
               </li>
               <!-- onclick="performbreak()" -->
+              <div id="breakBtnsDiv">
               <button id="liveButton" class="break_button text-white btn" onclick="showmodalbtn()">Break</button>
               <button id="breakButton" class="live_button btn text-white" style="display: none">Live</button>
-
+              </div>
               <button id="autoleaddial" class="autolead_button btn text-white" style="display: none">
                 Auto Dial
               </button>
@@ -460,13 +461,14 @@
 
 
         <script>
+          var breakModelOpen = false;
           function showmodalbtn() {
             const modal = document.getElementById("myModalbtns");
             modal.style.display = "flex";
             setTimeout(function () {
               modal.style.height = "100vh";
             }, .5); // Delay the height transition slightly for smoother animation
-
+            breakModelOpen = true;
           }
 
 
@@ -476,6 +478,7 @@
             setTimeout(function () {
               modal.style.display = "none";
             }, 500);
+            breakModelOpen = false;
           }
         </script>
 
@@ -1869,7 +1872,8 @@
                   button3.addEventListener('click', toggleDivs2);
                   async function confdialCall() {
                     const confNumber = document.getElementById('phoneNumber').value;
-                    if (confNumber != undefined && confNumber != '') {
+                    const isvalid = numpattern.test(confNumber);
+                    if (isvalid=== true) {
                       //console.log(confNumber);
                       const user = document.getElementById('username').value;
                       document.getElementById('secondnumber').innerText = confNumber;
@@ -2391,6 +2395,7 @@
   <script></script>
 
   <script>
+    var numpattern = /^\d{10}$/;
     dragElement(document.getElementById('meradiv'));
 
     function dragElement(elmnt) {
@@ -2564,6 +2569,7 @@
     let intervalId;
     var dialclicked = false;
     var baseUrl= window.location.host;
+    var connectionTime;
 
     const phone1div = document.getElementById('mydiv');
     async function togglehold() {
@@ -2899,7 +2905,7 @@
               const userinfo = data.userData;
               if(token){
                 console.log("token received");
-              localStorage.setItem('jwtToken', token);
+              localStorage.setItem('userjwtToken', token);
               }
               if(userinfo){
                 console.log("user info received");
@@ -2956,6 +2962,7 @@
                 // we can use this in future to create login session for agents
                 userlogin = true;
                 console.log(ua);
+                connectionTime = Date.now();
               } else if (data.message === 'failed,logout and login again') {
                 alert(data.message);
               }
@@ -2964,6 +2971,13 @@
               console.error('Error sending login rquest:', error);
             });
         });
+
+        ua.on("newMessage",function(e){
+          //console.log("message event",e);
+          connectionTime = Date.now();
+          connectioncheck();
+        });
+
         ua.on('registrationFailed', (data) => {
           let x = document.getElementById('statusfailed');
           let y = document.getElementById('creds');
@@ -2994,8 +3008,12 @@
           //const currentNum=9865326526;
           const currentNum = data.request.from._uri._user;
           console.log('request Data line no 1228', data);
+          document.getElementById("breakBtnsDiv").style.display = "none";
           if (currentNum !== 'anonymous') {
             Callnumber = currentNum;
+          }
+          if(breakModelOpen== true){
+            closemodalbtn();
           }
           callended = false;
           session = data.session;
@@ -3026,6 +3044,7 @@
             document.getElementById('unholdDisplay').style.display = 'block';
             document.getElementById('audioOnly').style.display = 'blokl';
             document.getElementById('newcallHangup').style.display = 'none';
+            document.getElementById("breakBtnsDiv").style.display = "block";
           });
 
           session.on('removestream', (e) => {
@@ -3195,10 +3214,10 @@
       }
     }
     async function dialfunc() {
-      if (dialclicked == false) {
+      let dialstring = document.getElementById('dialnumber').value;
+      if (dialclicked == false && numpattern.test(dialstring)) {
         dialclicked = true;
         const user = document.getElementById('username').value;
-        let dialstring = document.getElementById('dialnumber').value;
         const preview = document.getElementById("preview");
         const dialview = document.getElementById("dialview");
         preview.style.display  = "none" ;
@@ -3266,6 +3285,8 @@
             }
             //console.error('Error sending dial request:', error);
           }
+      }else if(numpattern.test(dialstring)==false){
+          displayMessage("check your Entered Number");
       } else {
 
         displayMessage('Call is already in progress');
@@ -3419,7 +3440,7 @@
         const preview = document.getElementById('preview');
         const user = document.getElementById('username').value;
         try {
-          localStorage.setItem("reqTime", `${Date.now()}`);
+
           const response = await Promise.race([
             fetch('/userconnection', {
               method: 'POST',
@@ -3465,6 +3486,11 @@
             const timeout = { timeout: true };
             timeoutarray.push(timeout);
             if (timeoutarray.length > 2) {
+              if(preview.style.display=="block"){
+                userlogin = false;
+                logoutfunction();
+              }
+                
               //alert('Connection problem: The request timed out');
             } else {
              // console.log('slight connection problem');
@@ -3478,8 +3504,19 @@
 
     const liveInterval = 1000; // 1 seconds in milliseconds
     //setInterval(() => { sendMessageToAsterisk(ua); }, 3000);
-    setInterval(connectioncheck, 4000);
+    setInterval(checkconnectivity, 5000);
 
+   function checkconnectivity(){
+      const preview = document.getElementById('preview');
+      if(userlogin === true && preview.style.display==="block"){
+        const currentTime = Date.now();
+        const difference = currentTime - connectionTime ;
+        if(difference>13000){
+          displayMessage("Internet connectivity problem occured");
+          location.reload();
+        } 
+      }
+    }
 
 
 
@@ -3664,7 +3701,7 @@
             //alert(data.message);
             displayMessage(data.message);
             userlogin = false;
-            localStorage.setItem("logoutTime", `${new Date()}`);
+           // localStorage.setItem("logoutTime", `${new Date()}`);
             location.reload();
             //console.log(ua);
             //ua.stop();
@@ -3919,10 +3956,12 @@
     }
 
     function notifyMe() {
+      console.log("notify function called")
       if (!('Notification' in window)) {
         // Check if the browser supports notifications
         alert('This browser does not support desktop notification');
       } else if (Notification.permission === 'granted') {
+        console.log("sending notification");
         // Check whether notification permissions have already been granted;
         // if so, create a notification
         const notification = new Notification('New Notifications!', {

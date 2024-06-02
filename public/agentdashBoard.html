@@ -221,7 +221,7 @@
 
     <script src="jssip-3.10.0.min.js"></script>
     <script>
-      var mainurl = `https://devapp.iotcom.io`;
+      var mainurl = window.location.host;
       let callData = [];
       let activityData = [];
       var user = JSON.parse(localStorage.getItem('userinfo')).userid;
@@ -236,11 +236,11 @@
       });
 
       async function makeDashboard() {
-        await fetch(`https://devapp.iotcom.io/agentDashboardData`, {
+        await fetch(`/agentDashboardData`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+            Authorization: `Bearer ${localStorage.getItem('userjwtToken')}`,
           },
           body: JSON.stringify({ user: `${JSON.parse(localStorage.getItem('userinfo')).userid}` }),
         })
@@ -500,7 +500,7 @@
       function signOut() {
         // Clear localStorage (optional)
         localStorage.removeItem('userinfo');
-        localStorage.removeItem('jwtToken');
+        localStorage.removeItem('userjwtToken');
         //localStorage.removeItem('didData');
 
         // Redirect to the desired location
@@ -526,6 +526,6 @@
     <script src="assets/vendor/tinymce/tinymce.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
+
   </body>
 </html>

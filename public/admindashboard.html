@@ -387,7 +387,8 @@
     <script src="jssip-3.10.0.min.js"></script>
     <script>
       // Declare userDetails and queue call data outside the fetch function
-      var mainurl = `https://devapp.iotcom.io`;
+       var mainurl = window.location.host;
+
       let liveuserDetails = [];
       let callinqueue = [];
       const audio = document.querySelector('audio');
@@ -434,7 +435,7 @@
         });
 
       async function startphone(callData) {
-        var socket = new JsSIP.WebSocketInterface('wss://devapp.iotcom.io:8089/ws');
+        var socket = new JsSIP.WebSocketInterface(`wss://${mainurl}:8089/ws`);
 
         user = JSON.parse(localStorage.getItem('admininfo')).user;
         let localpass = localStorage.getItem('pass');
@@ -444,7 +445,7 @@
 
         var configuration = {
           sockets: [socket],
-          uri: `sip:${user}@webrtc.iotcom.io`,
+          uri: `sip:${user}@${mainurl}`,
           authorization_user: user,
           password: pass,
         };
@@ -799,7 +800,7 @@
     <script src="assets/vendor/tinymce/tinymce.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
+
     <script src="my-chart.js"></script>
   </body>
 </html>

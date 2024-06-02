@@ -429,6 +429,8 @@
         });
         console.log(userdata);
 
+      const isvalidUser=  validateInput(userdata.userid);
+       if(isvalidUser){
         try {
           const response = await fetch('/createuser', {
             method: 'POST',
@@ -481,7 +483,14 @@
           console.error('Error:', err);
           alert('Error in app coding data.');
         }
+      }else{
+        alert('Not a valid username.'); 
+      }
       });
+      function validateInput(input) {
+    const regex = /^[A-Za-z0-9]+$/;
+    return regex.test(input);
+}
 
       function signOut() {
         // Clear localStorage (optional)
@@ -499,6 +508,6 @@
     <script src="assets/vendor/tinymce/tinymce.min.js"></script>
 
     <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
+
   </body>
 </html>

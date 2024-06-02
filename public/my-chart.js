@@ -1,4 +1,4 @@
-var ctx = document.getElementById('mychart').getContext('2d');
+gvar ctx = document.getElementById('mychart').getContext('2d');
 var earning = document.getElementById('earning').getContext('2d');
 var myChart = new Chart(ctx, {
   type: 'polarArea',

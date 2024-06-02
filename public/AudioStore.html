@@ -428,6 +428,7 @@
               <!-- Uploaded files will be displayed here -->
             </tbody>
           </table>
+          <div id="tableLoder"></div>
         </div>
       </main>
       <!-- End #main -->
@@ -457,6 +458,8 @@
     <!-- <script src="mainRecorder.js"></script> -->
     <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
     <script>
+      const tableBody = document.getElementById('tableLoder');
+
       document.getElementById('uploadForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -526,7 +529,7 @@
       });
 
       let soundDetails = []; // Declare userDetails outside the fetch function
-
+      showSkeletonLoader(10, 10);
       fetch('https://devapp.iotcom.io/sounddetails', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
@@ -546,6 +549,7 @@
           soundDetails = data.result;
           console.log(soundDetails);
           refreshTable(soundDetails);
+          hideSkeletonLoader();
         })
         .catch((error) => {
           console.error('Error fetching user details:', error);

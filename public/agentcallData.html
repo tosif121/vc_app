@@ -263,7 +263,7 @@
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+              Authorization: `Bearer ${localStorage.getItem('userjwtToken')}`,
             },
             body: JSON.stringify({ admin: storedorg }),
           });
@@ -331,7 +331,7 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+            Authorization: `Bearer ${localStorage.getItem('userjwtToken')}`,
           },
           body: JSON.stringify(formattedDates),
         })
@@ -623,6 +623,6 @@
     <script src="assets/vendor/tinymce/tinymce.min.js"></script>
 
     <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
+
   </body>
 </html>

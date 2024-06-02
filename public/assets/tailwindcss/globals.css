@@ -107,3 +107,33 @@ table tbody tr:hover {
 .dataTables_wrapper.no-footer .dataTables_scrollBody {
   border: unset !important;
 }
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.toast-enter {
+  animation: slideInRight 0.5s ease-out forwards;
+}
+
+.toast-exit {
+  animation: slideOutRight 0.5s ease-out forwards;
+}

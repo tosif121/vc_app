@@ -439,7 +439,7 @@
 
       async function fetchData() {
         try {
-          const response = await fetch('https://devapp.iotcom.io/campaigndetails', {
+          const response = await fetch('/campaigndetails', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },
@@ -534,7 +534,7 @@
         }
 
         showSkeletonLoader(10, 10);
-        fetch('https://devapp.iotcom.io/callData', {
+        fetch('/callData', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -560,7 +560,7 @@
               callDetails.forEach((entry) => {
                 entry.duration = Math.floor((entry.hanguptime - entry.startTime) / 1000); // assuming both times are in milliseconds
                 entry.hanguptime = formatDateTime(entry.hanguptime);
-                entry.anstime = formatDateTime(entry.anstime);
+                entry.anstime = entry.anstime?formatDateTime(entry.anstime):"NA";
                 entry.startTime = formatDateTime(entry.startTime);
                 entry.campaign = campaignlist.find((a) => a.campaignID === entry.campaign)?.campaignName;
                 if (entry.agent == null || entry.agent == undefined) {
@@ -580,7 +580,7 @@
                       hour: 'numeric',
                       minute: 'numeric',
                       second: 'numeric',
-                      hour12: true,
+                      hour12: false,
                     });
 
                     const istDateFormat = `${formattedDate}\n\n\n${formattedTime}`;
@@ -591,7 +591,7 @@
                 }
 
                 const bridgeID = entry.bridgeID;
-                if (!uniqueBridgeIDs.has(bridgeID)) {
+                if (!uniqueBridgeIDs.has(bridgeID) && bridgeID != undefined) {
                   filteredData.push(entry);
                   uniqueBridgeIDs.add(bridgeID);
                 }
@@ -627,7 +627,7 @@
             call.hanguptime,
             call.duration,
             call.agent.split('@')[0],
-            call.Disposition ? call.Disposition : 'No Dispodone',
+            call.Disposition ? call.Disposition : 'No Dispo',
           ];
           for (i = 0; i < calldata.length; i++) {
             const cell = newRow.insertCell(i);
@@ -648,7 +648,7 @@
             //Create an Audio element
             audioElement = new Audio();
             // Set the source of the Audio element if the audio file exists
-            const audioSource = 'https://devapp.iotcom.io/recording' + audioname + '.wav';
+            const audioSource = '/recording' + audioname + '.wav';
             if (audioSource) {
               audioElement.src = audioSource;
               document.body.appendChild(audioElement);

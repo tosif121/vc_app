@@ -13,388 +13,490 @@
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
       rel="stylesheet"
     />
+    <!-- <link href="assets/css/style.css" rel="stylesheet" /> -->
+    <!-- <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" /> -->
 
     <!-- Vendor CSS Files -->
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-
-    <!-- <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet"> -->
-
-    <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet" />
-   </head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/tailwindcss/globals.css" rel="stylesheet" />
+    <script src="assets/tailwindcss/tailwindcss.js"></script>
+  </head>
 
   <body>
-    <section class="d-flex min-vh-100 flex-column">
-      <header id="header" class="header sticky-top d-flex align-items-center">
-        <div class="d-flex align-items-center justify-content-center">
-          <a href="admindashboard.html" class="logo d-flex align-items-center">
-            <img src="./img/logo.png" alt="iotcom" />
+    <section class="flex min-h-screen flex-col">
+      <header
+        id="header"
+        class="header sticky top-0 flex items-center bg-white justify-between p-2 shadow-[0_0_07px_0px_rgba(0,0,0,0.2)] z-50"
+      >
+        <div class="flex justify-between w-full items-center">
+          <a href="trunkControl.html">
+            <img src="./img/logo.png" alt="iotcom" class="w-48" />
           </a>
+          <ul class="flex gap-4 me-5" id="sidebar-nav">
+            <li>
+              <a class="text-black hover:text-[#2196f3] transition-all" href="admindashboard.html"> Dashboard </a>
+            </li>
+
+            <li class="relative">
+              <div
+                class="cursor-pointer text-[#2196f3] hover:text-[#2196f3] transition-all flex items-center"
+                id="usersDropdown"
+              >
+                Users<i class="bi bi-chevron-down ms-2"></i>
+              </div>
+              <ul
+                class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-12 bg-white shadow-md transition-all duration-300 ease-in-out transform origin-top-right"
+                style="max-height: 0"
+              >
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="adduser.html">
+                    <i class="bi bi-chevron-right me-2"></i>Add New Users
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-[#2196f3] hover:text-[#2196f3] transition-all" href="userlist.html">
+                    <i class="bi bi-chevron-right me-2"></i>User List
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="AgentLoginHours.html">
+                    <i class="bi bi-chevron-right me-2"></i>Agent Login Hours
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="Forcelogout.html">
+                    <i class="bi bi-chevron-right me-2"></i>Force Logout
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Broadcast Section -->
+            <li class="relative">
+              <div
+                class="cursor-pointer text-black hover:text-[#2196f3] transition-all flex items-center"
+                id="broadcastDropdown"
+              >
+                Broadcast<i class="bi bi-chevron-down ms-2"></i>
+              </div>
+              <ul
+                class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-12 bg-white shadow-md transition-all duration-300 ease-in-out transform origin-top-right"
+                style="max-height: 0"
+              >
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="broadcast.html">
+                    <i class="bi bi-chevron-right me-2"></i>Add Broadcast
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="Broadcastform.html">
+                    <i class="bi bi-chevron-right me-2"></i>Upload Broadcast
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="broadCastReport.html">
+                    <i class="bi bi-chevron-right me-2"></i>Broadcast Report
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="broadCastSummary.html">
+                    <i class="bi bi-chevron-right me-2"></i>Broadcast Summary
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Campaign Section -->
+            <li class="relative">
+              <div
+                class="cursor-pointer text-black hover:text-[#2196f3] transition-all flex items-center"
+                id="campaignDropdown"
+              >
+                Campaign<i class="bi bi-chevron-down ms-2"></i>
+              </div>
+              <ul
+                class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-12 bg-white shadow-md transition-all duration-300 ease-in-out transform origin-top-right"
+                style="max-height: 0"
+              >
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="newcampaign.html">
+                    <i class="bi bi-chevron-right me-2"></i>Add Campaign
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="form.html">
+                    <i class="bi bi-chevron-right me-2"></i>Upload Campaign
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="offlineCampaign.html">
+                    <i class="bi bi-chevron-right me-2"></i>Offline Campaign
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Menu Section -->
+            <li class="relative">
+              <a class="text-black hover:text-[#2196f3] transition-all" href="CallMenu.html"> Menu </a>
+            </li>
+
+            <!-- Audio Store Section -->
+            <li class="relative">
+              <a class="text-black hover:text-[#2196f3] transition-all" href="AudioStore.html"> Audio Store </a>
+            </li>
+
+            <!-- DID Section -->
+            <li class="relative">
+              <a class="text-black hover:text-[#2196f3] transition-all" href="DID.html"> DID </a>
+            </li>
+
+            <li class="relative">
+              <div
+                class="cursor-pointer text-black hover:text-[#2196f3] transition-all flex items-center"
+                id="callReports"
+              >
+                Call Reports<i class="bi bi-chevron-down ms-2"></i>
+              </div>
+
+              <ul
+                class="dropdown-menu overflow-hidden absolute z-50 whitespace-nowrap top-12 bg-white shadow-md transition-all duration-300 ease-in-out transform origin-top-right"
+                style="max-height: 0"
+              >
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="aprReport.html">
+                    <i class="bi bi-chevron-right me-2"></i>Agent performance report
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="calldata.html">
+                    <i class="bi bi-chevron-right me-2"></i>Call detail report
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="IncomingCallData.html">
+                    <i class="bi bi-chevron-right me-2"></i>Incoming Call reports
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="OutgoinfCallData.html">
+                    <i class="bi bi-chevron-right me-2"></i>Outgoing Call reports
+                  </a>
+                </li>
+                <li class="p-2">
+                  <a class="text-black hover:text-[#2196f3] transition-all" href="incomingDrop.html">
+                    <i class="bi bi-chevron-right me-2"></i>Drop Call reports
+                  </a>
+                </li>
+                <!-- Add more items as needed -->
+              </ul>
+            </li>
+          </ul>
         </div>
-        <div class="ms-auto d-flex align-items-end">
-          <div id="sidebar" class="sidebar me-5">
-            <ul class="sidebar-nav d-flex gap-4" id="sidebar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="admindashboard.html">
-                  <!-- <i class="bi bi-grid"></i> -->
-                  <span>Dashboard</span>
-                </a>
+
+        <div class="relative inline-block">
+          <button class="py-2 px-4 rounded inline-flex items-center focus:outline-none" id="dropdown-btn">
+            <img src="img/shiv.jpg" alt="Profile" class="rounded-full w-10 h-10" />
+            <span class="d-none d-md-block dropdown-toggle ps-2" id="displayUsername"></span>
+            <svg class="fill-current ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path
+                d="M10 12.586L4.293 6.879a1 1 0 0 0-1.414 1.414l6.364 6.364a1 1 0 0 0 1.414 0l6.364-6.364a1 1 0 0 0-1.414-1.414L10 12.586z"
+              />
+            </svg>
+          </button>
+          <div
+            class="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 transition-all duration-200 opacity-0 invisible"
+            id="dropdown-menu"
+          >
+            <ul class="py-1 px-3" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+              <li class="py-3 border-b">
+                <h6 id="displayUsername1">Shiv Shekhawat</h6>
+                <span id="displayorg">Web Designer</span>
               </li>
-              <!-- End Dashboard Nav -->
-
-              <li class="nav-item">
-                <a class="nav-link collapsed active" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-                  <!-- <i class="bi bi-gem"></i> -->
-                  <span>Users</span><i class="bi bi-chevron-down ms-2"></i>
-                </a>
-                <ul id="icons-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                  <li>
-                    <a href="adduser.html"> <i class="bi bi-chevron-right"></i><span>Add New Users</span> </a>
-                  </li>
-                  <li>
-                    <a href="userlist.html" class="active"> <i class="bi bi-chevron-right"></i><span>User List</span> </a>
-                  </li>
-                  <li>
-                    <a href="AgentLoginHours.html">
-                      <i class="bi bi-chevron-right"></i><span>Agent Login Hours</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="Forcelogout.html"> <i class="bi bi-chevron-right"></i><span>Force Logout</span> </a>
-                  </li>
-                </ul>
+              <li class="py-3 border-b">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
               </li>
-
-              <!-- Broadcast Section -->
-              <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#Broadcast-nav" data-bs-toggle="collapse" href="#">
-                  <!-- <i class="bi bi-broadcast"></i> -->
-                  <span>Broadcast</span><i class="bi bi-chevron-down ms-2"></i>
+              <li class="py-3 border-b"><i class="bi bi-gear"></i> <span>Account Settings</span></li>
+              <li class="py-3 border-b"><i class="bi bi-question-circle"></i> <span>Need Help?</span></li>
+              <li class="py-3">
+                <a class="dropdown-item d-flex align-items-center" href="#" onclick="signOut()">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Sign Out</span>
                 </a>
-                <ul id="Broadcast-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                  <li>
-                    <a href="broadcast.html"> <i class="bi bi-chevron-right"></i><span>Add Broadcast</span> </a>
-                  </li>
-                  <li>
-                    <a href="Broadcastform.html"> <i class="bi bi-chevron-right"></i><span>Upload Broadcast</span> </a>
-                  </li>
-                  <li>
-                    <a href="broadCastReport.html">
-                      <i class="bi bi-chevron-right"></i><span>Broadcast Report</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="broadCastSummary.html">
-                      <i class="bi bi-chevron-right"></i><span>Broadcast Summary</span>
-                    </a>
-                  </li>
-                  <!-- Add more items as needed -->
-                </ul>
-              </li>
-
-              <!-- campagian Section -->
-              <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#Campaign-nav" data-bs-toggle="collapse" href="#">
-                  <!-- <i class="bi bi-layout-text-window-reverse"></i> -->
-                  <span>Campaign</span><i class="bi bi-chevron-down ms-2"></i>
-                </a>
-                <ul id="Campaign-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                  <li>
-                    <a href="newcampaign.html"> <i class="bi bi-chevron-right"></i><span>Add Campaign</span> </a>
-                  </li>
-
-                  <li>
-                    <a href="form.html"> <i class="bi bi-chevron-right"></i><span>Upload Campaign</span> </a>
-                  </li>
-                  <li>
-                    <a href="offlineCampaign.html"> <i class="bi bi-chevron-right"></i><span>Offline Campaign</span> </a>
-                  </li>
-                  <!-- Add more items as needed -->
-                </ul>
-              </li>
-              <!-- End Blank Page Nav -->
-
-              <li class="nav-item">
-                <a class="nav-link collapsed" href="CallMenu.html">
-                  <!-- <i class="bi bi-telephone-plus"></i> -->
-                  <span>Call Menu</span>
-                </a>
-              </li>
-              <!-- End Blank Page Nav -->
-
-              <li class="nav-item">
-                <a class="nav-link collapsed" href="AudioStore.html">
-                  <!-- <i class="bi bi-file-earmark-music"></i> -->
-                  <span>Audio Store</span>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link collapsed" href="DID.html">
-                  <!-- <i class="bi bi-card-list"></i> -->
-                  <span>Add/Show DID</span>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#Data-nav" data-bs-toggle="collapse" href="#">
-                  <span>Call Reports</span> <i class="bi bi-chevron-down ms-2"></i>
-                </a>
-                <ul id="Data-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                  <li>
-                    <a href="aprReport.html">
-                      <i class="bi bi-chevron-right"></i><span>Agent performance report</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="calldata.html">
-                      <i class="bi bi-chevron-right"></i><span>Call detail report</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="IncomingCallData.html">
-                      <i class="bi bi-chevron-right"></i><span>Incoming Call reports</span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="OutgoinfCallData.html">
-                      <i class="bi bi-chevron-right"></i><span>Outgoing Call reports</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="incomingDrop.html"> <i class="bi bi-chevron-right"></i><span>Drop Call reports</span> </a>
-                  </li>
-                  <!-- Add more items as needed -->
-                </ul>
               </li>
             </ul>
           </div>
-
-          <!-- End Logo -->
-
-          <div class="search-bar" style="display: none">
-            <form class="search-form d-flex align-items-center" method="POST" action="#">
-              <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
-              <button type="submit" title="Search">
-                <i class="bi bi-search"></i>
-              </button>
-            </form>
-          </div>
-          <!-- End Search Bar -->
-
-          <nav class="header-nav ms-auto">
-            <ul class="d-flex align-items-center">
-              <li class="nav-item d-block d-lg-none">
-                <a class="nav-link nav-icon search-bar-toggle" href="#" style="display: none">
-                  <i class="bi bi-search"></i>
-                </a>
-              </li>
-              <!-- End Search Icon-->
-
-              <li class="nav-item dropdown pe-3">
-                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                  <img src="img/shiv.jpg" alt="Profile" class="rounded-circle" />
-                  <span class="d-none d-md-block dropdown-toggle ps-2 text-capitalize" id="displayUsername"></span> </a
-                ><!-- End Profile Iamge Icon -->
-
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                  <li class="dropdown-header text-capitalize">
-                    <h6 id="displayUsername1">Shiv Shekhawat</h6>
-                    <span id="displayorg">Web Designer</span>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                      <i class="bi bi-person"></i>
-                      <span>My Profile</span>
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                      <i class="bi bi-gear"></i>
-                      <span>Account Settings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                      <i class="bi bi-question-circle"></i>
-                      <span>Need Help?</span>
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center" href="#" onclick="signOut()">
-                      <i class="bi bi-box-arrow-right"></i>
-                      <span>Sign Out</span>
-                    </a>
-                  </li>
-                </ul>
-                <!-- End Profile Dropdown Items -->
-              </li>
-              <!-- End Profile Nav -->
-            </ul>
-          </nav>
         </div>
-        <!-- End Icons Navigation -->
       </header>
-      <!-- End Sidebar-->
 
-      <main id="main" class="main flex-grow-1">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col">
-              <div class="p-3 m-2 bg-white shadow-sm rounded-1">
-                <div class="d-flex align-items-center justify-content-between">
-                  <h3 class="text-center mb-4">User Management</h3>
-                  <a href="adduser.html" class="btn btn-primary mb-3">Add User</a>
+      <main id="main" class="main grow m-2">
+        <div class="bg-white shadow-[0px_-3px_22px_13px_#00000024] rounded-lg p-4">
+          <div class="flex justify-between mb-4 items-center">
+            <h3 class="text-2xl font-semibold">User Management</h3>
+            <a
+              href="adduser.html"
+              class="hover:text-[#2196f3] hover:bg-white border-[#2196f3] hover:border-[#2196f3] border bg-[#2196f3] px-3 py-[0.32rem] rounded transition-all text-white"
+              >Add User</a
+            >
+          </div>
+          <div class="overflow-x-auto whitespace-nowrap">
+            <table class="table-auto w-full border-collapse" id="userTable">
+              <thead class="thead">
+                <tr>
+                  <th>User ID</th>
+                  <th>Username</th>
+                  <th>Campaign</th>
+                  <th>Number</th>
+                  <th>Active</th>
+                  <th>Edit Campaign</th>
+                  <th>Change Password</th>
+                  <th>Force Logout</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- dynamic data will be displayed here -->
+              </tbody>
+            </table>
+          </div>
+          <div id="tableLoder"></div>
+        </div>
+
+        <div
+          id="editUserListModal"
+          class="modal fixed inset-0 z-[100] overflow-y-auto top-50 hidden transition-all duration-1000"
+        >
+          <div
+            class="fixed top-0 flex items-center justify-center left-0 w-full h-full bg-black bg-opacity-50 z-[100]"
+            id="closeEditUserListModal"
+          >
+            <div
+              class="modal-content bg-white rounded-md shadow-md p-6 transform transition-transform ease-in-out w-1/4"
+            >
+              <h5 class="text-2xl font-bold mb-4">Edit User List</h5>
+              <div class="text-2xl cursor-pointer w-max absolute top-0 end-0" id="closeEditModalButton">
+                <i class="bi bi-x"></i>
+              </div>
+              <form id="editForm">
+                <div class="form-group">
+                  <label class="mb-2 inline-block text-neutral-500 dark:text-neutral-400" for="User ID">User ID</label>
+                  <input
+                    type="text"
+                    class="rounded border border-solid border border-[#dddddd] outline-0 focus:border-[#2196f3] px-3 py-[0.32rem] w-full"
+                    id="UserID"
+                    name="User ID"
+                    disabled
+                  />
                 </div>
-                <div class="table-responsive rounded">
-                  <table class="table table-bordered" id="userTable">
-                    <thead class="thead">
-                      <tr>
-                        <th>User ID</th>
-                        <th>Username</th>
-                        <th>Campaign</th>
-                        <th>number</th>
-                        <th>active</th>
-                        <th>Edit Campaign</th>
-                        <th>Change Pass</th>
-                        <th>Forcelogout</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <!-- dynamic data will be displayed here -->
-                    </tbody>
-                  </table>
+                <div class="form-group my-3">
+                  <label class="mb-2 inline-block text-neutral-500 dark:text-neutral-400" for="Username"
+                    >Username</label
+                  >
+                  <input
+                    type="text"
+                    class="rounded border border-solid border border-[#dddddd] outline-0 focus:border-[#2196f3] px-3 py-[0.32rem] w-full"
+                    id="Username"
+                    name="Username"
+                    disabled
+                  />
                 </div>
-              </div>
+                <div class="form-group">
+                  <label class="mb-2 inline-block text-neutral-500 dark:text-neutral-400" for="Campaign"
+                    >Campaign</label
+                  >
+                  <!-- Add options for Wait Music as needed -->
+                  <select
+                    class="rounded border border-solid border border-[#dddddd] outline-0 focus:border-[#2196f3] px-3 py-[0.32rem] w-full"
+                    id="CampaignEdit"
+                    name="Campaign"
+                    type="number"
+                    required
+                  >
+                    <!-- options will be added dynamically -->
+                  </select>
+                </div>
+                <div class="form-group my-3">
+                  <label class="mb-2 inline-block text-neutral-500 dark:text-neutral-400" for="number"
+                    >Contact Number</label
+                  >
+                  <input
+                    type="text"
+                    class="rounded border border-solid border border-[#dddddd] outline-0 focus:border-[#2196f3] px-3 py-[0.32rem] w-full"
+                    id="number"
+                    name="number"
+                  />
+                </div>
+                <div class="text-center mt-3">
+                  <button
+                    type="button"
+                    class="hover:text-[#2196f3] hover:bg-white border-[#2196f3] hover:border-[#2196f3] border bg-[#2196f3] px-3 py-[0.32rem] rounded transition-all text-white"
+                    id="edituserlist"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
 
-        <div class="modal fade modal-lg" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Edit Userlist</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div
+          id="changeUserPasswordModal"
+          class="modal fixed inset-0 z-[100] overflow-y-auto top-50 hidden transition-all duration-1000"
+        >
+          <div
+            class="fixed top-0 flex items-center justify-center left-0 w-full h-full bg-black bg-opacity-50 z-[100]"
+            id="closeChangeUserPasswordModal"
+          >
+            <div
+              class="modal-content bg-white rounded-md shadow-md p-6 transform transition-transform ease-in-out w-1/4"
+            >
+              <h5 class="text-2xl font-bold mb-4">Change User Password</h5>
+              <div class="text-2xl cursor-pointer w-max absolute top-0 end-0" id="closeChangeUserPasswordButton">
+                <i class="bi bi-x"></i>
               </div>
-              <div class="modal-body">
-                <form id="editForm">
-                  <div class="form-group">
-                    <label class="mb-2" for="User ID">User ID</label>
-                    <input type="text" class="form-control shadow-none" id="UserID" name="User ID" disabled />
-                  </div>
-                  <div class="form-group my-3">
-                    <label class="mb-2" for="Username">Username</label>
-                    <input type="text" class="form-control shadow-none" id="Username" name="Username" disabled />
-                  </div>
-                  <div class="form-group">
-                    <label class="mb-2" for="Campaign">Campaign</label>
-                    <!-- Add options for Wait Music as needed -->
-                    <select class="form-select shadow-none" id="CampaignEdit" name="Campaign" type="number" required>
-                      <!-- options will be added dynamically -->
-                    </select>
-                  </div>
-                  <div class="form-group my-3">
-                    <label class="mb-2" for="number">Contact Number</label>
-                    <input type="text" class="form-control shadow-none" id="number" name="number" />
-                  </div>
-                  <div class="text-center mt-3">
-                    <button type="button" class="btn-primary btn fw-medium px-3 py-2 fs-14" id="edituserlist">
-                      Submit
-                    </button>
-                  </div>
-                </form>
-              </div>
+              <form id="passeditForm">
+                <div class="form-group">
+                  <label class="mb-2 inline-block text-neutral-500 dark:text-neutral-400" for="User ID">User ID</label>
+                  <input
+                    type="text"
+                    class="rounded border border-solid border border-[#dddddd] outline-0 focus:border-[#2196f3] px-3 py-[0.32rem] w-full"
+                    id="UserID1"
+                    name="User ID"
+                    disabled
+                  />
+                </div>
+                <div class="form-group my-3">
+                  <label class="mb-2 inline-block text-neutral-500 dark:text-neutral-400" for="Username"
+                    >Username</label
+                  >
+                  <input
+                    type="text"
+                    class="rounded border border-solid border border-[#dddddd] outline-0 focus:border-[#2196f3] px-3 py-[0.32rem] w-full"
+                    id="Username1"
+                    name="Username"
+                    disabled
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="mb-2 inline-block text-neutral-500 dark:text-neutral-400" for="password"
+                    >New Password</label
+                  >
+                  <input
+                    type="text"
+                    class="rounded border border-solid border border-[#dddddd] outline-0 focus:border-[#2196f3] px-3 py-[0.32rem] w-full"
+                    id="password"
+                    name="password"
+                  />
+                </div>
+                <br />
+
+                <div class="text-center mt-3">
+                  <button
+                    type="button"
+                    class="hover:text-[#2196f3] hover:bg-white border-[#2196f3] hover:border-[#2196f3] border bg-[#2196f3] px-3 py-[0.32rem] rounded transition-all text-white"
+                    id="passedituserlist"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-
-        <div class="modal fade modal-lg" id="passeditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="passexampleModalLabel1">Edit UserPass</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <form id="passeditForm">
-                  <div class="form-group">
-                    <label class="mb-2" for="User ID">User ID</label>
-                    <input type="text" class="form-control shadow-none" id="UserID1" name="User ID" disabled />
-                  </div>
-                  <div class="form-group my-3">
-                    <label class="mb-2" for="Username">Username</label>
-                    <input type="text" class="form-control shadow-none" id="Username1" name="Username" disabled />
-                  </div>
-                  <div class="form-group">
-                    <label class="mb-2" for="password">New Password</label>
-                    <input type="text" class="form-control shadow-none" id="password" name="password" />
-                  </div>
-                  <br />
-
-                  <div class="text-center mt-3">
-                    <button type="button" class="btn-primary btn fw-medium px-3 py-2 fs-14" id="passedituserlist">
-                      Submit
-                    </button>
-                  </div>
-                </form>
-              </div>
+        <div
+          class="notification hidden fixed top-3 right-3 w-full max-w-xs p-4 text-white bg-green-500 rounded-lg shadow-lg z-[100]"
+          id="activityMessage"
+        >
+          <div class="flex items-center">
+            <div
+              class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-white rounded-full"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
             </div>
-          </div>
-        </div>
-        <div class="notification" id="ActivityMessage">
-          <div class="notification-content">
-            <p>User Status Updated successfully!</p>
+            <div class="ml-3 text-sm font-normal">User Status Updated successfully!</div>
           </div>
         </div>
 
-        <div class="notification" id="EditMessage">
-          <div class="notification-content">
-            <p>Campaign Edit successfully!</p>
+        <div
+          class="notification hidden fixed top-3 right-3 w-full max-w-xs p-4 text-white bg-green-500 rounded-lg shadow-lg z-[100]"
+          id="editMessage"
+        >
+          <div class="flex items-center">
+            <div
+              class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-white rounded-full"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+            <div class="ml-3 text-sm font-normal">Campaign Edit successfully!</div>
           </div>
         </div>
-
-        <div class="notification" id="PassEditMessage">
-          <div class="notification-content">
-            <p>Password changed successfully!</p>
+        <div
+          class="notification hidden fixed top-3 right-3 w-full max-w-xs p-4 text-white bg-green-500 rounded-lg shadow-lg z-[100]"
+          id="passEditMessage"
+        >
+          <div class="flex items-center">
+            <div
+              class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-white rounded-full"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+            <div class="ml-3 text-sm font-normal">Password Changed Successfully!</div>
           </div>
         </div>
-        <div class="notification" id="logoutuser">
-          <div class="notification-content">
-            <p>User Logout Successfully!</p>
+        <div
+          class="notification hidden fixed top-3 right-3 w-full max-w-xs p-4 text-white bg-green-500 rounded-lg shadow-lg z-[100]"
+          id="logoutuser"
+        >
+          <div class="flex items-center">
+            <div
+              class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-white rounded-full"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+            <div class="ml-3 text-sm font-normal">User Logout Successfully!</div>
           </div>
         </div>
       </main>
       <!-- End #main -->
 
-      <!-- ======= Footer ======= -->
-      <footer id="footer" class="footer">
+      <footer id="footer" class="footer bg-white text-center p-3 text-md">
         <div class="copyright">
           &copy; Copyright <strong><span>iotcom</span></strong
           >. All Rights Reserved
@@ -404,11 +506,15 @@
     </section>
     <!-- End Footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
+    <a
+      href="#"
+      class="back-to-top invisible flex items-center justify-center bg-[#2196f3] text-white fixed bottom-4 end-4 rounded-full w-10 h-10 hover:bg-white hover:text-[#2196f3] border-[#2196f3] border transition-all"
+      ><i class="bi bi-arrow-up-short text-2xl"></i
     ></a>
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
+      const tableBody = document.getElementById('tableLoder');
       const storedUsername = document.getElementById('displayUsername');
       const storedUsername1 = document.getElementById('displayUsername1');
       const storedorg = document.getElementById('displayorg');
@@ -419,13 +525,14 @@
       var UserID;
       var Username;
       var UserID1;
-      var number ;
+      var number;
       var Username1;
       var Campaignedit;
       const campaignSelect = document.getElementById('CampaignEdit');
       async function fetchData() {
         try {
-          const response = await fetch('/campaigndetails', {
+          showSkeletonLoader(10, 10);
+          const response = await fetch('https://devapp.iotcom.io/campaigndetails', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },
@@ -444,6 +551,7 @@
               campaignID: campaign.campaignID,
               campaignName: campaign.campaignname,
             }));
+            hideSkeletonLoader();
           }
         } catch (error) {
           console.error('Error fetching data:', error);
@@ -470,7 +578,6 @@
 
       document.addEventListener('DOMContentLoaded', async function () {
         await fetchData();
-        console.log(campaignlist);
 
         const storedUsername = JSON.parse(localStorage.getItem('admininfo')).user;
         const storedorg = JSON.parse(localStorage.getItem('admininfo')).organization;
@@ -490,7 +597,7 @@
       function createdom() {
         let userDetails = []; // Declare userDetails outside the fetch function
 
-        fetch('/userdetails', {
+        fetch('https://devapp.iotcom.io/userdetails', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
           },
@@ -516,7 +623,6 @@
 
       // Function to populate existing users from local storage
       function populateuser(userDetails) {
-        console.log('populate user');
         const table = document.getElementById('userTable').getElementsByTagName('tbody')[0];
         table.innerHTML = '';
 
@@ -528,35 +634,29 @@
             user.username,
             campaignlist.find((a) => a.campaignID === user.campaign)?.campaignName,
             user.number,
-            user.Active || "true",
+            user.Active || 'true',
           ];
 
-          for (let i = 0; i < userData.length-1; i++) {
+          for (let i = 0; i < userData.length - 1; i++) {
             const cell = newRow.insertCell(i);
             cell.innerHTML = userData[i];
           }
-           
-          
+
           const checkbox = document.createElement('input');
           checkbox.type = 'checkbox';
-          if(userData[4]==="false"){
-            checkbox.checked = false ;
-          }else{
-            checkbox.checked = true ;
+          if (userData[4] === 'false') {
+            checkbox.checked = false;
+          } else {
+            checkbox.checked = true;
           }
-          const checkBoxcell = newRow.insertCell(userData.length-1);
+          const checkBoxcell = newRow.insertCell(userData.length - 1);
           checkBoxcell.appendChild(checkbox);
-         
-          checkbox.addEventListener('change', ()=> setActive(userData,index,checkbox.checked));
 
-
-
-
-
-
+          checkbox.addEventListener('change', () => setActive(userData, index, checkbox.checked));
 
           const editButton = document.createElement('button');
-          editButton.className = 'btn btn-success px-2 py-1 rounded-1 fs-14';
+          editButton.className =
+            'inline-block rounded text-white bg-green-700 hover:bg-transparent hover:border-green-700 border transition-all	hover:text-green-700 text-sm px-2 py-1';
           editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
           const editcell = newRow.insertCell(userData.length);
           editcell.appendChild(editButton);
@@ -565,18 +665,20 @@
           editButton.addEventListener('click', () => showEditModal(userData, index));
 
           const passeditButton = document.createElement('button');
-          passeditButton.className = 'btn btn-primary px-2 py-1 rounded-1 fs-14';
+          passeditButton.className =
+            'inline-block rounded text-white bg-[#2196f3] hover:bg-transparent hover:border-[#2196f3] border transition-all	hover:text-[#2196f3] text-sm px-2 py-1';
           passeditButton.innerHTML = '<i class="bi bi-lock"></i>';
-          const passeditcell = newRow.insertCell(userData.length+1);
+          const passeditcell = newRow.insertCell(userData.length + 1);
           passeditcell.appendChild(passeditButton);
 
           // Move the event listener outside the loop
           passeditButton.addEventListener('click', () => showpassEditModal(userData, index));
 
           const forceButton = document.createElement('button');
-          forceButton.className = 'btn btn-primary px-2 py-1 rounded-1 fs-14';
+          forceButton.className =
+            'inline-block rounded text-white bg-red-700 hover:bg-transparent hover:border-red-700 border transition-all	hover:text-red-700 text-sm px-2 py-1';
           forceButton.innerHTML = '<i class="bi bi-box-arrow-right"></i>';
-          const forcecell = newRow.insertCell(userData.length+2);
+          const forcecell = newRow.insertCell(userData.length + 2);
           forcecell.appendChild(forceButton);
 
           // Move the event listener outside the loop
@@ -585,32 +687,33 @@
       }
 
       function showEditModal(userData, index) {
-        console.log(userData);
-        $('#editModal').modal('show');
         UserID = document.getElementById('UserID').value = userData[0];
         Username = document.getElementById('Username').value = userData[1];
-        number = document.getElementById("number").value = userData[3];
+        number = document.getElementById('number').value = userData[3];
+        setupModal('closeEditUserListModal', 'editUserListModal', 'closeEditModalButton');
+        document.getElementById('editUserListModal').classList.remove('hidden');
+        document.getElementById('closeEditUserListModal').classList.remove('hidden');
       }
 
       function showpassEditModal(userData, index) {
-        console.log(userData);
-        $('#passeditModal').modal('show');
+        setupModal('closeChangeUserPasswordModal', 'changeUserPasswordModal', 'closeChangeUserPasswordButton');
+        document.getElementById('changeUserPasswordModal').classList.remove('hidden');
+        document.getElementById('closeChangeUserPasswordModal').classList.remove('hidden');
         UserID1 = document.getElementById('UserID1').value = userData[0];
         Username1 = document.getElementById('Username1').value = userData[1];
       }
       // Add a new event listener
       editUserListButton.addEventListener('click', async () => {
         Campaignedit = document.getElementById('CampaignEdit').value;
-        const newnumber = document.getElementById("number").value;
+        const newnumber = document.getElementById('number').value;
 
         if (Campaignedit) {
           let newData = {
             userid: UserID,
             campaign: parseInt(Campaignedit, 10),
-            number : newnumber?newnumber:null
+            number: newnumber ? newnumber : null,
           };
-          console.log(newData);
-          const url = `/updateuserlist`;
+          const url = `https://devapp.iotcom.io/updateuserlist`;
 
           // Make a edit request to the server
           fetch(url, {
@@ -632,20 +735,14 @@
               }
             })
             .then((data) => {
-              console.log(data.message);
-              // You can do something with the response from the server if needed
-              $('#editModal').modal('hide');
+              document.getElementById('editUserListModal').classList.add('hidden');
+              document.getElementById('closeEditUserListModal').classList.add('hidden');
               UserID = null;
               Campaignedit = null;
               Username = null;
               number = null;
+              showNotification('editMessage');
 
-              var notification = document.getElementById('EditMessage');
-              notification.classList.add('show-notification');
-
-              setTimeout(function () {
-                notification.classList.remove('show-notification');
-              }, 1000); // Hide the notification after 5 seconds
               createdom();
             })
             .catch((error) => {
@@ -664,8 +761,7 @@
             userid: UserID1,
             newpass: passedit,
           };
-          console.log(newData);
-          const url = `/updatepassword`;
+          const url = `https://devapp.iotcom.io/updatepassword`;
 
           // Make a edit request to the server
           fetch(url, {
@@ -687,19 +783,14 @@
               }
             })
             .then((data) => {
-              console.log(data.message);
-              // You can do something with the response from the server if needed
-              $('#passeditModal').modal('hide');
+              document.getElementById('changeUserPasswordModal').classList.add('hidden');
+              document.getElementById('closeChangeUserPasswordModal').classList.add('hidden');
+
               UserID1 = null;
               passedit = null;
               Username1 = null;
 
-              var passnotification = document.getElementById('PassEditMessage');
-              passnotification.classList.add('show-notification');
-
-              setTimeout(function () {
-                passnotification.classList.remove('show-notification');
-              }, 1000); // Hide the notification after 5 seconds
+              showNotification('passEditMessage');
             })
             .catch((error) => {
               console.error('Error Updating User Password:', error);
@@ -709,9 +800,8 @@
         }
       });
 
-      async function forceLogout(userData,index){
-
-        fetch('/forcelogout', {
+      async function forceLogout(userData, index) {
+        fetch('https://devapp.iotcom.io/forcelogout', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -726,60 +816,41 @@
             return response.json();
           })
           .then((data) => {
-            console.log('Force logout successful:', data);
-            // Add any additional logic here based on API response
-            const notification = document.getElementById('logoutuser');
-            notification.classList.add('show-notification');
-
-            setTimeout(function () {
-              notification.classList.remove('show-notification');
-            }, 1000);
+            showNotification('logoutuser');
           })
           .catch((error) => {
             console.error('Error during force logout:', error);
             // Handle errors or display messages to the user
           });
-
       }
 
-async function setActive(userData,index,ischecked){
-const userid = userData[0];
-const Active = ischecked;
+      async function setActive(userData, index, ischecked) {
+        const userid = userData[0];
+        const Active = ischecked;
 
-fetch('/setactiveUser', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
-  },
-  body: JSON.stringify({ username: userData[0] }),
-})
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then((data) => {
-    // Add any additional logic here based on API response
-    const notification = document.getElementById('ActivityMessage');
-    notification.classList.add('show-notification');
-
-    setTimeout(function () {
-      notification.classList.remove('show-notification');
-    }, 1000);
-    createdom();
-  })
-  .catch((error) => {
-    console.error('Error during force logout:', error);
-    // Handle errors or display messages to the user
-  });
-
-}
-
-      
-
-
+        fetch('https://devapp.iotcom.io/setactiveUser', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+          },
+          body: JSON.stringify({ username: userData[0] }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            showNotification('activityMessage');
+            createdom();
+          })
+          .catch((error) => {
+            console.error('Error during force logout:', error);
+            // Handle errors or display messages to the user
+          });
+      }
 
       function signOut() {
         // Clear localStorage (optional)
@@ -792,7 +863,6 @@ fetch('/setactiveUser', {
       }
     </script>
     <!-- Vendor JS Files -->
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/vendor/tinymce/tinymce.min.js"></script>
 
     <!-- Template Main JS File -->

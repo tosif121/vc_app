@@ -345,6 +345,8 @@
                 <th>PinCode</th>
                 <th>Call Duration</th>
                 <th>Listen</th>
+                <th>download</th>
+                <th>copylink</th>
               </tr>
             </thead>
 
@@ -481,7 +483,7 @@
 
       modalContainer.addEventListener('click', function (event) {
         if (event.target === modalContainer) {
-          modal.classList.add('hidden');
+          closeModal();
         }
       });
 
@@ -499,7 +501,7 @@
 
       async function fetchData() {
         try {
-          const response = await fetch('https://devapp.iotcom.io/campaigndetails', {
+          const response = await fetch('/campaigndetails', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },
@@ -529,7 +531,7 @@
 
       async function fetchData1() {
         try {
-          const response = await fetch('https://devapp.iotcom.io/allContacts', {
+          const response = await fetch('/allContacts', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },
@@ -556,7 +558,7 @@
 
       async function fetchData2() {
         try {
-          const response = await fetch('https://devapp.iotcom.io/callmenuname', {
+          const response = await fetch('/callmenuname', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
             },
@@ -650,7 +652,7 @@
 
         showSkeletonLoader(10, 10);
         filteredData = [];
-        fetch('https://devapp.iotcom.io/callData', {
+        fetch('/callData', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -675,28 +677,28 @@
               callDetails.forEach((entry) => {
                 entry.duration = Math.floor(((entry.hanguptime || entry.calldisconnecttime) - entry.startTime) / 1000);
                 entry.waitingqueueTime =
-                  entry.Type == 'incoming' ? Math.floor((entry.anstime - entry.startTime) / 1000) : 'N/A';
+                  entry.Type == 'incoming' ? Math.floor((entry.anstime - entry.startTime) / 1000) : 'NA';
                 entry.calldisconnecttime = formatDateTime(entry.hanguptime || entry.calldisconnecttime);
-                entry.anstime = formatDateTime(entry.anstime);
+                entry.anstime = entry.anstime?formatDateTime(entry.anstime):"NA";
                 entry.startTime = formatDateTime(entry.startTime);
                 entry.campaign = campaignlist.find((a) => a.campaignID === entry.campaign)?.campaignName;
-                const foundContact = ContactData.find((contact) => contact.contactNumber === entry.Caller) || 'N/A';
-                entry.Name = foundContact == 'N/A' ? 'N/A' : foundContact.firstName + ' ' + foundContact.LastName;
-                entry.emailId = foundContact == 'N/A' ? 'N/A' : foundContact.emailId;
-                entry.address = foundContact == 'N/A' ? 'N/A' : foundContact.Contactaddress;
-                entry.city = foundContact == 'N/A' ? 'N/A' : foundContact.ContactCity;
-                entry.district = foundContact == 'N/A' ? 'N/A' : foundContact.ContactDistrict;
-                entry.state = foundContact == 'N/A' ? 'N/A' : foundContact.ContactState;
-                entry.Pincode = foundContact == 'N/A' ? 'N/A' : foundContact.ContactPincode;
-                entry.Callmenu = 'N/A';
+                const foundContact = ContactData.find((contact) => contact.contactNumber === entry.Caller) || 'NA';
+                entry.Name = foundContact == 'NA' ? 'NA' : foundContact.firstName + ' ' + foundContact.LastName;
+                entry.emailId = foundContact == 'NA' ? 'NA' : foundContact.emailId;
+                entry.address = foundContact == 'NA' ? 'NA' : foundContact.Contactaddress;
+                entry.city = foundContact == 'NA' ? 'NA' : foundContact.ContactCity;
+                entry.district = foundContact == 'NA' ? 'NA' : foundContact.ContactDistrict;
+                entry.state = foundContact == 'NA' ? 'NA' : foundContact.ContactState;
+                entry.Pincode = foundContact == 'NA' ? 'NA' : foundContact.ContactPincode;
+                entry.Callmenu = 'NA';
                 if (entry.callProcess) {
                   const callmenuName = callmenulist.find((a) => a.callmenuid == entry.callProcess);
-                  entry.Callmenu = callmenuName.callmenuname || 'N/A';
+                  entry.Callmenu = callmenuName.callmenuname || 'NA';
                 }
                 entry.Type = entry.Type == 'incoming' ? 'incoming' : 'outgoing';
 
                 const bridgeID = entry.bridgeID;
-                if (!uniqueBridgeIDs.has(bridgeID)) {
+                if (!uniqueBridgeIDs.has(bridgeID) && bridgeID != undefined) {
                   filteredData.push(entry);
                   uniqueBridgeIDs.add(bridgeID);
                 }
@@ -731,7 +733,7 @@
             call.anstime,
             call.calldisconnecttime,
             call.waitingqueueTime,
-            call.Disposition ? call.Disposition : 'No Dispodone',
+            call.Disposition ? call.Disposition : 'No Dispo',
             call.Name,
             call.emailId,
             call.address,
@@ -743,7 +745,7 @@
           ];
           for (i = 0; i < calldata.length; i++) {
             const cell = newRow.insertCell(i);
-            cell.innerHTML = calldata[i] !== undefined ? calldata[i] : 'N/A';
+            cell.innerHTML = calldata[i] !== undefined ? calldata[i] : 'NA';
           }
           const actioncell1 = newRow.insertCell(calldata.length);
 
@@ -755,12 +757,31 @@
           actioncell1.appendChild(playButton);
           const audioname = call.bridgeID;
 
+
+          const actioncell2 = newRow.insertCell(calldata.length+1);
+
+          let downloadButton = document.createElement('button');
+downloadButton.className =
+  'inline-block rounded text-white bg-green-700 hover:bg-transparent hover:border-green-700 border transition-all	hover:text-green-700 text-lg px-2 py-1';
+downloadButton.innerHTML = ' <i class="bi bi-download"></i>';
+downloadButton.addEventListener('click', () => downloadaudio(index));
+actioncell2.appendChild(downloadButton);
+
+const actioncell3 = newRow.insertCell(calldata.length+2);
+
+let copyButton = document.createElement('button');
+copyButton.className =
+'inline-block rounded text-white bg-green-700 hover:bg-transparent hover:border-green-700 border transition-all	hover:text-green-700 text-lg px-2 py-1';
+copyButton.innerHTML = ' <i class="bi bi-copy"></i>';
+copyButton.addEventListener('click', () => copylink(index));
+actioncell3.appendChild(copyButton);
+
           function playaudio(index) {
             const audioname = filteredData[index]?.bridgeID;
             //Create an Audio element
             audioElement = new Audio();
             // Set the source of the Audio element if the audio file exists
-            const audioSource = 'https://devapp.iotcom.io/recording' + audioname + '.wav';
+            const audioSource = '/recording' + audioname + '.wav';
 
             audioElement.src = audioSource;
             // Append the Audio element to the body
@@ -837,6 +858,28 @@
             });
           }
         });
+        function downloadaudio(index){
+          const audioname = filteredData[index]?.bridgeID;
+           
+          const link = document.createElement('a');
+          link.href = '/recording' + audioname + '.wav'; // replace with your audio file URL
+        link.download = '/recording' + audioname + '.wav'; // replace with your desired file name
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        }
+
+        function copylink(index){
+          const audioname = filteredData[index]?.bridgeID;
+          const baseUrl = window.location.host;
+          const link ="https:/"+ baseUrl+'/recording' + audioname + '.wav';
+          navigator.clipboard.writeText(link).then(function() {
+            alert('Link copied to clipboard');
+        }, function(err) {
+            console.error('Could not copy text: ', err);
+        });
+
+        }
 
         $(document).ready(function () {
           $('#calldata').DataTable({
@@ -848,6 +891,29 @@
           });
         });
       }
+
+      function formatDateTime(dateTimeString) {
+                  if (dateTimeString) {
+                    const istDate = new Date(dateTimeString);
+                    const day = String(istDate.getDate()).padStart(2, '0');
+                    const month = String(istDate.getMonth() + 1).padStart(2, '0');
+                    const year = istDate.getFullYear();
+                    const formattedDate = `${day}/${month}/${year}`;
+
+                    const formattedTime = istDate.toLocaleString('en-US', {
+                      timeZone: 'Asia/Kolkata',
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      second: 'numeric',
+                      hour12: false,
+                    });
+
+                    const istDateFormat = `${formattedDate}\n\n\n${formattedTime}`;
+                    return istDateFormat;
+                  } else {
+                    return 'NA';
+                  }
+                }
     </script>
     <!-- Vendor JS Files -->
     <script src="assets/vendor/tinymce/tinymce.min.js"></script>

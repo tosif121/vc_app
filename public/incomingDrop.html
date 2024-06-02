@@ -427,6 +427,9 @@
                 <thead class="thead">
                   <tr>
                     <th>Caller</th>
+                    <th>IVR Menu</th>
+                    <th>IVR Option</th>
+                    <th>Campaign</th>
                     <!-- <th>Dial No</th> -->
                     <!-- <th>Campaign</th> -->
                     <th>Call received on</th>
@@ -479,6 +482,7 @@
 
     <script>
       var campaignlist;
+      var callmenulist;
       let callDetails = []; // Declare userDetails outside the fetch function
       let filteredData = [];
       var aajDate = new Date();
@@ -502,8 +506,67 @@
         document.getElementById('displayUsernam1').innerText = 'No stored username found.';
       }
 
+      async function fetchData() {
+        try {
+          const response = await fetch('/campaigndetails', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+            },
+          });
+
+          // Use await before checking the status and handling the response
+          if (response.status === 401) {
+            // Unauthorized response handling: redirect to index page or handle as needed
+            window.location.href = '/login.html'; // Replace with your index page URL
+          } else if (!response.ok) {
+            throw new Error('Failed to fetch data');
+          } else {
+            const data1 = await response.json();
+            const data = data1.result;
+            campaignlist = data.map((campaign) => ({
+              campaignID: campaign.campaignID,
+              campaignName: campaign.campaignname,
+            }));
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          return {
+            campaignlist: [], // Provide a default value in case of an error
+          };
+        }
+      }
+
+      async function fetchData2() {
+        try {
+          const response = await fetch('/callmenuname', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+            },
+          });
+
+          // Use await before checking the status and handling the response
+          if (response.status === 401) {
+            // Unauthorized response handling: redirect to index page or handle as needed
+            window.location.href = '/login.html'; // Replace with your index page URL
+          } else if (!response.ok) {
+            throw new Error('Failed to fetch data');
+          } else {
+            const data1 = await response.json();
+            const data = data1.result;
+            callmenulist = data;
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          return {
+            callmenulist: [], // Provide a default value in case of an error
+          };
+        }
+      }
+
       document.addEventListener('DOMContentLoaded', async function () {
         //console.log("page startted");
+       await fetchData();
+       await fetchData2();
         loadcallData();
       });
 
@@ -584,6 +647,13 @@
                 entry.duration = Math.floor((entry.hanguptime - entry.startTime) / 1000); // assuming both times are in milliseconds
                 entry.hanguptime = formatDateTime(entry.hanguptime);
                 entry.startTime = formatDateTime(entry.startTime);
+                entry.campaign = campaignlist.find((a) => a.campaignID === entry.campaign)?.campaignName;
+                entry.Callmenu = 'NA';
+                if (entry.callProcess) {
+                  const callmenuName = callmenulist.find((a) => a.callmenuid == entry.callProcess);
+                  entry.Callmenu = callmenuName.callmenuname || 'NA';
+                }
+                entry.digit = entry.DTMFaction?entry.DTMFaction.Digitpressed:"NA";
                 filteredData.push(entry);
 
                 function formatDateTime(dateTimeString) {
@@ -619,6 +689,7 @@
       }
 
       function populatecalls(filteredData) {
+        console.log(filteredData);
         const Dttable = $('#calldata').DataTable();
         Dttable.destroy();
         console.log('populate calls');
@@ -647,6 +718,9 @@
 
           const calldata = [
             call.Caller,
+            call.Callmenu,
+            call.digit,
+            call.campaign,
             //call.dialNumber,
             // call.campaign,
             call.startTime,
